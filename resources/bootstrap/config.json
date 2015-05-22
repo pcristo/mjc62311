@@ -1,7 +1,0 @@
-{
-  logServerIP : "localhost",
-  logServerPort: "",
-  logServerPath: "C:\\Users\\Ross\\Dropbox\\Distributed Systems\\project\\out",
-  logServerUsername: "",
-  logServerPassword: ""
-}

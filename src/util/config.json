@@ -1,6 +1,6 @@
 {
   logServerIP : "localhost",
-  logServerPort: "",
+  logServerPort: "9090",
   logServerPath: "C:\\Users\\Ross\\Dropbox\\Distributed Systems\\project\\out",
   logServerUsername: "",
   logServerPassword: ""
