@@ -1,6 +1,6 @@
 
 # Requires powershell v3
-$CONFIG = (Get-Content config.json) -join "`n" | ConvertFrom-Json
+$CONFIG = (Get-Content ../../src/util/config.json) -join "`n" | ConvertFrom-Json
 
 # TODO move this to a config to be read by java
 $logServerIP = $CONFIG.logServerIP
@@ -9,16 +9,19 @@ $logServerPath = $CONFIG.logServerPath
 $logServerUsername = $CONFIG.logServerUsername
 $logServerPassword = $CONFIG.logServerPassword
 
+$jsonJar = ($PSScriptRoot + $CONFIG.jsonJar)
 
 
 if ($logServerIP -match "localhost") {
-	echo "Starting localhost"
-	cd $logServerPath
-	$loggerProcess = Start-Process -NoNewWindow -PassThru java logger/LoggerServer
+	echo "Starting logging server"
+	cd $logServerPath 
+	$loggerProcess = Start-Process -NoNewWindow -PassThru "java" "-classpath $jsonJar logger/LoggerServer"
+	
 	
 	$stop = Read-Host "X to stop servers"
 	if($stop -match "X") {
 		Stop-Process $loggerProcess.id
+		echo "Logging server stopped";
 	}
 		
 } else {
