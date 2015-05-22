@@ -1,4 +1,4 @@
-package StockQuotes;
+package stockQuotes;
 
 /**
  * Company information (stock symbole and exchange it is traded on)

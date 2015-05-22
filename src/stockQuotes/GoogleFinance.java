@@ -1,4 +1,4 @@
-package StockQuotes;
+package stockQuotes;
 
 
 import org.json.JSONObject;
@@ -11,7 +11,7 @@ import java.net.URL;
 /**
  * Code to get stock information from Google Finance
  */
-public class GoogleFinance implements stockQuotes{
+public class GoogleFinance implements StockQuotes{
 
     /**
      *

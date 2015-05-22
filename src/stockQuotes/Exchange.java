@@ -1,4 +1,4 @@
-package StockQuotes;
+package stockQuotes;
 
 /**
  * Listing of stock exchanges used in project

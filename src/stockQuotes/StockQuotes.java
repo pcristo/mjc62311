@@ -1,9 +1,9 @@
-package StockQuotes;
+package stockQuotes;
 
 /**
  * Created by Ross on 2015-05-19.
  */
-public interface stockQuotes {
+public interface StockQuotes {
 
     public String getStock(Company company);
 
