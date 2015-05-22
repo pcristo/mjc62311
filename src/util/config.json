@@ -1,7 +1,9 @@
 {
   logServerIP : "localhost",
   logServerPort: "9090",
-  logServerPath: "C:\\Users\\Ross\\Dropbox\\Distributed Systems\\project\\out",
+  logServerPath: "C:\\Users\\Ross\\Dropbox\\Distributed_Systems\\project\\out",
+  logServerFile: "C:\\Users\\Ross\\Dropbox\\Distributed_Systems\\project\\resources\\log\\iteration_one.log",
   logServerUsername: "",
-  logServerPassword: ""
+  logServerPassword: "",
+  jsonJar: "/../jar\\json-20141113.jar;"
 }

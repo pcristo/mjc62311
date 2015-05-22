@@ -1,19 +1,28 @@
 package logger;
 
+import util.Config;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
 /**
- * Created by Ross on 2015-05-20.
+ * This class contains the static method log used to write a message
+ * to the log file specified in boostrap/config.json
  */
 public class LoggerClient {
 
+    /**
+     * Classname is prefixed to the message being sent to the logging server
+     * @param msg message to be recorded
+     * @return true if message is logged, false otherwise
+     */
     public static boolean log(String msg) {
-        String ip = "localhost";
+        String ip = Config.getInstance().getAttr("logServerIP");
+        int port = Integer.parseInt(Config.getInstance().getAttr("logServerPort"));
         try {
-            Socket socket = new Socket(ip, 9090);
+            Socket socket = new Socket(ip, port);
 
             PrintWriter toServer = new PrintWriter(socket.getOutputStream(), true);
 
@@ -26,16 +35,12 @@ public class LoggerClient {
 
         } catch(UnknownHostException he){
             System.out.println(he.getMessage());
+            return false;
         } catch (IOException ioe) {
             System.out.println(ioe.getMessage());
+            return false;
         }
 
         return true;
     }
-
-
 }
-
-
-
-

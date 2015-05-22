@@ -5,50 +5,50 @@ import java.net.Socket;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import util.Config;
 
+/**
+ * Thread that actually handles writing to the log file
+ */
 public class LoggerThread implements Runnable {
 
     private BufferedReader fromClient;
     private Socket socket;
-    private String fileLocation = "C:\\Users\\Ross\\Dropbox\\Distributed Systems\\project\\resources\\log\\iteration_one.log";
+    private String fileLocation = Config.getInstance().getAttr("logServerFile");
 
-
+    /**
+     *
+     * @param fromClient BufferedReader to get messages from clients
+     * @param socket Socket to listen on, to be closed after logging the message
+     */
     public LoggerThread(BufferedReader fromClient, Socket socket) {
         this.fromClient = fromClient;
         this.socket = socket;
     }
 
-
+    /**
+     * Take the message from the client and prefix it with the date
+     * This message is then wrote to the log file (thread safe)
+     *
+     */
     public void run() {
         try {
-            if(log(fromClient.readLine())) {
-                socket.close();
+            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+            Date date = new Date();
+            String finalMsg = dateFormat.format(date) + ": " + fromClient.readLine();
+
+            // Make sure one thread writes to a file at a time
+            synchronized (this) {
+                PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(fileLocation, true)));
+                out.println(finalMsg);
+                out.close();
             }
+            socket.close();
         } catch(IOException ioe){
             ioe.printStackTrace();
         }
     }
 
-
-    private boolean log(String msg) {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        Date date = new Date();
-
-
-        String finalMsg = dateFormat.format(date) + ": " + msg;
-
-        try {
-            synchronized (this) {
-                PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(fileLocation, true)));
-                out.println(finalMsg);
-                out.close();
-                return true;
-            }
-        } catch(IOException e){
-            System.out.println("Unable to save logger");
-            return false;
-        }
-    }
 
     /**
      *
