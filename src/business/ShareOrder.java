@@ -4,10 +4,9 @@ package business;
  * A class to create an order for shares
  * @author patrick
  */
-public class ShareOrder {
+public class ShareOrder extends Share {
 	private String orderNum;
 	private String brokerRef;
-	private Share share;
 	private int quantity;
 	private float unitPrice;
 	
@@ -20,6 +19,7 @@ public class ShareOrder {
 	 * @param aUnitPrice
 	 */
 	public ShareOrder(String orderNum, String brokerRef, Share share, int quantity, float unitPrice) {
+		super(share.getBusinessSymbol(), share.getShareType(), share.getUnitPrice());
 		setOrderNum(orderNum);
 		setBrokerRef(brokerRef);
 		setShare(share);
@@ -41,14 +41,6 @@ public class ShareOrder {
 
 	public void setBrokerRef(String brokerRef) {
 		this.brokerRef = brokerRef;
-	}
-
-	public Share getShare() {
-		return share;
-	}
-
-	public void setShare(Share share) {
-		this.share = share;
 	}
 
 	public int getQuantity() {
