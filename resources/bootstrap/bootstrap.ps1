@@ -23,12 +23,23 @@ if ($logServerIP -match "localhost") {
 		Stop-Process $loggerProcess.id
 		echo "Logging server stopped";
 	}
+	
+	cd ..\resources\bootstrap	
 		
 } else {
-	echo "More work to do"
+	
+	
+	$loggerProcess = Start-Process -NoNewWindow -PassThru "C:/Users/Ross/Desktop/plink.exe" "root@162.209.98.223 -pw {pwd} java -cp /home/java/project/resources/jar/*:/home/java/project/out/: logger.LoggerServer"
+
+	$stop = Read-Host "X to stop servers"
+	if($stop -match "X") {
+		C:/Users/Ross/Desktop/plink.exe root@162.209.98.223 -pw {pwd} 'lsof -i:9090 -t | xargs kill'
+		Stop-Process $loggerProcess.id
+		echo "Logging server stopped";
+	}
+
 }
 
 
 
 
-cd ..\resources\bootstrap
