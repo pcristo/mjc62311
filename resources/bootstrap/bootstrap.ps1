@@ -1,6 +1,6 @@
 
 # Requires powershell v3
-$CONFIG = (Get-Content ../../src/util/config.json) -join "`n" | ConvertFrom-Json
+$CONFIG = (Get-Content ../../src/config.json) -join "`n" | ConvertFrom-Json
 
 # TODO move this to a config to be read by java
 $logServerIP = $CONFIG.logServerIP

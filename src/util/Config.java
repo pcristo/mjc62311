@@ -2,6 +2,8 @@ package util;
 
 import org.json.JSONObject;
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 /**
  * Class reads in from config.json in util package
@@ -39,7 +41,7 @@ public class Config {
      * @throws IOException
      */
     private void setJson() throws IOException {
-        InputStream in = getClass().getResourceAsStream("config.json");
+        InputStream in = Thread.currentThread().getContextClassLoader().getResourceAsStream("config.json");
         BufferedReader reader = new BufferedReader(new InputStreamReader(in));
         StringBuilder out = new StringBuilder();
         String line;
@@ -51,6 +53,7 @@ public class Config {
 
         configJson = new JSONObject(configString);
     }
+
 
     /**
      *

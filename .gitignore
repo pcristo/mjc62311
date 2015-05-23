@@ -1,4 +1,6 @@
 out/
 test_out/
+.idea/
 .classpath
 .project
+resources\log\iteration_one.log

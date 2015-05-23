@@ -39,6 +39,7 @@ public class LoggerThread implements Runnable {
 
             // Make sure one thread writes to a file at a time
             synchronized (this) {
+                // TODO file exception
                 PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(fileLocation, true)));
                 out.println(finalMsg);
                 out.close();
