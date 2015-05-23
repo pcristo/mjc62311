@@ -1,32 +1,37 @@
 package business;
 
+import java.io.Serializable;
+
 /**
  * A class to create an order for shares
  * @author patrick
  */
 public class ShareOrder extends Share {
+	private static final long serialVersionUID = 1L;	// required for serialization
 	private String orderNum;
 	private String brokerRef;
 	private int quantity;
-	private float unitPrice;
+	private float unitPriceOrder;
 	
 	/**
 	 * Constructor for ShareOrder object
-	 * @param aOrderNum
-	 * @param aBrokerRef
-	 * @param aShare
-	 * @param aQuantity
-	 * @param aUnitPrice
+	 * @param orderNum
+	 * @param brokerRef
+	 * @param businessSymbol
+	 * @param shareType
+	 * @param unitPrice
+	 * @param quantity
+	 * @param unitPriceOrder
 	 */
-	public ShareOrder(String orderNum, String brokerRef, Share share, int quantity, float unitPrice) {
-		super(share.getBusinessSymbol(), share.getShareType(), share.getUnitPrice());
+	public ShareOrder(String orderNum, String brokerRef, String businessSymbol, String shareType, 
+			float unitPrice, int quantity, float unitPriceOrder) {
+		super(businessSymbol, shareType, unitPrice);
 		setOrderNum(orderNum);
 		setBrokerRef(brokerRef);
-		setShare(share);
 		setQuantity(quantity);
-		setUnitPrice(unitPrice);
+		setUnitPriceOrder(unitPriceOrder);		
 	}
-
+	
 	public String getOrderNum() {
 		return orderNum;
 	}
@@ -51,11 +56,11 @@ public class ShareOrder extends Share {
 		this.quantity = quantity;
 	}
 
-	public float getUnitPrice() {
-		return unitPrice;
+	public float getUnitPriceOrder() {
+		return unitPriceOrder;
 	}
 
-	public void setUnitPrice(float unitPrice) {
-		this.unitPrice = unitPrice;
+	public void setUnitPriceOrder(float unitPrice) {
+		this.unitPriceOrder = unitPrice;
 	}	
 }
