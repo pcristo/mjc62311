@@ -9,13 +9,13 @@ $logServerPath = $CONFIG.logServerPath
 $logServerUsername = $CONFIG.logServerUsername
 $logServerPassword = $CONFIG.logServerPassword
 
-$jsonJar = ($PSScriptRoot + $CONFIG.jsonJar)
+$jars = ($PSScriptRoot + $CONFIG.jars)
 
 
 if ($logServerIP -match "localhost") {
 	echo "Starting logging server"
 	cd $logServerPath 
-	$loggerProcess = Start-Process -NoNewWindow -PassThru "java" "-classpath $jsonJar logger/LoggerServer"
+	$loggerProcess = Start-Process -NoNewWindow -PassThru "java" "-classpath $jars logger.LoggerServer"
 	
 	
 	$stop = Read-Host "X to stop servers"

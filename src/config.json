@@ -5,5 +5,5 @@
   logServerFile: "C:\\Users\\Ross\\Dropbox\\Distributed_Systems\\project\\resources\\log\\iteration_one.log",
   logServerUsername: "",
   logServerPassword: "",
-  jsonJar: "/../jar\\json-20141113.jar;"
+  jars: "/../jar\\*;"
 }
