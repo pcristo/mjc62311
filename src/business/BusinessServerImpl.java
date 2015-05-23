@@ -9,6 +9,8 @@ import static java.rmi.registry.LocateRegistry.createRegistry;
 
 /**
  * Stock exchange front end service provider, creates remote object in the registery.
+ * put "-Djava.security.manager -Djava.security.policy=resources/settings/security.policy"
+ * in VM option to run
  * Created by Sai on 2015/5/23.
  */
 public class BusinessServerImpl implements BusinessServerInterface {

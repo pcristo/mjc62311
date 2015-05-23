@@ -10,6 +10,12 @@ import business.BusinessServerInterface;
 
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+
+/**
+ * A simple client for business server,
+ * put "-Djava.security.manager -Djava.security.policy=resources/settings/security.policy"
+ * in VM option to run
+ */
 public class BusinessServerClient {
 
     public static void main(String args[]) {
