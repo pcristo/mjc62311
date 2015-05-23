@@ -1,4 +1,4 @@
-package service;
+package business;
 
 /**
  * Define functions accessible by clients
@@ -11,7 +11,7 @@ import java.rmi.RemoteException;
 import business.Share;
 import business.ShareOrder;
 
-public interface StockExchangeServerInterface extends Remote {
+public interface BusinessServerInterface extends Remote {
     /**
      * This operation is called by the StockExchange service. If the unit price is higher or
      * equal to the defined price in the data file, will produce extra shares;

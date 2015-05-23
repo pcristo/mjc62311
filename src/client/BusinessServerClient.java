@@ -6,11 +6,11 @@ package client;
  */
 
 import business.Share;
-import service.StockExchangeServerInterface;
+import business.BusinessServerInterface;
 
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-public class StockExchangeClient {
+public class BusinessServerClient {
 
     public static void main(String args[]) {
         if (System.getSecurityManager() == null) {
@@ -19,7 +19,7 @@ public class StockExchangeClient {
         try {
             String name = "stockService";
             Registry registry = LocateRegistry.getRegistry(1099);
-            StockExchangeServerInterface service = (StockExchangeServerInterface) registry.lookup(name);
+            BusinessServerInterface service = (BusinessServerInterface) registry.lookup(name);
             Share info = service.getShareInfo("common");
             System.out.println(info);
         } catch (Exception e) {
