@@ -13,23 +13,32 @@ import static java.rmi.registry.LocateRegistry.createRegistry;
  */
 public class BusinessServerImpl implements BusinessServerInterface {
 
-    public BusinessServerImpl() {
+    private Business pri_business;
+    private String pri_serviceName = "";
 
+    /**
+     * Constructor
+     * @param sourceData A CSV file that contains stock information
+     * @param serviceName service name used to bind into java RMI registery for service lookup
+     */
+    public BusinessServerImpl(String sourceData, String serviceName) {
+        pri_business = new Business(sourceData);
+        pri_serviceName = serviceName;
     }
 
     @Override
     public boolean issueShares(ShareOrder aSP) throws RemoteException {
-        return false;
+        return pri_business.issueShares(aSP);
     }
 
     @Override
     public Share getShareInfo(String aShareType) throws RemoteException {
-        return null;
+        return pri_business.getShareInfo(aShareType);
     }
 
     @Override
     public boolean receivePayment(String orderNum, float totalPrice) throws RemoteException {
-        return false;
+        return pri_business.recievePayment(orderNum,totalPrice);
     }
 
     public static void main(String[] args)
@@ -38,18 +47,19 @@ public class BusinessServerImpl implements BusinessServerInterface {
             System.setSecurityManager(new SecurityManager());
         }
         try {
-            String name = "stockService";
-            BusinessServerInterface service = new BusinessServerImpl();
+            String serviceName = "stockService";
+            String csv = "google_data.csv";
+            BusinessServerInterface service = new BusinessServerImpl(csv,serviceName);
             //create local rmi registery
             createRegistry(1099);
             //bind service to default port 1099
             BusinessServerInterface stub =
                     (BusinessServerInterface) UnicastRemoteObject.exportObject(service, 0);
             Registry registry = LocateRegistry.getRegistry();
-            registry.rebind(name, stub);
-            System.out.println("stockService bound");
+            registry.rebind(serviceName, stub);
+            System.out.println(serviceName + " bound");
         } catch (Exception e) {
-            System.err.println("stockService exception:");
+            System.err.println("business service creation exception:");
             e.printStackTrace();
         }
     }
