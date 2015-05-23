@@ -31,7 +31,7 @@ public class LoggerServer {
                 logger.start();
             }
         } catch(IOException ioe) {
-            ioe.printStackTrace();
+            System.out.println("Exception: " + ioe.getMessage());
         }
     }
 

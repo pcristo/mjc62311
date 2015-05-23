@@ -20,6 +20,7 @@ public class LoggerClient {
      */
     public static boolean log(String msg) {
         String ip = Config.getInstance().getAttr("logServerIP");
+
         int port = Integer.parseInt(Config.getInstance().getAttr("logServerPort"));
         try {
             Socket socket = new Socket(ip, port);
@@ -34,10 +35,10 @@ public class LoggerClient {
             socket.close();
 
         } catch(UnknownHostException he){
-            System.out.println(he.getMessage());
+            System.out.println("Exception: " + he.getMessage());
             return false;
         } catch (IOException ioe) {
-            System.out.println(ioe.getMessage());
+            System.out.println("Exception: " + ioe.getMessage());
             return false;
         }
 

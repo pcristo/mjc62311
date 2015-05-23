@@ -12,7 +12,7 @@ public class LoggerTest {
 
     @Test
     public void logTest() {
-        LoggerClient.log("ROSS TEST 5");
+        LoggerClient.log("Test on web application2");
 
     }
 
