@@ -1,6 +1,7 @@
 out/
 test_out/
-.idea/
+workspace.xml
+tasks.xml
 .classpath
 .project
-resources\log\iteration_one.log
+iteration_one.log
