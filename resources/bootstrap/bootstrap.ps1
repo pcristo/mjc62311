@@ -32,7 +32,7 @@ if ($logServerIP -match "localhost") {
 
 	$stop = Read-Host "X to stop servers"
 	if($stop -match "X") {
-		C:/Users/Ross/Desktop/plink.exe $logServerUsername@$logServerIP -pw $logServerPassword "lsof -i:$logServerPort -t | xargs kill"
+		.\plink.exe $logServerUsername@$logServerIP -pw $logServerPassword "lsof -i:$logServerPort -t | xargs kill"
 		Stop-Process $loggerProcess.id
 		echo "Logging server stopped";
 	}
