@@ -27,7 +27,6 @@ if ($logServerIP -match "localhost") {
 	
 		
 } else {
-	
 	$loggerProcess = Start-Process -NoNewWindow -PassThru ".\plink.exe" "$logServerUsername@$logServerIP -pw $logServerPassword java -cp $logServerHome/$jarDir/*:$logServerHome/$outDir/: logger.LoggerServer"
 
 	$stop = Read-Host "X to stop servers"
