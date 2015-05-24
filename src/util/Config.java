@@ -27,11 +27,11 @@ public class Config {
     public static Config getInstance() {
         if(instance == null) {
             instance = new Config();
-            try {
-                instance.setJson();
-            } catch(Exception ioe){
-                System.out.println("IOE ERROR: " + ioe.getMessage());
-            }
+        }
+        try {
+            instance.setJson();
+        } catch(Exception ioe){
+            System.out.println("IOE ERROR: " + ioe.getMessage());
         }
         return instance;
     }
@@ -41,6 +41,7 @@ public class Config {
      * @throws IOException
      */
     private void setJson() throws IOException {
+        configJson = null;
         InputStream in = Thread.currentThread().getContextClassLoader().getResourceAsStream("config.json");
         BufferedReader reader = new BufferedReader(new InputStreamReader(in));
         StringBuilder out = new StringBuilder();

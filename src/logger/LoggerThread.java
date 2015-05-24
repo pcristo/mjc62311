@@ -7,6 +7,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import util.Config;
 
+import javax.annotation.processing.FilerException;
+
 /**
  * Thread that actually handles writing to the log file
  */
@@ -14,7 +16,7 @@ public class LoggerThread implements Runnable {
 
     private BufferedReader fromClient;
     private Socket socket;
-    private String fileLocation = Config.getInstance().getAttr("logServerFile");
+    private static final String fileLocation = Config.getInstance().getAttr("logServerFile");
 
     /**
      *
@@ -39,17 +41,24 @@ public class LoggerThread implements Runnable {
 
             // Make sure one thread writes to a file at a time
             synchronized (this) {
-                // TODO file exception
-                PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(fileLocation, true)));
-                out.println(finalMsg);
-                out.close();
+                log(finalMsg);
             }
             socket.close();
         } catch(IOException ioe){
-            System.out.println("Exception: " + ioe.getMessage());
+            System.out.println("IO Exception in logger thread: " + ioe.getMessage());
         }
     }
 
+    /**
+     * Write message to log file
+     * @param message
+     */
+    public static void log(String message) throws IOException{
+        PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(fileLocation, true)));
+        out.println(message);
+        out.close();
+
+    }
 
     /**
      *

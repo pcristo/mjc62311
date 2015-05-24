@@ -1,9 +1,10 @@
 {
-  "logServerIP" : "162.209.98.223",
+  "logServerIP" : "localhost",
   "logServerPort": "9090",
-  "logServerPath": "C:\\Users\\Ross\\Dropbox\\Distributed_Systems\\project\\out",
-  "logServerFile": "/home/java/project/resources/log/iteration_one.log",
+  "logServerFile": "C:\\Users\\Ross\\Dropbox\\Distributed_Systems\\project\\resources\\log\\iteration_one.log",
   "logServerUsername": "",
   "logServerPassword": "",
-  "jars": "/../jar\\*;"
+  "jars": "resources\\jar",
+  "logServerHome": "C:\\Users\\Ross\\Dropbox\\Distributed_Systems\\project",
+  "out": "out"
 }

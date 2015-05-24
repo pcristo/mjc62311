@@ -6,16 +6,17 @@ $CONFIG = (Get-Content ../../src/config.json) -join "`n" | ConvertFrom-Json
 $logServerIP = $CONFIG.logServerIP
 $logServerPort = $CONFIG.logServerPort
 $logServerPath = $CONFIG.logServerPath
+$logServerHome = $CONFIG.logServerHome
 $logServerUsername = $CONFIG.logServerUsername
 $logServerPassword = $CONFIG.logServerPassword
 
-$jars = ($PSScriptRoot + $CONFIG.jars)
-
+$jarDir = $CONFIG.jars
+$outDIr = $CONFIG.out
 
 if ($logServerIP -match "localhost") {
-	echo "Starting logging server"
-	cd $logServerPath 
-	$loggerProcess = Start-Process -NoNewWindow -PassThru "java" "-classpath $jars logger.LoggerServer"
+	echo "Starting local logging server"
+	
+	$loggerProcess = Start-Process -NoNewWindow -PassThru "java" "-classpath $logServerHome\\$jarDir\\*;$logServerHome\\$outDir\\; logger.LoggerServer"
 	
 	
 	$stop = Read-Host "X to stop servers"
@@ -24,16 +25,14 @@ if ($logServerIP -match "localhost") {
 		echo "Logging server stopped";
 	}
 	
-	cd ..\resources\bootstrap	
 		
 } else {
 	
-	
-	$loggerProcess = Start-Process -NoNewWindow -PassThru "C:/Users/Ross/Desktop/plink.exe" "root@162.209.98.223 -pw {pwd} java -cp /home/java/project/resources/jar/*:/home/java/project/out/: logger.LoggerServer"
+	$loggerProcess = Start-Process -NoNewWindow -PassThru ".\plink.exe" "$logServerUsername@$logServerIP -pw $logServerPassword java -cp $logServerHome/$jarDir/*:$logServerHome/$outDir/: logger.LoggerServer"
 
 	$stop = Read-Host "X to stop servers"
 	if($stop -match "X") {
-		C:/Users/Ross/Desktop/plink.exe root@162.209.98.223 -pw {pwd} 'lsof -i:9090 -t | xargs kill'
+		C:/Users/Ross/Desktop/plink.exe $logServerUsername@$logServerIP -pw $logServerPassword "lsof -i:$logServerPort -t | xargs kill"
 		Stop-Process $loggerProcess.id
 		echo "Logging server stopped";
 	}

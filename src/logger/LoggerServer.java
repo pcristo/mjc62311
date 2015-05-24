@@ -19,6 +19,11 @@ public class LoggerServer {
      */
     public LoggerServer() {
         try {
+            // Log start message
+            LoggerThread.log("");
+            LoggerThread.log("Log Server Started");
+
+
             int port = Integer.parseInt(Config.getInstance().getAttr("logServerPort"));
 
             ServerSocket listener = new ServerSocket(port);
@@ -31,12 +36,13 @@ public class LoggerServer {
                 logger.start();
             }
         } catch(IOException ioe) {
-            System.out.println("Exception: " + ioe.getMessage());
+            System.out.println("IO Exception in host: " + ioe.getMessage());
         }
     }
 
 
     public static void main(String args[]) {
+
         LoggerServer loggerServer = new LoggerServer();
     }
 

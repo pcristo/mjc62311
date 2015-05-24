@@ -35,10 +35,10 @@ public class LoggerClient {
             socket.close();
 
         } catch(UnknownHostException he){
-            System.out.println("Exception: " + he.getMessage());
+            System.out.println("Host Exception in client: " + he.getMessage());
             return false;
         } catch (IOException ioe) {
-            System.out.println("Exception: " + ioe.getMessage());
+            System.out.println("IO Exception in client: " + ioe.getMessage());
             return false;
         }
 
