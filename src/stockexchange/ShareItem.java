@@ -12,6 +12,13 @@ public class ShareItem extends Share {
     private float unitPrice;
     private int quantity;
 
+    /**
+     *
+     * @param businessSymbol
+     * @param shareType
+     * @param unitPrice
+     * @param quantity
+     */
     public ShareItem(String businessSymbol, String shareType, float unitPrice, int quantity) {
 
         super(businessSymbol,shareType,unitPrice);
@@ -19,12 +26,29 @@ public class ShareItem extends Share {
 
     }
 
+    /**
+     *
+     * @param quantity
+     */
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 
-    public int getQuantity(int quantity) {
+    /**
+     *
+     * @return
+     */
+    public int getQuantity() {
         return this.quantity;
+    }
+
+    /**
+     *
+     * @param reduceBy
+     */
+    public void reduceQuantity(int reduceBy) {
+
+        this.quantity = this.quantity - reduceBy;
     }
 
 

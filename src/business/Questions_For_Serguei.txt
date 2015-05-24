@@ -1,0 +1,6 @@
+Assumption to confirm with professor:
+	Page 11 of project description document, under the heading "Class definitions for Business"
+	ShareOrder is assumed to be SharePurchase as described under heading "Operation 1"
+	
+Assumption for receivePayment:
+	If a receivePayment is called on an order that has already been paid, return false and do nothing
