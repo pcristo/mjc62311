@@ -54,7 +54,7 @@ public class Broker implements BrokerInterface {
      */
     public boolean sellShares(ArrayList<String> tickers, String type, int quantity, Customer customer) {
         for(String ticker : tickers) {
-            if(validateClientHasShare(ticker)) {
+            if(validateClientHasShare(ticker, customer)) {
                 // We cant sell what we dont have
                 return false;
             }
@@ -111,7 +111,8 @@ public class Broker implements BrokerInterface {
                 // for now we fake the price at 50
                 // TODO add on broker comission for customer
                 float price = 50;
-                sharesToAction.add(new ShareItem(ticker, type, price, quantity));
+                String orderNumber = "";
+                sharesToAction.add(new ShareItem(orderNumber, ticker, type, price, quantity));
             }
         }
 
@@ -127,9 +128,15 @@ public class Broker implements BrokerInterface {
      * @param ticker
      * @return
      */
-    private boolean validateClientHasShare(String ticker) {
-        // TODO implement
-        return true;
+    private boolean validateClientHasShare(String ticker, Customer customer) {
+        ArrayList<ShareItem> customerShares = exchange.getShares(customer);
+        for(ShareItem share : customerShares) {
+            if(share.getBusinessSymbol() == ticker) {
+                return true;
+            }
+        }
+        return false;
+
     }
 
     /**
@@ -138,8 +145,8 @@ public class Broker implements BrokerInterface {
      * @return
      */
     private boolean validateTicker(String ticker) {
-        // TODO Call stock exchange and validate that the ticker exists
-        return true;
+        ArrayList<String> tickerListing = exchange.getListing();
+        return tickerListing.contains(ticker);
     }
 
     /**

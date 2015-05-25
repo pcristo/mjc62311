@@ -39,9 +39,9 @@ public class BrokerServiceClient {
         //ShareItemList
         ArrayList<ShareItem> lstShares = new ArrayList<ShareItem>();
 
-        lstShares.add(new ShareItem("MSFT.B.B", "convertible", 523.32f, 100));
-        lstShares.add(new ShareItem("MSFT.C","preferred",541.28f,200));
-        lstShares.add(new ShareItem("GOOG","common",540.11f,100));
+//        lstShares.add(new ShareItem("MSFT.B.B", "convertible", 523.32f, 100));
+//        lstShares.add(new ShareItem("MSFT.C","preferred",541.28f,200));
+//        lstShares.add(new ShareItem("GOOG","common",540.11f,100));
 
         return lstShares;
 
