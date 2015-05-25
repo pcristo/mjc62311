@@ -10,6 +10,9 @@ import java.util.ArrayList;
  */
 public class Broker {
 
+    // IS THIS THE EXCHANGE GUY?
+    private synchronized static ShareSalesStatusList exchange;
+
     public static void main(String[] args){
 
         ShareList ShareList = new ShareList(createListofShares());
@@ -21,16 +24,23 @@ public class Broker {
 
     }
 
-    private static ArrayList<ShareItem> createListofShares() {
+    public Broker() {
 
-        //ShareItemList
-        ArrayList<ShareItem> lstShares = new ArrayList<ShareItem>();
 
-        lstShares.add(new ShareItem("MSFT.B.B", "convertible", 523.32f, 100));
-        lstShares.add(new ShareItem("MSFT.C","preferred",541.28f,200));
-        lstShares.add(new ShareItem("GOOG","common",540.11f,100));
+    }
 
-        return lstShares;
 
+
+    /**
+     *
+     * @return list of available shares
+     */
+    public ArrayList<ShareItem> getShares() {
+
+        ArrayList<ShareItem> listShares = new ArrayList<ShareItem>();
+        listShares.add(new ShareItem("MSFT.B.B", "convertible", 523.32f, 100));
+        listShares.add(new ShareItem("MSFT.C","preferred",541.28f,200));
+        listShares.add(new ShareItem("GOOG","common",540.11f,100));
+        return listShares;
     }
 }
