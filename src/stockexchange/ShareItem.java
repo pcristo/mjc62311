@@ -1,6 +1,6 @@
 package stockexchange;
 
-import business.Share;
+import business.*;
 
 /**
  * Created by gay.hazan on 22/05/2015.
@@ -12,6 +12,9 @@ public class ShareItem extends Share {
     private float unitPrice;
     private int quantity;
 
+    //TODO: Include shareorder object in each shareItem for traceability
+    private String  orderNum;
+
     /**
      *
      * @param businessSymbol
@@ -19,9 +22,10 @@ public class ShareItem extends Share {
      * @param unitPrice
      * @param quantity
      */
-    public ShareItem(String businessSymbol, String shareType, float unitPrice, int quantity) {
+    public ShareItem(String orderNum,String businessSymbol, String shareType, float unitPrice, int quantity) {
 
         super(businessSymbol,shareType,unitPrice);
+        this.orderNum = orderNum;
         this.quantity = quantity;
 
     }
@@ -49,6 +53,26 @@ public class ShareItem extends Share {
     public void reduceQuantity(int reduceBy) {
 
         this.quantity = this.quantity - reduceBy;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public String printShareInfo() {
+
+        StringBuilder shareDescription = new StringBuilder();
+
+        shareDescription.append(this.getBusinessSymbol());
+        shareDescription.append(" ");
+        shareDescription.append(this.getShareType());
+        shareDescription.append(" ");
+        shareDescription.append(this.getUnitPrice());
+        shareDescription.append(" ");
+        shareDescription.append(this.getQuantity());
+
+
+        return shareDescription.toString();
     }
 
 
