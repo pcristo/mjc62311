@@ -1,7 +1,7 @@
 package client;
 
 /**
- * A simple client
+ * A simple client for business service
  * Created by Sai on 2015/5/23.
  */
 

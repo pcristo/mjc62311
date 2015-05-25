@@ -9,6 +9,7 @@ import java.rmi.registry.Registry;
 import java.util.ArrayList;
 
 /**
+ * A simple client for stock broker client
  * Created by sai sun on 5/25/2015.
  */
 public class BrokerServiceClient {
