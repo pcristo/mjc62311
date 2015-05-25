@@ -1,15 +1,11 @@
 package business;
 
+import util.Config;
+
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -225,8 +221,13 @@ public class Business {
 	 */
 	private void loadRegistry(String filename) throws IOException, Exception {
 		// Open the data file
-        FileReader fileReader = new FileReader(filename);
-        BufferedReader bufferedReader = new BufferedReader(fileReader);
+     //   FileReader fileReader = new FileReader(filename);
+     //   BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+		// Dynamically load the file
+		String filePath = Config.getInstance().getAttr("files") + "/";
+		URL sourceURL = Thread.currentThread().getContextClassLoader().getResource(filePath + filename);
+		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(sourceURL.openStream()));
 
         // reset the shares list
         this.sharesList = new ArrayList<Share>();

@@ -3,6 +3,7 @@ package stockexchange;
 import business.Business;
 import business.ShareOrder;
 import client.Customer;
+import util.Config;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,9 +39,12 @@ public class ShareSalesStatusList{
 
         //Initialize Businesses
 
-        yahoo = new Business("C://Users//Gay.Hazan//OneDrive//Documents//MASTERS//COMP6231//Project//Repo//mjc62311//src//business//yahoo_data.csv");
-        microsoft = new Business("C://Users//Gay.Hazan//OneDrive//Documents//MASTERS//COMP6231//Project//Repo//mjc62311//src//business//microsoft_data.csv");
-        google = new Business("C://Users//Gay.Hazan//OneDrive//Documents//MASTERS//COMP6231//Project//Repo//mjc62311//src//business//google_data.csv");
+
+        Config instance = Config.getInstance();
+
+        yahoo = new Business(instance.getAttr("yahoo"));
+        microsoft = new Business(instance.getAttr("microsoft"));
+        google = new Business(instance.getAttr("google"));
     }
 
 

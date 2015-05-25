@@ -1,5 +1,7 @@
 package business;
 
+import util.Config;
+
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -49,8 +51,9 @@ public class BusinessServerImpl implements BusinessServerInterface {
             System.setSecurityManager(new SecurityManager());
         }
         try {
+
             String serviceName = "stockService";
-            String csv = "google_data.csv";
+            String csv = Config.getInstance().getAttr("google");
             BusinessServerInterface service = new BusinessServerImpl(csv,serviceName);
             //create local rmi registery
             createRegistry(1099);
