@@ -1,4 +1,4 @@
-package stockexchange;
+package client;
 
 /**
  * Created by gay.hazan on 22/05/2015.
@@ -14,7 +14,10 @@ public class Customer {
     private String postalCode;
     private String country;
 
-    public Customer(int customerReferenceNumber, String name, String street1, String street2, String city, String province, String postalCode, String country) {
+
+
+    // TODO customerReferenceNumber should be generated automatically
+        public Customer(int customerReferenceNumber, String name, String street1, String street2, String city, String province, String postalCode, String country) {
         this.customerReferenceNumber = customerReferenceNumber;
         this.name = name;
         this.street1 = street1;

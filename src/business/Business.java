@@ -19,6 +19,9 @@ import java.util.List;
  * @author patrick
  */
 public class Business {
+	// TODO PLEASE MOVE THIS TO ENUM
+	// TODO share objects should be in their own package
+
 	private static final String[] ACCEPTABLE_TYPES = { "common", "preferred", "convertible" };
 	private static final String ORDER_RECORD_FILENAME = "orderRecord.xml";
 	private List<Share> sharesList = new ArrayList<Share>();

@@ -9,7 +9,7 @@ public class ShareItem extends Share {
 
     private String businessSymbol;
     private String shareType;
-    private float unitPrice;
+    private float unitPrice; //Isn't price suppose to always be a double...?
     private int quantity;
 
     /**

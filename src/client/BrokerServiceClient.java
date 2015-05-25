@@ -1,8 +1,7 @@
 package client;
 
-import business.BusinessServerInterface;
-import business.Share;
 import stockexchange.*;
+import stockexchange.broker.BrokerInterface;
 
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -27,8 +26,8 @@ public class BrokerServiceClient {
             BrokerInterface service = (BrokerInterface) registry.lookup(client.getServiceName());
             ShareList ShareList = new ShareList(createListofShares());
             Customer newCust = new Customer(1,"Gay Hazan","123 Money Ave","","Montreal","Quebec","H4W 1N3", "Canada" );
-            ShareSalesStatusList list = service.sellShares(ShareList,newCust);
-            System.out.println(list);
+          //  ShareSalesStatusList list = service.sellShares(ShareList,newCust);
+          //  System.out.println(list);
         } catch (Exception e) {
             System.err.println("Client exception:");
             e.printStackTrace();

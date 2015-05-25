@@ -1,5 +1,7 @@
 package stockexchange;
 
+import client.Customer;
+
 import java.util.ArrayList;
 
 /**
@@ -18,6 +20,15 @@ public class ShareSalesStatusList{
     public ShareSalesStatusList() {
         this.soldShares = this.populateSold();
         this.availableShares = this.populateAvailable();
+    }
+
+
+
+
+    public ShareSalesStatusList buyShares(ShareList shareItemList, Customer info) {
+        //TODO
+        return new ShareSalesStatusList();
+
     }
 
     /**
@@ -214,5 +225,18 @@ public class ShareSalesStatusList{
     public void printMessage(String message) {
 
         System.out.println(" \n " + message + " \n ");
+    }
+
+    /**
+     * Gets a list of tickers available on this exchange
+     * Add by Ross for Broker class TODO
+     */
+    public ArrayList<String> getListing() {
+        // Fake data for now
+        return new ArrayList<String>(){{
+            add("FAKETICKER1");
+            add("FakeTicker2");
+            add("FaKeTiCkEr3");
+        }};
     }
 }

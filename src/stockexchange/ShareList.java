@@ -9,6 +9,7 @@ public class ShareList {
 
     private ArrayList<ShareItem> lstShareItems;
 
+
     public ShareList(ArrayList<ShareItem> lstShareItems) {
         this.lstShareItems = lstShareItems;
     }
