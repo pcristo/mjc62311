@@ -4,9 +4,12 @@ import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +21,7 @@ import java.util.List;
 public class Business {
 	private static final String[] ACCEPTABLE_TYPES = { "common", "preferred", "convertible" };
 	private static final String ORDER_RECORD_FILENAME = "orderRecord.xml";
-	private Share[] businessRegistry;
+	private List<Share> sharesList = new ArrayList<Share>();
 
 	/**
 	 * Constructor to create a business
@@ -27,7 +30,15 @@ public class Business {
 	 *            A CSV file that contains stock information
 	 */
 	public Business(String sourceData) {
-		loadRegistry(sourceData);
+		try {
+			loadRegistry(sourceData);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -82,7 +93,7 @@ public class Business {
 	 */
 	public Share getShareInfo(String aShareType) {
 		// flip through the registry searching for a share type that matches the request
-		for (Share s : getRegistry())
+		for (Share s : getSharesList())
 			if (s.getShareType().equals(aShareType))
 				return s;
 
@@ -117,8 +128,8 @@ public class Business {
 	 * 
 	 * @return An array of shares
 	 */
-	public Share[] getRegistry() {
-		return businessRegistry;
+	public List<Share> getSharesList() {
+		return sharesList;
 	}
 
 	/**
@@ -206,10 +217,38 @@ public class Business {
 	 * 
 	 * @param filename
 	 *            The file to load data from
+	 * @throws Exception 
+	 * @throws IOException 
 	 */
-	private void loadRegistry(String filename) {
-		// TODO: Load from file
-	}
+	private void loadRegistry(String filename) throws IOException, Exception {
+		// Open the data file
+        FileReader fileReader = new FileReader(filename);
+        BufferedReader bufferedReader = new BufferedReader(fileReader);
 
+        // reset the shares list
+        this.sharesList = new ArrayList<Share>();
+        
+        // Process each line of the csv file
+        String row;
+        String[] column;
+        while((row = bufferedReader.readLine()) != null) {
+        	// split the line
+        	column = row.split(",");
+        	
+        	// confirm there are at least 3 values in the array
+        	if (column.length < 3) {
+        		bufferedReader.close();
+        		throw new Exception("The CSV file is not correctly formatted.");
+        	}
+        	
+        	// extract the share information and create a share object
+        	Share s = new Share(column[0], column[1], Float.parseFloat(column[2]));
+        	
+        	// add the share to the list
+        	this.sharesList.add(s);        	
+        }    
+
+        // Close the file
+        bufferedReader.close();            
+	}
 }
-;;
