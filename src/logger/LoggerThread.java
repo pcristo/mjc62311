@@ -2,6 +2,7 @@ package logger;
 
 import java.io.*;
 import java.net.Socket;
+import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -16,7 +17,6 @@ public class LoggerThread implements Runnable {
 
     private BufferedReader fromClient;
     private Socket socket;
-    private static final String fileLocation = Config.getInstance().getAttr("logServerFile");
 
     /**
      *
@@ -53,20 +53,24 @@ public class LoggerThread implements Runnable {
      * Write message to log file
      * @param message
      */
-    public static void log(String message) throws IOException{
+    public static void log(String message) throws IOException {
+
+        // Get log file location
+        String projectHome = Config.getInstance().getAttr("logServerHome");
+        String relativeLogFile = Config.getInstance().getAttr("logServerFile");
+        String fileLocation = projectHome + relativeLogFile;
         PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(fileLocation, true)));
         out.println(message);
         out.close();
-
     }
 
     /**
      *
      * @return boolean if file was deleted
      */
-    private boolean delete() {
-        File file = new File(fileLocation);
-        return (file.delete());
-    }
+//    private boolean delete() {
+//        File file = new File(fileLocation);
+//        return (file.delete());
+//    }
 }
 

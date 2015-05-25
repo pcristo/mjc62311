@@ -11,7 +11,7 @@ public class LoggerTest {
 
     @Test
     public void logTest() {
-        LoggerClient.log("Test 10");
+        LoggerClient.log("Test 20");
 
     }
 
