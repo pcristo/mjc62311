@@ -5,18 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c352094c-eb85-45f4-9209-6d44e9662fbf" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/stockexchange/broker/BrokerInterface.java" />
-      <change type="DELETED" beforePath="C:\Users\Ross\Dropbox\Distributed_Systems\project\src\stockexchange\BrokerInterface.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ross\Dropbox\Distributed_Systems\project\src\stockexchange\BrokerIntf.java" afterPath="" />
-      <change type="MOVED" beforePath="C:\Users\Ross\Dropbox\Distributed_Systems\project\src\stockexchange\Broker.java" afterPath="$PROJECT_DIR$/src/stockexchange/broker/Broker.java" />
-      <change type="MOVED" beforePath="C:\Users\Ross\Dropbox\Distributed_Systems\project\src\stockexchange\Customer.java" afterPath="$PROJECT_DIR$/src/client/Customer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/client/BrokerServiceClient.java" afterPath="$PROJECT_DIR$/src/client/BrokerServiceClient.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/business/Business.java" afterPath="$PROJECT_DIR$/src/business/Business.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/stockexchange/ShareItem.java" afterPath="$PROJECT_DIR$/src/stockexchange/ShareItem.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/stockexchange/ShareList.java" afterPath="$PROJECT_DIR$/src/stockexchange/ShareList.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/stockexchange/ShareSaleStatusList.java" afterPath="$PROJECT_DIR$/src/stockexchange/ShareSaleStatusList.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/stockexchange/ShareSalesStatusList.java" afterPath="$PROJECT_DIR$/src/stockexchange/ShareSalesStatusList.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="DELETED" beforePath="C:\Users\Ross\Dropbox\Distributed_Systems\project\src\HelloWorld\HelloWorld.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Ross\Dropbox\Distributed_Systems\project\test_src\HelloWorld\HelloWorldTest.java" afterPath="" />
     </list>
     <ignored path="project.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -94,8 +84,8 @@
       <file leaf-file-name="BrokerTest.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/test_src/stockexchange/broker/BrokerTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.41009465">
-              <caret line="15" column="22" selection-start-line="15" selection-start-column="22" selection-end-line="15" selection-end-column="22" />
+            <state vertical-scroll-proportion="0.47949526">
+              <caret line="17" column="11" selection-start-line="17" selection-start-column="11" selection-end-line="17" selection-end-column="11" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#828#829#0" expanded="true" />
@@ -374,42 +364,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="broker" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="project" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="project" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="client" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="project" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="project" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="business" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -758,7 +712,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1050" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -771,7 +725,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27891892" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1984375" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1984375" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -916,13 +870,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/HelloWorld/HelloWorld.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/logger/LoggerServer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -952,13 +899,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/HelloWorld/HelloWorld.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="18" column="1" selection-start-line="18" selection-start-column="1" selection-end-line="18" selection-end-column="1" />
         </state>
       </provider>
     </entry>
@@ -1250,8 +1190,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/test_src/stockexchange/broker/BrokerTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.41009465">
-          <caret line="15" column="22" selection-start-line="15" selection-start-column="22" selection-end-line="15" selection-end-column="22" />
+        <state vertical-scroll-proportion="0.47949526">
+          <caret line="17" column="11" selection-start-line="17" selection-start-column="11" selection-end-line="17" selection-end-column="11" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#828#829#0" expanded="true" />
