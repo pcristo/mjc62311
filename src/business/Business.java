@@ -117,7 +117,7 @@ public class Business {
 	 * 
 	 * @return An array of shares
 	 */
-	private Share[] getRegistry() {
+	public Share[] getRegistry() {
 		return businessRegistry;
 	}
 
