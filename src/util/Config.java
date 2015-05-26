@@ -1,9 +1,11 @@
 package util;
 
 import org.json.JSONObject;
-import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 /**
  * Class reads in from config.json in util package
@@ -64,6 +66,12 @@ public class Config {
     public String getAttr(String attr) {
         return configJson.getString(attr);
     }
+
+    public String loadSecurityPolicy() {
+        return this.configJson.getString("logServerHome") + configJson.getString("security");
+
+    }
+
 
 
 

@@ -1,5 +1,7 @@
 package business;
 
+import share.Share;
+import share.ShareOrder;
 import util.Config;
 
 import java.rmi.RemoteException;
@@ -47,6 +49,9 @@ public class BusinessServerImpl implements BusinessServerInterface {
 
     public static void main(String[] args)
     {
+        System.setProperty("java.security.policy",Config.getInstance().loadSecurityPolicy());
+
+
         if (System.getSecurityManager() == null) {
             System.setSecurityManager(new SecurityManager());
         }
@@ -56,13 +61,14 @@ public class BusinessServerImpl implements BusinessServerInterface {
             String csv = Config.getInstance().getAttr("google");
             BusinessServerInterface service = new BusinessServerImpl(csv,serviceName);
             //create local rmi registery
-            createRegistry(1099);
+            int port = 1098;
+            createRegistry(port);
             //bind service to default port 1099
             BusinessServerInterface stub =
                     (BusinessServerInterface) UnicastRemoteObject.exportObject(service, 0);
             Registry registry = LocateRegistry.getRegistry();
             registry.rebind(serviceName, stub);
-            System.out.println(serviceName + " bound");
+            System.out.println(serviceName + " bound on " + port);
         } catch (Exception e) {
             System.err.println("business service creation exception:");
             e.printStackTrace();

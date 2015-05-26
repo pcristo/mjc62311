@@ -9,15 +9,26 @@ public class ShareList {
 
     private ArrayList<ShareItem> lstShareItems;
 
-
+    /**
+     *
+     * @param lstShareItems
+     */
     public ShareList(ArrayList<ShareItem> lstShareItems) {
         this.lstShareItems = lstShareItems;
     }
 
+    /**
+     *
+     * @return List of ShareItem
+     */
     public ArrayList<ShareItem> getLstShareItems() {
         return lstShareItems;
     }
 
+    /**
+     *
+     * @param lstShareItems
+     */
     public void setLstShareItems(ArrayList<ShareItem> lstShareItems) {
         this.lstShareItems = lstShareItems;
     }

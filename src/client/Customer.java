@@ -1,9 +1,11 @@
 package client;
 
+import java.io.Serializable;
+
 /**
  * Created by gay.hazan on 22/05/2015.
  */
-public class Customer {
+public class Customer implements Serializable {
 
     private int customerReferenceNumber;
     private String name;
@@ -13,7 +15,7 @@ public class Customer {
     private String province;
     private String postalCode;
     private String country;
-
+    private static final long serialVersionUID = 1420672609912364060L;
 
 
     // TODO customerReferenceNumber should be generated automatically
@@ -90,6 +92,13 @@ public class Customer {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+    @Override
+    public String toString() {
+        return customerReferenceNumber + ";;d" +name
+                + street1 + street2
+                + city + province
+                + postalCode + country;
     }
 
 }

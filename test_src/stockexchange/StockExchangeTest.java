@@ -13,30 +13,30 @@ import static org.junit.Assert.assertTrue;
  */
 public class StockExchangeTest {
 
-    private ShareSalesStatusList shareSalesStatusList;
+    private Exchange exchange;
 
     @Before
     public void setUp() {
 
-        this.shareSalesStatusList = new ShareSalesStatusList();
+        this.exchange = new Exchange();
     }
 
     @Test
     public void allCompaniesAreInTheDirecotryMapping()
     {
 
-        assertTrue(this.shareSalesStatusList.getBusinessDirectory().get("GOOG") == "GOOGLE");
-        assertTrue(this.shareSalesStatusList.getBusinessDirectory().get("GOOG.B") == "GOOGLE");
-        assertTrue(this.shareSalesStatusList.getBusinessDirectory().get("GOOG.C") == "GOOGLE");
+        assertTrue(this.exchange.getBusinessDirectory().get("GOOG") == "GOOGLE");
+        assertTrue(this.exchange.getBusinessDirectory().get("GOOG.B") == "GOOGLE");
+        assertTrue(this.exchange.getBusinessDirectory().get("GOOG.C") == "GOOGLE");
 
 
-        assertTrue(this.shareSalesStatusList.getBusinessDirectory().get("YHOO") == "YAHOO");
-        assertTrue(this.shareSalesStatusList.getBusinessDirectory().get("YHOO.C") == "YAHOO");
-        assertTrue(this.shareSalesStatusList.getBusinessDirectory().get("YHOO.B") == "YAHOO");
+        assertTrue(this.exchange.getBusinessDirectory().get("YHOO") == "YAHOO");
+        assertTrue(this.exchange.getBusinessDirectory().get("YHOO.C") == "YAHOO");
+        assertTrue(this.exchange.getBusinessDirectory().get("YHOO.B") == "YAHOO");
 
-        assertTrue(this.shareSalesStatusList.getBusinessDirectory().get("MSFT") == "MICROSOFT");
-        assertTrue(this.shareSalesStatusList.getBusinessDirectory().get("MSFT.C") == "MICROSOFT");
-        assertTrue(this.shareSalesStatusList.getBusinessDirectory().get("MSFT.B") == "MICROSOFT");
+        assertTrue(this.exchange.getBusinessDirectory().get("MSFT") == "MICROSOFT");
+        assertTrue(this.exchange.getBusinessDirectory().get("MSFT.C") == "MICROSOFT");
+        assertTrue(this.exchange.getBusinessDirectory().get("MSFT.B") == "MICROSOFT");
 
 
     }
@@ -50,14 +50,14 @@ public class StockExchangeTest {
         //ShareItemList
         ArrayList<ShareItem> lstShares = new ArrayList<ShareItem>();
 
-        lstShares.add(new ShareItem("","MSFT.B", "convertible", 523.32f, 100));
-        lstShares.add(new ShareItem("","MSFT.C","preferred",541.28f,200));
-        lstShares.add(new ShareItem("","GOOG","common",540.11f,100));
+        lstShares.add(new ShareItem("801","MSFT.B", "convertible", 523.32f, 100));
+        lstShares.add(new ShareItem("802","MSFT.C","preferred",541.28f,200));
+        lstShares.add(new ShareItem("803","GOOG","common",540.11f,100));
 
-        ShareSalesStatusList stockService = new ShareSalesStatusList().sellShares(new ShareList(lstShares),newCust);
+        ShareSalesStatusList shareStatus = this.exchange.sellShares(new ShareList(lstShares),newCust);
 
 
-        assertTrue(this.shareSalesStatusList.getSoldShares().get(lstShares.get(0)) == newCust);
+        assertTrue(shareStatus.getSoldShares().get(lstShares.get(0)) == newCust);
 
     }
 }

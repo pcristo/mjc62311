@@ -1,7 +1,7 @@
 package stockexchange.broker;
 
-import business.ShareOrder;
 import client.Customer;
+import share.ShareOrder;
 import stockexchange.ShareItem;
 
 import java.rmi.Remote;
@@ -14,10 +14,11 @@ import java.util.ArrayList;
  */
 public interface BrokerInterface extends Remote {
 
-    public boolean buyShares(ArrayList<String> ticker, String type, int quantity, Customer customer);
 
-    public boolean sellShares(ArrayList<String> ticker, String type, int quantity, Customer customer);
+    public boolean buyShares(ArrayList<String> ticker, String type, int quantity, Customer customer) throws RemoteException;
 
-    public ArrayList<String> getTickerListing();
+    public boolean sellShares(ArrayList<String> ticker, String type, int quantity, Customer customer) throws RemoteException;
+
+    public ArrayList<String> getTickerListing() throws RemoteException;
 
 }

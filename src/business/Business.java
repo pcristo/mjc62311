@@ -1,5 +1,7 @@
 package business;
 
+import share.Share;
+import share.ShareOrder;
 import util.Config;
 
 import java.beans.XMLDecoder;
@@ -14,9 +16,9 @@ import java.util.List;
  * 
  * @author patrick
  */
-public class Business {
+public class Business implements Serializable {
+	private static final long serialVersionUID = 1L;
 	// TODO PLEASE MOVE THIS TO ENUM
-	// TODO share objects should be in their own package
 
 	private static final String[] ACCEPTABLE_TYPES = { "common", "preferred", "convertible" };
 	private static final String ORDER_RECORD_FILENAME = "orderRecord.xml";
@@ -71,13 +73,13 @@ public class Business {
 		authorizeShare(aSO.getShareType(), remainder);
 
 		// record to XML file
-		try {
+		/*try {
 			saveRecord(aSO);
 		} catch (FileNotFoundException e) {
 			// Failed to write to the record... Return false
 			e.printStackTrace();
 			return false;
-		}
+		}*/
 
 		// return true
 		return true;

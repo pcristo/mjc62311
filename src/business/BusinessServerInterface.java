@@ -8,8 +8,8 @@ package business;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
-import business.Share;
-import business.ShareOrder;
+import share.Share;
+import share.ShareOrder;
 
 public interface BusinessServerInterface extends Remote {
     /**
@@ -24,7 +24,7 @@ public interface BusinessServerInterface extends Remote {
     boolean issueShares(ShareOrder aSP) throws RemoteException;
 
     /**
-     * If the share type is from ¡°common¡±, ¡°preferred¡±, or ¡°convertible¡±, return the corresponding
+     * If the share type is from ''common'', ''preferred'', or ''convertible'', return the corresponding
      * share information as defined in the data file; otherwise return null.
      *
      * @param aShareType share type
@@ -37,7 +37,7 @@ public interface BusinessServerInterface extends Remote {
     /**
      * This operation is called by the StockExchange service. The orderNum and the totalPrice
      should match a recorded order in the data file. If you find a match, you mark the matching
-     order as ¡°paid¡± in the data file and return true. Otherwise, return false.
+     order as ''paid'' in the data file and return true. Otherwise, return false.
      * @param orderNum share order number
      * @param totalPrice total price of the share order
      * @return true if order is paid

@@ -1,9 +1,6 @@
 package stockexchange;
 
-import business.Business;
-import business.ShareOrder;
 import client.Customer;
-import util.Config;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,47 +14,22 @@ import java.util.Map;
 public class ShareSalesStatusList{
 
 
-    private static  final int COMMISSION_MARKUP = 10;
-    private static  final int RESTOCK_THRESHOLD = 1000;
-
-
     private static Map<ShareItem, Customer> soldShares = new HashMap<ShareItem,Customer>();
     private static List<ShareItem> availableShares = new ArrayList<ShareItem>();
-    private static Map<String, String> businessDirectory = new HashMap<String, String>();
 
-    private Business yahoo;
-    private Business microsoft;
-    private Business google;
 
     // ----------------------     CONSTRUCTOR     ----------------------------------
 
 
     public ShareSalesStatusList() {
 
-        this.availableShares = this.populateAvailable();
-        this.setBusinessDirectory();
+        availableShares = this.populateAvailable();
 
-        //Initialize Businesses
-
-
-        Config instance = Config.getInstance();
-
-        yahoo = new Business(instance.getAttr("yahoo"));
-        microsoft = new Business(instance.getAttr("microsoft"));
-        google = new Business(instance.getAttr("google"));
     }
 
 
     //----------------------     SETTERS     ----------------------------------
 
-    /**
-     *
-     */
-    public void setBusinessDirectory() {
-
-
-        createBusinessDirectory();
-    }
 
 
     //----------------------     GETTERS     ----------------------------------
@@ -74,9 +46,11 @@ public class ShareSalesStatusList{
      *
      * @return
      */
-    public Map<String, String> getBusinessDirectory() {
-        return businessDirectory;
+    public List<ShareItem> getAvailableShares() {
+
+        return availableShares;
     }
+
 
     /**
      * Given a customer determine get all of that customers stocks
@@ -104,49 +78,6 @@ public class ShareSalesStatusList{
     //---------------------- PUBLIC METHODS ----------------------------------
 
 
-    public ShareSalesStatusList buyShares(ShareList shareItemList, Customer info) {
-        //TODO
-        return new ShareSalesStatusList();
-    }
-
-    /**
-     *
-     * @param shareItemList
-     * @param info
-     * @return
-     */
-    public ShareSalesStatusList sellShares(ShareList shareItemList, Customer info) {
-
-        int shareIndex  = -1;
-
-        //TODO : See if share are available
-        for  (ShareItem s : shareItemList.getLstShareItems())
-        {
-            shareIndex = isShareAvailable(s);
-
-            if (shareIndex >= 0)
-            {
-                //TODO : Contact business service to complete sale
-
-                //TODO : Add shares to SOLD list
-                this.updateShares(s,info,shareIndex);
-
-
-
-                //TODO : Calculate comission and call restock
-
-            }
-        }
-
-        //Restock Share Lists
-        this.restock();
-
-        this.printShares();
-
-        return  this;
-    }
-
-
     /**
      *
      */
@@ -154,30 +85,14 @@ public class ShareSalesStatusList{
 
         System.out.println("- ******** Available Share ******** -");
 
-        for (ShareItem s : this.availableShares)
-        {
-            StringBuilder shareDescription = new StringBuilder();
-
-            shareDescription.append(s.getBusinessSymbol());
-            shareDescription.append(" ");
-            shareDescription.append(s.getShareType());
-            shareDescription.append(" ");
-            shareDescription.append(s.getUnitPrice());
-            shareDescription.append(" ");
-            shareDescription.append(s.getQuantity());
-
-
-            System.out.println(shareDescription.toString());
-
-
-
-        }
-
+        availableShares.forEach( k -> this.printMessage(k.printShareInfo()));
 
         System.out.println("\n - ******** Sold Shares ******** -");
 
         this.soldShares.forEach((ShareItem k, Customer v) -> {
+
             this.printMessage(v.getCustomerReferenceNumber() + " " + k.printShareInfo());
+
         });
 
 
@@ -185,50 +100,11 @@ public class ShareSalesStatusList{
 
 
     /**
-     *
-     * @param message
-     */
-    public void printMessage(String message) {
-
-        System.out.println(" \n " + message);
-    }
-
-
-    // ---------------------- PRIVATE METHODS ----------------------------------
-
-    /**
-     *
-     */
-    private void restock() {
-
-        this.printMessage("...... Restocking Shares .......");
-
-        List<ShareItem> tempShares = new ArrayList<ShareItem>();
-
-        //Check Available stock amount
-        for (ShareItem sItem : availableShares) {
-
-            if (sItem.getQuantity() < RESTOCK_THRESHOLD){
-
-                 ShareItem newShares = this.issueSharesRequest(sItem);
-
-                if (newShares != null) {
-
-                    tempShares.add(newShares);
-                }
-            }
-
-        }
-
-        availableShares.addAll(tempShares);
-    }
-
-    /**
      * Verify if share is available
      * @param share
      * @return -1 if not available
      */
-    private int isShareAvailable(ShareItem share) {
+    public int isShareAvailable(ShareItem share) {
 
         int notAvailable = -1;
 
@@ -257,7 +133,7 @@ public class ShareSalesStatusList{
      *
      * @param soldShareItem
      */
-    private void updateShares(ShareItem soldShareItem, Customer customer,  int indexAvailableShare) {
+    public void updateShares(ShareItem soldShareItem, Customer customer,  int indexAvailableShare) {
 
 
         this.addToSoldShares(soldShareItem,customer);
@@ -276,34 +152,24 @@ public class ShareSalesStatusList{
 
     }
 
-    /**
-     *
-     * @return
-     */
-    private void createBusinessDirectory() {
-        // TODO Can this be loaded dynamically form the csv?
-        // Why don't we just have an arrayList of Business objects?
-        // Shouldn't ticker symbol be an attribute of busines?
-        businessDirectory.put("YHOO", "YAHOO");
-        businessDirectory.put("YHOO.B","YAHOO");
-        businessDirectory.put("YHOO.C", "YAHOO");
-        businessDirectory.put("MSFT", "MICROSOFT");
-        businessDirectory.put("MSFT.B", "MICROSOFT");
-        businessDirectory.put("MSFT.C", "MICROSOFT");
-        businessDirectory.put("GOOG", "GOOGLE");
-        businessDirectory.put("GOOG.B", "GOOGLE");
-        businessDirectory.put("GOOG.C", "GOOGLE");
-
-    }
 
     /**
      *
      * @return
      */
-    private void addToSoldShares(ShareItem shareItem, Customer customer) {
+    public void addToSoldShares(ShareItem shareItem, Customer customer) {
 
 
         soldShares.put(shareItem,customer);
+    }
+
+
+    /**
+     *
+     */
+    public void addToAvailableShares(List<ShareItem> lstShareItem) {
+
+        availableShares.addAll(lstShareItem);
     }
 
 
@@ -316,13 +182,13 @@ public class ShareSalesStatusList{
         ArrayList<ShareItem> availableShares = new ArrayList<ShareItem>();
 
         //For Testing
-        ShareItem share1 = new ShareItem("ini01","MSFT","common",540.11f,100);
-        ShareItem share2 = new ShareItem("ini01","MSFT.B","convertible",523.32f,400);
-        ShareItem share3 = new ShareItem("ini01","MSFT.C","preferred",541.28f,700);
-        ShareItem share4 = new ShareItem("ini01","GOOG","common",540.11f,100);
-        ShareItem share5 = new ShareItem("ini01","GOOG.B","convertible",523.32f,400);
-        ShareItem share6 = new ShareItem("ini01","GOOG.C","preferred",541.28f,700);
-        ShareItem share7 = new ShareItem("ini01","GOOG","common",540.11f,100);
+        ShareItem share1 = new ShareItem("901","MSFT","common",540.11f,100);
+        ShareItem share2 = new ShareItem("902","MSFT.B","convertible",523.32f,400);
+        ShareItem share3 = new ShareItem("903","MSFT.C","preferred",541.28f,700);
+        ShareItem share4 = new ShareItem("904","GOOG","common",540.11f,100);
+        ShareItem share5 = new ShareItem("905","GOOG.B","convertible",523.32f,400);
+        ShareItem share6 = new ShareItem("906","GOOG.C","preferred",541.28f,700);
+        ShareItem share7 = new ShareItem("907","GOOG","common",540.11f,100);
 
 
         availableShares.add(share1);
@@ -337,49 +203,19 @@ public class ShareSalesStatusList{
 
     }
 
-    /**
-     *
-     * @param sItem
-     * @return
-     */
-    private ShareItem issueSharesRequest(ShareItem sItem) {
 
-        Boolean sharesIssued = false;
-
-        String businessName = businessDirectory.get(sItem.getBusinessSymbol());
-
-        String orderNum = "test001";
-
-        switch (businessName.toLowerCase()) {
-
-            case "microsoft" : sharesIssued = microsoft.issueShares(new ShareOrder("MSFT01","BR123",sItem.getBusinessSymbol(),sItem.getShareType(),sItem.getUnitPrice(),RESTOCK_THRESHOLD,sItem.getUnitPrice()));
-
-            case "yahoo" : sharesIssued = yahoo.issueShares(new ShareOrder("MSFT01", "BR123", sItem.getBusinessSymbol(), sItem.getShareType(), sItem.getUnitPrice(), RESTOCK_THRESHOLD, sItem.getUnitPrice()));
-
-            case "google" : sharesIssued = google.issueShares(new ShareOrder("MSFT01","BR123",sItem.getBusinessSymbol(),sItem.getShareType(),sItem.getUnitPrice(),RESTOCK_THRESHOLD,sItem.getUnitPrice()));
-        }
-
-        if (sharesIssued) {
-
-            ShareItem newShareItem = new ShareItem(orderNum,sItem.getBusinessSymbol(), sItem.getShareType(), sItem.getUnitPrice(), RESTOCK_THRESHOLD);
-            return newShareItem;
-        }
-
-        return null;
-    }
+    //---------------------- PRIVATE METHODS ----------------------------------
 
     /**
      *
-     * @return arrayList of all tickers listed on exchange
+     * @param message
      */
-    public ArrayList<String> getListing() {
-        Map<String, String> businesses = getBusinessDirectory();
-        ArrayList<String> tickerList = new ArrayList<String>();
-        for(String ticker : businesses.keySet()) {
-            tickerList.add(ticker);
-        }
+    private void printMessage(String message) {
 
-        return tickerList;
+        System.out.println(" \n " + message);
     }
+
+
+
 
 }

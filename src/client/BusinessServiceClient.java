@@ -5,8 +5,9 @@ package client;
  * Created by Sai on 2015/5/23.
  */
 
-import business.Share;
+import share.Share;
 import business.BusinessServerInterface;
+import util.Config;
 
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -22,6 +23,10 @@ public class BusinessServiceClient {
     private final int pri_port;
 
     public static void main(String args[]) {
+
+        System.setProperty("java.security.policy", Config.getInstance().loadSecurityPolicy());
+
+
         if (System.getSecurityManager() == null) {
             System.setSecurityManager(new SecurityManager());
         }
