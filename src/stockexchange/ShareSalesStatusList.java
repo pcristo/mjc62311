@@ -281,7 +281,9 @@ public class ShareSalesStatusList{
      * @return
      */
     private void createBusinessDirectory() {
-
+        // TODO Can this be loaded dynamically form the csv?
+        // Why don't we just have an arrayList of Business objects?
+        // Shouldn't ticker symbol be an attribute of busines?
         businessDirectory.put("YHOO", "YAHOO");
         businessDirectory.put("YHOO.B","YAHOO");
         businessDirectory.put("YHOO.C", "YAHOO");
