@@ -1,5 +1,6 @@
 package stockexchange;
 
+import client.Customer;
 import org.junit.Before;
 import org.junit.Test;
 

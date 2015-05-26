@@ -14,10 +14,10 @@ import java.util.ArrayList;
  */
 public interface BrokerInterface extends Remote {
 
-    public boolean buyShares(ArrayList<String> ticker, String type, int quantity, Customer customer);
+    public boolean buyShares(ArrayList<String> ticker, String type, int quantity, Customer customer) throws RemoteException;
 
-    public boolean sellShares(ArrayList<String> ticker, String type, int quantity, Customer customer);
+    public boolean sellShares(ArrayList<String> ticker, String type, int quantity, Customer customer) throws RemoteException;
 
-    public ArrayList<String> getTickerListing();
+    public ArrayList<String> getTickerListing() throws RemoteException;
 
 }

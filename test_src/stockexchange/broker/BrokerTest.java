@@ -4,6 +4,7 @@ import client.Customer;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import static org.junit.Assert.*;
@@ -30,17 +31,29 @@ public class BrokerTest {
     @Test
     public void getTickerListingTest() {
         // PM1 identfiies only 3 businenss on exchange
-        assertEquals(broker.getTickerListing().size(), 3);
+        try {
+            assertEquals(broker.getTickerListing().size(), 3);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
     public void sellSharesTest() {
-        assertTrue(broker.sellShares(shares, "preferred", 150, customer));
+        try {
+            assertTrue(broker.sellShares(shares, "preferred", 150, customer));
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
     public void buySharesTest() {
-        assertTrue(broker.buyShares(shares, "preferred", 150, customer));
+        try {
+            assertTrue(broker.buyShares(shares, "preferred", 150, customer));
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
 
 }
