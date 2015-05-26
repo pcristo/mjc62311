@@ -4,6 +4,7 @@ import business.*;
 import client.*;
 import util.Config;
 
+import java.rmi.registry.*;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.List;
@@ -24,9 +25,9 @@ public class Exchange {
 
     private static Map<String, String> businessDirectory = new HashMap<String, String>();
 
-    private Business yahoo;
-    private Business microsoft;
-    private Business google;
+    //private Business yahoo;
+    //private Business microsoft;
+    private BusinessServerInterface google;
 
     // ----------------------     CONSTRUCTOR     ----------------------------------
 
@@ -42,9 +43,11 @@ public class Exchange {
 
         Config instance = Config.getInstance();
 
-        yahoo = new Business(instance.getAttr("yahoo"));
-        microsoft = new Business(instance.getAttr("microsoft"));
-        google = new Business(instance.getAttr("google"));
+        //yahoo = new Business(instance.getAttr("yahoo"));
+        //microsoft = new Business(instance.getAttr("microsoft"));
+        //google = new Business(instance.getAttr("google"));
+
+        this.startBusinessService();
     }
 
 
@@ -229,13 +232,21 @@ public class Exchange {
 
         String orderNum = this.generateOrderNumber();
 
-        switch (businessName.toLowerCase()) {
+        //TODO: Change to businessName once all services are coded
+        switch ("google") {
 
-            case "microsoft" : sharesIssued = microsoft.issueShares(new ShareOrder(orderNum,"BR123",sItem.getBusinessSymbol(),sItem.getShareType(),sItem.getUnitPrice(),RESTOCK_THRESHOLD,sItem.getUnitPrice()));
+            //case "microsoft" : sharesIssued = microsoft.issueShares(new ShareOrder(orderNum,"BR123",sItem.getBusinessSymbol(),sItem.getShareType(),sItem.getUnitPrice(),RESTOCK_THRESHOLD,sItem.getUnitPrice()));
 
-            case "yahoo" : sharesIssued = yahoo.issueShares(new ShareOrder(orderNum, "BR123", sItem.getBusinessSymbol(), sItem.getShareType(), sItem.getUnitPrice(), RESTOCK_THRESHOLD, sItem.getUnitPrice()));
+            //case "yahoo" : sharesIssued = yahoo.issueShares(new ShareOrder(orderNum, "BR123", sItem.getBusinessSymbol(), sItem.getShareType(), sItem.getUnitPrice(), RESTOCK_THRESHOLD, sItem.getUnitPrice()));
 
-            case "google" : sharesIssued = google.issueShares(new ShareOrder(orderNum,"BR123",sItem.getBusinessSymbol(),sItem.getShareType(),sItem.getUnitPrice(),RESTOCK_THRESHOLD,sItem.getUnitPrice()));
+            case "google" :
+                try {
+                sharesIssued = google.issueShares(new ShareOrder(orderNum, "BR123", sItem.getBusinessSymbol(), sItem.getShareType(), sItem.getUnitPrice(), RESTOCK_THRESHOLD, sItem.getUnitPrice()));
+                }
+                catch (Exception e) {
+
+                    printMessage(e.getMessage());
+                }
         }
 
         if (sharesIssued) {
@@ -261,5 +272,24 @@ public class Exchange {
 
     }
 
+    private boolean startBusinessService() {
+
+        if (System.getSecurityManager() == null) {
+            System.setSecurityManager(new SecurityManager());
+        }
+        try {
+            BusinessServiceClient client = new BusinessServiceClient("stockService", 1099);
+            Registry registry = LocateRegistry.getRegistry(client.getPort());
+            this.google = (BusinessServerInterface) registry.lookup(client.getServiceName());
+
+            return true;
+
+        } catch (Exception e) {
+            //System.err.println("Client exception:");
+            //e.printStackTrace();
+
+            return false;
+        }
+    }
 
 }
