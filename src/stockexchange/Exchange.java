@@ -51,9 +51,9 @@ public class Exchange {
     //----------------------     SETTERS     ----------------------------------
 
     /**
-     *
+     * Setter BusinessDirector
      */
-    public void setBusinessDirectory() {
+    private void setBusinessDirectory() {
 
 
         createBusinessDirectory();
@@ -63,8 +63,8 @@ public class Exchange {
     //----------------------     GETTERS     ----------------------------------
 
     /**
-     *
-     * @return
+     * Getter : Business Directory
+     * @return Map of all business in exchange
      */
     public Map<String, String> getBusinessDirectory() {
         return businessDirectory;
@@ -73,17 +73,22 @@ public class Exchange {
 
     //---------------------- PUBLIC METHODS ----------------------------------
 
-
+    /**
+     *
+     * @param shareItemList
+     * @param info
+     * @return
+     */
     public ShareSalesStatusList buyShares(ShareList shareItemList, Customer info) {
         //TODO
         return shareStatusSaleList;
     }
 
     /**
-     *
+     * Sell Shares
      * @param shareItemList
      * @param info
-     * @return
+     * @return ShareSalesStatusList - Can access sold shares and avaible shares lists
      */
     public ShareSalesStatusList sellShares(ShareList shareItemList, Customer info) {
 
@@ -159,7 +164,7 @@ public class Exchange {
     // ---------------------- PRIVATE METHODS ----------------------------------
 
     /**
-     *
+     *Method to restock any available share that is below the threshold
      */
     private void restock() {
 
@@ -186,7 +191,7 @@ public class Exchange {
     }
 
     /**
-     *
+     * Method to print message to console
      * @param message
      */
     private void printMessage(String message) {
@@ -195,8 +200,7 @@ public class Exchange {
     }
 
     /**
-     *
-     * @return
+     * Initialize the business directory
      */
     private void createBusinessDirectory() {
 
@@ -213,9 +217,9 @@ public class Exchange {
     }
 
     /**
-     *
+     * Called to send a share request issue to businesses
      * @param sItem
-     * @return
+     * @return ShareItem
      */
     private ShareItem issueSharesRequest(ShareItem sItem) {
 
@@ -245,7 +249,7 @@ public class Exchange {
 
 
     /**
-     *
+     * Method to generate unique sequential order number for issue share
      */
     private String generateOrderNumber() {
 

@@ -15,6 +15,8 @@ public class ShareItem extends Share {
     //TODO: Include shareorder object in each shareItem for traceability
     private String  orderNum;
 
+
+    // -------------------------- CONSTRUCTOR ----------------------------------------
     /**
      *
      * @param businessSymbol
@@ -30,16 +32,21 @@ public class ShareItem extends Share {
 
     }
 
+
+    // ---------------------------- SETTERS ---------------------------------------------
     /**
-     *
+     * Set quantity
      * @param quantity
      */
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 
+
+    // ----------------------------- GETTERS ---------------------------------------------
+
     /**
-     *
+     * Get Quantity
      * @return
      */
     public int getQuantity() {
@@ -48,15 +55,18 @@ public class ShareItem extends Share {
 
     /**
      *
-     * @return
+     * @return String
      */
     public String getOrderNum() {
 
         return this.orderNum;
     }
 
+
+    // ----------------------------- PUBLIC METHODS ------------------------------------------
+
     /**
-     *
+     *  Remove share that were sold from the available listing.
      * @param reduceBy
      */
     public void reduceQuantity(int reduceBy) {
@@ -65,8 +75,8 @@ public class ShareItem extends Share {
     }
 
     /**
-     *
-     * @return
+     *  Method to show the complete description of a share
+     * @return String description of the share
      */
     public String printShareInfo() {
 
