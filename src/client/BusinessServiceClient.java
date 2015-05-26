@@ -5,7 +5,7 @@ package client;
  * Created by Sai on 2015/5/23.
  */
 
-import business.Share;
+import share.Share;
 import business.BusinessServerInterface;
 
 import java.rmi.registry.LocateRegistry;

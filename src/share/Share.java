@@ -1,4 +1,4 @@
-package business;
+package share;
 
 /**
  * A class for share information

@@ -1,7 +1,7 @@
 package stockexchange;
 
 import business.Business;
-import business.ShareOrder;
+import share.ShareOrder;
 import client.Customer;
 import util.Config;
 

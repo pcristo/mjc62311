@@ -1,5 +1,7 @@
 package business;
 
+import share.Share;
+import share.ShareOrder;
 import util.Config;
 
 import java.rmi.RemoteException;

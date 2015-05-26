@@ -1,6 +1,7 @@
 package stockexchange;
 
 import business.*;
+import share.*;
 
 /**
  * Created by gay.hazan on 22/05/2015.

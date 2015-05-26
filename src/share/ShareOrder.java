@@ -1,4 +1,4 @@
-package business;
+package share;
 
 import java.io.Serializable;
 

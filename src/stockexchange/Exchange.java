@@ -3,6 +3,7 @@ package stockexchange;
 import business.*;
 import client.*;
 import util.Config;
+import share.*;
 
 import java.rmi.registry.*;
 import java.util.Map;

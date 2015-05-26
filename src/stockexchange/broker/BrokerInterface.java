@@ -1,7 +1,7 @@
 package stockexchange.broker;
 
-import business.ShareOrder;
 import client.Customer;
+import share.ShareOrder;
 import stockexchange.ShareItem;
 
 import java.rmi.Remote;
