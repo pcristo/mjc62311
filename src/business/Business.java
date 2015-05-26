@@ -71,13 +71,13 @@ public class Business {
 		authorizeShare(aSO.getShareType(), remainder);
 
 		// record to XML file
-		try {
+		/*try {
 			saveRecord(aSO);
 		} catch (FileNotFoundException e) {
 			// Failed to write to the record... Return false
 			e.printStackTrace();
 			return false;
-		}
+		}*/
 
 		// return true
 		return true;

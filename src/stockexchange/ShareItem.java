@@ -48,6 +48,15 @@ public class ShareItem extends Share {
 
     /**
      *
+     * @return
+     */
+    public String getOrderNum() {
+
+        return this.orderNum;
+    }
+
+    /**
+     *
      * @param reduceBy
      */
     public void reduceQuantity(int reduceBy) {
@@ -63,6 +72,8 @@ public class ShareItem extends Share {
 
         StringBuilder shareDescription = new StringBuilder();
 
+        shareDescription.append((this.getOrderNum()));
+        shareDescription.append(" ");
         shareDescription.append(this.getBusinessSymbol());
         shareDescription.append(" ");
         shareDescription.append(this.getShareType());

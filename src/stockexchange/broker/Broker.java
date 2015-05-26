@@ -18,7 +18,7 @@ public class Broker implements BrokerInterface {
 
 
     // TODO multiple exchanges
-    private static ShareSalesStatusList exchange;
+    private static Exchange exchange;
 
     public static void main(String[] args){
         Broker broker = new Broker();
@@ -30,7 +30,7 @@ public class Broker implements BrokerInterface {
      * TODO use multiple exchanges
      */
     public Broker() {
-        exchange = new ShareSalesStatusList();
+        exchange = new Exchange();
     }
 
     /**
