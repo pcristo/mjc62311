@@ -1,11 +1,12 @@
 package stockexchange;
 
+import client.Customer;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by Gay on 15-05-24.
