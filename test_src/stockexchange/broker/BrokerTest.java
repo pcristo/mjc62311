@@ -7,7 +7,8 @@ import org.junit.Test;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 
 public class BrokerTest {
@@ -29,31 +30,20 @@ public class BrokerTest {
     }
 
     @Test
-    public void getTickerListingTest() {
-        // PM1 identfiies only 3 businenss on exchange
-        try {
-            assertEquals(broker.getTickerListing().size(), 3);
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
+    public void getTickerListingTest() throws RemoteException{
+        // 3 businesses * 3
+        assertEquals(broker.getTickerListing().size(), 9);
     }
 
     @Test
-    public void sellSharesTest() {
-        try {
-            assertTrue(broker.sellShares(shares, "preferred", 150, customer));
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
+    public void sellSharesTest() throws RemoteException {
+        assertTrue(broker.sellShares(shares, "preferred", 150, customer));
     }
 
     @Test
-    public void buySharesTest() {
-        try {
+    public void buySharesTest() throws RemoteException{
             assertTrue(broker.buyShares(shares, "preferred", 150, customer));
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
+
     }
 
 }
