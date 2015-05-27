@@ -8,15 +8,22 @@ import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
 import java.io.*;
 import java.net.URL;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import static java.rmi.registry.LocateRegistry.createRegistry;
 
 /**
  * A class for businesses to process transactions/manage shares
  * 
  * @author patrick
  */
-public class Business implements Serializable {
+public class Business implements Serializable, BusinessInterface {
 	private static final long serialVersionUID = 1L;
 	// TODO PLEASE MOVE THIS TO ENUM
 
@@ -24,22 +31,85 @@ public class Business implements Serializable {
 	private static final String ORDER_RECORD_FILENAME = "orderRecord.xml";
 	private List<Share> sharesList = new ArrayList<Share>();
 
+
+	protected String companyTicker = null;
+	protected Map<String, String> allTickers = null;
+
 	/**
 	 * Constructor to create a business
 	 * 
-	 * @param sourceData
+	 * @param filename
 	 *            A CSV file that contains stock information
 	 */
-	public Business(String sourceData) {
+	public Business(String filename) {
+
+		allTickers = new HashMap<String, String>();
+
 		try {
-			loadRegistry(sourceData);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			// Dynamically load the file
+			String filePath = Config.getInstance().getAttr("files") + "/";
+			URL sourceURL = Thread.currentThread().getContextClassLoader().getResource(filePath + filename);
+			BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(sourceURL.openStream()));
+
+			// reset the shares list
+			this.sharesList = new ArrayList<Share>();
+
+			// Process each line of the csv file
+			String row;
+			String[] column;
+			while ((row = bufferedReader.readLine()) != null) {
+				// split the line
+				column = row.split(",");
+
+				// confirm there are at least 3 values in the array
+				if (column.length < 3) {
+					bufferedReader.close();
+					throw new IOException("The CSV file is not correctly formatted.");
+				}
+
+				// extract the share information and create a share object
+				Share s = new Share(column[1], column[2], Float.parseFloat(column[3]));
+
+				// TODO remove from loop somehow
+				companyTicker = column[0];
+				allTickers.put(column[2], column[1]);
+
+				// add the share to the list
+				this.sharesList.add(s);
+			}
+
+			// Close the file
+			bufferedReader.close();
+		} catch (IOException ioe ) {
+			System.out.println(ioe.getMessage());
 		}
+
+	}
+
+
+	/**
+	 *
+	 * @return company ticker used to identify company
+	 */
+	public String getCompanyTicker() {
+		return companyTicker;
+	}
+
+	/**
+	 *
+	 * @return all company tickers (different stock types have different tickers)
+	 */
+	public Map<String, String> getAllTickers() {
+		return allTickers;
+	}
+
+	/**
+	 *
+	 * @param type of stock to get
+	 * @return ticker of type
+	 */
+	public String getTicker(String type) {
+		return allTickers.get(type);
 	}
 
 	/**
@@ -84,6 +154,7 @@ public class Business implements Serializable {
 		// return true
 		return true;
 	}
+
 
 	/**
 	 * Checks if a share type exists for this business, and returns the share
@@ -212,49 +283,39 @@ public class Business implements Serializable {
 				
 		return true;
 	}
-	
-	/**
-	 * Loads the list of available shares and their prices from file
-	 * 
-	 * @param filename
-	 *            The file to load data from
-	 * @throws Exception 
-	 * @throws IOException 
-	 */
-	private void loadRegistry(String filename) throws IOException, Exception {
-		// Open the data file
-     //   FileReader fileReader = new FileReader(filename);
-     //   BufferedReader bufferedReader = new BufferedReader(fileReader);
 
-		// Dynamically load the file
-		String filePath = Config.getInstance().getAttr("files") + "/";
-		URL sourceURL = Thread.currentThread().getContextClassLoader().getResource(filePath + filename);
-		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(sourceURL.openStream()));
 
-        // reset the shares list
-        this.sharesList = new ArrayList<Share>();
-        
-        // Process each line of the csv file
-        String row;
-        String[] column;
-        while((row = bufferedReader.readLine()) != null) {
-        	// split the line
-        	column = row.split(",");
-        	
-        	// confirm there are at least 3 values in the array
-        	if (column.length < 3) {
-        		bufferedReader.close();
-        		throw new Exception("The CSV file is not correctly formatted.");
-        	}
-        	
-        	// extract the share information and create a share object
-        	Share s = new Share(column[0], column[1], Float.parseFloat(column[2]));
-        	
-        	// add the share to the list
-        	this.sharesList.add(s);        	
-        }    
 
-        // Close the file
-        bufferedReader.close();            
+	public static void main(String args[]) {
+		Business.startRMIServer("businesService", 1098);
 	}
+
+
+	public static void startRMIServer(String serviceName, int portNum) {
+
+		System.setProperty("java.security.policy", Config.getInstance().loadSecurityPolicy());
+
+		//load security policy
+		if (System.getSecurityManager() == null) {
+			System.setSecurityManager(new SecurityManager());
+		}
+		try {
+
+			String microsoftCsv = Config.getInstance().getAttr("microsoft");
+			BusinessInterface service = new Business(microsoftCsv);
+			//create local rmi registery
+			createRegistry(portNum);
+
+			//bind service to default port portNum
+			BusinessInterface stub =
+					(BusinessInterface) UnicastRemoteObject.exportObject(service, portNum);
+			Registry registry = LocateRegistry.getRegistry();
+			registry.rebind(serviceName, stub);
+			System.out.println(serviceName + " bound on " + portNum);
+		} catch (Exception e) {
+			System.err.println("broker service creation exception:");
+			e.printStackTrace();
+		}
+	}
+
 }

@@ -1,15 +1,11 @@
 package stockexchange;
 
-import business.*;
-import client.*;
-import util.Config;
-import share.*;
+import client.Customer;
 
-import java.rmi.registry.*;
-import java.util.Map;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.ArrayList;
+import java.util.Map;
 
 
 /**
@@ -28,7 +24,6 @@ public class Exchange {
 
     //private Business yahoo;
     //private Business microsoft;
-    private BusinessServerInterface google;
 
 
 
@@ -44,13 +39,9 @@ public class Exchange {
         //Initialize Businesses
 
 
-        Config instance = Config.getInstance();
-
         //yahoo = new Business(instance.getAttr("yahoo"));
         //microsoft = new Business(instance.getAttr("microsoft"));
         //google = new Business(instance.getAttr("google"));
-
-        this.startBusinessService();
 
     }
 
@@ -237,21 +228,21 @@ public class Exchange {
         String orderNum = this.generateOrderNumber();
 
         //TODO: Change to businessName once all services are coded
-        switch ("google") {
-
-            //case "microsoft" : sharesIssued = microsoft.issueShares(new ShareOrder(orderNum,"BR123",sItem.getBusinessSymbol(),sItem.getShareType(),sItem.getUnitPrice(),RESTOCK_THRESHOLD,sItem.getUnitPrice()));
-
-            //case "yahoo" : sharesIssued = yahoo.issueShares(new ShareOrder(orderNum, "BR123", sItem.getBusinessSymbol(), sItem.getShareType(), sItem.getUnitPrice(), RESTOCK_THRESHOLD, sItem.getUnitPrice()));
-
-            case "google" :
-                try {
-                sharesIssued = google.issueShares(new ShareOrder(orderNum, "BR123", sItem.getBusinessSymbol(), sItem.getShareType(), sItem.getUnitPrice(), RESTOCK_THRESHOLD, sItem.getUnitPrice()));
-                }
-                catch (Exception e) {
-
-                    printMessage(e.getMessage());
-                }
-        }
+//        switch ("google") {
+//
+//            //case "microsoft" : sharesIssued = microsoft.issueShares(new ShareOrder(orderNum,"BR123",sItem.getBusinessSymbol(),sItem.getShareType(),sItem.getUnitPrice(),RESTOCK_THRESHOLD,sItem.getUnitPrice()));
+//
+//            //case "yahoo" : sharesIssued = yahoo.issueShares(new ShareOrder(orderNum, "BR123", sItem.getBusinessSymbol(), sItem.getShareType(), sItem.getUnitPrice(), RESTOCK_THRESHOLD, sItem.getUnitPrice()));
+//
+//            case "google" :
+//                try {
+//                sharesIssued = google.issueShares(new ShareOrder(orderNum, "BR123", sItem.getBusinessSymbol(), sItem.getShareType(), sItem.getUnitPrice(), RESTOCK_THRESHOLD, sItem.getUnitPrice()));
+//                }
+//                catch (Exception e) {
+//
+//                    printMessage(e.getMessage());
+//                }
+//        }
 
         if (sharesIssued) {
 
@@ -274,29 +265,6 @@ public class Exchange {
 
         return orderNumber;
 
-    }
-
-    private boolean startBusinessService() {
-
-        System.setProperty("java.security.policy",Config.getInstance().loadSecurityPolicy());
-
-
-        if (System.getSecurityManager() == null) {
-            System.setSecurityManager(new SecurityManager());
-        }
-        try {
-            BusinessServiceClient client = new BusinessServiceClient("stockService", 1098);
-            Registry registry = LocateRegistry.getRegistry(client.getPort());
-            this.google = (BusinessServerInterface) registry.lookup(client.getServiceName());
-
-            return true;
-
-        } catch (Exception e) {
-            //System.err.println("Client exception:");
-            //e.printStackTrace();
-
-            return false;
-        }
     }
 
 }

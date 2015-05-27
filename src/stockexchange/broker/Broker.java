@@ -174,6 +174,7 @@ public class Broker implements BrokerInterface {
             BrokerInterface service = new Broker();
             //create local rmi registery
             createRegistry(portNum);
+
             //bind service to default port portNum
             BrokerInterface stub =
                     (BrokerInterface) UnicastRemoteObject.exportObject(service, portNum);
