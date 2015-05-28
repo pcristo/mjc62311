@@ -1,8 +1,11 @@
 package stockexchange;
 
 import client.Customer;
+
 import org.junit.Before;
 import org.junit.Test;
+
+import share.ShareType;
 
 import java.util.ArrayList;
 
@@ -50,9 +53,9 @@ public class StockExchangeTest {
         //ShareItemList
         ArrayList<ShareItem> lstShares = new ArrayList<ShareItem>();
 
-        lstShares.add(new ShareItem("801","MSFT.B", "convertible", 523.32f, 100));
-        lstShares.add(new ShareItem("802","MSFT.C","preferred",541.28f,200));
-        lstShares.add(new ShareItem("803","GOOG","common",540.11f,100));
+        lstShares.add(new ShareItem("801","MSFT.B",ShareType.CONVERTIBLE, 523.32f, 100));
+        lstShares.add(new ShareItem("802","MSFT.C",ShareType.PREFERRED,541.28f,200));
+        lstShares.add(new ShareItem("803","GOOG",ShareType.COMMON,540.11f,100));
 
         ShareSalesStatusList shareStatus = this.exchange.sellShares(new ShareList(lstShares),newCust);
 

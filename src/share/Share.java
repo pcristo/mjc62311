@@ -6,10 +6,10 @@ package share;
  */
 public class Share {
 	private String businessSymbol;
-	private String shareType;
+	private ShareType shareType;
 	private float unitPrice;
 	
-	public Share(String businessSymbol, String shareType, float unitPrice) {
+	public Share(String businessSymbol, ShareType shareType, float unitPrice) {
 		setBusinessSymbol(businessSymbol);
 		setShareType(shareType);
 		setUnitPrice(unitPrice);
@@ -23,11 +23,11 @@ public class Share {
 		this.businessSymbol = businessSymbol;
 	}
 
-	public String getShareType() {
+	public ShareType getShareType() {
 		return shareType;
 	}
 
-	public void setShareType(String shareType) {
+	public void setShareType(ShareType shareType) {
 		this.shareType = shareType;
 	}
 

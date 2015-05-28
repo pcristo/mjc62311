@@ -3,6 +3,8 @@ package client;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import share.ShareType;
+
 /**
  * Created by Sai on 2015/5/25.
  */
@@ -89,10 +91,10 @@ public class ServerDisplayMsgs {
         System.out.println(SEPARATOR);
     }
 
-    public static String enterTickerType() {
+    public static ShareType enterTickerType() {
         System.out.println(TICKERTYPE);
         Scanner scan = new Scanner(System.in);
-        String ticker = scan.nextLine();
+        ShareType ticker = ShareType.valueOf(scan.nextLine());
         return ticker;
     }
 
@@ -142,7 +144,7 @@ public class ServerDisplayMsgs {
         System.out.println("Please enter postal code: ");
         info += scan.nextLine();
         info += ";;d";
-        System.out.println("Please enter contry: ");
+        System.out.println("Please enter country: ");
         info += scan.nextLine();
 
         System.out.println(SEPARATOR);

@@ -2,6 +2,7 @@ package business;
 
 import share.Share;
 import share.ShareOrder;
+import share.ShareType;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -11,7 +12,7 @@ public interface BusinessInterface extends Remote {
 
     public boolean issueShares(ShareOrder aSO) throws RemoteException;
 
-    public Share getShareInfo(String aShareType) throws RemoteException;
+    public Share getShareInfo(ShareType aShareType) throws RemoteException;
 
     public List<Share> getSharesList() throws RemoteException;
 

@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import share.ShareType;
+
 
 /**
  * Created by gay.hazan on 22/05/2015.
@@ -182,13 +184,13 @@ public class ShareSalesStatusList{
         ArrayList<ShareItem> availableShares = new ArrayList<ShareItem>();
 
         //For Testing
-        ShareItem share1 = new ShareItem("901","MSFT","common",540.11f,100);
-        ShareItem share2 = new ShareItem("902","MSFT.B","convertible",523.32f,400);
-        ShareItem share3 = new ShareItem("903","MSFT.C","preferred",541.28f,700);
-        ShareItem share4 = new ShareItem("904","GOOG","common",540.11f,100);
-        ShareItem share5 = new ShareItem("905","GOOG.B","convertible",523.32f,400);
-        ShareItem share6 = new ShareItem("906","GOOG.C","preferred",541.28f,700);
-        ShareItem share7 = new ShareItem("907","GOOG","common",540.11f,100);
+        ShareItem share1 = new ShareItem("901","MSFT",ShareType.COMMON,540.11f,100);
+        ShareItem share2 = new ShareItem("902","MSFT.B",ShareType.CONVERTIBLE,523.32f,400);
+        ShareItem share3 = new ShareItem("903","MSFT.C",ShareType.PREFERRED,541.28f,700);
+        ShareItem share4 = new ShareItem("904","GOOG",ShareType.COMMON,540.11f,100);
+        ShareItem share5 = new ShareItem("905","GOOG.B",ShareType.CONVERTIBLE,523.32f,400);
+        ShareItem share6 = new ShareItem("906","GOOG.C",ShareType.PREFERRED,541.28f,700);
+        ShareItem share7 = new ShareItem("907","GOOG",ShareType.COMMON,540.11f,100);
 
 
         availableShares.add(share1);

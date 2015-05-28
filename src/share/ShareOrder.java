@@ -23,7 +23,7 @@ public class ShareOrder extends Share {
 	 * @param quantity
 	 * @param unitPriceOrder
 	 */
-	public ShareOrder(String orderNum, String brokerRef, String businessSymbol, String shareType, 
+	public ShareOrder(String orderNum, String brokerRef, String businessSymbol, ShareType shareType, 
 			float unitPrice, int quantity, float unitPriceOrder) {
 		super(businessSymbol, shareType, unitPrice);
 		setOrderNum(orderNum);

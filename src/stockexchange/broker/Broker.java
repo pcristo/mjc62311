@@ -1,6 +1,7 @@
 package stockexchange.broker;
 
 import client.Customer;
+import share.ShareType;
 import stockexchange.*;
 import util.Config;
 
@@ -56,7 +57,7 @@ public class Broker implements BrokerInterface {
      * @return
      */
     @Override
-    public boolean sellShares(ArrayList<String> tickers, String type, int quantity, Customer customer) throws RemoteException {
+    public boolean sellShares(ArrayList<String> tickers, ShareType type, int quantity, Customer customer) throws RemoteException {
         for (String ticker : tickers) {
             if (validateClientHasShare(ticker, customer)) {
                 // We cant sell what we dont have
@@ -83,7 +84,7 @@ public class Broker implements BrokerInterface {
      * @return
      */
     @Override
-    public boolean buyShares(ArrayList<String> tickers, String type, int quantity, Customer customer) throws RemoteException {
+    public boolean buyShares(ArrayList<String> tickers, ShareType type, int quantity, Customer customer) throws RemoteException {
         ShareList sharesToBuy = prepareTrade(tickers, type, quantity);
         if (sharesToBuy != null) {
             // WTF do i do with this?
@@ -103,7 +104,7 @@ public class Broker implements BrokerInterface {
      * @param quantity amount of stocks
      * @return a shareList used by exchange or null if validation fail
      */
-    private ShareList prepareTrade(ArrayList<String> tickers, String type, int quantity) {
+    private ShareList prepareTrade(ArrayList<String> tickers, ShareType type, int quantity) {
         // Prepare shares to action - honestly this should be done a share at a time
         ArrayList<ShareItem> sharesToAction = new ArrayList<ShareItem>();
         for (String ticker : tickers) {

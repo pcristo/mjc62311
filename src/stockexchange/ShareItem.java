@@ -25,7 +25,7 @@ public class ShareItem extends Share {
      * @param unitPrice
      * @param quantity
      */
-    public ShareItem(String orderNum,String businessSymbol, String shareType, float unitPrice, int quantity) {
+    public ShareItem(String orderNum,String businessSymbol, ShareType shareType, float unitPrice, int quantity) {
 
         super(businessSymbol,shareType,unitPrice);
         this.orderNum = orderNum;

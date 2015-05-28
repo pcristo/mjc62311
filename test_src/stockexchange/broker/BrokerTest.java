@@ -1,8 +1,11 @@
 package stockexchange.broker;
 
 import client.Customer;
+
 import org.junit.Before;
 import org.junit.Test;
+
+import share.ShareType;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -37,12 +40,12 @@ public class BrokerTest {
 
     @Test
     public void sellSharesTest() throws RemoteException {
-        assertTrue(broker.sellShares(shares, "preferred", 150, customer));
+        assertTrue(broker.sellShares(shares, ShareType.PREFERRED, 150, customer));
     }
 
     @Test
     public void buySharesTest() throws RemoteException{
-            assertTrue(broker.buyShares(shares, "preferred", 150, customer));
+            assertTrue(broker.buyShares(shares, ShareType.PREFERRED, 150, customer));
 
     }
 

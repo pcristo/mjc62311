@@ -1,5 +1,6 @@
 package client;
 
+import share.ShareType;
 import stockexchange.*;
 import stockexchange.broker.BrokerInterface;
 import util.Config;
@@ -37,7 +38,7 @@ public class BrokerServiceClient {
                 ServerDisplayMsgs.printWelcome();
                 //operation switch
                 Customer customer;
-                String tickerType;
+                ShareType tickerType;
                 int tickerQuantity;
                 boolean ret = false;
                 Scanner scan = new Scanner(System.in);

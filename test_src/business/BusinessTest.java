@@ -2,34 +2,32 @@ package business;
 
 import org.junit.Before;
 import org.junit.Test;
-import util.Config;
 
+import share.Share;
+import share.ShareOrder;
+import share.ShareType;
+import util.Config;
 import static junit.framework.TestCase.assertTrue;
 
 /**
  * Created by Ross on 2015-05-26.
  */
 public class BusinessTest {
-
-    Business b;
+    Business business;
 
     @Before
     public void setUp() {
-        b = new Business(Config.getInstance().getAttr("google"));
+    	business = new Business(Config.getInstance().getAttr("google"));
     }
 
     @Test
-    public void testTickers() {
-        assertTrue(b.getCompanyTicker().equals("GOOG"));
-
-        // Three types of stocks
-        assertTrue(b.getAllTickers().size() == 3);
-
-        assertTrue(b.getTicker("preferred").equals("GOOG.C"));
-
+    public void testIssueShares() {
+    	ShareOrder aSO = new ShareOrder("a00", "broker1", "GOOG", ShareType.PREFERRED, 0, 150, (float) 1000.0);
+    	assertTrue(business.issueShares(aSO));
     }
 
-
-
-
+    @Test
+    public void testShareTypeExists() {
+    	assertTrue(business.getShareInfo(ShareType.PREFERRED) != null);
+    }
 }

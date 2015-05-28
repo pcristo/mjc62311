@@ -2,6 +2,7 @@ package business;
 
 import share.Share;
 import share.ShareOrder;
+import share.ShareType;
 import util.Config;
 
 import java.beans.XMLDecoder;
@@ -25,31 +26,23 @@ import static java.rmi.registry.LocateRegistry.createRegistry;
  */
 public class Business implements Serializable, BusinessInterface {
 	private static final long serialVersionUID = 1L;
-	// TODO PLEASE MOVE THIS TO ENUM
-
-	private static final String[] ACCEPTABLE_TYPES = { "common", "preferred", "convertible" };
 	private static final String ORDER_RECORD_FILENAME = "orderRecord.xml";
 	private List<Share> sharesList = new ArrayList<Share>();
-
-
-	protected String companyTicker = null;
-	protected Map<String, String> allTickers = null;
 
 	/**
 	 * Constructor to create a business
 	 * 
-	 * @param filename
-	 *            A CSV file that contains stock information
+	 * @param identifier
+	 *            The name of the company to create a business object for
 	 */
-	public Business(String filename) {
-
-		allTickers = new HashMap<String, String>();
-
+	public Business(String identifier) {
 		try {
 			// Dynamically load the file
 			String filePath = Config.getInstance().getAttr("files") + "/";
-			URL sourceURL = Thread.currentThread().getContextClassLoader().getResource(filePath + filename);
-			BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(sourceURL.openStream()));
+			URL sourceURL = Thread.currentThread().getContextClassLoader()
+					.getResource(filePath + identifier);
+			BufferedReader bufferedReader = new BufferedReader(
+					new InputStreamReader(sourceURL.openStream()));
 
 			// reset the shares list
 			this.sharesList = new ArrayList<Share>();
@@ -68,11 +61,7 @@ public class Business implements Serializable, BusinessInterface {
 				}
 
 				// extract the share information and create a share object
-				Share s = new Share(column[1], column[2], Float.parseFloat(column[3]));
-
-				// TODO remove from loop somehow
-				companyTicker = column[0];
-				allTickers.put(column[2], column[1]);
+				Share s = new Share(column[0], ShareType.valueOf(column[1]), Float.parseFloat(column[2]));
 
 				// add the share to the list
 				this.sharesList.add(s);
@@ -80,40 +69,23 @@ public class Business implements Serializable, BusinessInterface {
 
 			// Close the file
 			bufferedReader.close();
-		} catch (IOException ioe ) {
+		} catch (IOException ioe) {
 			System.out.println(ioe.getMessage());
 		}
-
 	}
 
-
 	/**
-	 *
-	 * @return company ticker used to identify company
+	 * @return company ticker used to identify a business
 	 */
 	public String getCompanyTicker() {
-		return companyTicker;
+		// all shares must have the same symbol, but may have different 'extensions'
+		// return the common part of the symbol here:
+		return sharesList.get(0).getBusinessSymbol().split(".")[0];
 	}
 
 	/**
-	 *
-	 * @return all company tickers (different stock types have different tickers)
-	 */
-	public Map<String, String> getAllTickers() {
-		return allTickers;
-	}
-
-	/**
-	 *
-	 * @param type of stock to get
-	 * @return ticker of type
-	 */
-	public String getTicker(String type) {
-		return allTickers.get(type);
-	}
-
-	/**
-	 * Checks if an order is valid, and if so, issues the requested number of shares
+	 * Checks if an order is valid, and if so, issues the requested number of
+	 * shares
 	 * 
 	 * @param aSO
 	 *            A ShareOrder to process
@@ -124,16 +96,25 @@ public class Business implements Serializable, BusinessInterface {
 		Share listedShare = getShareInfo(aSO.getShareType());
 
 		// if no valid listed share was found, return false
-		if (listedShare == null)
+		if (listedShare == null) {
+			System.out.println("issueShares: No valid share found for "
+					+ aSO.getShareType());
 			return false;
+		}
 
 		// if the order price lower than the current value, return false
-		if (aSO.getUnitPrice() < listedShare.getUnitPrice())
+		if (aSO.getUnitPriceOrder() < listedShare.getUnitPrice()) {
+			System.out
+					.println("issueShares: Order price less than minimum issue price");
 			return false;
+		}
 
 		// validate the order is for at least 1 share, otherwise return false
-		if (aSO.getQuantity() <= 0)
+		if (aSO.getQuantity() <= 0) {
+			System.out
+					.println("issueShares: Invalid number of shares requested");
 			return false;
+		}
 
 		// call authorizeShare as required
 		int authorizations = (int) Math.floor(aSO.getQuantity() / 100);
@@ -143,18 +124,20 @@ public class Business implements Serializable, BusinessInterface {
 		authorizeShare(aSO.getShareType(), remainder);
 
 		// record to XML file
-		/*try {
+		try {
 			saveRecord(aSO);
 		} catch (FileNotFoundException e) {
 			// Failed to write to the record... Return false
 			e.printStackTrace();
+			System.out.println("issueShares: error " + e.getMessage());
 			return false;
-		}*/
+		}
 
 		// return true
+		System.out.println("issueShares: " + aSO.getQuantity()
+				+ " shares issued successfully");
 		return true;
 	}
-
 
 	/**
 	 * Checks if a share type exists for this business, and returns the share
@@ -163,10 +146,11 @@ public class Business implements Serializable, BusinessInterface {
 	 * @return a share corresponding to the type requested, or null if not
 	 *         available
 	 */
-	public Share getShareInfo(String aShareType) {
-		// flip through the registry searching for a share type that matches the request
+	public Share getShareInfo(ShareType shareType) {
+		// flip through the registry searching for a share type that matches the
+		// request
 		for (Share s : getSharesList())
-			if (s.getShareType().equals(aShareType))
+			if (s.getShareType().equals(shareType))
 				return s;
 
 		// nothing found... return null
@@ -182,12 +166,12 @@ public class Business implements Serializable, BusinessInterface {
 	 *            The number of shares
 	 * @return true if authorized
 	 */
-	private boolean authorizeShare(String shareType, int quantity) {
+	private boolean authorizeShare(ShareType shareType, int quantity) {
 		if (quantity > 100 || quantity <= 0)
 			return false;
 
 		boolean typeOK = false;
-		for (String s : ACCEPTABLE_TYPES) {
+		for (ShareType s : ShareType.values()) {
 			if (s.equals(shareType))
 				typeOK = true;
 		}
@@ -196,7 +180,8 @@ public class Business implements Serializable, BusinessInterface {
 	}
 
 	/**
-	 * Getter to return an array of all the share types available for this business
+	 * Getter to return an array of all the share types available for this
+	 * business
 	 * 
 	 * @return An array of shares
 	 */
@@ -227,75 +212,82 @@ public class Business implements Serializable, BusinessInterface {
 	}
 
 	/**
-	 * Checks the order record for an exact match, and if found, updates the record to indicate the order is paid and returns true. Otherwise returns false.
-	 * @param orderNum The order number to look for
-	 * @param totalPrice The total price of the transaction (quantity * order unit price)
-	 * @return true if a match found, false if not or if the match has already been paid
+	 * Checks the order record for an exact match, and if found, updates the
+	 * record to indicate the order is paid and returns true. Otherwise returns
+	 * false.
+	 * 
+	 * @param orderNum
+	 *            The order number to look for
+	 * @param totalPrice
+	 *            The total price of the transaction (quantity * order unit
+	 *            price)
+	 * @return true if a match found, false if not or if the match has already
+	 *         been paid
 	 */
 	public boolean recievePayment(String orderNum, float totalPrice) {
 		List<OrderRecord> orderRecords = new ArrayList<OrderRecord>();
-		
+
 		// load all the orders from the xml file
 		XMLDecoder d;
 		try {
-			d = new XMLDecoder(new BufferedInputStream(new FileInputStream(ORDER_RECORD_FILENAME)));
+			d = new XMLDecoder(new BufferedInputStream(new FileInputStream(
+					ORDER_RECORD_FILENAME)));
 		} catch (FileNotFoundException e1) {
-			// no file means no records means no match, return false	
+			// no file means no records means no match, return false
 			return false;
 		}
 		boolean isDone = false;
 		while (!isDone) {
-				try {
-					orderRecords.add((OrderRecord) d.readObject());
-				}
-				catch (ArrayIndexOutOfBoundsException e){
-					isDone = true;
-				}
+			try {
+				orderRecords.add((OrderRecord) d.readObject());
+			} catch (ArrayIndexOutOfBoundsException e) {
+				isDone = true;
+			}
 		}
 		d.close();
-		
+
 		// check to see if there is a match that is not already paid
 		boolean hasMatch = false;
 		for (OrderRecord o : orderRecords) {
-			if ((o.getOrderNum().equals(orderNum)) && 
-					((o.getQuantity() * o.getUnitPriceOrder()) == totalPrice) &&
-					(!o.isPaid())) {
-				hasMatch = true;		// match found, set match as true
-				o.setPaid(true);		// update the status to paid
-				break;					// no need to continue processing after a match is found
-			}			
+			if ((o.getOrderNum().equals(orderNum))
+					&& ((o.getQuantity() * o.getUnitPriceOrder()) == totalPrice)
+					&& (!o.isPaid())) {
+				hasMatch = true; // match found, set match as true
+				o.setPaid(true); // update the status to paid
+				break; // no need to continue processing after a match is found
+			}
 		}
-		
+
 		// no match, return false
-		if (!hasMatch) return false;
-		
+		if (!hasMatch)
+			return false;
+
 		// if match, save file, return true
 		XMLEncoder e;
 		try {
-			e = new XMLEncoder(new BufferedOutputStream(new FileOutputStream(ORDER_RECORD_FILENAME)));
+			e = new XMLEncoder(new BufferedOutputStream(new FileOutputStream(
+					ORDER_RECORD_FILENAME)));
 		} catch (FileNotFoundException e1) {
 			e1.printStackTrace();
 			return false;
 		}
-		for (OrderRecord o : orderRecords) 
-			e.writeObject(o);		
+		for (OrderRecord o : orderRecords)
+			e.writeObject(o);
 		e.close();
-				
+
 		return true;
 	}
-
-
 
 	public static void main(String args[]) {
 		Business.startRMIServer("businesService", 1098);
 	}
 
-
 	public static void startRMIServer(String serviceName, int portNum) {
 
-		System.setProperty("java.security.policy", Config.getInstance().loadSecurityPolicy());
+		System.setProperty("java.security.policy", Config.getInstance()
+				.loadSecurityPolicy());
 
-		//load security policy
+		// load security policy
 		if (System.getSecurityManager() == null) {
 			System.setSecurityManager(new SecurityManager());
 		}
@@ -303,12 +295,12 @@ public class Business implements Serializable, BusinessInterface {
 
 			String microsoftCsv = Config.getInstance().getAttr("microsoft");
 			BusinessInterface service = new Business(microsoftCsv);
-			//create local rmi registery
+			// create local rmi registery
 			createRegistry(portNum);
 
-			//bind service to default port portNum
-			BusinessInterface stub =
-					(BusinessInterface) UnicastRemoteObject.exportObject(service, portNum);
+			// bind service to default port portNum
+			BusinessInterface stub = (BusinessInterface) UnicastRemoteObject
+					.exportObject(service, portNum);
 			Registry registry = LocateRegistry.getRegistry();
 			registry.rebind(serviceName, stub);
 			System.out.println(serviceName + " bound on " + portNum);
@@ -317,5 +309,4 @@ public class Business implements Serializable, BusinessInterface {
 			e.printStackTrace();
 		}
 	}
-
 }

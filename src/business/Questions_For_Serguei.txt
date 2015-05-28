@@ -4,3 +4,6 @@ Assumption to confirm with professor:
 	
 Assumption for receivePayment:
 	If a receivePayment is called on an order that has already been paid, return false and do nothing
+	
+Change for business:
+	Share types is defined in an enum instead of a string
