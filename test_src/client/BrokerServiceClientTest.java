@@ -20,6 +20,7 @@ public class BrokerServiceClientTest {
 
     /** RUN THIS TO TEST RMI CONNECTIONS **/
     /** TO RUN
+     * 0) Update json.config
      * 1) Start rmiregistry from the out/ directory of project
      * 2) Compile entire project
      * 3) Run Business.java
