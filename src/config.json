@@ -5,11 +5,11 @@
   "logServerUsername": "",
   "logServerPassword": "",
   "jars": "/resources/jar",
-  "logServerHome": "/home/patrick/git/mjc62311",
+  "logServerHome": "C:\\Users\\b0467851\\WORK\\school\\DistributedSystems\\project",
   "out": "out",
   "files": "files",
   "yahoo": "yahoo_data.csv",
   "microsoft": "microsoft_data.csv",
   "google":"google_data.csv",
-  "security": "/resources/settings/security.policy"
+  "security": "\\resources\\settings\\security.policy"
 }

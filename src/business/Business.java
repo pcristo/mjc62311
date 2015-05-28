@@ -9,15 +9,12 @@ import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
 import java.io.*;
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import static java.rmi.registry.LocateRegistry.createRegistry;
 
 /**
  * A class for businesses to process transactions/manage shares
@@ -75,12 +72,19 @@ public class Business implements Serializable, BusinessInterface {
 	}
 
 	/**
-	 * @return company ticker used to identify a business
+	 * @return @return the ticker commonly used to identify a company
 	 */
-	public String getCompanyTicker() {
+	public String getTicker() throws RemoteException {
 		// all shares must have the same symbol, but may have different 'extensions'
 		// return the common part of the symbol here:
-		return sharesList.get(0).getBusinessSymbol().split(".")[0];
+
+		// Some share types don't have extension in that case return whole symbol
+		String shareSymbol = sharesList.get(0).getBusinessSymbol();
+		if (shareSymbol.contains(".")) {
+			return sharesList.get(0).getBusinessSymbol().split(".")[0];
+		} else {
+			return shareSymbol;
+		}
 	}
 
 	/**
@@ -278,12 +282,46 @@ public class Business implements Serializable, BusinessInterface {
 		return true;
 	}
 
+	/**
+	 * Create business interfaces and bind them to ports 9095 - 9099
+	 * @param args
+	 */
 	public static void main(String args[]) {
-		Business.startRMIServer("businesService", 1098);
+		//TODO business name in enum
+
+		// Start google server
+		String googleName = "google";
+		String googleCsv = Config.getInstance().getAttr(googleName);
+		BusinessInterface google = new Business(googleCsv);
+
+		// Start yahoo server
+		String yahooName = "yahoo";
+		String yahooCsv = Config.getInstance().getAttr(yahooName);
+		BusinessInterface yahoo = new Business(yahooCsv);
+
+		// Start msoft server
+		String msoftName = "microsoft";
+		String msoftCsv = Config.getInstance().getAttr(msoftName);
+		BusinessInterface msoft = new Business(msoftCsv);
+
+		try {
+			// Reserver port 9095 - 9099 for business services
+			Business.startRMIServer(google, googleName, 9095);
+			Business.startRMIServer(yahoo, yahooName, 9096);
+			Business.startRMIServer(msoft, msoftName, 9097);
+		} catch(RemoteException rme) {
+			System.out.println("Remote Exception in Business Server: " + rme.getMessage());
+		}
 	}
 
-	public static void startRMIServer(String serviceName, int portNum) {
-
+	/**
+	 *
+	 * @param business interface to be bound
+	 * @param businessName to bind to
+	 * @param port to bind business to
+	 * @throws RemoteException
+	 */
+	public static void startRMIServer(BusinessInterface business, String businessName, int port) throws RemoteException {
 		System.setProperty("java.security.policy", Config.getInstance()
 				.loadSecurityPolicy());
 
@@ -291,22 +329,15 @@ public class Business implements Serializable, BusinessInterface {
 		if (System.getSecurityManager() == null) {
 			System.setSecurityManager(new SecurityManager());
 		}
-		try {
+		// create local rmi registery
+		LocateRegistry.createRegistry(port);
 
-			String microsoftCsv = Config.getInstance().getAttr("microsoft");
-			BusinessInterface service = new Business(microsoftCsv);
-			// create local rmi registery
-			createRegistry(portNum);
-
-			// bind service to default port portNum
-			BusinessInterface stub = (BusinessInterface) UnicastRemoteObject
-					.exportObject(service, portNum);
-			Registry registry = LocateRegistry.getRegistry();
-			registry.rebind(serviceName, stub);
-			System.out.println(serviceName + " bound on " + portNum);
-		} catch (Exception e) {
-			System.err.println("broker service creation exception:");
-			e.printStackTrace();
-		}
+		// bind service to default port portNum
+		BusinessInterface stub = (BusinessInterface) UnicastRemoteObject
+					.exportObject(business, port);
+		Registry registry = LocateRegistry.getRegistry(port);
+		registry.rebind(businessName, stub);
+		System.out.println(businessName + " bound on " + port);
 	}
+
 }

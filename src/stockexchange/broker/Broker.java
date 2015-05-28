@@ -5,6 +5,8 @@ import share.ShareType;
 import stockexchange.*;
 import util.Config;
 
+import java.rmi.AccessException;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -21,19 +23,59 @@ public class Broker implements BrokerInterface {
 
 
     // TODO multiple exchanges
-
     private static Exchange exchange;
     private static ArrayList<String> tickers;
 
+    /**
+     * Start up Broker server
+     * Requires Business Server running
+     * @param args
+     */
     public static void main(String[] args) {
-        Broker broker = new Broker();
-        broker.startRMIServer("brokerService", 1097);
+        try {
+            Broker broker = new Broker();
+            try {
+                Broker.startRMIServer(broker);
+            } catch(RemoteException rme) {
+                System.out.println("Remote Exception in Broker server: " + rme.getMessage());
+            }
+
+        } catch (AccessException ae) {
+                System.out.println("Access Exception in creating Broker / Exchange.  " +
+                        "Ensure Business server is running :: " + ae.getMessage());
+        } catch (RemoteException rme) {
+            System.out.println("Remote Exception in creating Broker / Exchange." +
+                    "Ensure Business server is running :: " + rme.getMessage());
+        } catch (NotBoundException nbe) {
+            System.out.println("NotBound Exception in creating Broker / Exchange." +
+                    "Ensure Business server is running :: " + nbe.getMessage());
+        }
     }
+
+    public static void startRMIServer(BrokerInterface broker) throws RemoteException {
+         /** Start RMI Server **/
+        System.setProperty("java.security.policy", Config.getInstance().loadSecurityPolicy());
+
+        //load security policy
+        if (System.getSecurityManager() == null) {
+            System.setSecurityManager(new SecurityManager());
+        }
+        //create local rmi registery
+        LocateRegistry.createRegistry(9090);
+
+        //bind service to default port portNum
+        BrokerInterface stub =
+                    (BrokerInterface) UnicastRemoteObject.exportObject(broker, 9090);
+        Registry registry = LocateRegistry.getRegistry(9090);
+        registry.rebind("broker", stub);
+        System.out.println("broker" + " bound on " + 9090);
+    }
+
     /**
      * Create broker class, point him to the exhcnage he trades on
      * TODO use multiple exchanges
      */
-    public Broker() {
+    public Broker() throws AccessException, RemoteException, NotBoundException{
         exchange = new Exchange();
     }
 
@@ -46,6 +88,9 @@ public class Broker implements BrokerInterface {
         return exchange.getListing();
     }
 
+    public String getBusinessTicker(String businessName) throws RemoteException {
+        return exchange.getBusinessTicker(businessName);
+    }
 
     /**
      * Sell Shares
@@ -124,8 +169,6 @@ public class Broker implements BrokerInterface {
         // Another list...why not just arrayList?
         ShareList sharesToSellObj = new ShareList(sharesToAction);
         return sharesToSellObj;
-
-
     }
 
     /**
@@ -156,35 +199,5 @@ public class Broker implements BrokerInterface {
         return tickerListing.contains(ticker);
     }
 
-    /**
-     * Start RMI server with given service name and port number
-     *
-     * @param serviceName
-     * @param portNum
-     */
-    public void startRMIServer(String serviceName, int portNum) {
 
-        System.setProperty("java.security.policy", Config.getInstance().loadSecurityPolicy());
-
-
-        //load security policy
-        if (System.getSecurityManager() == null) {
-            System.setSecurityManager(new SecurityManager());
-        }
-        try {
-            BrokerInterface service = new Broker();
-            //create local rmi registery
-            createRegistry(portNum);
-
-            //bind service to default port portNum
-            BrokerInterface stub =
-                    (BrokerInterface) UnicastRemoteObject.exportObject(service, portNum);
-            Registry registry = LocateRegistry.getRegistry();
-            registry.rebind(serviceName, stub);
-            System.out.println(serviceName + " bound on " + portNum);
-        } catch (Exception e) {
-            System.err.println("broker service creation exception:");
-            e.printStackTrace();
-        }
-    }
 }

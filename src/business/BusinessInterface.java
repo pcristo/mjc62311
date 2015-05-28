@@ -18,6 +18,13 @@ public interface BusinessInterface extends Remote {
 
     public boolean recievePayment(String orderNum, float totalPrice) throws RemoteException;
 
+    /**
+     *
+     * @return the ticker commonly used to identify a company
+     * @throws RemoteException
+     */
+    public String getTicker() throws RemoteException;
+
 
 
 

@@ -21,7 +21,7 @@ public class BrokerTest {
     Customer customer;
 
     @Before
-    public void setUp() {
+    public void setUp() throws Exception {
         broker = new Broker();
         shares = new ArrayList<String>(){{
             add("GOOG");

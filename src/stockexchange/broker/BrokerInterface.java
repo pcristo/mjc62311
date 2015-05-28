@@ -22,4 +22,6 @@ public interface BrokerInterface extends Remote {
 
     public ArrayList<String> getTickerListing() throws RemoteException;
 
+    public String getBusinessTicker(String businessName) throws RemoteException;
+
 }

@@ -1,7 +1,14 @@
 package stockexchange;
 
+import business.BusinessInterface;
 import client.Customer;
+import util.Config;
 
+import java.rmi.AccessException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,28 +29,74 @@ public class Exchange {
 
     private static Map<String, String> businessDirectory = new HashMap<String, String>();
 
-    //private Business yahoo;
-    //private Business microsoft;
-
+    private BusinessInterface yahoo;
+    private BusinessInterface microsoft;
+    private BusinessInterface google;
 
 
     // ----------------------     CONSTRUCTOR     ----------------------------------
 
 
-    public Exchange() {
+    //TODO make business name in getBusiness an enum
+
+    /**
+     * Create Exchange object, initializes three businesses
+     * @throws AccessException
+     * @throws RemoteException
+     * @throws NotBoundException
+     */
+    public Exchange() throws AccessException, RemoteException, NotBoundException  {
+        google = getBusiness("google");
+        yahoo = getBusiness("yahoo");
+        microsoft = getBusiness("microsoft");
+
 
         this.setBusinessDirectory();
-
         shareStatusSaleList = new ShareSalesStatusList();
+    }
 
-        //Initialize Businesses
 
+    //TODO make businessName an enum
 
-        //yahoo = new Business(instance.getAttr("yahoo"));
-        //microsoft = new Business(instance.getAttr("microsoft"));
-        //google = new Business(instance.getAttr("google"));
+    /**
+     *
+     * @param businessName looking for
+     * @return business object
+     * @throws RemoteException
+     * @throws NotBoundException
+     */
+    public BusinessInterface getBusiness(String businessName) throws RemoteException, NotBoundException{
+        System.setProperty("java.security.policy", Config.getInstance()
+                .loadSecurityPolicy());
+        if (System.getSecurityManager() == null) {
+            System.setSecurityManager(new SecurityManager());
+        }
+         return findBusiness(businessName, 9095);
 
     }
+
+    /**
+     * Ports 9095 to 9099 reserved for business server
+     *
+     * @param businessName looking for
+     * @param port looking for business on
+     * @return business object
+     */
+    private BusinessInterface findBusiness(String businessName, int port) throws RemoteException {
+        if(port > 9099) {
+            return null;
+        }
+        try {
+            Registry registry = LocateRegistry.getRegistry("localhost", port);
+            BusinessInterface server = (BusinessInterface) registry.lookup(businessName);
+            System.out.println("Bound " + businessName + " on " + port);
+            return server;
+        } catch(NotBoundException nbe) {
+            port++;
+            return findBusiness(businessName, port);
+        }
+    }
+
 
 
     //----------------------     SETTERS     ----------------------------------
@@ -201,7 +254,6 @@ public class Exchange {
      * Initialize the business directory
      */
     private void createBusinessDirectory() {
-
         businessDirectory.put("YHOO", "YAHOO");
         businessDirectory.put("YHOO.B","YAHOO");
         businessDirectory.put("YHOO.C", "YAHOO");
@@ -213,6 +265,32 @@ public class Exchange {
         businessDirectory.put("GOOG.C", "GOOGLE");
 
     }
+
+    /**
+     *
+     * @param businessName string of business TODO enum
+     * @return the ticker commonly used to identify a company | Null if not found
+     */
+    public String getBusinessTicker(String businessName) {
+        //TODO when businessDirectory stores business objects look it up there
+        try {
+            switch (businessName) {
+                case "google":
+                    return google.getTicker();
+                case "microsoft":
+                    return microsoft.getTicker();
+                case "yahoo":
+                    return yahoo.getTicker();
+                default:
+                    return null;
+            }
+        } catch(RemoteException rme) {
+            return null;
+        }
+
+    }
+
+
 
     /**
      * Called to send a share request issue to businesses

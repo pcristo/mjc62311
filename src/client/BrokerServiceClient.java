@@ -5,6 +5,8 @@ import stockexchange.*;
 import stockexchange.broker.BrokerInterface;
 import util.Config;
 
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.ArrayList;
@@ -17,20 +19,29 @@ import java.util.Scanner;
 public class BrokerServiceClient {
 
     private static ArrayList<String> tickers;
-    private final String pri_serviceName;
-    private final int pri_port;
 
-    public static void main(String args[]) {
 
+    /**
+     * RMI Call to retreive broker interface object
+     * @return BrokerInterface which references remote broker object
+     * @throws RemoteException
+     * @throws NotBoundException
+     */
+    public BrokerInterface getBroker() throws RemoteException, NotBoundException {
         System.setProperty("java.security.policy", Config.getInstance().loadSecurityPolicy());
-
         if (System.getSecurityManager() == null) {
             System.setSecurityManager(new SecurityManager());
         }
+        Registry registry = LocateRegistry.getRegistry(9090);
+        return (BrokerInterface) registry.lookup("broker");
+    }
+
+
+    public static void main(String args[]) {
         try {
-            BrokerServiceClient client = new BrokerServiceClient("brokerService",1099);
-            Registry registry = LocateRegistry.getRegistry(client.getPort());
-            BrokerInterface service = (BrokerInterface) registry.lookup(client.getServiceName());
+
+            BrokerInterface service = new BrokerServiceClient().getBroker();
+
             tickers = new ArrayList<String>();
 
             boolean terminate = false;
@@ -104,19 +115,4 @@ public class BrokerServiceClient {
 
     }
 
-    public BrokerServiceClient(String service, int port)
-    {
-        pri_serviceName = service;
-        pri_port = port;
-    }
-
-    public String getServiceName()
-    {
-        return pri_serviceName;
-    }
-
-    public int getPort()
-    {
-        return pri_port;
-    }
 }

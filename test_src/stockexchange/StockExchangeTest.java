@@ -19,7 +19,7 @@ public class StockExchangeTest {
     private Exchange exchange;
 
     @Before
-    public void setUp() {
+    public void setUp() throws Exception {
 
         this.exchange = new Exchange();
     }
