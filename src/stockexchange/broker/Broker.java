@@ -61,15 +61,18 @@ public class Broker implements BrokerInterface {
         if (System.getSecurityManager() == null) {
             System.setSecurityManager(new SecurityManager());
         }
+
+        Integer port = Integer.parseInt(Config.getInstance().getAttr("brokerPort"));
+
         //create local rmi registery
-        LocateRegistry.createRegistry(9089);
+        LocateRegistry.createRegistry(port);
 
         //bind service to default port portNum
         BrokerInterface stub =
-                    (BrokerInterface) UnicastRemoteObject.exportObject(broker, 9089);
-        Registry registry = LocateRegistry.getRegistry(9089);
+                    (BrokerInterface) UnicastRemoteObject.exportObject(broker, port);
+        Registry registry = LocateRegistry.getRegistry(port);
         registry.rebind("broker", stub);
-        LoggerClient.log("broker" + " bound on " + 9089);
+        LoggerClient.log("broker" + " bound on " + port);
         LoggerClient.log("All systems ready to go!");
     }
 

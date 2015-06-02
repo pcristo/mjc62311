@@ -1,0 +1,26 @@
+<html>
+
+<head>
+
+<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+<script>
+
+$(document).ready(function() {
+	setInterval(function() {
+		$.get("displayLog.php", function(data) {
+			$("#all").html(data);
+		});
+	}, 3000);
+});
+
+</script>
+
+</head>
+
+<body>
+<div id="all">
+</div>
+
+</body>
+
+</html>

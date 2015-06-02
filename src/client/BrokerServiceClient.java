@@ -28,11 +28,15 @@ public class BrokerServiceClient {
      * @throws NotBoundException
      */
     public BrokerInterface getBroker() throws RemoteException, NotBoundException {
+
+        String host = Config.getInstance().getAttr("brokerHost");
+        Integer port = Integer.parseInt(Config.getInstance().getAttr("brokerPort"));
+
         System.setProperty("java.security.policy", Config.getInstance().loadSecurityPolicy());
         if (System.getSecurityManager() == null) {
             System.setSecurityManager(new SecurityManager());
         }
-        Registry registry = LocateRegistry.getRegistry(9089);
+        Registry registry = LocateRegistry.getRegistry(host, port);
         return (BrokerInterface) registry.lookup("broker");
     }
 

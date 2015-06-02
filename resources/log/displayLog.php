@@ -1,5 +1,5 @@
 <?php
-$string = file_get_contents("/home/java/project/src/config.json");
+$string = file_get_contents("C:\\Users\\b0467851\\WORK\\school\\DistributedSystems\\project\\src\\config.json");
 
 $json = json_decode($string, true);
 $logFileLocation = $json['logServerHome'] . $json['logServerFile'];
