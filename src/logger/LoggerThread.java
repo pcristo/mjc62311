@@ -18,14 +18,11 @@ public class LoggerThread implements Runnable {
     private BufferedReader fromClient;
     private Socket socket;
 
-    /**
-     *
-     * @param fromClient BufferedReader to get messages from clients
-     * @param socket Socket to listen on, to be closed after logging the message
-     */
-    public LoggerThread(BufferedReader fromClient, Socket socket) {
-        this.fromClient = fromClient;
-        this.socket = socket;
+    private String msg;
+
+
+    public LoggerThread(String msg) {
+        this.msg = msg;
     }
 
     /**
@@ -37,13 +34,13 @@ public class LoggerThread implements Runnable {
         try {
             DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
             Date date = new Date();
-            String finalMsg = dateFormat.format(date) + ": " + fromClient.readLine();
+
+            String finalMsg = dateFormat.format(date) + ": " + msg;
 
             // Make sure one thread writes to a file at a time
             synchronized (this) {
                 log(finalMsg);
             }
-            socket.close();
         } catch(IOException ioe){
             System.out.println("IO Exception in logger thread: " + ioe.getMessage());
         }

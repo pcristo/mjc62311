@@ -4,8 +4,7 @@ import util.Config;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.Socket;
-import java.net.UnknownHostException;
+import java.net.*;
 
 /**
  * This class contains the static method log used to write a message
@@ -32,15 +31,16 @@ public class LoggerClient {
 
         int port = Integer.parseInt(Config.getInstance().getAttr("logServerPort"));
         try {
-            Socket socket = new Socket(ip, port);
 
-            PrintWriter toServer = new PrintWriter(socket.getOutputStream(), true);
+            DatagramSocket clientSocket = new DatagramSocket();
+            byte[] sendData = new byte[1024];
+            sendData = msg.getBytes();
 
+            InetAddress host = InetAddress.getByName(ip);
 
-
-
-            toServer.println(msg);
-            socket.close();
+            DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length,  host , port);
+            clientSocket.send(sendPacket);
+            clientSocket.close();
 
         } catch(UnknownHostException he){
             System.out.println("Host Exception in client: " + he.getMessage());

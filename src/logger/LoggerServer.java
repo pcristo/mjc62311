@@ -1,6 +1,8 @@
 package logger;
 
 import java.io.*;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -26,12 +28,16 @@ public class LoggerServer {
 
             int port = Integer.parseInt(Config.getInstance().getAttr("logServerPort"));
 
-            ServerSocket listener = new ServerSocket(port);
+            DatagramSocket serverSocket = new DatagramSocket(port);
 
+            byte[] receiveData = new byte[1024];
             while (true) {
-                Socket socket = listener.accept();
-                BufferedReader fromClient = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                LoggerThread logThread = new LoggerThread(fromClient, socket);
+
+                DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
+                serverSocket.receive(receivePacket);
+                String msg = new String(receivePacket.getData());
+
+                LoggerThread logThread = new LoggerThread(msg);
                 Thread logger = new Thread(logThread);
                 logger.start();
             }
