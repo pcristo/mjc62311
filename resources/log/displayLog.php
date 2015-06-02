@@ -7,7 +7,7 @@ $json = json_decode($string, true);
 $logFileLocation = $json['logServerHome'] . $json['logServerFile'];
 
 if($wipe == "true") {
-	file_put_contents($logFileLocation, "");
+	file_put_contents($logFileLocation, "Log Server wiped at " . date("Y/m/d") ."<br/>");
 }
 
 //$log = file_get_contents($logFileLocation);

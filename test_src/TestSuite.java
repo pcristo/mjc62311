@@ -1,4 +1,5 @@
 import client.BrokerServiceClientTest;
+import logger.LoggerTest;
 import org.junit.runners.Suite;
 
 import org.junit.runner.RunWith;
@@ -15,7 +16,7 @@ TO RUN
         * 6) Run this test
         * 7) Validate log file
 **/
-@Suite.SuiteClasses({BrokerServiceClientTest.class})
+@Suite.SuiteClasses({BrokerServiceClientTest.class, LoggerTest.class})
 public class TestSuite {
     //nothing
 }
