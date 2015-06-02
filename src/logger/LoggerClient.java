@@ -38,6 +38,7 @@ public class LoggerClient {
 
             InetAddress host = InetAddress.getByName(ip);
 
+
             DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length,  host , port);
             clientSocket.send(sendPacket);
             clientSocket.close();

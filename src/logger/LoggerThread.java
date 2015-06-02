@@ -36,11 +36,8 @@ public class LoggerThread implements Runnable {
             Date date = new Date();
 
             String finalMsg = dateFormat.format(date) + ": " + msg;
+            log(finalMsg);
 
-            // Make sure one thread writes to a file at a time
-            synchronized (this) {
-                log(finalMsg);
-            }
         } catch(IOException ioe){
             System.out.println("IO Exception in logger thread: " + ioe.getMessage());
         }
@@ -50,8 +47,7 @@ public class LoggerThread implements Runnable {
      * Write message to log file
      * @param message
      */
-    public static void log(String message) throws IOException {
-
+    public static synchronized void log(String message) throws IOException {
         // Get log file location
         String projectHome = Config.getInstance().getAttr("logServerHome");
         String relativeLogFile = Config.getInstance().getAttr("logServerFile");

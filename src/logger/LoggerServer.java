@@ -35,7 +35,7 @@ public class LoggerServer {
 
                 DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
                 serverSocket.receive(receivePacket);
-                String msg = new String(receivePacket.getData());
+                String msg = new String(receivePacket.getData(), 0, receivePacket.getLength());
 
                 LoggerThread logThread = new LoggerThread(msg);
                 Thread logger = new Thread(logThread);

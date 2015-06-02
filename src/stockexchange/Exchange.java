@@ -90,6 +90,7 @@ public class Exchange {
         try {
             Registry registry = LocateRegistry.getRegistry("localhost", port);
             BusinessInterface server = (BusinessInterface) registry.lookup(businessName);
+
             LoggerClient.log("Bound " + businessName + " on " + port);
             return server;
         } catch(NotBoundException nbe) {
