@@ -1,5 +1,6 @@
 package client;
 
+import logger.TimerLoggerClient;
 import org.junit.Before;
 import org.junit.Test;
 import stockexchange.broker.Broker;
@@ -18,19 +19,10 @@ public class BrokerServiceClientTest {
     }
 
 
-    /** RUN THIS TO TEST RMI CONNECTIONS **/
-    /** TO RUN
-     * 0) Update json.config
-     * 1) Start rmiregistry from the out/ directory of project
-     * 2) Compile entire project
-     * 3) Run Business.java
-     * 4) Run Broker.java
-     * 5) Run this test
-     *
-     * @throws Exception
-     */
     @Test
     public void testRMI() throws Exception {
+        TimerLoggerClient tlc = new TimerLoggerClient();
+        tlc.start();
         BrokerInterface broker = client.getBroker();
 
         assertNotNull(broker.getBusinessTicker("google"));
@@ -40,5 +32,7 @@ public class BrokerServiceClientTest {
         assertTrue(broker.getBusinessTicker("google").equals("GOOG"));
         assertTrue(broker.getBusinessTicker("yahoo").equals("YHOO"));
         assertTrue(broker.getBusinessTicker("microsoft").equals("MSFT"));
+
+        tlc.end();
     }
 }

@@ -11,7 +11,14 @@ public class LoggerTest {
 
     @Test
     public void logTest() {
-        LoggerClient.log("Test 20");
+        LoggerClient.log("Test 32");
+        TimerLoggerClient timer = new TimerLoggerClient();
+        timer.start();
+        try {
+            Thread.sleep(1000);
+        }catch(Exception e){
+        }
+        timer.end();
 
     }
 

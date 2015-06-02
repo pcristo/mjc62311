@@ -32,7 +32,7 @@ public class BrokerServiceClient {
         if (System.getSecurityManager() == null) {
             System.setSecurityManager(new SecurityManager());
         }
-        Registry registry = LocateRegistry.getRegistry(9090);
+        Registry registry = LocateRegistry.getRegistry(9089);
         return (BrokerInterface) registry.lookup("broker");
     }
 

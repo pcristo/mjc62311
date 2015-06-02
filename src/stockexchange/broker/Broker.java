@@ -1,6 +1,7 @@
 package stockexchange.broker;
 
 import client.Customer;
+import logger.LoggerClient;
 import share.ShareType;
 import stockexchange.*;
 import util.Config;
@@ -61,14 +62,15 @@ public class Broker implements BrokerInterface {
             System.setSecurityManager(new SecurityManager());
         }
         //create local rmi registery
-        LocateRegistry.createRegistry(9090);
+        LocateRegistry.createRegistry(9089);
 
         //bind service to default port portNum
         BrokerInterface stub =
-                    (BrokerInterface) UnicastRemoteObject.exportObject(broker, 9090);
-        Registry registry = LocateRegistry.getRegistry(9090);
+                    (BrokerInterface) UnicastRemoteObject.exportObject(broker, 9089);
+        Registry registry = LocateRegistry.getRegistry(9089);
         registry.rebind("broker", stub);
-        System.out.println("broker" + " bound on " + 9090);
+        LoggerClient.log("broker" + " bound on " + 9089);
+        LoggerClient.log("All systems ready to go!");
     }
 
     /**

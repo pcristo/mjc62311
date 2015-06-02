@@ -2,6 +2,7 @@ package stockexchange;
 
 import business.BusinessInterface;
 import client.Customer;
+import logger.LoggerClient;
 import util.Config;
 
 import java.rmi.AccessException;
@@ -89,6 +90,7 @@ public class Exchange {
         try {
             Registry registry = LocateRegistry.getRegistry("localhost", port);
             BusinessInterface server = (BusinessInterface) registry.lookup(businessName);
+            LoggerClient.log("Bound " + businessName + " on " + port);
             System.out.println("Bound " + businessName + " on " + port);
             return server;
         } catch(NotBoundException nbe) {

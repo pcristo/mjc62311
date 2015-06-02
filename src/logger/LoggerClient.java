@@ -19,6 +19,15 @@ public class LoggerClient {
      * @return true if message is logged, false otherwise
      */
     public static boolean log(String msg) {
+        String className = new Exception().getStackTrace()[1].getClassName();
+        return log(msg, className);
+    }
+
+
+    public static boolean log(String msg, String className) {
+
+        msg = className + " :: " + msg;
+
         String ip = Config.getInstance().getAttr("logServerIP");
 
         int port = Integer.parseInt(Config.getInstance().getAttr("logServerPort"));
@@ -27,9 +36,8 @@ public class LoggerClient {
 
             PrintWriter toServer = new PrintWriter(socket.getOutputStream(), true);
 
-            String className = new Exception().getStackTrace()[1].getClassName();
 
-            msg = className + " :: " + msg;
+
 
             toServer.println(msg);
             socket.close();
@@ -44,4 +52,5 @@ public class LoggerClient {
 
         return true;
     }
+
 }

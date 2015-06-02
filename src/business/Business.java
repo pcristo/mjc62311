@@ -1,5 +1,6 @@
 package business;
 
+import logger.LoggerClient;
 import share.Share;
 import share.ShareOrder;
 import share.ShareType;
@@ -337,7 +338,8 @@ public class Business implements Serializable, BusinessInterface {
 					.exportObject(business, port);
 		Registry registry = LocateRegistry.getRegistry(port);
 		registry.rebind(businessName, stub);
-		System.out.println(businessName + " bound on " + port);
+		//System.out.println(businessName + " bound on " + port);
+		LoggerClient.log(businessName + " server bound on " + port);
 	}
 
 }
