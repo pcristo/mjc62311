@@ -7,10 +7,18 @@
 
 $(document).ready(function() {
 	setInterval(function() {
-		$.get("displayLog.php", function(data) {
+		$.get("displayLog.php?wipe=false", function(data) {
 			$("#all").html(data);
 		});
 	}, 3000);
+	
+	$("#btn").bind("click", function() {
+		$.get("displayLog.php?wipe=true", function(data) {
+			$("#all").html(data);
+		});
+	});
+	
+	
 });
 
 </script>
@@ -18,6 +26,7 @@ $(document).ready(function() {
 </head>
 
 <body>
+<button id="btn">Wipe</button>
 <div id="all">
 </div>
 

@@ -1,10 +1,8 @@
-
-Log Server Started
-2015/06/02 14:05:21: business.Business :: google server bound on 9095
-2015/06/02 14:05:21: business.Business :: yahoo server bound on 9096
-2015/06/02 14:05:21: business.Business :: microsoft server bound on 9097
-2015/06/02 14:05:48: stockexchange.Exchange :: Bound google on 9095
-2015/06/02 14:05:48: stockexchange.Exchange :: Bound yahoo on 9096
-2015/06/02 14:05:48: stockexchange.Exchange :: Bound microsoft on 9097
-2015/06/02 14:05:48: stockexchange.broker.Broker :: All systems ready to go!
-2015/06/02 14:05:48: stockexchange.broker.Broker :: broker bound on 9089
+2015/06/02 14:18:21: business.Business :: google server bound on 9095
+2015/06/02 14:18:21: business.Business :: yahoo server bound on 9096
+2015/06/02 14:18:21: business.Business :: microsoft server bound on 9097
+2015/06/02 14:18:27: stockexchange.Exchange :: Bound google on 9095
+2015/06/02 14:18:27: stockexchange.Exchange :: Bound yahoo on 9096
+2015/06/02 14:18:27: stockexchange.Exchange :: Bound microsoft on 9097
+2015/06/02 14:18:27: stockexchange.broker.Broker :: All systems ready to go!
+2015/06/02 14:18:27: stockexchange.broker.Broker :: broker bound on 9089
