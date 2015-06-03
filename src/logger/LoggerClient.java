@@ -3,8 +3,10 @@ package logger;
 import util.Config;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.net.*;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 /**
  * This class contains the static method log used to write a message

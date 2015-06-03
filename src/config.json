@@ -1,11 +1,11 @@
 {
-  "logServerIP" : "localhost",
+  "logServerIP" : "166.78.186.20",
   "logServerPort": "9090",
   "logServerFile": "/src/files/iteration_one.log",
   "logServerUsername": "",
   "logServerPassword": "",
   "jars": "/resources/jar",
-  "logServerHome": "C:\\Users\\b0467851\\WORK\\school\\DistributedSystems\\project",
+  "logServerHome": "C:\\Users\\Ross\\Dropbox\\Distributed_Systems\\project",
   "out": "out",
   "files": "files",
   "yahoo": "yahoo_data.csv",
