@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class Business implements Serializable, BusinessInterface {
 	private static final long serialVersionUID = 1L;
-	private static final String ORDER_RECORD_FILENAME = "orderRecord.xml";
+	private static final String ORDER_RECORD_FILENAME =  Config.getInstance().getAttr("businessXmlLog");
 	private List<Share> sharesList = new ArrayList<Share>();
 
 	/**
