@@ -3,7 +3,7 @@
   "logServerPort": "9090",
   "logServerFile": "/src/files/iteration_one.log",
   "logServerUsername": "root",
-  "logServerPassword": "H-557",
+  "logServerPassword": "",
   "jars": "/resources/jar",
   "logServerHome": "/home/comp6231",
   "out": "out",
