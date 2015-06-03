@@ -27,6 +27,8 @@ if ($logServerIP -match "localhost") {
 	
 		
 } else {
+	echo "Starting remote logging server"
+	echo "Calling " + "$logServerUsername@$logServerIP -pw $logServerPassword java -cp $logServerHome/$jarDir/*:$logServerHome/$outDir/: logger.LoggerServer"	
 	$loggerProcess = Start-Process -NoNewWindow -PassThru ".\plink.exe" "$logServerUsername@$logServerIP -pw $logServerPassword java -cp $logServerHome/$jarDir/*:$logServerHome/$outDir/: logger.LoggerServer"
 
 	$stop = Read-Host "X to stop servers"
