@@ -14,6 +14,7 @@ import static junit.framework.TestCase.assertTrue;
 
 /**
  * Created by Ross on 2015-05-26.
+ * Edited by Patrick on 2015-05-27
  */
 public class BusinessTest {
     Business google;
