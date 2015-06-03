@@ -3,6 +3,7 @@ package stockexchange;
 import business.BusinessInterface;
 import client.Customer;
 import logger.LoggerClient;
+import share.ShareOrder;
 import util.Config;
 
 import java.rmi.AccessException;
@@ -47,6 +48,7 @@ public class Exchange {
      * @throws NotBoundException
      */
     public Exchange() throws AccessException, RemoteException, NotBoundException  {
+
         google = getBusiness("google");
         yahoo = getBusiness("yahoo");
         microsoft = getBusiness("microsoft");
@@ -67,12 +69,13 @@ public class Exchange {
      * @throws NotBoundException
      */
     public BusinessInterface getBusiness(String businessName) throws RemoteException, NotBoundException{
-        System.setProperty("java.security.policy", Config.getInstance()
-                .loadSecurityPolicy());
+
+        System.setProperty("java.security.policy", Config.getInstance().loadSecurityPolicy());
         if (System.getSecurityManager() == null) {
             System.setSecurityManager(new SecurityManager());
         }
-         return findBusiness(businessName, 9095);
+
+        return findBusiness(businessName, 9095);
 
     }
 
@@ -256,6 +259,8 @@ public class Exchange {
      * Initialize the business directory
      */
     private void createBusinessDirectory() {
+
+
         businessDirectory.put("YHOO", "YAHOO");
         businessDirectory.put("YHOO.B","YAHOO");
         businessDirectory.put("YHOO.C", "YAHOO");
@@ -308,21 +313,35 @@ public class Exchange {
         String orderNum = this.generateOrderNumber();
 
         //TODO: Change to businessName once all services are coded
-//        switch ("google") {
-//
-//            //case "microsoft" : sharesIssued = microsoft.issueShares(new ShareOrder(orderNum,"BR123",sItem.getBusinessSymbol(),sItem.getShareType(),sItem.getUnitPrice(),RESTOCK_THRESHOLD,sItem.getUnitPrice()));
-//
-//            //case "yahoo" : sharesIssued = yahoo.issueShares(new ShareOrder(orderNum, "BR123", sItem.getBusinessSymbol(), sItem.getShareType(), sItem.getUnitPrice(), RESTOCK_THRESHOLD, sItem.getUnitPrice()));
-//
-//            case "google" :
-//                try {
-//                sharesIssued = google.issueShares(new ShareOrder(orderNum, "BR123", sItem.getBusinessSymbol(), sItem.getShareType(), sItem.getUnitPrice(), RESTOCK_THRESHOLD, sItem.getUnitPrice()));
-//                }
-//                catch (Exception e) {
-//
-//                    printMessage(e.getMessage());
-//                }
-//        }
+        switch (businessName) {
+
+            case "microsoft" :
+                try {
+                    sharesIssued = microsoft.issueShares(new ShareOrder(orderNum,"BR123",sItem.getBusinessSymbol(),sItem.getShareType(),sItem.getUnitPrice(),RESTOCK_THRESHOLD,sItem.getUnitPrice()));
+                } catch (Exception e) {
+                    printMessage(e.getMessage());
+                }
+
+            case "yahoo" :
+                try {
+
+                    sharesIssued = yahoo.issueShares(new ShareOrder(orderNum, "BR123", sItem.getBusinessSymbol(), sItem.getShareType(), sItem.getUnitPrice(), RESTOCK_THRESHOLD, sItem.getUnitPrice()));
+
+                } catch (Exception e) {
+
+                    printMessage(e.getMessage());
+                }
+
+            case "google" :
+                try {
+
+                    sharesIssued = google.issueShares(new ShareOrder(orderNum, "BR123", sItem.getBusinessSymbol(), sItem.getShareType(), sItem.getUnitPrice(), RESTOCK_THRESHOLD, sItem.getUnitPrice()));
+                }
+                catch (Exception e) {
+
+                    printMessage(e.getMessage());
+                }
+        }
 
         if (sharesIssued) {
 
