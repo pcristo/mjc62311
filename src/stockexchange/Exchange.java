@@ -312,7 +312,6 @@ public class Exchange {
 
         String orderNum = this.generateOrderNumber();
 
-        //TODO: Change to businessName once all services are coded
         switch (businessName) {
 
             case "microsoft" :
