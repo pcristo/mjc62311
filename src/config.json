@@ -13,6 +13,6 @@
   "google":"google_data.csv",
   "security": "\\resources\\settings\\security.policy",
   "brokerHost": "localhost",
-  "brokerPort": "9089"
+  "brokerPort": "9089",
   "businessXmlLog": "/files/businessOrderRecord.xml"
 }
