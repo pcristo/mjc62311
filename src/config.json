@@ -5,7 +5,7 @@
   "logServerUsername": "root",
   "logServerPassword": "",
   "jars": "/resources/jar",
-  "logServerHome": "/home/comp6231",
+  "logServerHome": "\\home\\comp6231",
   "out": "out",
   "files": "files",
   "yahoo": "yahoo_data.csv",
