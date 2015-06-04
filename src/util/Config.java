@@ -72,6 +72,10 @@ public class Config {
 
     }
 
+    public String loadMacSecurityPolicy() {
+        return this.configJson.getString("macLogServerHome") + configJson.getString("macSecurity");
+    }
+
 
 
 

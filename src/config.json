@@ -14,5 +14,7 @@
   "security": "\\resources\\settings\\security.policy",
   "brokerHost": "localhost",
   "brokerPort": "9089",
-  "businessXmlLog": "/files/businessOrderRecord.xml"
+  "businessXmlLog": "/files/businessOrderRecord.xml",
+  "macLogServerHome": "/Users/Gay/Documents/Concordia/COMP6231/PROJECT/mjc62311",
+  "macSecurity": "/resources/settings/security.policy"
 }

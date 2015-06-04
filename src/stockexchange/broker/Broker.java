@@ -55,6 +55,8 @@ public class Broker implements BrokerInterface {
 
     public static void startRMIServer(BrokerInterface broker) throws RemoteException {
          /** Start RMI Server **/
+        //System.setProperty("java.security.policy", Config.getInstance().loadMacSecurityPolicy());
+
         System.setProperty("java.security.policy", Config.getInstance().loadSecurityPolicy());
 
         //load security policy

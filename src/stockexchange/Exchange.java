@@ -70,6 +70,8 @@ public class Exchange {
      */
     public BusinessInterface getBusiness(String businessName) throws RemoteException, NotBoundException{
 
+        //System.setProperty("java.security.policy", Config.getInstance().loadMacSecurityPolicy());
+
         System.setProperty("java.security.policy", Config.getInstance().loadSecurityPolicy());
         if (System.getSecurityManager() == null) {
             System.setSecurityManager(new SecurityManager());
