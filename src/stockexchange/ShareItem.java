@@ -35,6 +35,16 @@ public class ShareItem extends Share {
 
 
     // ---------------------------- SETTERS ---------------------------------------------
+
+    /**
+     *
+     * @param orderNum
+     */
+    public void setOrderNum(String orderNum) {
+        this.orderNum = orderNum;
+    }
+
+
     /**
      * Set quantity
      * @param quantity
