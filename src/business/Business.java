@@ -337,6 +337,7 @@ public class Business implements Serializable, BusinessInterface {
 	 */
 	public static void startRMIServer(BusinessInterface business, String businessName, int port) throws RemoteException {
 
+		//TODO remove this.  See updated Config class.
 		//System.setProperty("java.security.policy", Config.getInstance().loadMacSecurityPolicy());
 
 		System.setProperty("java.security.policy", Config.getInstance()

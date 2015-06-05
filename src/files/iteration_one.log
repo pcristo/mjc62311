@@ -1,5 +1,48 @@
 
 Log Server Started
-2015/06/05 15:34:06: logger.LoggerTest :: Test 44
-2015/06/05 15:34:07: logger.LoggerTest :: 	vigpsmnareksrf63aqc4a8bevc - Time started!
-2015/06/05 15:34:09: logger.LoggerTest :: 	vigpsmnareksrf63aqc4a8bevc - Time stopped!  Total time is: 1000 ms.
+
+Log Server Started
+2015/06/05 16:00:17: logger.LoggerTest :: Test 44
+2015/06/05 16:00:17: logger.LoggerTest :: 	66er1r56sjotjenrk7588vvocj - Time started!
+2015/06/05 16:00:18: logger.LoggerTest :: 	66er1r56sjotjenrk7588vvocj - Time stopped!  Total time is: 1019 ms.
+2015/06/05 16:00:31: logger.LoggerTest :: Test 44
+2015/06/05 16:00:32: logger.LoggerTest :: 	d2u43spbs9et8smt40d4b7mgj8 - Time started!
+2015/06/05 16:00:34: logger.LoggerTest :: 	d2u43spbs9et8smt40d4b7mgj8 - Time stopped!  Total time is: 1000 ms.
+2015/06/05 16:01:09: business.Business :: Business google_data.csv created successfully.
+2015/06/05 16:01:10: business.Business :: Business yahoo_data.csv created successfully.
+2015/06/05 16:01:11: business.Business :: Business microsoft_data.csv created successfully.
+2015/06/05 16:01:13: business.Business :: google server bound on 9095
+2015/06/05 16:01:14: business.Business :: yahoo server bound on 9096
+2015/06/05 16:01:15: business.Business :: microsoft server bound on 9097
+2015/06/05 16:01:35: business.Business :: Business google_data.csv created successfully.
+2015/06/05 16:01:35: business.Business :: Business yahoo_data.csv created successfully.
+2015/06/05 16:01:35: business.Business :: Business microsoft_data.csv created successfully.
+2015/06/05 16:01:35: business.Business :: Business google_data.csv created successfully.
+2015/06/05 16:01:35: business.Business :: Business yahoo_data.csv created successfully.
+2015/06/05 16:01:35: business.Business :: Business microsoft_data.csv created successfully.
+2015/06/05 16:01:35: business.Business :: google server bound on 9095
+2015/06/05 16:01:35: business.Business :: google server bound on 9095
+2015/06/05 16:01:35: business.Business :: yahoo server bound on 9096
+2015/06/05 16:01:35: business.Business :: yahoo server bound on 9096
+2015/06/05 16:01:36: business.Business :: microsoft server bound on 9097
+2015/06/05 16:01:36: business.Business :: microsoft server bound on 9097
+2015/06/05 16:01:45: stockexchange.Exchange :: Bound google on 9095
+2015/06/05 16:01:45: stockexchange.Exchange :: Bound google on 9095
+2015/06/05 16:01:45: stockexchange.Exchange :: Bound yahoo on 9096
+2015/06/05 16:01:45: stockexchange.Exchange :: Bound yahoo on 9096
+2015/06/05 16:01:45: stockexchange.Exchange :: Bound microsoft on 9097
+2015/06/05 16:01:45: stockexchange.Exchange :: Bound microsoft on 9097
+2015/06/05 16:01:45: stockexchange.broker.Broker :: broker bound on 9089
+2015/06/05 16:01:45: stockexchange.broker.Broker :: broker bound on 9089
+2015/06/05 16:01:45: stockexchange.broker.Broker :: All systems ready to go!
+2015/06/05 16:01:45: stockexchange.broker.Broker :: All systems ready to go!
+2015/06/05 16:01:56: client.BrokerServiceClientTest :: 	lucmsp3v7qbpmdsup9v1eg8i0h - Time started!
+2015/06/05 16:01:56: client.BrokerServiceClientTest :: 	lucmsp3v7qbpmdsup9v1eg8i0h - Time started!
+2015/06/05 16:01:56: client.BrokerServiceClientTest :: 	lucmsp3v7qbpmdsup9v1eg8i0h - Time stopped!  Total time is: 231 ms.
+2015/06/05 16:01:56: logger.LoggerTest :: 	purgjltqhgd7alkm7q6lu3m67t - Time started!
+2015/06/05 16:01:56: logger.LoggerTest :: 	purgjltqhgd7alkm7q6lu3m67t - Time started!
+2015/06/05 16:01:56: client.BrokerServiceClientTest :: 	lucmsp3v7qbpmdsup9v1eg8i0h - Time stopped!  Total time is: 231 ms.
+2015/06/05 16:01:56: logger.LoggerTest :: Test 44
+2015/06/05 16:01:56: logger.LoggerTest :: Test 44
+2015/06/05 16:01:57: logger.LoggerTest :: 	purgjltqhgd7alkm7q6lu3m67t - Time stopped!  Total time is: 1000 ms.
+2015/06/05 16:01:57: logger.LoggerTest :: 	purgjltqhgd7alkm7q6lu3m67t - Time stopped!  Total time is: 1000 ms.

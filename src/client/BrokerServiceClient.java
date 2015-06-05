@@ -32,6 +32,7 @@ public class BrokerServiceClient {
         String host = Config.getInstance().getAttr("brokerHost");
         Integer port = Integer.parseInt(Config.getInstance().getAttr("brokerPort"));
 
+        //TODO remove this.  See updated Config class.
         //System.setProperty("java.security.policy", Config.getInstance().loadMacSecurityPolicy());
 
         System.setProperty("java.security.policy", Config.getInstance().loadSecurityPolicy());

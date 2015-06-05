@@ -34,14 +34,7 @@ public class LoggerClient {
      * @return boolean of successful message is logging
      */
     public static boolean log(String msg, String className) {
-        // Check to see if we have backup server ready to go
-        boolean faultTolerance;
-        try {
-            Config.getInstance().getAttr("backup_logServerIP");
-            faultTolerance = true;
-        } catch(org.json.JSONException e){
-            faultTolerance = false;
-        }
+        // Check to see if we have backup server ready to go.
 
         msg = className + " :: " + msg;
 
@@ -50,12 +43,12 @@ public class LoggerClient {
 
         boolean logSuccess = sendMessage(msg, ip, port);
 
-        String backup_ip = null;
-        Integer backup_port = null;
+        String backup_ip = Config.getInstance().getAttr("backup_logServerIP");
+        String backup_port_config = Config.getInstance().getAttr("backup_logServerPort");
 
-        if(faultTolerance) {
-            backup_ip = Config.getInstance().getAttr("backup_logServerIP");
-            backup_port = Integer.parseInt(Config.getInstance().getAttr("backup_logServerPort"));
+
+        if(backup_ip != null && backup_port_config != null) {
+            Integer backup_port = Integer.parseInt(backup_port_config);
 
             boolean backup_logSuccess = sendMessage(msg, backup_ip, backup_port);
             return logSuccess && backup_logSuccess;
