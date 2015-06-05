@@ -106,9 +106,11 @@ public class ShareSalesStatusList{
      * @param share
      * @return -1 if not available
      */
-    public int isShareAvailable(ShareItem share) {
+    public ShareItem isShareAvailable(ShareItem share) {
 
         int notAvailable = -1;
+
+        ShareItem soldShare = null;
 
         String businessSymbol;
 
@@ -117,18 +119,24 @@ public class ShareSalesStatusList{
         //Is Share available
         for (int i =0; i < this.availableShares.size(); i++)
         {
-            businessSymbol = this.availableShares.get(i).getBusinessSymbol();
-            quantity = this.availableShares.get(i).getQuantity();
+            synchronized (this.availableShares.get(i)) {
+                businessSymbol = this.availableShares.get(i).getBusinessSymbol();
 
-            if (share.getBusinessSymbol() ==  businessSymbol &&   quantity >= share.getQuantity())
-            {
+                quantity = this.availableShares.get(i).getQuantity();
 
-                return i;
+                if (share.getBusinessSymbol() == businessSymbol && quantity >= share.getQuantity()) {
 
+
+                    soldShare = this.availableShares.get(i);
+                    this.getAvailableShares().get(i).reduceQuantity(share.getQuantity());
+
+                    break;
+
+                }
             }
         }
 
-        return notAvailable;
+        return soldShare;
     }
 
     /**
@@ -169,9 +177,21 @@ public class ShareSalesStatusList{
     /**
      *
      */
-    public void addToAvailableShares(List<ShareItem> lstShareItem) {
+    public void addToAvailableShares(ShareItem aShare) {
 
-        availableShares.addAll(lstShareItem);
+         //Find this type of share that is at quantity 0
+        for(ShareItem s : this.getAvailableShares()) {
+
+            if (s.getBusinessSymbol() == aShare.getBusinessSymbol()) {
+
+                synchronized (s) {
+
+                    s.setOrderNum(aShare.getOrderNum());
+                    s.setQuantity(aShare.getQuantity());
+                }
+
+            }
+        }
     }
 
 

@@ -23,7 +23,7 @@ import java.util.Map;
 public class Exchange {
 
     private static  final int COMMISSION_MARKUP = 10;
-    private static  final int RESTOCK_THRESHOLD = 1000;
+    private static  final int RESTOCK_THRESHOLD = 100;
     private static  int orderInt = 1000;
     private static  ShareSalesStatusList shareStatusSaleList;
 
@@ -73,6 +73,7 @@ public class Exchange {
         //System.setProperty("java.security.policy", Config.getInstance().loadMacSecurityPolicy());
 
         System.setProperty("java.security.policy", Config.getInstance().loadSecurityPolicy());
+
         if (System.getSecurityManager() == null) {
             System.setSecurityManager(new SecurityManager());
         }
@@ -150,19 +151,20 @@ public class Exchange {
      */
     public ShareSalesStatusList sellShares(ShareList shareItemList, Customer info) {
 
-        int shareIndex  = -1;
+        ShareItem soldShare = null;
 
         //TODO : See if share are available
         for  (ShareItem s : shareItemList.getLstShareItems())
         {
-            shareIndex = shareStatusSaleList.isShareAvailable(s);
 
-            if (shareIndex >= 0)
+            soldShare = shareStatusSaleList.isShareAvailable(s);
+
+            if (soldShare != null)
             {
                 //TODO : Contact business service to complete sale
 
                 //TODO : Add shares to SOLD list
-                shareStatusSaleList.updateShares(s, info, shareIndex);
+                shareStatusSaleList.addToSoldShares(s, info);
 
 
 
@@ -228,24 +230,27 @@ public class Exchange {
 
         this.printMessage("...... Restocking Shares .......");
 
-        List<ShareItem> tempShares = new ArrayList<ShareItem>();
+        List<ShareItem> tempShares = shareStatusSaleList.getAvailableShares();
 
         //Check Available stock amount
-        for (ShareItem sItem : shareStatusSaleList.getAvailableShares()) {
+        for (ShareItem sItem : tempShares) {
 
-            if (sItem.getQuantity() < RESTOCK_THRESHOLD){
+            synchronized (sItem) {
 
-                ShareItem newShares = this.issueSharesRequest(sItem);
+                if (sItem.getQuantity() < RESTOCK_THRESHOLD) {
 
-                if (newShares != null) {
+                    ShareItem newShares = this.issueSharesRequest(sItem);
 
-                    tempShares.add(newShares);
+                    if (newShares != null) {
+
+                        shareStatusSaleList.addToAvailableShares(newShares);
+                    }
                 }
-            }
 
+            }
         }
 
-        shareStatusSaleList.addToAvailableShares(tempShares);
+
     }
 
     /**
@@ -314,7 +319,7 @@ public class Exchange {
 
         String orderNum = this.generateOrderNumber();
 
-        switch (businessName) {
+        switch (businessName.toLowerCase()) {
 
             case "microsoft" :
                 try {
