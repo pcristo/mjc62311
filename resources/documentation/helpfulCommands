@@ -1,0 +1,6 @@
+Linux:
+    lsof -i:{portnumber}  :: displays whats a happening on said portnumber
+    nohup {command} & ::  runs command in background and ignores hangup signals
+
+Windows:
+    netstat -aon  :: shows fun stuff about happening ports

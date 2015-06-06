@@ -1,10 +1,14 @@
 package share;
 
+import java.io.Serializable;
+
 /**
  * A class for share information
  * @author patrick
  */
-public class Share {
+public class Share implements Serializable {
+
+	private static final long serialVersionUID = 1L;	// required for serialization
 	private String businessSymbol;
 	private ShareType shareType;
 	private float unitPrice;

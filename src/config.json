@@ -1,18 +1,30 @@
 {
+  "projectHome": "C:/Users/Ross/Dropbox/Distributed_Systems/project",
+
+  "jars": "/resources/jar",
+  "out": "/out",
+  "files": "/files",
+  "logServerFile": "/src/files/iteration_one.log",
+  "security": "/resources/settings/security.policy",
+
   "logServerIP" : "166.78.186.20",
   "logServerPort": "9090",
-  "logServerFile": "/src/files/iteration_one.log",
   "logServerUsername": "root",
-  "logServerPassword": "H-557",
-  "jars": "/resources/jar",
-  "logServerHome": "/home/comp6231",
-  "out": "out",
-  "files": "files",
+  "logServerPassword": "",
+
+  "backup_logServerIP" : "localhost",
+  "backup_logServerPort": "9090",
+
+  "brokerServerIP": "localhost",
+  "brokerPort": "9089",
+
+  "businessServerIP": "localhost",
+
   "yahoo": "yahoo_data.csv",
   "microsoft": "microsoft_data.csv",
   "google":"google_data.csv",
-  "security": "\\resources\\settings\\security.policy",
-  "brokerHost": "localhost",
-  "brokerPort": "9089",
-  "businessXmlLog": "/files/businessOrderRecord.xml"
+  "businessXmlLog": "/files/businessOrderRecord.xml",
+
+  "macLogServerHome": "/Users/Gay/Documents/Concordia/COMP6231/PROJECT/mjc62311",
+  "macSecurity": "/resources/settings/security.policy"
 }

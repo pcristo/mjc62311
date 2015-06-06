@@ -6,7 +6,7 @@ import java.io.Serializable;
  * A class to create an order for shares
  * @author patrick
  */
-public class ShareOrder extends Share {
+public class ShareOrder extends Share implements Serializable  {
 	private static final long serialVersionUID = 1L;	// required for serialization
 	private String orderNum;
 	private String brokerRef;

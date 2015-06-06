@@ -1,23 +1,27 @@
-2015/06/02 14:18:21: business.Business :: google server bound on 9095
-2015/06/02 14:18:21: business.Business :: yahoo server bound on 9096
-2015/06/02 14:18:21: business.Business :: microsoft server bound on 9097
-2015/06/02 14:18:27: stockexchange.Exchange :: Bound google on 9095
-2015/06/02 14:18:27: stockexchange.Exchange :: Bound yahoo on 9096
-2015/06/02 14:18:27: stockexchange.Exchange :: Bound microsoft on 9097
-2015/06/02 14:18:27: stockexchange.broker.Broker :: All systems ready to go!
-2015/06/02 14:18:27: stockexchange.broker.Broker :: broker bound on 9089
 
 Log Server Started
-2015/06/02 20:21:55: business.Business :: google server bound on 9095
-2015/06/02 20:21:55: business.Business :: microsoft server bound on 9097
-2015/06/02 20:21:55: business.Business :: yahoo server bound on 9096
-2015/06/02 20:22:25: stockexchange.Exchange :: Bound google on 9095
-2015/06/02 20:22:25: stockexchange.Exchange :: Bound yahoo on 9096
-2015/06/02 20:22:25: stockexchange.Exchange :: Bound microsoft on 9097
-2015/06/02 20:22:26: stockexchange.broker.Broker :: broker bound on 9089
-2015/06/02 20:22:26: stockexchange.broker.Broker :: All systems ready to go!
-2015/06/02 20:23:14: client.BrokerServiceClientTest :: 	an9ed1ad87n5rhovvvu6je50ga - Time started!
-2015/06/02 20:23:15: client.BrokerServiceClientTest :: 	an9ed1ad87n5rhovvvu6je50ga - Time stopped!  Total time is: 392 ms.
-2015/06/02 20:23:15: logger.LoggerTest :: Test 32
-2015/06/02 20:23:15: logger.LoggerTest :: 	iacrqbui9tp6ubgmk79unbr02f - Time started!
-2015/06/02 20:23:16: logger.LoggerTest :: 	iacrqbui9tp6ubgmk79unbr02f - Time stopped!  Total time is: 1000 ms.
+2015/06/05 22:32:58: business.Business :: google server bound on 9095
+2015/06/05 22:32:58: business.Business :: yahoo server bound on 9096
+2015/06/05 22:32:58: business.Business :: microsoft server bound on 9097
+2015/06/05 22:32:59: stockexchange.Exchange :: Bound google on 9095
+2015/06/05 22:32:59: stockexchange.Exchange :: Bound yahoo on 9096
+2015/06/05 22:33:00: stockexchange.Exchange :: Bound microsoft on 9097
+2015/06/05 22:33:01: stockexchange.broker.Broker :: broker bound on 9089
+2015/06/05 22:33:01: stockexchange.broker.Broker :: All systems ready to go!
+2015/06/05 22:33:39: client.BrokerServiceClientTest :: 	t3qa869aduv3hc23qkqj1j6bqr - Time started!
+2015/06/05 22:33:40: client.BrokerServiceClientTest :: 	t3qa869aduv3hc23qkqj1j6bqr - Time stopped!  Total time is: 127 ms.
+2015/06/05 22:33:40: logger.LoggerTest :: Test 65
+2015/06/05 22:33:40: logger.LoggerTest :: 	h08mfc95ddnsofgr7k75i8t6j0 - Time started!
+2015/06/05 22:33:42: logger.LoggerTest :: 	h08mfc95ddnsofgr7k75i8t6j0 - Time stopped!  Total time is: 1001 ms.
+
+Log Server Started
+2015/06/05 22:37:45: business.Business :: google server bound on 9095
+2015/06/05 22:37:46: business.Business :: yahoo server bound on 9096
+2015/06/05 22:37:46: business.Business :: microsoft server bound on 9097
+2015/06/05 22:37:47: stockexchange.Exchange :: Bound google on 9095
+2015/06/05 22:37:48: stockexchange.Exchange :: Bound yahoo on 9096
+2015/06/05 22:37:49: stockexchange.Exchange :: Bound microsoft on 9097
+2015/06/05 22:37:49: stockexchange.broker.Broker :: broker bound on 9089
+2015/06/05 22:37:49: stockexchange.broker.Broker :: All systems ready to go!
+2015/06/05 22:37:56: client.BrokerServiceClientTest :: 	ks0cjvj0cc0hqd213dcep8fsau - Time started!
+2015/06/05 22:37:57: client.BrokerServiceClientTest :: 	ks0cjvj0cc0hqd213dcep8fsau - Time stopped!  Total time is: 106 ms.

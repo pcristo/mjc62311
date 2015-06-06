@@ -1,14 +1,12 @@
 package logger;
 
+import util.Config;
+
 import java.io.*;
 import java.net.Socket;
-import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import util.Config;
-
-import javax.annotation.processing.FilerException;
 
 /**
  * Thread that actually handles writing to the log file
@@ -49,7 +47,7 @@ public class LoggerThread implements Runnable {
      */
     public static synchronized void log(String message) throws IOException {
         // Get log file location
-        String projectHome = Config.getInstance().getAttr("logServerHome");
+        String projectHome = Config.getInstance().getAttr("projectHome");
         String relativeLogFile = Config.getInstance().getAttr("logServerFile");
         String fileLocation = projectHome + relativeLogFile;
         PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(fileLocation, true)));

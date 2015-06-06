@@ -3,9 +3,13 @@ package stockexchange.broker;
 import client.Customer;
 import logger.LoggerClient;
 import share.ShareType;
-import stockexchange.*;
+import stockexchange.Exchange;
+import stockexchange.ShareItem;
+import stockexchange.ShareList;
+import stockexchange.ShareSalesStatusList;
 import util.Config;
 
+import java.io.Serializable;
 import java.rmi.AccessException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -14,14 +18,14 @@ import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
-import static java.rmi.registry.LocateRegistry.createRegistry;
-
 /**
  * Broker class takes customer request and validates it and sends it over
  * to stock exchange
  */
-public class Broker implements BrokerInterface {
+public class Broker implements BrokerInterface, Serializable{
 
+    // Require for serialization.  Ensures object deserialized and serialized are the same.
+    private static final long serialVersionUID = 1467890432560789065L;
 
     // TODO multiple exchanges
     private static Exchange exchange;
@@ -29,32 +33,39 @@ public class Broker implements BrokerInterface {
 
     /**
      * Start up Broker server
+     *
      * Requires Business Server running
-     * @param args
      */
     public static void main(String[] args) {
+        /*
+            Broker acts as a server and also calls Exchange which connects to
+            Business server. Broker handles exceptions in creating Broker server and
+            Exchange not connecting to Business.
+        */
         try {
             Broker broker = new Broker();
             try {
+                // Start Broker server.
                 Broker.startRMIServer(broker);
             } catch(RemoteException rme) {
-                System.out.println("Remote Exception in Broker server: " + rme.getMessage());
+                LoggerClient.log("Remote Exception in Broker server: " + rme.getMessage());
             }
-
+        // Exceptions for not being able to reach Business server through exchange.
         } catch (AccessException ae) {
-                System.out.println("Access Exception in creating Broker / Exchange.  " +
+            LoggerClient.log("Access Exception in creating Broker / Exchange.  " +
                         "Ensure Business server is running :: " + ae.getMessage());
         } catch (RemoteException rme) {
-            System.out.println("Remote Exception in creating Broker / Exchange." +
+            LoggerClient.log("Remote Exception in creating Broker / Exchange." +
                     "Ensure Business server is running :: " + rme.getMessage());
         } catch (NotBoundException nbe) {
-            System.out.println("NotBound Exception in creating Broker / Exchange." +
+            LoggerClient.log("NotBound Exception in creating Broker / Exchange." +
                     "Ensure Business server is running :: " + nbe.getMessage());
         }
     }
 
     public static void startRMIServer(BrokerInterface broker) throws RemoteException {
          /** Start RMI Server **/
+
         System.setProperty("java.security.policy", Config.getInstance().loadSecurityPolicy());
 
         //load security policy

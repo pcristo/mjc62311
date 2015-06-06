@@ -26,6 +26,7 @@ public class Business implements Serializable, BusinessInterface {
 	private static final long serialVersionUID = 1L;
 	private static final String ORDER_RECORD_FILENAME =  Config.getInstance().getAttr("businessXmlLog");
 	private List<Share> sharesList = new ArrayList<Share>();
+	private Object recordLock = new Object(); 
 
 	/**
 	 * Constructor to create a business
@@ -67,8 +68,14 @@ public class Business implements Serializable, BusinessInterface {
 
 			// Close the file
 			bufferedReader.close();
+			
+			// log the activity
+			// This is not true, the business entity was created, but the RMI has yet to start
+			// TODO revisit
+//			log("Business " + identifier + " created successfully.");
+
 		} catch (IOException ioe) {
-			System.out.println(ioe.getMessage());
+			log("Failed to create business " + identifier + ": " + ioe.getMessage());
 		}
 	}
 
@@ -80,6 +87,7 @@ public class Business implements Serializable, BusinessInterface {
 		// return the common part of the symbol here:
 
 		// Some share types don't have extension in that case return whole symbol
+		// TODO: Validate this is required? Is an error thrown if no . found?
 		String shareSymbol = sharesList.get(0).getBusinessSymbol();
 		if (shareSymbol.contains(".")) {
 			return sharesList.get(0).getBusinessSymbol().split(".")[0];
@@ -102,22 +110,19 @@ public class Business implements Serializable, BusinessInterface {
 
 		// if no valid listed share was found, return false
 		if (listedShare == null) {
-			System.out.println("issueShares: No valid share found for "
-					+ aSO.getShareType());
+			log("No valid share found for " + aSO.getShareType() + " (broker ref " + aSO.getBrokerRef() + ")");			
 			return false;
 		}
 
 		// if the order price lower than the current value, return false
 		if (aSO.getUnitPriceOrder() < listedShare.getUnitPrice()) {
-			System.out
-					.println("issueShares: Order price less than minimum issue price");
+			log("Order price less than minimum issue price " + " (broker ref " + aSO.getBrokerRef() + ")");
 			return false;
 		}
 
 		// validate the order is for at least 1 share, otherwise return false
 		if (aSO.getQuantity() <= 0) {
-			System.out
-					.println("issueShares: Invalid number of shares requested");
+			log("Invalid number of shares requested " + " (broker ref " + aSO.getBrokerRef() + ")");
 			return false;
 		}
 
@@ -134,13 +139,13 @@ public class Business implements Serializable, BusinessInterface {
 		} catch (FileNotFoundException e) {
 			// Failed to write to the record... Return false
 			e.printStackTrace();
-			System.out.println("issueShares: error " + e.getMessage());
+			log("Error processing broker ref " + aSO.getBrokerRef() + ": "
+					+ e.getMessage());
 			return false;
 		}
 
 		// return true
-		System.out.println("issueShares: " + aSO.getQuantity()
-				+ " shares issued successfully");
+		log(aSO.getQuantity() + " shares issued successfully for broker ref " + aSO.getBrokerRef());
 		return true;
 	}
 
@@ -209,11 +214,13 @@ public class Business implements Serializable, BusinessInterface {
 		// create the order record
 		OrderRecord orderRecord = new OrderRecord(order, false);
 
-		// write to file
-		XMLEncoder e = new XMLEncoder(new BufferedOutputStream(
-				new FileOutputStream(ORDER_RECORD_FILENAME, true)));
-		e.writeObject(orderRecord); // append the new order to the record
-		e.close();
+		synchronized(recordLock) {
+			// write to file
+			XMLEncoder e = new XMLEncoder(new BufferedOutputStream(
+					new FileOutputStream(ORDER_RECORD_FILENAME, true)));
+			e.writeObject(orderRecord); // append the new order to the record
+			e.close();
+		}
 	}
 
 	/**
@@ -230,56 +237,65 @@ public class Business implements Serializable, BusinessInterface {
 	 *         been paid
 	 */
 	public boolean recievePayment(String orderNum, float totalPrice) {
+		// TODO: As the xml record gets large, this method's performance will
+		// drop off dramatically. A database implementation would be far more
+		// efficient.
+		
 		List<OrderRecord> orderRecords = new ArrayList<OrderRecord>();
 
-		// load all the orders from the xml file
-		XMLDecoder d;
-		try {
-			d = new XMLDecoder(new BufferedInputStream(new FileInputStream(
-					ORDER_RECORD_FILENAME)));
-		} catch (FileNotFoundException e1) {
-			// no file means no records means no match, return false
-			return false;
-		}
-		boolean isDone = false;
-		while (!isDone) {
+		// do not allow any other checks for received payment AND do not allow
+		// any new issued shares to be recorded until this request is processed		
+		synchronized(recordLock) {	
+
+			// load all the orders from the xml file
+			XMLDecoder d;
 			try {
-				orderRecords.add((OrderRecord) d.readObject());
-			} catch (ArrayIndexOutOfBoundsException e) {
-				isDone = true;
+				d = new XMLDecoder(new BufferedInputStream(new FileInputStream(
+						ORDER_RECORD_FILENAME)));
+			} catch (FileNotFoundException e1) {
+				// no file means no records means no match, return false
+				return false;
 			}
-		}
-		d.close();
-
-		// check to see if there is a match that is not already paid
-		boolean hasMatch = false;
-		for (OrderRecord o : orderRecords) {
-			if ((o.getOrderNum().equals(orderNum))
-					&& ((o.getQuantity() * o.getUnitPriceOrder()) == totalPrice)
-					&& (!o.isPaid())) {
-				hasMatch = true; // match found, set match as true
-				o.setPaid(true); // update the status to paid
-				break; // no need to continue processing after a match is found
+			boolean isDone = false;
+			while (!isDone) {
+				try {
+					orderRecords.add((OrderRecord) d.readObject());
+				} catch (ArrayIndexOutOfBoundsException e) {
+					isDone = true;
+				}
 			}
+			d.close();
+
+			// check to see if there is a match that is not already paid
+			boolean hasMatch = false;
+			for (OrderRecord o : orderRecords) {
+				if ((o.getOrderNum().equals(orderNum))
+						&& ((o.getQuantity() * o.getUnitPriceOrder()) == totalPrice)
+						&& (!o.isPaid())) {
+					hasMatch = true; // match found, set match as true
+					o.setPaid(true); // update the status to paid
+					break; // no need to continue processing after a match is found
+				}
+			}
+
+			// no match, return false
+			if (!hasMatch)
+				return false;
+
+			// if match, save file, return true
+			XMLEncoder e;
+			try {
+				e = new XMLEncoder(new BufferedOutputStream(new FileOutputStream(
+						ORDER_RECORD_FILENAME)));
+			} catch (FileNotFoundException e1) {
+				e1.printStackTrace();
+				return false;
+			}
+			for (OrderRecord o : orderRecords)
+				e.writeObject(o);
+			e.close();
 		}
-
-		// no match, return false
-		if (!hasMatch)
-			return false;
-
-		// if match, save file, return true
-		XMLEncoder e;
-		try {
-			e = new XMLEncoder(new BufferedOutputStream(new FileOutputStream(
-					ORDER_RECORD_FILENAME)));
-		} catch (FileNotFoundException e1) {
-			e1.printStackTrace();
-			return false;
-		}
-		for (OrderRecord o : orderRecords)
-			e.writeObject(o);
-		e.close();
-
+		
 		return true;
 	}
 
@@ -311,7 +327,8 @@ public class Business implements Serializable, BusinessInterface {
 			Business.startRMIServer(yahoo, yahooName, 9096);
 			Business.startRMIServer(msoft, msoftName, 9097);
 		} catch(RemoteException rme) {
-			System.out.println("Remote Exception in Business Server: " + rme.getMessage());
+			System.out.println(rme.getMessage());
+			LoggerClient.log("Remote Exception in Business Server: " + rme.getMessage());
 		}
 	}
 
@@ -323,6 +340,10 @@ public class Business implements Serializable, BusinessInterface {
 	 * @throws RemoteException
 	 */
 	public static void startRMIServer(BusinessInterface business, String businessName, int port) throws RemoteException {
+
+		//TODO remove this.  See updated Config class.
+		//System.setProperty("java.security.policy", Config.getInstance().loadMacSecurityPolicy());
+
 		System.setProperty("java.security.policy", Config.getInstance()
 				.loadSecurityPolicy());
 
@@ -338,8 +359,16 @@ public class Business implements Serializable, BusinessInterface {
 					.exportObject(business, port);
 		Registry registry = LocateRegistry.getRegistry(port);
 		registry.rebind(businessName, stub);
-		//System.out.println(businessName + " bound on " + port);
+		System.out.println(businessName + " bound on " + port);
 		LoggerClient.log(businessName + " server bound on " + port);
 	}
-
+	
+	/**
+	 * Logs a message to both the console and the logging server
+	 * @param msg
+	 */
+	private void log(String msg) {
+		System.out.println(msg);
+		LoggerClient.log(msg, this.getClass().getName());
+	}
 }

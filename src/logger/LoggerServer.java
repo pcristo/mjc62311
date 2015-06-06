@@ -1,12 +1,10 @@
 package logger;
 
-import java.io.*;
+import util.Config;
+
+import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
-import java.net.ServerSocket;
-import java.net.Socket;
-
-import util.Config;
 
 /**
  * Servver used to receive log message
@@ -40,6 +38,8 @@ public class LoggerServer {
                 LoggerThread logThread = new LoggerThread(msg);
                 Thread logger = new Thread(logThread);
                 logger.start();
+
+                serverSocket.send(receivePacket);
             }
         } catch(IOException ioe) {
             System.out.println("IO Exception in host: " + ioe.getMessage());
