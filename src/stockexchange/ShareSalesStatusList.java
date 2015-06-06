@@ -169,8 +169,10 @@ public class ShareSalesStatusList{
      */
     public void addToSoldShares(ShareItem shareItem, Customer customer) {
 
+        synchronized (shareItem){
+            soldShares.put(shareItem,customer);
+        }
 
-        soldShares.put(shareItem,customer);
     }
 
 

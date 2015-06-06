@@ -31,6 +31,7 @@ public class Exchange {
 
     private static Map<String, String> businessDirectory = new HashMap<String, String>();
 
+
     private BusinessInterface yahoo;
     private BusinessInterface microsoft;
     private BusinessInterface google;
@@ -157,20 +158,18 @@ public class Exchange {
         //TODO : See if share are available
         for  (ShareItem s : shareItemList.getLstShareItems())
         {
-
             soldShare = shareStatusSaleList.isShareAvailable(s);
 
-            if (soldShare != null)
-            {
-                //TODO : Contact business service to complete sale
+            synchronized (soldShare) {
 
-                //TODO : Add shares to SOLD list
-                shareStatusSaleList.addToSoldShares(s, info);
+                if (soldShare != null) {
 
+                    //TODO : Add shares to SOLD list
+                    shareStatusSaleList.addToSoldShares(s, info);
 
-
-                //TODO : Calculate comission and call restock
-
+                    if (this.payBusiness(soldShare) )
+                        printMessage("Shares paid for " + soldShare.getBusinessSymbol());
+                }
             }
         }
 
@@ -221,6 +220,30 @@ public class Exchange {
         return tickerList;
     }
 
+    /**
+     *
+     * @param businessName string of business TODO enum
+     * @return the ticker commonly used to identify a company | Null if not found
+     */
+    public String getBusinessTicker(String businessName) {
+        //TODO when businessDirectory stores business objects look it up there
+        try {
+            switch (businessName) {
+                case "google":
+                    return google.getTicker();
+                case "microsoft":
+                    return microsoft.getTicker();
+                case "yahoo":
+                    return yahoo.getTicker();
+                default:
+                    return null;
+            }
+        } catch(RemoteException rme) {
+            return null;
+        }
+
+    }
+
 
     // ---------------------- PRIVATE METHODS ----------------------------------
 
@@ -254,6 +277,47 @@ public class Exchange {
 
     }
 
+
+    private boolean payBusiness(ShareItem soldShare) {
+
+        String businessName = businessDirectory.get(soldShare.getBusinessSymbol());
+
+
+        switch (businessName.toLowerCase()) {
+
+            case "microsoft" :
+                try {
+                     return microsoft.recievePayment(soldShare.getOrderNum(),soldShare.getUnitPrice() * soldShare.getQuantity());
+                } catch (Exception e) {
+                    printMessage(e.getMessage());
+                }
+
+            case "yahoo" :
+                try {
+
+                    return yahoo.recievePayment(soldShare.getOrderNum(), soldShare.getUnitPrice() * soldShare.getQuantity());
+
+                } catch (Exception e) {
+
+                    printMessage(e.getMessage());
+                }
+
+            case "google" :
+                try {
+
+                    return google.recievePayment(soldShare.getOrderNum(),soldShare.getUnitPrice() * soldShare.getQuantity());
+                } catch (Exception e) {
+
+                    printMessage(e.getMessage());
+                }
+        }
+
+        return false;
+
+    }
+
+
+
     /**
      * Method to print message to console
      * @param message
@@ -281,29 +345,7 @@ public class Exchange {
 
     }
 
-    /**
-     *
-     * @param businessName string of business TODO enum
-     * @return the ticker commonly used to identify a company | Null if not found
-     */
-    public String getBusinessTicker(String businessName) {
-        //TODO when businessDirectory stores business objects look it up there
-        try {
-            switch (businessName) {
-                case "google":
-                    return google.getTicker();
-                case "microsoft":
-                    return microsoft.getTicker();
-                case "yahoo":
-                    return yahoo.getTicker();
-                default:
-                    return null;
-            }
-        } catch(RemoteException rme) {
-            return null;
-        }
 
-    }
 
 
 
@@ -320,34 +362,36 @@ public class Exchange {
 
         String orderNum = this.generateOrderNumber();
 
-        switch (businessName.toLowerCase()) {
+        synchronized (orderNum) {
 
-            case "microsoft" :
-                try {
-                    sharesIssued = microsoft.issueShares(new ShareOrder(orderNum,"BR123",sItem.getBusinessSymbol(),sItem.getShareType(),sItem.getUnitPrice(),RESTOCK_THRESHOLD,sItem.getUnitPrice()));
-                } catch (Exception e) {
-                    printMessage(e.getMessage());
-                }
+            switch (businessName.toLowerCase()) {
 
-            case "yahoo" :
-                try {
+                case "microsoft":
+                    try {
+                        sharesIssued = microsoft.issueShares(new ShareOrder(orderNum, "BR123", sItem.getBusinessSymbol(), sItem.getShareType(), sItem.getUnitPrice(), RESTOCK_THRESHOLD, sItem.getUnitPrice()));
+                    } catch (Exception e) {
+                        printMessage(e.getMessage());
+                    }
 
-                    sharesIssued = yahoo.issueShares(new ShareOrder(orderNum, "BR123", sItem.getBusinessSymbol(), sItem.getShareType(), sItem.getUnitPrice(), RESTOCK_THRESHOLD, sItem.getUnitPrice()));
+                case "yahoo":
+                    try {
 
-                } catch (Exception e) {
+                        sharesIssued = yahoo.issueShares(new ShareOrder(orderNum, "BR123", sItem.getBusinessSymbol(), sItem.getShareType(), sItem.getUnitPrice(), RESTOCK_THRESHOLD, sItem.getUnitPrice()));
 
-                    printMessage(e.getMessage());
-                }
+                    } catch (Exception e) {
 
-            case "google" :
-                try {
+                        printMessage(e.getMessage());
+                    }
 
-                    sharesIssued = google.issueShares(new ShareOrder(orderNum, "BR123", sItem.getBusinessSymbol(), sItem.getShareType(), sItem.getUnitPrice(), RESTOCK_THRESHOLD, sItem.getUnitPrice()));
-                }
-                catch (Exception e) {
+                case "google":
+                    try {
 
-                    printMessage(e.getMessage());
-                }
+                        sharesIssued = google.issueShares(new ShareOrder(orderNum, "BR123", sItem.getBusinessSymbol(), sItem.getShareType(), sItem.getUnitPrice(), RESTOCK_THRESHOLD, sItem.getUnitPrice()));
+                    } catch (Exception e) {
+
+                        printMessage(e.getMessage());
+                    }
+            }
         }
 
         if (sharesIssued) {
