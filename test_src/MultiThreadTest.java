@@ -66,10 +66,16 @@ public class MultiThreadTest {
 					* (lstShares.size() + 1));
 
 			// TODO: Need a method to call that orders shares
-			service.sellShares(lstShares.get(shareIndex).getBusinessSymbol(),
+			ArrayList<String> sellist = new ArrayList<String>();
+			sellist.add(lstShares.get(shareIndex).getBusinessSymbol());
+			service.sellShares(sellist,lstShares.get(shareIndex).getShareType(),
 					100, new Customer(customer));
 
-			Thread.sleep(SLEEP_TIME_BETWEEN_TRIES);
+			try {
+				Thread.sleep(SLEEP_TIME_BETWEEN_TRIES);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	
