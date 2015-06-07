@@ -13,5 +13,8 @@ json jar (resources/jar)
 * Start out/stockexchange/broker/Broker.class
 * Run the client (from src is OK)
 
+# Easier launch procedure
+* Run projectLauncher.java
+
 # Extra
 Remote log file can be viewed here: http://166.78.186.20/resources/log/displayLog.html
