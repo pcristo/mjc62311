@@ -153,7 +153,7 @@ public class Exchange {
      * Sell Shares
      * @param shareItemList
      * @param info
-     * @return ShareSalesStatusList - Can access sold shares and avaible shares lists
+     * @return ShareSalesStatusList - Can access sold shares and available shares lists
      */
     public ShareSalesStatusList sellShares(ShareList shareItemList, Customer info) {
 
@@ -178,7 +178,7 @@ public class Exchange {
         }
 
         //Restock Share Lists
-        //this.restock();
+        this.restock();
 
         shareStatusSaleList.printShares();
 
@@ -283,10 +283,10 @@ public class Exchange {
 
         this.printMessage("...... Restocking Shares .......");
 
-        List<ShareItem> tempShares = shareStatusSaleList.getAvailableShares();
+        List<ShareItem> tempShares = new ArrayList<ShareItem>();
 
         //Check Available stock amount
-        for (ShareItem sItem : tempShares) {
+        for (ShareItem sItem : this.shareStatusSaleList.getAvailableShares()) {
 
             synchronized (sItem) {
 
@@ -296,13 +296,17 @@ public class Exchange {
 
                     if (newShares != null) {
 
-                        shareStatusSaleList.addToAvailableShares(newShares);
+                        tempShares.add(newShares);
                     }
                 }
 
             }
         }
 
+        for (ShareItem shareItem : tempShares) {
+
+            this.shareStatusSaleList.addToAvailableShares(shareItem);
+        }
 
     }
 
