@@ -27,9 +27,11 @@ public class MultiThreadTest {
 	}
 
 	@Test
-	public void MultipleClientOrders() {
-		for (int i = 1; i <= NUMBER_OF_TEST_THREADS; i++)  {
-			Thread clientThread = new Thread(new Runnable() {
+	public void MultipleClientOrders() throws InterruptedException {
+		Thread[] clientThread = new Thread[NUMBER_OF_TEST_THREADS];
+
+		for (Thread t : clientThread)  {
+			t = new Thread(new Runnable() {
 				@Override
 				public void run() {
 					try {
@@ -39,8 +41,12 @@ public class MultiThreadTest {
 					}
 				}
 			});
-			clientThread.start();
+			t.start();
 		}
+		
+		// wait for each thread to complete
+		for (Thread t : clientThread) 
+			t.join();
 	}
 
 	private void DummyClient(String customer) throws RemoteException, NotBoundException {
