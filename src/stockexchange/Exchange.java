@@ -155,14 +155,17 @@ public class Exchange {
 
         ShareItem soldShare = null;
 
+
         //TODO : See if share are available
         for  (ShareItem s : shareItemList.getLstShareItems())
         {
             soldShare = shareStatusSaleList.isShareAvailable(s);
 
-            synchronized (soldShare) {
 
-                if (soldShare != null) {
+            if (soldShare != null) {
+
+                synchronized (soldShare) {
+
 
                     //TODO : Add shares to SOLD list
                     shareStatusSaleList.addToSoldShares(s, info);
@@ -170,6 +173,7 @@ public class Exchange {
                     if (this.payBusiness(soldShare) )
                         printMessage("Shares paid for " + soldShare.getBusinessSymbol());
                 }
+            } else {
             }
         }
 
@@ -199,9 +203,8 @@ public class Exchange {
             }
         }
         return customerShares;
-
-
     }
+
 
     /**
      *

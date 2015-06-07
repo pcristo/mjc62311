@@ -1,7 +1,7 @@
 package stockexchange;
 
-import business.*;
-import share.*;
+import share.Share;
+import share.ShareType;
 
 /**
  * Created by gay.hazan on 22/05/2015.
@@ -131,6 +131,10 @@ public class ShareItem extends Share {
 
 
         return shareDescription.toString();
+    }
+
+    public String toString(){
+        return "Symbol: " + getBusinessSymbol() + " Comission: " +  getCommission() + " Qty:" + getQuantity();
     }
 
 

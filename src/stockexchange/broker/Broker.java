@@ -119,17 +119,26 @@ public class Broker implements BrokerInterface, Serializable{
      */
     @Override
     public boolean sellShares(ArrayList<String> tickers, ShareType type, int quantity, Customer customer) throws RemoteException {
-        for (String ticker : tickers) {
-            if (validateClientHasShare(ticker, customer)) {
-                // We cant sell what we dont have
-                return false;
-            }
-        }
+//        for (String ticker : tickers) {
+//            if (validateClientHasShare(ticker, customer)) {
+//                // We cant sell what we dont have
+//                return false;
+//            }
+//        }
+
+
+
+
+
         ShareList sharesToSell = prepareTrade(tickers, type, quantity);
+
         if (sharesToSell != null) {
-            // WTF do i do with this?
             ShareSalesStatusList shareSatusList = exchange.sellShares(sharesToSell, customer);
-            return true;
+            if(shareSatusList.getShares(customer).isEmpty()){
+                return false;
+            } else {
+                return true;
+            }
         } else {
             return false;
         }
@@ -150,12 +159,15 @@ public class Broker implements BrokerInterface, Serializable{
         if (sharesToBuy != null) {
             // WTF do i do with this?
             ShareSalesStatusList boughtShares = exchange.buyShares(sharesToBuy, customer);
+
+
             return true;
         } else {
             return false;
         }
 
     }
+
 
     /**
      * Prepare the trade to go to the exchange
@@ -166,6 +178,9 @@ public class Broker implements BrokerInterface, Serializable{
      * @return a shareList used by exchange or null if validation fail
      */
     private ShareList prepareTrade(ArrayList<String> tickers, ShareType type, int quantity) {
+
+
+
         // Prepare shares to action - honestly this should be done a share at a time
         ArrayList<ShareItem> sharesToAction = new ArrayList<ShareItem>();
         for (String ticker : tickers) {

@@ -32,4 +32,8 @@ public class ShareList {
     public void setLstShareItems(ArrayList<ShareItem> lstShareItems) {
         this.lstShareItems = lstShareItems;
     }
+
+    public String toString() {
+        return lstShareItems.toString();
+    }
 }

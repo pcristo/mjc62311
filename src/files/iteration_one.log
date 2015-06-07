@@ -1,27 +1,449 @@
 
 Log Server Started
-2015/06/05 22:32:58: business.Business :: google server bound on 9095
-2015/06/05 22:32:58: business.Business :: yahoo server bound on 9096
-2015/06/05 22:32:58: business.Business :: microsoft server bound on 9097
-2015/06/05 22:32:59: stockexchange.Exchange :: Bound google on 9095
-2015/06/05 22:32:59: stockexchange.Exchange :: Bound yahoo on 9096
-2015/06/05 22:33:00: stockexchange.Exchange :: Bound microsoft on 9097
-2015/06/05 22:33:01: stockexchange.broker.Broker :: broker bound on 9089
-2015/06/05 22:33:01: stockexchange.broker.Broker :: All systems ready to go!
-2015/06/05 22:33:39: client.BrokerServiceClientTest :: 	t3qa869aduv3hc23qkqj1j6bqr - Time started!
-2015/06/05 22:33:40: client.BrokerServiceClientTest :: 	t3qa869aduv3hc23qkqj1j6bqr - Time stopped!  Total time is: 127 ms.
-2015/06/05 22:33:40: logger.LoggerTest :: Test 65
-2015/06/05 22:33:40: logger.LoggerTest :: 	h08mfc95ddnsofgr7k75i8t6j0 - Time started!
-2015/06/05 22:33:42: logger.LoggerTest :: 	h08mfc95ddnsofgr7k75i8t6j0 - Time stopped!  Total time is: 1001 ms.
+2015/06/07 09:55:41: business.Business :: google server bound on 9095
+2015/06/07 09:55:41: business.Business :: yahoo server bound on 9096
+2015/06/07 09:55:42: business.Business :: microsoft server bound on 9097
+2015/06/07 09:55:43: stockexchange.Exchange :: Bound google on 9095
+2015/06/07 09:55:43: stockexchange.Exchange :: Bound yahoo on 9096
+2015/06/07 09:55:44: stockexchange.Exchange :: Bound microsoft on 9097
+2015/06/07 09:55:44: stockexchange.broker.Broker :: broker bound on 9089
+2015/06/07 09:55:44: stockexchange.broker.Broker :: All systems ready to go!
+2015/06/07 09:55:53: client.BrokerServiceClientTest :: 	g989ajq5dudlbim9m5po90cm7i - Time started!
+2015/06/07 09:55:53: client.BrokerServiceClientTest :: 	g989ajq5dudlbim9m5po90cm7i - Time stopped!  Total time is: 99 ms.
+2015/06/07 10:00:30: client.BrokerServiceClientTest :: 	shuscmosgv1sa0rnaiarstkohb - Time started!
+2015/06/07 10:00:30: client.BrokerServiceClientTest :: 	shuscmosgv1sa0rnaiarstkohb - Time stopped!  Total time is: 99 ms.
+2015/06/07 10:00:43: client.BrokerServiceClientTest :: 	gt03o6onuk9ve84pbli5jitb0i - Time started!
+2015/06/07 10:00:43: client.BrokerServiceClientTest :: 	gt03o6onuk9ve84pbli5jitb0i - Time stopped!  Total time is: 103 ms.
+2015/06/07 10:01:04: client.BrokerServiceClientTest :: 	q2m7f641p5nn3vlbrck92n3j36 - Time started!
+2015/06/07 10:01:04: client.BrokerServiceClientTest :: 	q2m7f641p5nn3vlbrck92n3j36 - Time stopped!  Total time is: 106 ms.
+2015/06/07 10:01:48: client.BrokerServiceClientTest :: 	p50kl5tp24qt5rd829hvtig4s4 - Time started!
+2015/06/07 10:01:48: client.BrokerServiceClientTest :: 	p50kl5tp24qt5rd829hvtig4s4 - Time stopped!  Total time is: 98 ms.
+2015/06/07 10:01:54: client.BrokerServiceClientTest :: 	m3liutkrhs75li3d47j1q6k728 - Time started!
+2015/06/07 10:01:54: client.BrokerServiceClientTest :: 	m3liutkrhs75li3d47j1q6k728 - Time stopped!  Total time is: 96 ms.
+2015/06/07 10:02:29: client.BrokerServiceClientTest :: 	8tinmendipvl2d4a955mgl6v32 - Time started!
+2015/06/07 10:02:29: client.BrokerServiceClientTest :: 	8tinmendipvl2d4a955mgl6v32 - Time stopped!  Total time is: 100 ms.
+2015/06/07 10:02:33: client.BrokerServiceClientTest :: 	2mpookmnu39e9op1rc0dr8l1a2 - Time started!
+2015/06/07 10:02:33: client.BrokerServiceClientTest :: 	2mpookmnu39e9op1rc0dr8l1a2 - Time stopped!  Total time is: 98 ms.
+2015/06/07 10:05:50: client.BrokerServiceClientTest :: 	j2furm4orlg1qmn3fg5pjpijs - Time started!
+2015/06/07 10:05:50: client.BrokerServiceClientTest :: 	j2furm4orlg1qmn3fg5pjpijs - Time stopped!  Total time is: 90 ms.
+2015/06/07 10:07:26: client.BrokerServiceClientTest :: 	bealg6vtc7kihm6p3srrvrgg7t - Time started!
+2015/06/07 10:07:26: client.BrokerServiceClientTest :: 	bealg6vtc7kihm6p3srrvrgg7t - Time stopped!  Total time is: 101 ms.
 
 Log Server Started
-2015/06/05 22:37:45: business.Business :: google server bound on 9095
-2015/06/05 22:37:46: business.Business :: yahoo server bound on 9096
-2015/06/05 22:37:46: business.Business :: microsoft server bound on 9097
-2015/06/05 22:37:47: stockexchange.Exchange :: Bound google on 9095
-2015/06/05 22:37:48: stockexchange.Exchange :: Bound yahoo on 9096
-2015/06/05 22:37:49: stockexchange.Exchange :: Bound microsoft on 9097
-2015/06/05 22:37:49: stockexchange.broker.Broker :: broker bound on 9089
-2015/06/05 22:37:49: stockexchange.broker.Broker :: All systems ready to go!
-2015/06/05 22:37:56: client.BrokerServiceClientTest :: 	ks0cjvj0cc0hqd213dcep8fsau - Time started!
-2015/06/05 22:37:57: client.BrokerServiceClientTest :: 	ks0cjvj0cc0hqd213dcep8fsau - Time stopped!  Total time is: 106 ms.
+2015/06/07 10:22:35: business.Business :: google server bound on 9095
+2015/06/07 10:22:35: business.Business :: yahoo server bound on 9096
+2015/06/07 10:22:35: business.Business :: microsoft server bound on 9097
+2015/06/07 10:22:37: stockexchange.Exchange :: Bound google on 9095
+2015/06/07 10:22:37: stockexchange.Exchange :: Bound yahoo on 9096
+2015/06/07 10:22:37: stockexchange.Exchange :: Bound microsoft on 9097
+2015/06/07 10:22:37: stockexchange.broker.Broker :: broker bound on 9089
+2015/06/07 10:22:37: stockexchange.broker.Broker :: All systems ready to go!
+2015/06/07 10:22:46: client.BrokerServiceClientTest :: 	asa7j2hi32sspggi7rdq0vrdph - Time started!
+2015/06/07 10:22:46: client.BrokerServiceClientTest :: 	asa7j2hi32sspggi7rdq0vrdph - Time stopped!  Total time is: 99 ms.
+2015/06/07 10:26:24: client.BrokerServiceClientTest :: 	q47o7hlgc7sipk4ksosvouqag4 - Time started!
+2015/06/07 10:26:24: client.BrokerServiceClientTest :: 	q47o7hlgc7sipk4ksosvouqag4 - Time stopped!  Total time is: 159 ms.
+2015/06/07 10:31:20: stockexchange.Exchange :: Bound google on 9095
+2015/06/07 10:31:21: stockexchange.Exchange :: Bound yahoo on 9096
+2015/06/07 10:31:21: stockexchange.Exchange :: Bound microsoft on 9097
+2015/06/07 10:31:21: stockexchange.broker.Broker :: Remote Exception in Broker server: Port already in use: 9089; nested exception is: 
+	java.net.BindException: Address already in use: JVM_Bind
+2015/06/07 10:31:38: stockexchange.Exchange :: Bound google on 9095
+2015/06/07 10:31:38: stockexchange.Exchange :: Bound yahoo on 9096
+2015/06/07 10:31:39: stockexchange.Exchange :: Bound microsoft on 9097
+2015/06/07 10:31:39: stockexchange.broker.Broker :: Remote Exception in Broker server: Port already in use: 9089; nested exception is: 
+	java.net.BindException: Address already in use: JVM_Bind
+
+Log Server Started
+2015/06/07 10:34:49: business.Business :: google server bound on 9095
+2015/06/07 10:34:49: business.Business :: yahoo server bound on 9096
+2015/06/07 10:34:49: business.Business :: microsoft server bound on 9097
+2015/06/07 10:34:51: stockexchange.Exchange :: Bound google on 9095
+2015/06/07 10:34:51: stockexchange.Exchange :: Bound yahoo on 9096
+2015/06/07 10:34:51: stockexchange.Exchange :: Bound microsoft on 9097
+2015/06/07 10:34:51: stockexchange.broker.Broker :: broker bound on 9089
+2015/06/07 10:34:51: stockexchange.broker.Broker :: All systems ready to go!
+
+Log Server Started
+2015/06/07 10:36:12: business.Business :: google server bound on 9095
+2015/06/07 10:36:12: business.Business :: yahoo server bound on 9096
+2015/06/07 10:36:12: business.Business :: microsoft server bound on 9097
+2015/06/07 10:36:14: stockexchange.Exchange :: Bound google on 9095
+2015/06/07 10:36:14: stockexchange.Exchange :: Bound yahoo on 9096
+2015/06/07 10:36:14: stockexchange.Exchange :: Bound microsoft on 9097
+2015/06/07 10:36:14: stockexchange.broker.Broker :: broker bound on 9089
+2015/06/07 10:36:14: stockexchange.broker.Broker :: All systems ready to go!
+2015/06/07 10:36:19: client.BrokerServiceClientTest :: 	ns5tjgcealk3kj8nubmdu3kdh8 - Time started!
+2015/06/07 10:36:20: client.BrokerServiceClientTest :: 	ns5tjgcealk3kj8nubmdu3kdh8 - Time stopped!  Total time is: 99 ms.
+
+Log Server Started
+2015/06/07 10:37:04: business.Business :: google server bound on 9095
+2015/06/07 10:37:04: business.Business :: yahoo server bound on 9096
+2015/06/07 10:37:04: business.Business :: microsoft server bound on 9097
+2015/06/07 10:37:06: stockexchange.Exchange :: Bound google on 9095
+2015/06/07 10:37:06: stockexchange.Exchange :: Bound yahoo on 9096
+2015/06/07 10:37:06: stockexchange.Exchange :: Bound microsoft on 9097
+2015/06/07 10:37:06: stockexchange.broker.Broker :: broker bound on 9089
+2015/06/07 10:37:07: stockexchange.broker.Broker :: All systems ready to go!
+
+Log Server Started
+2015/06/07 10:38:05: business.Business :: google server bound on 9095
+2015/06/07 10:38:05: business.Business :: yahoo server bound on 9096
+2015/06/07 10:38:05: business.Business :: microsoft server bound on 9097
+2015/06/07 10:38:07: stockexchange.Exchange :: Bound google on 9095
+2015/06/07 10:38:07: stockexchange.Exchange :: Bound yahoo on 9096
+2015/06/07 10:38:07: stockexchange.Exchange :: Bound microsoft on 9097
+2015/06/07 10:38:07: stockexchange.broker.Broker :: broker bound on 9089
+2015/06/07 10:38:07: stockexchange.broker.Broker :: All systems ready to go!
+
+Log Server Started
+2015/06/07 10:40:01: business.Business :: google server bound on 9095
+2015/06/07 10:40:02: business.Business :: yahoo server bound on 9096
+2015/06/07 10:40:02: business.Business :: microsoft server bound on 9097
+2015/06/07 10:40:03: stockexchange.Exchange :: Bound google on 9095
+2015/06/07 10:40:03: stockexchange.Exchange :: Bound yahoo on 9096
+2015/06/07 10:40:04: stockexchange.Exchange :: Bound microsoft on 9097
+2015/06/07 10:40:04: stockexchange.broker.Broker :: broker bound on 9089
+2015/06/07 10:40:04: stockexchange.broker.Broker :: All systems ready to go!
+
+Log Server Started
+2015/06/07 10:40:45: business.Business :: google server bound on 9095
+2015/06/07 10:40:45: business.Business :: yahoo server bound on 9096
+2015/06/07 10:40:45: business.Business :: microsoft server bound on 9097
+2015/06/07 10:40:47: stockexchange.Exchange :: Bound google on 9095
+2015/06/07 10:40:47: stockexchange.Exchange :: Bound yahoo on 9096
+2015/06/07 10:40:47: stockexchange.Exchange :: Bound microsoft on 9097
+2015/06/07 10:40:47: stockexchange.broker.Broker :: broker bound on 9089
+2015/06/07 10:40:47: stockexchange.broker.Broker :: All systems ready to go!
+
+Log Server Started
+2015/06/07 10:41:33: business.Business :: google server bound on 9095
+2015/06/07 10:41:33: business.Business :: yahoo server bound on 9096
+2015/06/07 10:41:33: business.Business :: microsoft server bound on 9097
+2015/06/07 10:41:35: stockexchange.Exchange :: Bound google on 9095
+2015/06/07 10:41:35: stockexchange.Exchange :: Bound yahoo on 9096
+2015/06/07 10:41:35: stockexchange.Exchange :: Bound microsoft on 9097
+2015/06/07 10:41:35: stockexchange.broker.Broker :: broker bound on 9089
+2015/06/07 10:41:36: stockexchange.broker.Broker :: All systems ready to go!
+
+Log Server Started
+2015/06/07 10:42:22: business.Business :: google server bound on 9095
+2015/06/07 10:42:22: business.Business :: yahoo server bound on 9096
+2015/06/07 10:42:22: business.Business :: microsoft server bound on 9097
+2015/06/07 10:42:24: stockexchange.Exchange :: Bound google on 9095
+2015/06/07 10:42:24: stockexchange.Exchange :: Bound yahoo on 9096
+2015/06/07 10:42:24: stockexchange.Exchange :: Bound microsoft on 9097
+2015/06/07 10:42:24: stockexchange.broker.Broker :: broker bound on 9089
+2015/06/07 10:42:24: stockexchange.broker.Broker :: All systems ready to go!
+
+Log Server Started
+2015/06/07 10:43:55: business.Business :: google server bound on 9095
+2015/06/07 10:43:55: business.Business :: yahoo server bound on 9096
+2015/06/07 10:43:55: business.Business :: microsoft server bound on 9097
+2015/06/07 10:43:57: stockexchange.Exchange :: Bound google on 9095
+2015/06/07 10:43:57: stockexchange.Exchange :: Bound yahoo on 9096
+2015/06/07 10:43:57: stockexchange.Exchange :: Bound microsoft on 9097
+2015/06/07 10:43:57: stockexchange.broker.Broker :: broker bound on 9089
+2015/06/07 10:43:57: stockexchange.broker.Broker :: All systems ready to go!
+
+Log Server Started
+2015/06/07 10:44:26: business.Business :: google server bound on 9095
+2015/06/07 10:44:26: business.Business :: yahoo server bound on 9096
+2015/06/07 10:44:26: business.Business :: microsoft server bound on 9097
+2015/06/07 10:44:27: stockexchange.Exchange :: Bound google on 9095
+2015/06/07 10:44:28: stockexchange.Exchange :: Bound yahoo on 9096
+2015/06/07 10:44:28: stockexchange.Exchange :: Bound microsoft on 9097
+2015/06/07 10:44:28: stockexchange.broker.Broker :: broker bound on 9089
+2015/06/07 10:44:28: stockexchange.broker.Broker :: All systems ready to go!
+
+Log Server Started
+2015/06/07 10:47:57: business.Business :: google server bound on 9095
+2015/06/07 10:47:57: business.Business :: yahoo server bound on 9096
+2015/06/07 10:47:57: business.Business :: microsoft server bound on 9097
+2015/06/07 10:47:59: stockexchange.Exchange :: Bound google on 9095
+2015/06/07 10:47:59: stockexchange.Exchange :: Bound yahoo on 9096
+2015/06/07 10:47:59: stockexchange.Exchange :: Bound microsoft on 9097
+2015/06/07 10:48:00: stockexchange.broker.Broker :: broker bound on 9089
+2015/06/07 10:48:00: stockexchange.broker.Broker :: All systems ready to go!
+2015/06/07 10:48:04: client.BrokerServiceClientTest :: 	8koli3qiotkrlpruqkd3gtgo0m - Time started!
+2015/06/07 10:48:04: client.BrokerServiceClientTest :: 	8koli3qiotkrlpruqkd3gtgo0m - Time stopped!  Total time is: 111 ms.
+
+Log Server Started
+2015/06/07 10:49:29: business.Business :: google server bound on 9095
+2015/06/07 10:49:29: business.Business :: yahoo server bound on 9096
+2015/06/07 10:49:29: business.Business :: microsoft server bound on 9097
+2015/06/07 10:49:31: stockexchange.Exchange :: Bound google on 9095
+2015/06/07 10:49:31: stockexchange.Exchange :: Bound yahoo on 9096
+2015/06/07 10:49:31: stockexchange.Exchange :: Bound microsoft on 9097
+2015/06/07 10:49:31: stockexchange.broker.Broker :: broker bound on 9089
+2015/06/07 10:49:31: stockexchange.broker.Broker :: All systems ready to go!
+
+Log Server Started
+2015/06/07 10:55:32: business.Business :: google server bound on 9095
+2015/06/07 10:55:32: business.Business :: yahoo server bound on 9096
+2015/06/07 10:55:32: business.Business :: microsoft server bound on 9097
+2015/06/07 10:55:34: stockexchange.Exchange :: Bound google on 9095
+2015/06/07 10:55:34: stockexchange.Exchange :: Bound yahoo on 9096
+2015/06/07 10:55:34: stockexchange.Exchange :: Bound microsoft on 9097
+2015/06/07 10:55:34: stockexchange.broker.Broker :: broker bound on 9089
+2015/06/07 10:55:34: stockexchange.broker.Broker :: All systems ready to go!
+
+Log Server Started
+2015/06/07 10:57:10: business.Business :: google server bound on 9095
+2015/06/07 10:57:10: business.Business :: yahoo server bound on 9096
+2015/06/07 10:57:10: business.Business :: microsoft server bound on 9097
+2015/06/07 10:57:12: stockexchange.Exchange :: Bound google on 9095
+2015/06/07 10:57:12: stockexchange.Exchange :: Bound yahoo on 9096
+2015/06/07 10:57:12: stockexchange.Exchange :: Bound microsoft on 9097
+2015/06/07 10:57:12: stockexchange.broker.Broker :: broker bound on 9089
+2015/06/07 10:57:12: stockexchange.broker.Broker :: All systems ready to go!
+
+Log Server Started
+2015/06/07 10:57:58: business.Business :: google server bound on 9095
+2015/06/07 10:57:58: business.Business :: yahoo server bound on 9096
+2015/06/07 10:57:58: business.Business :: microsoft server bound on 9097
+2015/06/07 10:58:00: stockexchange.Exchange :: Bound google on 9095
+2015/06/07 10:58:00: stockexchange.Exchange :: Bound yahoo on 9096
+2015/06/07 10:58:00: stockexchange.Exchange :: Bound microsoft on 9097
+2015/06/07 10:58:00: stockexchange.broker.Broker :: broker bound on 9089
+2015/06/07 10:58:00: stockexchange.broker.Broker :: All systems ready to go!
+
+Log Server Started
+2015/06/07 10:58:45: business.Business :: google server bound on 9095
+2015/06/07 10:58:45: business.Business :: yahoo server bound on 9096
+2015/06/07 10:58:45: business.Business :: microsoft server bound on 9097
+2015/06/07 10:58:47: stockexchange.Exchange :: Bound google on 9095
+2015/06/07 10:58:47: stockexchange.Exchange :: Bound yahoo on 9096
+2015/06/07 10:58:47: stockexchange.Exchange :: Bound microsoft on 9097
+2015/06/07 10:58:47: stockexchange.broker.Broker :: broker bound on 9089
+2015/06/07 10:58:47: stockexchange.broker.Broker :: All systems ready to go!
+
+Log Server Started
+2015/06/07 11:10:41: business.Business :: google server bound on 9095
+2015/06/07 11:10:41: business.Business :: yahoo server bound on 9096
+2015/06/07 11:10:41: business.Business :: microsoft server bound on 9097
+2015/06/07 11:10:43: stockexchange.Exchange :: Bound google on 9095
+2015/06/07 11:10:43: stockexchange.Exchange :: Bound yahoo on 9096
+2015/06/07 11:10:43: stockexchange.Exchange :: Bound microsoft on 9097
+2015/06/07 11:10:43: stockexchange.broker.Broker :: broker bound on 9089
+2015/06/07 11:10:43: stockexchange.broker.Broker :: All systems ready to go!
+
+Log Server Started
+2015/06/07 11:12:24: business.Business :: google server bound on 9095
+2015/06/07 11:12:24: business.Business :: yahoo server bound on 9096
+2015/06/07 11:12:25: business.Business :: microsoft server bound on 9097
+2015/06/07 11:12:26: stockexchange.Exchange :: Bound google on 9095
+2015/06/07 11:12:26: stockexchange.Exchange :: Bound yahoo on 9096
+2015/06/07 11:12:27: stockexchange.Exchange :: Bound microsoft on 9097
+2015/06/07 11:12:27: stockexchange.broker.Broker :: broker bound on 9089
+2015/06/07 11:12:27: stockexchange.broker.Broker :: All systems ready to go!
+
+Log Server Started
+2015/06/07 11:13:38: business.Business :: google server bound on 9095
+2015/06/07 11:13:38: business.Business :: yahoo server bound on 9096
+2015/06/07 11:13:38: business.Business :: microsoft server bound on 9097
+2015/06/07 11:13:40: stockexchange.Exchange :: Bound google on 9095
+2015/06/07 11:13:40: stockexchange.Exchange :: Bound yahoo on 9096
+2015/06/07 11:13:40: stockexchange.Exchange :: Bound microsoft on 9097
+2015/06/07 11:13:40: stockexchange.broker.Broker :: broker bound on 9089
+2015/06/07 11:13:40: stockexchange.broker.Broker :: All systems ready to go!
+
+Log Server Started
+2015/06/07 11:15:01: business.Business :: google server bound on 9095
+2015/06/07 11:15:01: business.Business :: yahoo server bound on 9096
+2015/06/07 11:15:01: business.Business :: microsoft server bound on 9097
+2015/06/07 11:15:03: stockexchange.Exchange :: Bound google on 9095
+2015/06/07 11:15:03: stockexchange.Exchange :: Bound yahoo on 9096
+2015/06/07 11:15:03: stockexchange.Exchange :: Bound microsoft on 9097
+2015/06/07 11:15:03: stockexchange.broker.Broker :: broker bound on 9089
+2015/06/07 11:15:03: stockexchange.broker.Broker :: All systems ready to go!
+2015/06/07 11:16:38: stockexchange.Exchange :: Bound google on 9095
+2015/06/07 11:16:38: stockexchange.Exchange :: Bound yahoo on 9096
+2015/06/07 11:16:38: stockexchange.Exchange :: Bound microsoft on 9097
+2015/06/07 11:16:38: stockexchange.broker.Broker :: Remote Exception in Broker server: Port already in use: 9089; nested exception is: 
+	java.net.BindException: Address already in use: JVM_Bind
+
+Log Server Started
+2015/06/07 11:16:53: business.Business :: google server bound on 9095
+2015/06/07 11:16:53: business.Business :: yahoo server bound on 9096
+2015/06/07 11:16:54: business.Business :: microsoft server bound on 9097
+2015/06/07 11:16:55: stockexchange.Exchange :: Bound google on 9095
+2015/06/07 11:16:55: stockexchange.Exchange :: Bound yahoo on 9096
+2015/06/07 11:16:56: stockexchange.Exchange :: Bound microsoft on 9097
+2015/06/07 11:16:56: stockexchange.broker.Broker :: broker bound on 9089
+2015/06/07 11:16:56: stockexchange.broker.Broker :: All systems ready to go!
+2015/06/07 11:16:58: stockexchange.Exchange :: Bound google on 9095
+2015/06/07 11:16:58: stockexchange.Exchange :: Bound yahoo on 9096
+2015/06/07 11:16:58: stockexchange.Exchange :: Bound microsoft on 9097
+2015/06/07 11:16:58: stockexchange.broker.Broker :: Remote Exception in Broker server: Port already in use: 9089; nested exception is: 
+	java.net.BindException: Address already in use: JVM_Bind
+
+Log Server Started
+2015/06/07 11:17:52: business.Business :: google server bound on 9095
+2015/06/07 11:17:52: business.Business :: yahoo server bound on 9096
+2015/06/07 11:17:52: business.Business :: microsoft server bound on 9097
+2015/06/07 11:17:54: stockexchange.Exchange :: Bound google on 9095
+2015/06/07 11:17:54: stockexchange.Exchange :: Bound yahoo on 9096
+2015/06/07 11:17:54: stockexchange.Exchange :: Bound microsoft on 9097
+2015/06/07 11:17:54: stockexchange.broker.Broker :: broker bound on 9089
+2015/06/07 11:17:54: stockexchange.broker.Broker :: All systems ready to go!
+
+Log Server Started
+2015/06/07 11:20:39: business.Business :: google server bound on 9095
+2015/06/07 11:20:39: business.Business :: yahoo server bound on 9096
+2015/06/07 11:20:39: business.Business :: microsoft server bound on 9097
+2015/06/07 11:20:41: stockexchange.Exchange :: Bound google on 9095
+2015/06/07 11:20:41: stockexchange.Exchange :: Bound yahoo on 9096
+2015/06/07 11:20:41: stockexchange.Exchange :: Bound microsoft on 9097
+2015/06/07 11:20:41: stockexchange.broker.Broker :: broker bound on 9089
+2015/06/07 11:20:41: stockexchange.broker.Broker :: All systems ready to go!
+2015/06/07 11:20:56: client.BrokerServiceClientTest :: 	ech3i3qkupu37kgaocalmggt6f - Time started!
+2015/06/07 11:20:56: client.BrokerServiceClientTest :: 	ech3i3qkupu37kgaocalmggt6f - Time stopped!  Total time is: 121 ms.
+
+Log Server Started
+2015/06/07 11:21:39: business.Business :: google server bound on 9095
+2015/06/07 11:21:39: business.Business :: yahoo server bound on 9096
+2015/06/07 11:21:39: business.Business :: microsoft server bound on 9097
+2015/06/07 11:21:41: stockexchange.Exchange :: Bound google on 9095
+2015/06/07 11:21:41: stockexchange.Exchange :: Bound yahoo on 9096
+2015/06/07 11:21:41: stockexchange.Exchange :: Bound microsoft on 9097
+2015/06/07 11:21:41: stockexchange.broker.Broker :: broker bound on 9089
+2015/06/07 11:21:42: stockexchange.broker.Broker :: All systems ready to go!
+
+Log Server Started
+2015/06/07 11:22:25: business.Business :: google server bound on 9095
+2015/06/07 11:22:25: business.Business :: yahoo server bound on 9096
+2015/06/07 11:22:26: business.Business :: microsoft server bound on 9097
+2015/06/07 11:22:27: stockexchange.Exchange :: Bound google on 9095
+2015/06/07 11:22:28: stockexchange.Exchange :: Bound yahoo on 9096
+2015/06/07 11:22:28: stockexchange.Exchange :: Bound microsoft on 9097
+2015/06/07 11:22:28: stockexchange.broker.Broker :: broker bound on 9089
+2015/06/07 11:22:28: stockexchange.broker.Broker :: All systems ready to go!
+
+Log Server Started
+2015/06/07 11:23:25: business.Business :: google server bound on 9095
+2015/06/07 11:23:25: business.Business :: yahoo server bound on 9096
+2015/06/07 11:23:26: business.Business :: microsoft server bound on 9097
+2015/06/07 11:23:27: stockexchange.Exchange :: Bound google on 9095
+2015/06/07 11:23:27: stockexchange.Exchange :: Bound yahoo on 9096
+2015/06/07 11:23:28: stockexchange.Exchange :: Bound microsoft on 9097
+2015/06/07 11:23:28: stockexchange.broker.Broker :: broker bound on 9089
+2015/06/07 11:23:28: stockexchange.broker.Broker :: All systems ready to go!
+
+Log Server Started
+2015/06/07 11:23:58: business.Business :: google server bound on 9095
+2015/06/07 11:23:58: business.Business :: yahoo server bound on 9096
+2015/06/07 11:23:58: business.Business :: microsoft server bound on 9097
+2015/06/07 11:24:00: stockexchange.Exchange :: Bound google on 9095
+2015/06/07 11:24:00: stockexchange.Exchange :: Bound yahoo on 9096
+2015/06/07 11:24:00: stockexchange.Exchange :: Bound microsoft on 9097
+2015/06/07 11:24:00: stockexchange.broker.Broker :: broker bound on 9089
+2015/06/07 11:24:00: stockexchange.broker.Broker :: All systems ready to go!
+
+Log Server Started
+2015/06/07 11:28:46: business.Business :: google server bound on 9095
+2015/06/07 11:28:47: business.Business :: yahoo server bound on 9096
+2015/06/07 11:28:47: business.Business :: microsoft server bound on 9097
+2015/06/07 11:28:48: stockexchange.Exchange :: Bound google on 9095
+2015/06/07 11:28:49: stockexchange.Exchange :: Bound yahoo on 9096
+2015/06/07 11:28:49: stockexchange.Exchange :: Bound microsoft on 9097
+2015/06/07 11:28:49: stockexchange.broker.Broker :: broker bound on 9089
+2015/06/07 11:28:49: stockexchange.broker.Broker :: All systems ready to go!
+
+Log Server Started
+2015/06/07 11:31:54: business.Business :: google server bound on 9095
+2015/06/07 11:31:54: business.Business :: yahoo server bound on 9096
+2015/06/07 11:31:54: business.Business :: microsoft server bound on 9097
+2015/06/07 11:31:56: stockexchange.Exchange :: Bound google on 9095
+2015/06/07 11:31:56: stockexchange.Exchange :: Bound yahoo on 9096
+2015/06/07 11:31:56: stockexchange.Exchange :: Bound microsoft on 9097
+2015/06/07 11:31:56: stockexchange.broker.Broker :: broker bound on 9089
+2015/06/07 11:31:56: stockexchange.broker.Broker :: All systems ready to go!
+
+Log Server Started
+2015/06/07 11:32:37: business.Business :: google server bound on 9095
+2015/06/07 11:32:37: business.Business :: yahoo server bound on 9096
+2015/06/07 11:32:37: business.Business :: microsoft server bound on 9097
+2015/06/07 11:32:39: stockexchange.Exchange :: Bound google on 9095
+2015/06/07 11:32:39: stockexchange.Exchange :: Bound yahoo on 9096
+2015/06/07 11:32:39: stockexchange.Exchange :: Bound microsoft on 9097
+2015/06/07 11:32:40: stockexchange.broker.Broker :: broker bound on 9089
+2015/06/07 11:32:40: stockexchange.broker.Broker :: All systems ready to go!
+
+Log Server Started
+2015/06/07 11:34:22: business.Business :: google server bound on 9095
+2015/06/07 11:34:22: business.Business :: yahoo server bound on 9096
+2015/06/07 11:34:22: business.Business :: microsoft server bound on 9097
+2015/06/07 11:34:24: stockexchange.Exchange :: Bound google on 9095
+2015/06/07 11:34:24: stockexchange.Exchange :: Bound yahoo on 9096
+2015/06/07 11:34:24: stockexchange.Exchange :: Bound microsoft on 9097
+2015/06/07 11:34:25: stockexchange.broker.Broker :: broker bound on 9089
+2015/06/07 11:34:25: stockexchange.broker.Broker :: All systems ready to go!
+
+Log Server Started
+2015/06/07 11:35:57: business.Business :: google server bound on 9095
+2015/06/07 11:35:57: business.Business :: yahoo server bound on 9096
+2015/06/07 11:35:57: business.Business :: microsoft server bound on 9097
+2015/06/07 11:35:59: stockexchange.Exchange :: Bound google on 9095
+2015/06/07 11:35:59: stockexchange.Exchange :: Bound yahoo on 9096
+2015/06/07 11:35:59: stockexchange.Exchange :: Bound microsoft on 9097
+2015/06/07 11:35:59: stockexchange.broker.Broker :: broker bound on 9089
+2015/06/07 11:35:59: stockexchange.broker.Broker :: All systems ready to go!
+
+Log Server Started
+2015/06/07 11:36:45: business.Business :: google server bound on 9095
+2015/06/07 11:36:46: business.Business :: yahoo server bound on 9096
+2015/06/07 11:36:46: business.Business :: microsoft server bound on 9097
+2015/06/07 11:36:47: stockexchange.Exchange :: Bound google on 9095
+2015/06/07 11:36:47: stockexchange.Exchange :: Bound yahoo on 9096
+2015/06/07 11:36:48: stockexchange.Exchange :: Bound microsoft on 9097
+2015/06/07 11:36:48: stockexchange.broker.Broker :: broker bound on 9089
+2015/06/07 11:36:48: stockexchange.broker.Broker :: All systems ready to go!
+
+Log Server Started
+2015/06/07 11:40:44: business.Business :: google server bound on 9095
+2015/06/07 11:40:44: business.Business :: yahoo server bound on 9096
+2015/06/07 11:40:44: business.Business :: microsoft server bound on 9097
+2015/06/07 11:40:46: stockexchange.Exchange :: Bound google on 9095
+2015/06/07 11:40:46: stockexchange.Exchange :: Bound yahoo on 9096
+2015/06/07 11:40:46: stockexchange.Exchange :: Bound microsoft on 9097
+2015/06/07 11:40:46: stockexchange.Exchange :: Bound google on 9095
+2015/06/07 11:40:46: stockexchange.Exchange :: Bound yahoo on 9096
+2015/06/07 11:40:46: business.Business :: Error processing broker ref BR123: \files\businessOrderRecord.xml (The system cannot find the path specified)
+2015/06/07 11:40:46: stockexchange.Exchange :: Bound microsoft on 9097
+2015/06/07 11:40:46: stockexchange.broker.Broker :: broker bound on 9089
+2015/06/07 11:40:46: stockexchange.broker.Broker :: All systems ready to go!
+
+Log Server Started
+2015/06/07 11:46:11: business.Business :: google server bound on 9095
+2015/06/07 11:46:11: business.Business :: yahoo server bound on 9096
+2015/06/07 11:46:11: business.Business :: microsoft server bound on 9097
+2015/06/07 11:46:13: stockexchange.Exchange :: Bound google on 9095
+2015/06/07 11:46:13: stockexchange.Exchange :: Bound yahoo on 9096
+2015/06/07 11:46:13: stockexchange.Exchange :: Bound microsoft on 9097
+2015/06/07 11:46:13: stockexchange.broker.Broker :: broker bound on 9089
+2015/06/07 11:46:13: stockexchange.broker.Broker :: All systems ready to go!
+2015/06/07 11:46:20: stockexchange.Exchange :: Bound google on 9095
+2015/06/07 11:46:20: stockexchange.Exchange :: Bound yahoo on 9096
+2015/06/07 11:46:20: stockexchange.Exchange :: Bound microsoft on 9097
+2015/06/07 11:46:20: business.Business :: Error processing broker ref BR123: \files\businessOrderRecord.xml (The system cannot find the path specified)
+
+Log Server Started
+2015/06/07 11:46:55: business.Business :: google server bound on 9095
+2015/06/07 11:46:55: business.Business :: yahoo server bound on 9096
+2015/06/07 11:46:55: business.Business :: microsoft server bound on 9097
+2015/06/07 11:46:57: stockexchange.Exchange :: Bound google on 9095
+2015/06/07 11:46:57: stockexchange.Exchange :: Bound yahoo on 9096
+2015/06/07 11:46:57: stockexchange.Exchange :: Bound microsoft on 9097
+2015/06/07 11:46:57: stockexchange.broker.Broker :: broker bound on 9089
+2015/06/07 11:46:57: stockexchange.broker.Broker :: All systems ready to go!
+
+Log Server Started
+2015/06/07 11:48:11: business.Business :: google server bound on 9095
+2015/06/07 11:48:11: business.Business :: yahoo server bound on 9096
+2015/06/07 11:48:11: business.Business :: microsoft server bound on 9097
+2015/06/07 11:48:13: stockexchange.Exchange :: Bound google on 9095
+2015/06/07 11:48:13: stockexchange.Exchange :: Bound yahoo on 9096
+2015/06/07 11:48:13: stockexchange.Exchange :: Bound microsoft on 9097
+2015/06/07 11:48:13: stockexchange.broker.Broker :: broker bound on 9089
+2015/06/07 11:48:13: stockexchange.broker.Broker :: All systems ready to go!
+2015/06/07 11:48:17: business.Business :: Error processing broker ref BR123: \files\businessOrderRecord.xml (The system cannot find the path specified)

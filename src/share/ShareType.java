@@ -1,5 +1,7 @@
 package share;
 
-public enum ShareType {
+import java.io.Serializable;
+
+public enum ShareType implements Serializable{
 		PREFERRED, COMMON, CONVERTIBLE
 }

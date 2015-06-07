@@ -106,7 +106,7 @@ public class BrokerServiceClient {
 
 
     private static Customer getCustomer(String info) {
-        return new Customer(Integer.parseInt(info.split(";;d")[0]), info.split(";;d")[1], info.split(";;d")[2], info.split(";;d")[3], info.split(";;d")[4], info.split(";;d")[5], info.split(";;d")[6], info.split(";;d")[7]);
+        return new Customer(info.split(";;d")[1], info.split(";;d")[2], info.split(";;d")[3], info.split(";;d")[4], info.split(";;d")[5], info.split(";;d")[6], info.split(";;d")[7]);
     }
 
     private static ArrayList<ShareItem> createListofShares() {

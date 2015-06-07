@@ -7,7 +7,7 @@ import java.io.Serializable;
  */
 public class Customer implements Serializable {
 
-    private int customerReferenceNumber;
+    private static int customerReferenceNumber = 0;
     private String name;
     private String street1;
     private String street2;
@@ -19,8 +19,8 @@ public class Customer implements Serializable {
 
 
     // TODO customerReferenceNumber should be generated automatically
-        public Customer(int customerReferenceNumber, String name, String street1, String street2, String city, String province, String postalCode, String country) {
-        this.customerReferenceNumber = customerReferenceNumber;
+    public Customer(String name, String street1, String street2, String city, String province, String postalCode, String country) {
+        this.customerReferenceNumber++;
         this.name = name;
         this.street1 = street1;
         this.street2 = street2;
@@ -28,6 +28,17 @@ public class Customer implements Serializable {
         this.province = province;
         this.postalCode = postalCode;
         this.country = country;
+    }
+
+    public Customer(String name) {
+        customerReferenceNumber++;
+        this.name = name;
+        street1 = null;
+        street2 = null;
+        city = null;
+        province = null;
+        postalCode = null;
+        country = null;
     }
 
     public int getCustomerReferenceNumber() {

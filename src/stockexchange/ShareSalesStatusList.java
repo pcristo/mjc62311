@@ -1,13 +1,12 @@
 package stockexchange;
 
 import client.Customer;
+import share.ShareType;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import share.ShareType;
 
 
 /**
@@ -116,6 +115,7 @@ public class ShareSalesStatusList{
 
         int quantity = 0;
 
+
         //Is Share available
         for (int i =0; i < this.availableShares.size(); i++)
         {
@@ -124,8 +124,7 @@ public class ShareSalesStatusList{
 
                 quantity = this.availableShares.get(i).getQuantity();
 
-                if (share.getBusinessSymbol() == businessSymbol && quantity >= share.getQuantity()) {
-
+                if (share.getBusinessSymbol().equals(businessSymbol) && quantity >= share.getQuantity()) {
 
                     soldShare = this.availableShares.get(i);
                     this.getAvailableShares().get(i).reduceQuantity(share.getQuantity());
