@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class Business implements Serializable, BusinessInterface {
 	private static final long serialVersionUID = 1L;
-	private static final String ORDER_RECORD_FILENAME =  Config.getInstance().getAttr("businessXmlLog");
+	private static final String ORDER_RECORD_FILENAME = Config.getInstance().getAttr("businessXmlLog");
 	private List<Share> sharesList = new ArrayList<Share>();
 	private Object recordLock = new Object(); 
 
@@ -70,12 +70,10 @@ public class Business implements Serializable, BusinessInterface {
 			bufferedReader.close();
 			
 			// log the activity
-			// This is not true, the business entity was created, but the RMI has yet to start
-			// TODO revisit
-//			log("Business " + identifier + " created successfully.");
+			log("Business " + identifier + " object created.");
 
 		} catch (IOException ioe) {
-			log("Failed to create business " + identifier + ": " + ioe.getMessage());
+			log("Failed to create business object " + identifier + ": " + ioe.getMessage());
 		}
 	}
 
@@ -87,7 +85,6 @@ public class Business implements Serializable, BusinessInterface {
 		// return the common part of the symbol here:
 
 		// Some share types don't have extension in that case return whole symbol
-		// TODO: Validate this is required? Is an error thrown if no . found?
 		String shareSymbol = sharesList.get(0).getBusinessSymbol();
 		if (shareSymbol.contains(".")) {
 			return sharesList.get(0).getBusinessSymbol().split(".")[0];
@@ -139,7 +136,7 @@ public class Business implements Serializable, BusinessInterface {
 		} catch (FileNotFoundException e) {
 			// Failed to write to the record... Return false
 			e.printStackTrace();
-			log("Error processing broker ref " + aSO.getBrokerRef() + ": "
+			log("Error saving XML record for broker ref " + aSO.getBrokerRef() + ": "
 					+ e.getMessage());
 			return false;
 		}
@@ -368,7 +365,7 @@ public class Business implements Serializable, BusinessInterface {
 	 * @param msg
 	 */
 	private void log(String msg) {
-		System.out.println(msg);
+		// System.out.println(msg);
 		LoggerClient.log(msg, this.getClass().getName());
 	}
 }

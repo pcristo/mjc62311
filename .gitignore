@@ -6,4 +6,5 @@ tasks.xml
 .classpath
 .project
 /.settings/
+/.gitignore
 /orderRecord.xml

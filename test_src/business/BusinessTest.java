@@ -8,6 +8,7 @@ import share.ShareOrder;
 import share.ShareType;
 import util.Config;
 
+import java.io.Console;
 import java.rmi.RemoteException;
 
 import static junit.framework.TestCase.assertTrue;

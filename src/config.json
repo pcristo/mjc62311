@@ -1,11 +1,11 @@
 {
-  "projectHome": "C:/Users/Ross/Dropbox/Distributed_Systems/project",
+  "projectHome": "~/git/mjc62311",
 
-  "jars": "/resources/jar",
-  "out": "/out",
-  "files": "/files",
-  "logServerFile": "/src/files/iteration_one.log",
-  "security": "/resources/settings/security.policy",
+  "jars": "resources/jar",
+  "out": "out",
+  "files": "files",
+  "logServerFile": "src/files/iteration_one.log",
+  "security": "resources/settings/security.policy",
 
   "logServerIP" : "166.78.186.20",
   "logServerPort": "9090",
@@ -23,7 +23,7 @@
   "yahoo": "yahoo_data.csv",
   "microsoft": "microsoft_data.csv",
   "google":"google_data.csv",
-  "businessXmlLog": "/files/businessOrderRecord.xml",
+  "businessXmlLog": "out/files/businessOrderRecord.xml",
 
   "macLogServerHome": "/Users/Gay/Documents/Concordia/COMP6231/PROJECT/mjc62311",
   "macSecurity": "/resources/settings/security.policy"
