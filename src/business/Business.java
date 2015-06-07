@@ -24,10 +24,11 @@ import java.util.List;
  */
 public class Business implements Serializable, BusinessInterface {
 	private static final long serialVersionUID = 1L;
-	private static final String ORDER_RECORD_FILENAME = Config.getInstance().getAttr("projectHome") + Config.getInstance().getAttr("businessXmlLog");
+	private static final String ORDER_RECORD_FILENAME = Config.getInstance().getAttr("businessXmlLog");
 	private List<Share> sharesList = new ArrayList<Share>();
-	private Object recordLock = new Object(); 
-
+	private List<OrderRecord> orderRecords = new ArrayList<OrderRecord>();
+	private Object recordLock = new Object();
+	
 	/**
 	 * Constructor to create a business
 	 * 
@@ -130,16 +131,8 @@ public class Business implements Serializable, BusinessInterface {
 			authorizeShare(aSO.getShareType(), 100);
 		authorizeShare(aSO.getShareType(), remainder);
 
-		// record to XML file
-		try {
-			saveRecord(aSO);
-		} catch (FileNotFoundException e) {
-			// Failed to write to the record... Return false
-			e.printStackTrace();
-			log("Error saving XML record for broker ref " + aSO.getBrokerRef() + ": "
-					+ e.getMessage());
-			return false;
-		}
+		// record to local memory file
+		saveRecordToList(aSO);
 
 		// return true
 		log(aSO.getQuantity() + " shares issued successfully for broker ref " + aSO.getBrokerRef());
@@ -206,6 +199,7 @@ public class Business implements Serializable, BusinessInterface {
 	 *             file, does not exist but cannot be created, or cannot be
 	 *             opened for any other reason then a FileNotFoundException is
 	 *             thrown.
+	 * @deprecated Replaced by saveRecordToList()
 	 */
 	private void saveRecord(ShareOrder order) throws FileNotFoundException {
 		// create the order record
@@ -221,6 +215,15 @@ public class Business implements Serializable, BusinessInterface {
 	}
 
 	/**
+	 * Saves an order of issued shares to local memory
+	 * 
+	 * @param order The order to save
+	 */
+	private void saveRecordToList(ShareOrder order) {
+		orderRecords.add(new OrderRecord(order, false));
+	}
+	
+	/**
 	 * Checks the order record for an exact match, and if found, updates the
 	 * record to indicate the order is paid and returns true. Otherwise returns
 	 * false.
@@ -234,7 +237,22 @@ public class Business implements Serializable, BusinessInterface {
 	 *         been paid
 	 */
 	public boolean recievePayment(String orderNum, float totalPrice) {
-		// TODO: As the xml record gets large, this method's performance will
+		// check to see if there is a match that is not already paid
+		for (OrderRecord o : orderRecords) {
+			if ((o.getOrderNum().equals(orderNum))
+					&& ((o.getQuantity() * o.getUnitPriceOrder()) == totalPrice)
+					&& (!o.isPaid())) {
+				o.setPaid(true); 		// update the status to paid
+				return true; 			// return
+			}
+		}
+		
+		// nothing matched, return false
+		return false;
+		
+		
+		// deprecated method using XML:
+/*	    // As the xml record gets large, this method's performance will
 		// drop off dramatically. A database implementation would be far more
 		// efficient.
 		
@@ -293,7 +311,7 @@ public class Business implements Serializable, BusinessInterface {
 			e.close();
 		}
 		
-		return true;
+		return true;*/
 	}
 
 	/**
