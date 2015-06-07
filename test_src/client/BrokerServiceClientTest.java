@@ -76,7 +76,7 @@ public class BrokerServiceClientTest {
         assertTrue(ServerDisplayMsgs.getCustomerInfo().equals("22;;d1;;d2;;d3;;d4;;d5;;d6;;d7"));
     }
 
-
+    @Test
     public void testRMI() throws Exception {
         TimerLoggerClient tlc = new TimerLoggerClient();
         tlc.start();
