@@ -29,7 +29,7 @@ public class BrokerServiceClient {
      */
     public BrokerInterface getBroker() throws RemoteException, NotBoundException {
 
-        String host = Config.getInstance().getAttr("brokerHost");
+        String host = Config.getInstance().getAttr("brokerServerIP");
         Integer port = Integer.parseInt(Config.getInstance().getAttr("brokerPort"));
 
         //TODO remove this.  See updated Config class.

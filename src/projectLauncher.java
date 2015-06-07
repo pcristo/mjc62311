@@ -41,10 +41,12 @@ public class projectLauncher {
 		broker.start();
 		pause("Launching broker and waiting ", WAIT_BETWEEN_LAUNCH_TIME);
 
-		// let everything get rolling before starting the client
-		System.out.println(PREFACE_STRING + "Client starting... ");
+		if (args.length == 0 ){		
+			// let everything get rolling before starting the client
+			System.out.println(PREFACE_STRING + "Client starting... ");
 
-		BrokerServiceClient.main(null);
+			BrokerServiceClient.main(null);
+		}
 	}
 
 	private static void pause(String msg, int ms) throws InterruptedException {		

@@ -715,3 +715,720 @@ Log Server Started
 2015/06/07 12:19:24: business.Business :: 100 shares issued successfully for broker ref BR123
 2015/06/07 12:19:24: stockexchange.broker.Broker :: broker bound on 9089
 2015/06/07 12:19:24: stockexchange.broker.Broker :: All systems ready to go!
+
+Log Server Started
+2015/06/07 12:36:36: business.Business :: Business google_data.csv object created.
+2015/06/07 12:36:36: business.Business :: Business yahoo_data.csv object created.
+2015/06/07 12:36:36: business.Business :: Business microsoft_data.csv object created.
+2015/06/07 12:36:36: business.Business :: google server bound on 9095
+2015/06/07 12:36:36: business.Business :: yahoo server bound on 9096
+2015/06/07 12:36:36: business.Business :: microsoft server bound on 9097
+2015/06/07 12:36:38: stockexchange.Exchange :: Bound google on 9095
+2015/06/07 12:36:38: stockexchange.Exchange :: Bound yahoo on 9096
+2015/06/07 12:36:38: stockexchange.Exchange :: Bound microsoft on 9097
+2015/06/07 12:36:38: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 12:36:38: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 12:36:38: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 12:36:38: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 12:36:38: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 12:36:38: business.Business :: Order price less than minimum issue price  (broker ref BR123)
+2015/06/07 12:36:38: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 12:36:39: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 12:36:39: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 12:36:39: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 12:36:39: business.Business :: Order price less than minimum issue price  (broker ref BR123)
+2015/06/07 12:36:39: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 12:36:39: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 12:36:39: stockexchange.broker.Broker :: broker bound on 9089
+2015/06/07 12:36:39: stockexchange.broker.Broker :: All systems ready to go!
+
+Log Server Started
+2015/06/07 12:37:29: business.Business :: Business google_data.csv object created.
+2015/06/07 12:37:29: business.Business :: Business yahoo_data.csv object created.
+2015/06/07 12:37:29: business.Business :: Business microsoft_data.csv object created.
+2015/06/07 12:37:29: business.Business :: google server bound on 9095
+2015/06/07 12:37:30: business.Business :: yahoo server bound on 9096
+2015/06/07 12:37:30: business.Business :: microsoft server bound on 9097
+2015/06/07 12:37:31: stockexchange.Exchange :: Bound google on 9095
+2015/06/07 12:37:31: stockexchange.Exchange :: Bound yahoo on 9096
+2015/06/07 12:37:31: stockexchange.Exchange :: Bound microsoft on 9097
+2015/06/07 12:37:32: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 12:37:32: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 12:37:32: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 12:37:32: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 12:37:32: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 12:37:32: business.Business :: Order price less than minimum issue price  (broker ref BR123)
+2015/06/07 12:37:32: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 12:37:32: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 12:37:32: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 12:37:32: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 12:37:32: business.Business :: Order price less than minimum issue price  (broker ref BR123)
+2015/06/07 12:37:32: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 12:37:32: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 12:37:33: stockexchange.broker.Broker :: broker bound on 9089
+2015/06/07 12:37:33: stockexchange.broker.Broker :: All systems ready to go!
+
+Log Server Started
+2015/06/07 12:50:54: business.Business :: Business google_data.csv object created.
+2015/06/07 12:50:54: business.Business :: Business yahoo_data.csv object created.
+2015/06/07 12:50:54: business.Business :: Business microsoft_data.csv object created.
+2015/06/07 12:50:54: business.Business :: google server bound on 9095
+2015/06/07 12:50:54: business.Business :: yahoo server bound on 9096
+2015/06/07 12:50:54: business.Business :: microsoft server bound on 9097
+2015/06/07 12:50:56: stockexchange.Exchange :: Bound google on 9095
+2015/06/07 12:50:56: stockexchange.Exchange :: Bound yahoo on 9096
+2015/06/07 12:50:56: stockexchange.Exchange :: Bound microsoft on 9097
+2015/06/07 12:50:56: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 12:50:56: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 12:50:56: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 12:50:56: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 12:50:56: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 12:50:56: business.Business :: Order price less than minimum issue price  (broker ref BR123)
+2015/06/07 12:50:56: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 12:50:57: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 12:50:57: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 12:50:57: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 12:50:57: business.Business :: Order price less than minimum issue price  (broker ref BR123)
+2015/06/07 12:50:57: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 12:50:57: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 12:50:57: stockexchange.broker.Broker :: broker bound on 9089
+2015/06/07 12:50:57: stockexchange.broker.Broker :: All systems ready to go!
+
+Log Server Started
+2015/06/07 12:51:31: business.Business :: Business google_data.csv object created.
+2015/06/07 12:51:31: business.Business :: Business yahoo_data.csv object created.
+2015/06/07 12:51:31: business.Business :: Business microsoft_data.csv object created.
+2015/06/07 12:51:32: business.Business :: google server bound on 9095
+2015/06/07 12:51:32: business.Business :: yahoo server bound on 9096
+2015/06/07 12:51:32: business.Business :: microsoft server bound on 9097
+2015/06/07 12:51:33: stockexchange.Exchange :: Bound google on 9095
+2015/06/07 12:51:33: stockexchange.Exchange :: Bound yahoo on 9096
+2015/06/07 12:51:34: stockexchange.Exchange :: Bound microsoft on 9097
+2015/06/07 12:51:34: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 12:51:34: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 12:51:34: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 12:51:34: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 12:51:34: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 12:51:34: business.Business :: Order price less than minimum issue price  (broker ref BR123)
+2015/06/07 12:51:34: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 12:51:34: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 12:51:34: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 12:51:34: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 12:51:34: business.Business :: Order price less than minimum issue price  (broker ref BR123)
+2015/06/07 12:51:34: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 12:51:35: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 12:51:35: stockexchange.broker.Broker :: broker bound on 9089
+2015/06/07 12:51:35: stockexchange.broker.Broker :: All systems ready to go!
+
+Log Server Started
+2015/06/07 13:03:21: business.Business :: Business google_data.csv object created.
+2015/06/07 13:03:21: business.Business :: Business yahoo_data.csv object created.
+2015/06/07 13:03:21: business.Business :: Business microsoft_data.csv object created.
+2015/06/07 13:03:21: business.Business :: google server bound on 9095
+2015/06/07 13:03:21: business.Business :: yahoo server bound on 9096
+2015/06/07 13:03:22: business.Business :: microsoft server bound on 9097
+2015/06/07 13:03:23: stockexchange.Exchange :: Bound google on 9095
+2015/06/07 13:03:23: stockexchange.Exchange :: Bound yahoo on 9096
+2015/06/07 13:03:23: stockexchange.Exchange :: Bound microsoft on 9097
+2015/06/07 13:03:24: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:03:24: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:03:24: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:03:24: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:03:24: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:03:24: business.Business :: Order price less than minimum issue price  (broker ref BR123)
+2015/06/07 13:03:24: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:03:24: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:03:24: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:03:24: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:03:24: business.Business :: Order price less than minimum issue price  (broker ref BR123)
+2015/06/07 13:03:24: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:03:24: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:03:24: stockexchange.broker.Broker :: broker bound on 9089
+2015/06/07 13:03:24: stockexchange.broker.Broker :: All systems ready to go!
+
+Log Server Started
+2015/06/07 13:07:17: business.Business :: Business google_data.csv object created.
+2015/06/07 13:07:17: business.Business :: Business yahoo_data.csv object created.
+2015/06/07 13:07:18: business.Business :: Business microsoft_data.csv object created.
+2015/06/07 13:07:18: business.Business :: Remote Exception in Business Server: Port already in use: 9095; nested exception is: 
+	java.net.BindException: Address already in use: JVM_Bind
+2015/06/07 13:07:20: stockexchange.Exchange :: Bound google on 9095
+2015/06/07 13:07:20: stockexchange.Exchange :: Bound yahoo on 9096
+2015/06/07 13:07:20: stockexchange.Exchange :: Bound microsoft on 9097
+2015/06/07 13:07:20: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:07:20: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:07:20: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:07:20: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:07:20: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:07:20: business.Business :: Order price less than minimum issue price  (broker ref BR123)
+2015/06/07 13:07:20: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:07:20: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:07:20: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:07:21: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:07:21: business.Business :: Order price less than minimum issue price  (broker ref BR123)
+2015/06/07 13:07:21: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:07:21: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:07:21: stockexchange.broker.Broker :: Remote Exception in Broker server: Port already in use: 9089; nested exception is: 
+	java.net.BindException: Address already in use: JVM_Bind
+
+Log Server Started
+2015/06/07 13:07:26: business.Business :: Business google_data.csv object created.
+2015/06/07 13:07:26: business.Business :: Business yahoo_data.csv object created.
+2015/06/07 13:07:26: business.Business :: Business microsoft_data.csv object created.
+2015/06/07 13:07:26: business.Business :: Remote Exception in Business Server: Port already in use: 9095; nested exception is: 
+	java.net.BindException: Address already in use: JVM_Bind
+2015/06/07 13:07:28: stockexchange.Exchange :: Bound google on 9095
+2015/06/07 13:07:28: stockexchange.Exchange :: Bound yahoo on 9096
+2015/06/07 13:07:28: stockexchange.Exchange :: Bound microsoft on 9097
+2015/06/07 13:07:28: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:07:28: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:07:28: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:07:28: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:07:28: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:07:28: business.Business :: Order price less than minimum issue price  (broker ref BR123)
+2015/06/07 13:07:28: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:07:28: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:07:28: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:07:28: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:07:28: business.Business :: Order price less than minimum issue price  (broker ref BR123)
+2015/06/07 13:07:29: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:07:29: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:07:29: stockexchange.broker.Broker :: Remote Exception in Broker server: Port already in use: 9089; nested exception is: 
+	java.net.BindException: Address already in use: JVM_Bind
+
+Log Server Started
+2015/06/07 13:08:42: business.Business :: Business google_data.csv object created.
+2015/06/07 13:08:42: business.Business :: Business yahoo_data.csv object created.
+2015/06/07 13:08:42: business.Business :: Business microsoft_data.csv object created.
+2015/06/07 13:08:43: business.Business :: google server bound on 9095
+2015/06/07 13:08:43: business.Business :: yahoo server bound on 9096
+2015/06/07 13:08:43: business.Business :: microsoft server bound on 9097
+2015/06/07 13:08:44: stockexchange.Exchange :: Bound google on 9095
+2015/06/07 13:08:45: stockexchange.Exchange :: Bound yahoo on 9096
+2015/06/07 13:08:45: stockexchange.Exchange :: Bound microsoft on 9097
+2015/06/07 13:08:45: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:08:45: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:08:45: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:08:45: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:08:45: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:08:45: business.Business :: Order price less than minimum issue price  (broker ref BR123)
+2015/06/07 13:08:45: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:08:45: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:08:45: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:08:45: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:08:45: business.Business :: Order price less than minimum issue price  (broker ref BR123)
+2015/06/07 13:08:46: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:08:46: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:08:46: stockexchange.broker.Broker :: broker bound on 9089
+2015/06/07 13:08:46: stockexchange.broker.Broker :: All systems ready to go!
+
+Log Server Started
+2015/06/07 13:09:49: business.Business :: Business google_data.csv object created.
+2015/06/07 13:09:49: business.Business :: Business yahoo_data.csv object created.
+2015/06/07 13:09:49: business.Business :: Business microsoft_data.csv object created.
+2015/06/07 13:09:49: business.Business :: google server bound on 9095
+2015/06/07 13:09:49: business.Business :: yahoo server bound on 9096
+2015/06/07 13:09:49: business.Business :: microsoft server bound on 9097
+2015/06/07 13:09:51: stockexchange.Exchange :: Bound google on 9095
+2015/06/07 13:09:51: stockexchange.Exchange :: Bound yahoo on 9096
+2015/06/07 13:09:51: stockexchange.Exchange :: Bound microsoft on 9097
+2015/06/07 13:09:51: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:09:51: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:09:51: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:09:51: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:09:52: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:09:52: business.Business :: Order price less than minimum issue price  (broker ref BR123)
+2015/06/07 13:09:52: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:09:52: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:09:52: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:09:52: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:09:52: business.Business :: Order price less than minimum issue price  (broker ref BR123)
+2015/06/07 13:09:52: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:09:52: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:09:52: stockexchange.broker.Broker :: broker bound on 9089
+2015/06/07 13:09:52: stockexchange.broker.Broker :: All systems ready to go!
+
+Log Server Started
+2015/06/07 13:10:32: business.Business :: Business google_data.csv object created.
+2015/06/07 13:10:32: business.Business :: Business yahoo_data.csv object created.
+2015/06/07 13:10:32: business.Business :: Business microsoft_data.csv object created.
+2015/06/07 13:10:33: business.Business :: google server bound on 9095
+2015/06/07 13:10:33: business.Business :: yahoo server bound on 9096
+2015/06/07 13:10:33: business.Business :: microsoft server bound on 9097
+2015/06/07 13:10:34: stockexchange.Exchange :: Bound google on 9095
+2015/06/07 13:10:34: stockexchange.Exchange :: Bound yahoo on 9096
+2015/06/07 13:10:34: stockexchange.Exchange :: Bound microsoft on 9097
+2015/06/07 13:10:35: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:10:35: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:10:35: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:10:35: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:10:35: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:10:35: business.Business :: Order price less than minimum issue price  (broker ref BR123)
+2015/06/07 13:10:35: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:10:35: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:10:35: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:10:35: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:10:35: business.Business :: Order price less than minimum issue price  (broker ref BR123)
+2015/06/07 13:10:35: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:10:35: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:10:35: stockexchange.broker.Broker :: broker bound on 9089
+2015/06/07 13:10:35: stockexchange.broker.Broker :: All systems ready to go!
+2015/06/07 13:12:26: client.BrokerServiceClientTest :: 	kkgbtiop2ofipvbnencaoqc1ic - Time started!
+2015/06/07 13:12:27: client.BrokerServiceClientTest :: 	kkgbtiop2ofipvbnencaoqc1ic - Time stopped!  Total time is: 117 ms.
+
+Log Server Started
+2015/06/07 13:15:18: business.Business :: Business google_data.csv object created.
+2015/06/07 13:15:18: business.Business :: Business yahoo_data.csv object created.
+2015/06/07 13:15:19: business.Business :: Business microsoft_data.csv object created.
+2015/06/07 13:15:19: business.Business :: google server bound on 9095
+2015/06/07 13:15:19: business.Business :: yahoo server bound on 9096
+2015/06/07 13:15:19: business.Business :: microsoft server bound on 9097
+2015/06/07 13:15:21: stockexchange.Exchange :: Bound google on 9095
+2015/06/07 13:15:21: stockexchange.Exchange :: Bound yahoo on 9096
+2015/06/07 13:15:21: stockexchange.Exchange :: Bound microsoft on 9097
+2015/06/07 13:15:21: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:15:21: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:15:21: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:15:21: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:15:21: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:15:21: business.Business :: Order price less than minimum issue price  (broker ref BR123)
+2015/06/07 13:15:21: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:15:21: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:15:21: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:15:22: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:15:22: business.Business :: Order price less than minimum issue price  (broker ref BR123)
+2015/06/07 13:15:22: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:15:22: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:15:22: stockexchange.broker.Broker :: broker bound on 9089
+2015/06/07 13:15:22: stockexchange.broker.Broker :: All systems ready to go!
+
+Log Server Started
+2015/06/07 13:16:26: business.Business :: Business google_data.csv object created.
+2015/06/07 13:16:26: business.Business :: Business yahoo_data.csv object created.
+2015/06/07 13:16:26: business.Business :: Business microsoft_data.csv object created.
+2015/06/07 13:16:26: business.Business :: google server bound on 9095
+2015/06/07 13:16:26: business.Business :: yahoo server bound on 9096
+2015/06/07 13:16:27: business.Business :: microsoft server bound on 9097
+2015/06/07 13:16:28: stockexchange.Exchange :: Bound google on 9095
+2015/06/07 13:16:28: stockexchange.Exchange :: Bound yahoo on 9096
+2015/06/07 13:16:28: stockexchange.Exchange :: Bound microsoft on 9097
+2015/06/07 13:16:28: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:16:28: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:16:29: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:16:29: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:16:29: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:16:29: business.Business :: Order price less than minimum issue price  (broker ref BR123)
+2015/06/07 13:16:29: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:16:29: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:16:29: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:16:29: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:16:29: business.Business :: Order price less than minimum issue price  (broker ref BR123)
+2015/06/07 13:16:29: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:16:29: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 13:16:30: stockexchange.broker.Broker :: broker bound on 9089
+2015/06/07 13:16:30: stockexchange.broker.Broker :: All systems ready to go!
+2015/06/07 13:18:58: client.BrokerServiceClientTest :: BHELLO
+2015/06/07 16:39:52: client.BrokerServiceClientTest :: 	qnvfuc6v9r291qduf224c26000 - Time started!
+
+Log Server Started
+2015/06/07 16:40:45: business.Business :: Business google_data.csv object created.
+2015/06/07 16:40:46: business.Business :: Business yahoo_data.csv object created.
+2015/06/07 16:40:46: business.Business :: Business microsoft_data.csv object created.
+2015/06/07 16:40:46: business.Business :: google server bound on 9095
+2015/06/07 16:40:47: business.Business :: yahoo server bound on 9096
+2015/06/07 16:40:47: business.Business :: microsoft server bound on 9097
+2015/06/07 16:40:47: stockexchange.Exchange :: Bound google on 9095
+2015/06/07 16:40:47: stockexchange.Exchange :: Bound yahoo on 9096
+2015/06/07 16:40:47: stockexchange.Exchange :: Bound microsoft on 9097
+2015/06/07 16:40:48: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 16:40:48: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 16:40:48: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 16:40:49: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 16:40:49: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 16:40:50: business.Business :: Order price less than minimum issue price  (broker ref BR123)
+2015/06/07 16:40:50: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 16:40:50: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 16:40:50: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 16:40:51: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 16:40:52: business.Business :: Order price less than minimum issue price  (broker ref BR123)
+2015/06/07 16:40:52: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 16:40:53: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 16:40:53: stockexchange.broker.Broker :: broker bound on 9089
+2015/06/07 16:40:54: stockexchange.broker.Broker :: All systems ready to go!
+2015/06/07 16:52:52: client.BrokerServiceClientTest :: 	hda7ke7qk37aj0q1enj4vt9cea - Time started!
+2015/06/07 16:53:22: client.BrokerServiceClientTest :: 	hda7ke7qk37aj0q1enj4vt9cea - Time stopped!  Total time is: 11427 ms.
+2015/06/07 16:54:05: client.BrokerServiceClientTest :: 	25hibs2l29nrkfknjblv76drkg - Time started!
+2015/06/07 16:54:06: client.BrokerServiceClientTest :: 	25hibs2l29nrkfknjblv76drkg - Time stopped!  Total time is: 113 ms.
+2015/06/07 16:55:25: client.BrokerServiceClientTest :: 	2bg46jp3i7op5bvrqllhpahubs - Time started!
+2015/06/07 16:55:25: client.BrokerServiceClientTest :: 	2bg46jp3i7op5bvrqllhpahubs - Time stopped!  Total time is: 115 ms.
+2015/06/07 16:55:58: client.BrokerServiceClientTest :: 	fmofob9moe2pv3sl3drg63obj9 - Time started!
+2015/06/07 16:55:59: client.BrokerServiceClientTest :: 	fmofob9moe2pv3sl3drg63obj9 - Time stopped!  Total time is: 125 ms.
+2015/06/07 16:56:24: client.BrokerServiceClientTest :: 	m8nv6jhedcf4lmgnmhi0j094kr - Time started!
+2015/06/07 16:56:24: client.BrokerServiceClientTest :: 	m8nv6jhedcf4lmgnmhi0j094kr - Time stopped!  Total time is: 120 ms.
+2015/06/07 16:56:33: client.BrokerServiceClientTest :: 	nbkhg95kn3objfvo74ma8gvvlb - Time started!
+2015/06/07 16:56:35: client.BrokerServiceClientTest :: 	nbkhg95kn3objfvo74ma8gvvlb - Time stopped!  Total time is: 119 ms.
+2015/06/07 16:57:06: client.BrokerServiceClientTest :: 	qptkujslrlr1v4aef81dhrej65 - Time started!
+2015/06/07 16:57:07: client.BrokerServiceClientTest :: 	qptkujslrlr1v4aef81dhrej65 - Time stopped!  Total time is: 230 ms.
+2015/06/07 16:57:45: client.BrokerServiceClientTest :: 	t9r82ek3vko5iapl535rn5lmbp - Time started!
+2015/06/07 16:57:45: client.BrokerServiceClientTest :: 	t9r82ek3vko5iapl535rn5lmbp - Time stopped!  Total time is: 122 ms.
+2015/06/07 17:00:00: client.BrokerServiceClientTest :: 	b5mio0g7j7nllcuteachhj4hql - Time started!
+2015/06/07 17:00:00: client.BrokerServiceClientTest :: 	b5mio0g7j7nllcuteachhj4hql - Time stopped!  Total time is: 116 ms.
+
+Log Server Started
+2015/06/07 17:22:42: business.Business :: Business google_data.csv object created.
+2015/06/07 17:22:42: business.Business :: Business yahoo_data.csv object created.
+2015/06/07 17:22:42: business.Business :: Business microsoft_data.csv object created.
+2015/06/07 17:22:43: business.Business :: google server bound on 9095
+2015/06/07 17:22:43: business.Business :: yahoo server bound on 9096
+2015/06/07 17:22:43: business.Business :: microsoft server bound on 9097
+2015/06/07 17:22:44: stockexchange.Exchange :: Bound google on 9095
+2015/06/07 17:22:44: stockexchange.Exchange :: Bound yahoo on 9096
+2015/06/07 17:22:44: stockexchange.Exchange :: Bound microsoft on 9097
+2015/06/07 17:22:45: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 17:22:45: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 17:22:45: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 17:22:45: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 17:22:45: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 17:22:45: business.Business :: Order price less than minimum issue price  (broker ref BR123)
+2015/06/07 17:22:46: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 17:22:46: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 17:22:46: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 17:22:46: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 17:22:46: business.Business :: Order price less than minimum issue price  (broker ref BR123)
+2015/06/07 17:22:46: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 17:22:46: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 17:22:47: stockexchange.broker.Broker :: broker bound on 9089
+2015/06/07 17:22:47: stockexchange.broker.Broker :: All systems ready to go!
+
+Log Server Started
+2015/06/07 17:23:40: business.Business :: Business google_data.csv object created.
+2015/06/07 17:23:40: business.Business :: Business yahoo_data.csv object created.
+2015/06/07 17:23:40: business.Business :: Business microsoft_data.csv object created.
+2015/06/07 17:23:41: business.Business :: google server bound on 9095
+2015/06/07 17:23:41: business.Business :: yahoo server bound on 9096
+2015/06/07 17:23:41: business.Business :: microsoft server bound on 9097
+2015/06/07 17:23:42: stockexchange.Exchange :: Bound google on 9095
+2015/06/07 17:23:42: stockexchange.Exchange :: Bound yahoo on 9096
+2015/06/07 17:23:43: stockexchange.Exchange :: Bound microsoft on 9097
+2015/06/07 17:23:43: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 17:23:43: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 17:23:43: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 17:23:43: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 17:23:44: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 17:23:44: business.Business :: Order price less than minimum issue price  (broker ref BR123)
+2015/06/07 17:23:44: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 17:23:44: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 17:23:44: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 17:23:44: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 17:23:44: business.Business :: Order price less than minimum issue price  (broker ref BR123)
+2015/06/07 17:23:44: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 17:23:44: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 17:23:45: stockexchange.broker.Broker :: broker bound on 9089
+2015/06/07 17:23:45: stockexchange.broker.Broker :: All systems ready to go!
+
+Log Server Started
+2015/06/07 17:23:54: business.Business :: Business google_data.csv object created.
+2015/06/07 17:23:54: business.Business :: Business yahoo_data.csv object created.
+2015/06/07 17:23:54: business.Business :: Business microsoft_data.csv object created.
+2015/06/07 17:23:55: business.Business :: google server bound on 9095
+2015/06/07 17:23:55: business.Business :: yahoo server bound on 9096
+2015/06/07 17:23:55: business.Business :: microsoft server bound on 9097
+2015/06/07 17:23:56: stockexchange.Exchange :: Bound google on 9095
+2015/06/07 17:23:57: stockexchange.Exchange :: Bound yahoo on 9096
+2015/06/07 17:23:57: stockexchange.Exchange :: Bound microsoft on 9097
+2015/06/07 17:23:57: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 17:23:57: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 17:23:57: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 17:23:57: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 17:23:57: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 17:23:57: business.Business :: Order price less than minimum issue price  (broker ref BR123)
+2015/06/07 17:23:58: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 17:23:58: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 17:23:58: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 17:23:58: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 17:23:58: business.Business :: Order price less than minimum issue price  (broker ref BR123)
+2015/06/07 17:23:58: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 17:23:58: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 17:23:58: stockexchange.broker.Broker :: broker bound on 9089
+2015/06/07 17:23:58: stockexchange.broker.Broker :: All systems ready to go!
+
+Log Server Started
+2015/06/07 17:24:08: business.Business :: Business google_data.csv object created.
+2015/06/07 17:24:08: business.Business :: Business yahoo_data.csv object created.
+2015/06/07 17:24:08: business.Business :: Business microsoft_data.csv object created.
+2015/06/07 17:24:08: business.Business :: google server bound on 9095
+2015/06/07 17:24:08: business.Business :: yahoo server bound on 9096
+2015/06/07 17:24:08: business.Business :: microsoft server bound on 9097
+2015/06/07 17:24:10: stockexchange.Exchange :: Bound google on 9095
+2015/06/07 17:24:10: stockexchange.Exchange :: Bound yahoo on 9096
+2015/06/07 17:24:10: stockexchange.Exchange :: Bound microsoft on 9097
+2015/06/07 17:24:11: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 17:24:11: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 17:24:11: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 17:24:11: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 17:24:11: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 17:24:11: business.Business :: Order price less than minimum issue price  (broker ref BR123)
+2015/06/07 17:24:11: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 17:24:12: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 17:24:12: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 17:24:12: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 17:24:12: business.Business :: Order price less than minimum issue price  (broker ref BR123)
+2015/06/07 17:24:12: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 17:24:12: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 17:24:12: stockexchange.broker.Broker :: broker bound on 9089
+2015/06/07 17:24:13: stockexchange.broker.Broker :: All systems ready to go!
+
+Log Server Started
+2015/06/07 17:24:24: business.Business :: Business google_data.csv object created.
+2015/06/07 17:24:24: business.Business :: Business yahoo_data.csv object created.
+2015/06/07 17:24:25: business.Business :: Business microsoft_data.csv object created.
+2015/06/07 17:24:25: business.Business :: google server bound on 9095
+2015/06/07 17:24:25: business.Business :: yahoo server bound on 9096
+2015/06/07 17:24:25: business.Business :: microsoft server bound on 9097
+2015/06/07 17:24:26: stockexchange.Exchange :: Bound google on 9095
+2015/06/07 17:24:27: stockexchange.Exchange :: Bound yahoo on 9096
+2015/06/07 17:24:27: stockexchange.Exchange :: Bound microsoft on 9097
+2015/06/07 17:24:27: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 17:24:27: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 17:24:27: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 17:24:27: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 17:24:27: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 17:24:27: business.Business :: Order price less than minimum issue price  (broker ref BR123)
+2015/06/07 17:24:28: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 17:24:28: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 17:24:28: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 17:24:28: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 17:24:28: business.Business :: Order price less than minimum issue price  (broker ref BR123)
+2015/06/07 17:24:28: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 17:24:28: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 17:24:28: stockexchange.broker.Broker :: broker bound on 9089
+2015/06/07 17:24:28: stockexchange.broker.Broker :: All systems ready to go!
+
+Log Server Started
+2015/06/07 17:33:45: business.Business :: Business google_data.csv object created.
+2015/06/07 17:33:45: business.Business :: Business yahoo_data.csv object created.
+2015/06/07 17:33:46: business.Business :: Business microsoft_data.csv object created.
+2015/06/07 17:33:46: business.Business :: google server bound on 9095
+2015/06/07 17:33:46: business.Business :: yahoo server bound on 9096
+2015/06/07 17:33:46: business.Business :: microsoft server bound on 9097
+2015/06/07 17:33:47: stockexchange.Exchange :: Bound google on 9095
+2015/06/07 17:33:48: stockexchange.Exchange :: Bound yahoo on 9096
+2015/06/07 17:33:48: stockexchange.Exchange :: Bound microsoft on 9097
+2015/06/07 17:33:49: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 17:33:49: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 17:33:49: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 17:33:50: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 17:33:50: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 17:33:51: business.Business :: Order price less than minimum issue price  (broker ref BR123)
+2015/06/07 17:33:51: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 17:33:52: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 17:33:52: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 17:33:52: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 17:33:53: business.Business :: Order price less than minimum issue price  (broker ref BR123)
+2015/06/07 17:33:54: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 17:33:54: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 17:33:55: stockexchange.broker.Broker :: broker bound on 9089
+2015/06/07 17:33:55: stockexchange.broker.Broker :: All systems ready to go!
+2015/06/07 17:33:58: logger.LoggerTest :: Test 65
+2015/06/07 17:33:58: client.TestThread :: STARTING TEST TREAD
+2015/06/07 17:33:58: logger.LoggerTest :: 	9hpc5lhotghcoumsvqiqaoa802 - Time started!
+2015/06/07 17:34:00: logger.LoggerTest :: 	9hpc5lhotghcoumsvqiqaoa802 - Time stopped!  Total time is: 1001 ms.
+2015/06/07 17:37:58: client.TestT :: hello all - please let this work
+2015/06/07 17:40:40: client.Simulation :: SIMULATION THREAD STARTED
+2015/06/07 17:40:48: client.Simulation :: SIMULATION THREAD STARTED
+
+Log Server Started
+2015/06/07 17:49:25: business.Business :: Business google_data.csv object created.
+2015/06/07 17:49:26: business.Business :: Business yahoo_data.csv object created.
+2015/06/07 17:49:26: business.Business :: Business microsoft_data.csv object created.
+2015/06/07 17:49:26: business.Business :: google server bound on 9095
+2015/06/07 17:49:27: business.Business :: yahoo server bound on 9096
+2015/06/07 17:49:27: business.Business :: microsoft server bound on 9097
+2015/06/07 17:49:27: stockexchange.Exchange :: Bound google on 9095
+2015/06/07 17:49:27: stockexchange.Exchange :: Bound yahoo on 9096
+2015/06/07 17:49:28: stockexchange.Exchange :: Bound microsoft on 9097
+2015/06/07 17:49:28: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 17:49:29: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 17:49:29: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 17:49:30: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 17:49:31: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 17:49:32: business.Business :: Order price less than minimum issue price  (broker ref BR123)
+2015/06/07 17:49:32: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 17:49:32: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 17:49:32: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 17:49:33: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 17:49:33: business.Business :: Order price less than minimum issue price  (broker ref BR123)
+2015/06/07 17:49:34: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 17:49:34: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 17:49:35: stockexchange.broker.Broker :: broker bound on 9089
+2015/06/07 17:49:35: stockexchange.broker.Broker :: All systems ready to go!
+2015/06/07 18:03:52: client.BrokerServiceClientTest :: 	anpgikpemfbpoj5dufog26kfci - Time started!
+2015/06/07 18:03:53: client.BrokerServiceClientTest :: 	anpgikpemfbpoj5dufog26kfci - Time stopped!  Total time is: 178 ms.
+2015/06/07 18:04:10: client.BrokerServiceClientTest :: 	l6tirgvpgtpmmc2ooievump9tr - Time started!
+2015/06/07 18:04:11: client.BrokerServiceClientTest :: 	l6tirgvpgtpmmc2ooievump9tr - Time stopped!  Total time is: 107 ms.
+2015/06/07 18:05:01: client.BrokerServiceClientTest :: 	fpsgtma1ujmshi8igsdfs7et34 - Time started!
+2015/06/07 18:05:02: client.BrokerServiceClientTest :: 	fpsgtma1ujmshi8igsdfs7et34 - Time stopped!  Total time is: 103 ms.
+2015/06/07 18:07:39: client.Simulation :: SIMULATION THREAD STARTED - CUSTOMER NAME IS Spiderman 2
+2015/06/07 18:07:40: client.Simulation :: SIMULATION THREAD ENDED
+2015/06/07 18:07:45: client.Simulation :: SIMULATION THREAD STARTED - CUSTOMER NAME IS Spiderman 2
+2015/06/07 18:07:45: client.Simulation :: SIMULATION THREAD ENDED
+2015/06/07 18:13:04: client.Simulation :: SIMULATION THREAD STARTED - CUSTOMER NAME IS Spiderman 2
+2015/06/07 18:13:05: client.Simulation :: SIMULATION THREAD - Spiderman 2 SELLING GOOG: SUCCEEDED!
+2015/06/07 18:13:05: client.Simulation :: SIMULATION THREAD ENDED
+2015/06/07 18:16:37: client.Simulation :: SIMULATION THREAD STARTED - CUSTOMER NAME IS Spiderman 2
+2015/06/07 18:16:37: client.Simulation :: SIMULATION THREAD - Spiderman 2 SELLING GOOG: SUCCEEDED!
+2015/06/07 18:16:37: client.Simulation :: SIMULATION THREAD ENDED
+2015/06/07 18:17:36: client.Simulation :: SIMULATION THREAD STARTED - CUSTOMER NAME IS Batman
+2015/06/07 18:17:36: client.Simulation :: SIMULATION THREAD STARTED - CUSTOMER NAME IS Duckman
+2015/06/07 18:17:36: client.Simulation :: SIMULATION THREAD STARTED - CUSTOMER NAME IS Antman
+2015/06/07 18:17:36: client.Simulation :: SIMULATION THREAD STARTED - CUSTOMER NAME IS Superman
+2015/06/07 18:17:36: client.Simulation :: SIMULATION THREAD - Antman SELLING GOOG: FAILED!
+2015/06/07 18:17:36: client.Simulation :: SIMULATION THREAD - Batman SELLING MSFT: FAILED!
+2015/06/07 18:17:36: client.Simulation :: SIMULATION THREAD - Duckman SELLING GOOG: FAILED!
+2015/06/07 18:17:36: client.Simulation :: SIMULATION THREAD - Superman SELLING MSFT: SUCCEEDED!
+2015/06/07 18:17:36: client.Simulation :: SIMULATION THREAD ENDED
+2015/06/07 18:17:36: client.Simulation :: SIMULATION THREAD ENDED
+2015/06/07 18:17:36: client.Simulation :: SIMULATION THREAD ENDED
+2015/06/07 18:17:37: client.Simulation :: SIMULATION THREAD ENDED
+2015/06/07 18:18:40: client.Simulation :: SIMULATION THREAD STARTED - CUSTOMER NAME IS Batman
+2015/06/07 18:18:40: client.Simulation :: SIMULATION THREAD STARTED - CUSTOMER NAME IS Spiderman
+2015/06/07 18:18:41: client.Simulation :: SIMULATION THREAD - Spiderman SELLING GOOG: FAILED!
+2015/06/07 18:18:41: client.Simulation :: SIMULATION THREAD - Batman SELLING MSFT: FAILED!
+2015/06/07 18:18:41: client.Simulation :: SIMULATION THREAD ENDED
+2015/06/07 18:18:41: client.Simulation :: SIMULATION THREAD ENDED
+
+Log Server Started
+2015/06/07 18:18:49: business.Business :: Business google_data.csv object created.
+2015/06/07 18:18:49: business.Business :: Business yahoo_data.csv object created.
+2015/06/07 18:18:49: business.Business :: Business microsoft_data.csv object created.
+2015/06/07 18:18:50: business.Business :: google server bound on 9095
+2015/06/07 18:18:50: business.Business :: yahoo server bound on 9096
+2015/06/07 18:18:50: business.Business :: microsoft server bound on 9097
+2015/06/07 18:18:51: stockexchange.Exchange :: Bound google on 9095
+2015/06/07 18:18:51: stockexchange.Exchange :: Bound yahoo on 9096
+2015/06/07 18:18:52: stockexchange.Exchange :: Bound microsoft on 9097
+2015/06/07 18:18:53: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 18:18:53: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 18:18:54: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 18:18:54: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 18:18:55: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 18:18:55: business.Business :: Order price less than minimum issue price  (broker ref BR123)
+2015/06/07 18:18:56: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 18:18:56: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 18:18:56: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 18:18:57: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 18:18:57: business.Business :: Order price less than minimum issue price  (broker ref BR123)
+2015/06/07 18:18:57: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 18:18:58: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 18:18:59: stockexchange.broker.Broker :: broker bound on 9089
+2015/06/07 18:18:59: stockexchange.broker.Broker :: All systems ready to go!
+2015/06/07 18:19:03: client.Simulation :: SIMULATION THREAD STARTED - CUSTOMER NAME IS Spiderman
+2015/06/07 18:19:03: client.Simulation :: SIMULATION THREAD STARTED - CUSTOMER NAME IS Batman
+2015/06/07 18:19:03: client.Simulation :: SIMULATION THREAD - Batman SELLING MSFT: FAILED!
+2015/06/07 18:19:03: client.Simulation :: SIMULATION THREAD - Spiderman SELLING GOOG: SUCCEEDED!
+2015/06/07 18:19:03: client.Simulation :: SIMULATION THREAD ENDED
+2015/06/07 18:19:03: client.Simulation :: SIMULATION THREAD ENDED
+
+Log Server Started
+2015/06/07 18:19:21: business.Business :: Business google_data.csv object created.
+2015/06/07 18:19:22: business.Business :: Business yahoo_data.csv object created.
+2015/06/07 18:19:22: business.Business :: Business microsoft_data.csv object created.
+2015/06/07 18:19:23: business.Business :: google server bound on 9095
+2015/06/07 18:19:23: business.Business :: yahoo server bound on 9096
+2015/06/07 18:19:23: business.Business :: microsoft server bound on 9097
+2015/06/07 18:19:23: stockexchange.Exchange :: Bound google on 9095
+2015/06/07 18:19:24: stockexchange.Exchange :: Bound yahoo on 9096
+2015/06/07 18:19:25: stockexchange.Exchange :: Bound microsoft on 9097
+2015/06/07 18:19:26: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 18:19:26: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 18:19:26: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 18:19:27: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 18:19:28: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 18:19:28: business.Business :: Order price less than minimum issue price  (broker ref BR123)
+2015/06/07 18:19:28: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 18:19:29: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 18:19:29: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 18:19:30: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 18:19:30: business.Business :: Order price less than minimum issue price  (broker ref BR123)
+2015/06/07 18:19:30: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 18:19:31: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 18:19:32: stockexchange.broker.Broker :: broker bound on 9089
+2015/06/07 18:19:32: stockexchange.broker.Broker :: All systems ready to go!
+2015/06/07 18:19:36: client.Simulation :: SIMULATION THREAD STARTED - CUSTOMER NAME IS Batman
+2015/06/07 18:19:37: client.Simulation :: SIMULATION THREAD - Batman SELLING MSFT: SUCCEEDED!
+2015/06/07 18:19:37: client.Simulation :: SIMULATION THREAD ENDED
+
+Log Server Started
+2015/06/07 18:19:49: business.Business :: Business google_data.csv object created.
+2015/06/07 18:19:49: business.Business :: Business yahoo_data.csv object created.
+2015/06/07 18:19:49: business.Business :: Business microsoft_data.csv object created.
+2015/06/07 18:19:50: business.Business :: google server bound on 9095
+2015/06/07 18:19:50: business.Business :: yahoo server bound on 9096
+2015/06/07 18:19:50: business.Business :: microsoft server bound on 9097
+2015/06/07 18:19:51: stockexchange.Exchange :: Bound google on 9095
+2015/06/07 18:19:51: stockexchange.Exchange :: Bound yahoo on 9096
+2015/06/07 18:19:52: stockexchange.Exchange :: Bound microsoft on 9097
+2015/06/07 18:19:53: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 18:19:53: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 18:19:53: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 18:19:54: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 18:19:55: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 18:19:56: business.Business :: Order price less than minimum issue price  (broker ref BR123)
+2015/06/07 18:19:56: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 18:19:56: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 18:19:57: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 18:19:57: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 18:19:57: business.Business :: Order price less than minimum issue price  (broker ref BR123)
+2015/06/07 18:19:58: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 18:19:58: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 18:19:58: stockexchange.broker.Broker :: broker bound on 9089
+2015/06/07 18:19:59: stockexchange.broker.Broker :: All systems ready to go!
+2015/06/07 18:20:01: client.Simulation :: SIMULATION THREAD STARTED - CUSTOMER NAME IS Spiderman
+2015/06/07 18:20:02: client.Simulation :: SIMULATION THREAD - Spiderman SELLING GOOG: SUCCEEDED!
+2015/06/07 18:20:02: client.Simulation :: SIMULATION THREAD ENDED
+
+Log Server Started
+2015/06/07 18:20:11: business.Business :: Business google_data.csv object created.
+2015/06/07 18:20:11: business.Business :: Business yahoo_data.csv object created.
+2015/06/07 18:20:12: business.Business :: Business microsoft_data.csv object created.
+2015/06/07 18:20:12: business.Business :: google server bound on 9095
+2015/06/07 18:20:13: business.Business :: yahoo server bound on 9096
+2015/06/07 18:20:13: business.Business :: microsoft server bound on 9097
+2015/06/07 18:20:13: stockexchange.Exchange :: Bound google on 9095
+2015/06/07 18:20:14: stockexchange.Exchange :: Bound yahoo on 9096
+2015/06/07 18:20:14: stockexchange.Exchange :: Bound microsoft on 9097
+2015/06/07 18:20:15: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 18:20:15: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 18:20:16: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 18:20:17: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 18:20:17: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 18:20:18: business.Business :: Order price less than minimum issue price  (broker ref BR123)
+2015/06/07 18:20:18: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 18:20:19: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 18:20:19: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 18:20:20: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 18:20:20: business.Business :: Order price less than minimum issue price  (broker ref BR123)
+2015/06/07 18:20:20: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 18:20:20: business.Business :: 100 shares issued successfully for broker ref BR123
+2015/06/07 18:20:21: stockexchange.broker.Broker :: broker bound on 9089
+2015/06/07 18:20:21: stockexchange.broker.Broker :: All systems ready to go!
+2015/06/07 18:20:34: client.Simulation :: SIMULATION THREAD STARTED - CUSTOMER NAME IS Spiderman
+2015/06/07 18:20:34: client.Simulation :: SIMULATION THREAD STARTED - CUSTOMER NAME IS Batman
+2015/06/07 18:20:35: client.Simulation :: SIMULATION THREAD - Spiderman SELLING GOOG: SUCCEEDED!
+2015/06/07 18:20:35: client.Simulation :: SIMULATION THREAD - Batman SELLING MSFT: SUCCEEDED!
+2015/06/07 18:20:35: client.Simulation :: SIMULATION THREAD ENDED
+2015/06/07 18:20:35: client.Simulation :: SIMULATION THREAD ENDED
+2015/06/07 18:20:38: client.Simulation :: SIMULATION THREAD STARTED - CUSTOMER NAME IS Spiderman
+2015/06/07 18:20:38: client.Simulation :: SIMULATION THREAD STARTED - CUSTOMER NAME IS Batman
+2015/06/07 18:20:38: client.Simulation :: SIMULATION THREAD - Spiderman SELLING GOOG: SUCCEEDED!
+2015/06/07 18:20:38: client.Simulation :: SIMULATION THREAD - Batman SELLING MSFT: FAILED!
+2015/06/07 18:20:38: client.Simulation :: SIMULATION THREAD ENDED
+2015/06/07 18:20:38: client.Simulation :: SIMULATION THREAD ENDED
+2015/06/07 18:20:41: client.Simulation :: SIMULATION THREAD STARTED - CUSTOMER NAME IS Batman
+2015/06/07 18:20:41: client.Simulation :: SIMULATION THREAD STARTED - CUSTOMER NAME IS Spiderman
+2015/06/07 18:20:41: client.Simulation :: SIMULATION THREAD - Spiderman SELLING GOOG: FAILED!
+2015/06/07 18:20:41: client.Simulation :: SIMULATION THREAD - Batman SELLING MSFT: FAILED!
+2015/06/07 18:20:41: client.Simulation :: SIMULATION THREAD ENDED
+2015/06/07 18:20:41: client.Simulation :: SIMULATION THREAD ENDED
+2015/06/07 18:22:47: client.BrokerServiceClientTest :: 	37i5g4fmr5s9s9naf53n2teqbo - Time started!
+2015/06/07 18:22:48: client.BrokerServiceClientTest :: 	37i5g4fmr5s9s9naf53n2teqbo - Time stopped!  Total time is: 110 ms.
