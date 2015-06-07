@@ -1,5 +1,6 @@
 package client;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -17,6 +18,8 @@ public class ServerDisplayMsgs {
     private final static String TICKER = "Please enter ticker:";
     private final static String TICKERTYPE = "Please enter desired ticker type(common,preferred,convertible):";
     private final static String TICKERQUATITY = "Please enter desired ticker quantity:";
+    private static InputStream m_inputStream = null;
+
 
     public static void printWelcome() {
         System.out.println(SEPARATOR);
@@ -29,7 +32,11 @@ public class ServerDisplayMsgs {
         System.out.println(OPERATIONS);
         System.out.println(SEPARATOR);
         System.out.println(SELECTION);
-        Scanner scan = new Scanner(System.in);
+        if(m_inputStream == null)
+        {
+            m_inputStream = System.in;
+        }
+        Scanner scan = new Scanner(m_inputStream);
         int option = scan.nextInt();
         return option;
     }
@@ -39,14 +46,22 @@ public class ServerDisplayMsgs {
         System.out.println(OPTIONS);
         System.out.println(SEPARATOR);
         System.out.println(SELECTION);
-        Scanner scan = new Scanner(System.in);
+        if(m_inputStream == null)
+        {
+            m_inputStream = System.in;
+        }
+        Scanner scan = new Scanner(m_inputStream);
         int option = scan.nextInt();
         return option;
     }
 
     public static String enterTicker() {
         System.out.println(TICKER);
-        Scanner scan = new Scanner(System.in);
+        if(m_inputStream == null)
+        {
+            m_inputStream = System.in;
+        }
+        Scanner scan = new Scanner(m_inputStream);
         String ticker = scan.nextLine();
         return ticker;
     }
@@ -66,7 +81,11 @@ public class ServerDisplayMsgs {
                         break;
                     } else {
                         System.out.println("Enter index of ticker to be removed: ");
-                        Scanner scan = new Scanner(System.in);
+                        if(m_inputStream == null)
+                        {
+                            m_inputStream = System.in;
+                        }
+                        Scanner scan = new Scanner(m_inputStream);
                         int index = scan.nextInt();
                         list.remove(index - 1);
                         break;
@@ -93,7 +112,11 @@ public class ServerDisplayMsgs {
 
     public static ShareType enterTickerType() {
         System.out.println(TICKERTYPE);
-        Scanner scan = new Scanner(System.in);
+        if(m_inputStream == null)
+        {
+            m_inputStream = System.in;
+        }
+        Scanner scan = new Scanner(m_inputStream);
         ShareType ticker = ShareType.valueOf(scan.nextLine().toUpperCase());
         return ticker;
     }
@@ -105,7 +128,11 @@ public class ServerDisplayMsgs {
     public static int enterTickerQuantity() {
         System.out.println(TICKERQUATITY);
 
-        Scanner scan = new Scanner(System.in);
+        if(m_inputStream == null)
+        {
+            m_inputStream = System.in;
+        }
+        Scanner scan = new Scanner(m_inputStream);
         int quantity = scan.nextInt();
         return quantity;
     }
@@ -120,7 +147,11 @@ public class ServerDisplayMsgs {
     }
 
     public static String getCustomerInfo() {
-        Scanner scan = new Scanner(System.in);
+        if(m_inputStream == null)
+        {
+            m_inputStream = System.in;
+        }
+        Scanner scan = new Scanner(m_inputStream);
         String info = "";
         System.out.println(SEPARATOR);
         System.out.println("Please enter customer reference number: ");
@@ -149,5 +180,10 @@ public class ServerDisplayMsgs {
 
         System.out.println(SEPARATOR);
         return info;
+    }
+
+    public static void setInputStream(InputStream inputStream)
+    {
+        m_inputStream = inputStream;
     }
 }
