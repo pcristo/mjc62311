@@ -39,14 +39,16 @@ public class LoggerClient {
 
         msg = className + " :: " + msg;
 
-        String ip = Config.getInstance().getAttr("logServerIP");
-        int port = Integer.parseInt(Config.getInstance().getAttr("logServerPort"));
+        Config c = Config.getInstance();
+        String ip = c.getAttr("logServerIP");
+
+
+        int port = Integer.parseInt(c.getAttr("logServerPort"));
 
         boolean logSuccess = sendMessage(msg, ip, port);
 
         String backup_ip = Config.getInstance().getAttr("backup_logServerIP");
         String backup_port_config = Config.getInstance().getAttr("backup_logServerPort");
-
 
         if(backup_ip != null && backup_port_config != null) {
             Integer backup_port = Integer.parseInt(backup_port_config);
@@ -56,10 +58,6 @@ public class LoggerClient {
         } else {
             return logSuccess;
         }
-
-
-
-
     }
 
     /**
@@ -69,8 +67,7 @@ public class LoggerClient {
      * @param port int of the port to send message on
      * @return
      */
-    private static boolean sendMessage(String msg, String ip, int port) {
-
+    public static boolean sendMessage(String msg, String ip, int port) {
         try {
             DatagramSocket clientSocket = new DatagramSocket();
             clientSocket.setSoTimeout(3000);
@@ -89,10 +86,10 @@ public class LoggerClient {
             clientSocket.close();
 
         } catch(UnknownHostException he){
-            System.err.println("Host Exception in logger client: " + he.getMessage());
+            System.out.println("Host Exception in logger client: " + he.getMessage());
             return false;
         } catch (IOException ioe) {
-            System.err.println("IO Exception in logger client: " + ioe.getMessage());
+            System.out.println("IO Exception in logger client: " + ioe.getMessage());
             return false;
         }
 

@@ -3,10 +3,7 @@ package client;
 import logger.TimerLoggerClient;
 import org.junit.Before;
 import org.junit.Test;
-import share.ShareType;
 import stockexchange.broker.BrokerInterface;
-
-import java.util.ArrayList;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -42,33 +39,6 @@ public class BrokerServiceClientTest {
         tlc.end();
     }
 
-    @Test
-    /**
-     *  Test a client purchasing a share
-     */
-    public void testSharePurchase()  {
-        try {
-            BrokerInterface broker = client.getBroker();
-            ArrayList<String> tickers = new ArrayList<String>();
-            tickers.add("GOOG");
-            Customer customer = new Customer("Batman");
-
-            assertTrue(broker.sellShares(tickers, ShareType.COMMON, 100, customer));
-
-            tickers = new ArrayList<String>();
-            tickers.add("MSFT");
-            customer = new Customer("Spiderman");
-            assertTrue(broker.sellShares(tickers, ShareType.COMMON, 100, customer));
-
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
-
-
-
-
-
-    }
 
 
 }
