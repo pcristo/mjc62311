@@ -16,8 +16,8 @@ import share.ShareType;
 public class ShareSalesStatusList{
 
 
-    private static Map<ShareItem, Customer> soldShares = new HashMap<ShareItem,Customer>();
-    private static List<ShareItem> availableShares = new ArrayList<ShareItem>();
+    private  Map<ShareItem, Customer> soldShares = new HashMap<ShareItem,Customer>();
+    private  List<ShareItem> availableShares = new ArrayList<ShareItem>();
 
 
     // ----------------------     CONSTRUCTOR     ----------------------------------
@@ -25,7 +25,7 @@ public class ShareSalesStatusList{
 
     public ShareSalesStatusList() {
 
-        availableShares = this.populateAvailable();
+       // availableShares = this.populateAvailable();
 
     }
 
@@ -50,7 +50,7 @@ public class ShareSalesStatusList{
      */
     public List<ShareItem> getAvailableShares() {
 
-        return availableShares;
+        return this.availableShares;
     }
 
 
@@ -116,10 +116,12 @@ public class ShareSalesStatusList{
 
         int quantity = 0;
 
+
+
         //Is Share available
         for (int i =0; i < this.availableShares.size(); i++)
         {
-            synchronized (this.availableShares.get(i)) {
+
                 businessSymbol = this.availableShares.get(i).getBusinessSymbol();
 
                 quantity = this.availableShares.get(i).getQuantity();
@@ -133,7 +135,7 @@ public class ShareSalesStatusList{
                     break;
 
                 }
-            }
+
         }
 
         return soldShare;
@@ -153,7 +155,7 @@ public class ShareSalesStatusList{
 
         if (availableShare.getQuantity() <= soldShareItem.getQuantity()) {
 
-            availableShares.remove(indexAvailableShare);
+            this.availableShares.remove(indexAvailableShare);
 
         } else {
 
@@ -170,7 +172,7 @@ public class ShareSalesStatusList{
     public void addToSoldShares(ShareItem shareItem, Customer customer) {
 
         synchronized (shareItem){
-            soldShares.put(shareItem,customer);
+            this.soldShares.put(shareItem,customer);
         }
 
     }
@@ -182,7 +184,9 @@ public class ShareSalesStatusList{
     public void addToAvailableShares(ShareItem aShare) {
 
          //Find this type of share that is at quantity 0
-        for(ShareItem s : this.getAvailableShares()) {
+
+        this.availableShares.add(aShare);
+        /*for(ShareItem s : this.getAvailableShares()) {
 
             if (s.getBusinessSymbol() == aShare.getBusinessSymbol()) {
 
@@ -193,7 +197,7 @@ public class ShareSalesStatusList{
                 }
 
             }
-        }
+        }*/
     }
 
 
