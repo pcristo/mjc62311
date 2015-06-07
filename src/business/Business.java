@@ -220,7 +220,9 @@ public class Business implements Serializable, BusinessInterface {
 	 * @param order The order to save
 	 */
 	private void saveRecordToList(ShareOrder order) {
-		orderRecords.add(new OrderRecord(order, false));
+		synchronized(recordLock) {
+			orderRecords.add(new OrderRecord(order, false));
+		}
 	}
 	
 	/**
@@ -238,18 +240,19 @@ public class Business implements Serializable, BusinessInterface {
 	 */
 	public boolean recievePayment(String orderNum, float totalPrice) {
 		// check to see if there is a match that is not already paid
-		for (OrderRecord o : orderRecords) {
-			if ((o.getOrderNum().equals(orderNum))
-					&& ((o.getQuantity() * o.getUnitPriceOrder()) == totalPrice)
-					&& (!o.isPaid())) {
-				o.setPaid(true); 		// update the status to paid
-				return true; 			// return
+		synchronized(recordLock) {			
+			for (OrderRecord o : orderRecords) {
+				if ((o.getOrderNum().equals(orderNum))
+						&& ((o.getQuantity() * o.getUnitPriceOrder()) == totalPrice)
+						&& (!o.isPaid())) {
+					o.setPaid(true); 		// update the status to paid
+					return true; 			// return
+				}
 			}
 		}
 		
 		// nothing matched, return false
-		return false;
-		
+		return false;		
 		
 		// deprecated method using XML:
 /*	    // As the xml record gets large, this method's performance will
