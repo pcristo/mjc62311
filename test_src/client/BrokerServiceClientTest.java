@@ -53,8 +53,13 @@ public class BrokerServiceClientTest {
             tickers.add("GOOG");
             Customer customer = new Customer("Batman");
 
-            boolean didItWork = broker.sellShares(tickers, ShareType.COMMON, 100, customer);
-            assertTrue(didItWork);
+            assertTrue(broker.sellShares(tickers, ShareType.COMMON, 100, customer));
+
+            tickers = new ArrayList<String>();
+            tickers.add("MSFT");
+            customer = new Customer("Spiderman");
+            assertTrue(broker.sellShares(tickers, ShareType.COMMON, 100, customer));
+
         } catch(Exception e) {
             e.printStackTrace();
         }
