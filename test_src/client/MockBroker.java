@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import logger.LoggerClient;
 
 import share.ShareType;
+import stockexchange.ShareItem;
 import stockexchange.broker.Broker;
 import stockexchange.broker.BrokerInterface;
 import util.Config;
@@ -35,6 +36,12 @@ public class MockBroker implements BrokerInterface
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+    @Override
+    public boolean sellShares(ArrayList<ShareItem> customShares, Customer customer) throws RemoteException{
+
+        return false;
+    }
 
 	@Override
 	public ArrayList<String> getTickerListing() throws RemoteException

@@ -17,6 +17,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Broker class takes customer request and validates it and sends it over
@@ -138,6 +139,27 @@ public class Broker implements BrokerInterface, Serializable{
         } else {
             return false;
         }
+    }
+
+    /**
+     *
+     * @param shareItems
+     * @param customer
+     * @return
+     * @throws RemoteException
+     */
+    public boolean sellShares(ArrayList<ShareItem> shareItems, Customer customer) throws RemoteException {
+
+        ShareList customerShares = new ShareList(shareItems);
+
+        ShareSalesStatusList shareSalesStatusList = exchange.sellShares(customerShares,customer);
+
+        if (shareSalesStatusList != null)
+            return true;
+
+        return false;
+
+
     }
 
     /**
