@@ -327,6 +327,7 @@ public class Exchange {
                 } catch (Exception e) {
                     printMessage(e.getMessage());
                 }
+                break;
 
             case "yahoo" :
                 try {
@@ -337,7 +338,7 @@ public class Exchange {
 
                     printMessage(e.getMessage());
                 }
-
+                break;
             case "google" :
                 try {
 
@@ -346,6 +347,7 @@ public class Exchange {
 
                     printMessage(e.getMessage());
                 }
+                break;
         }
 
         return false;
