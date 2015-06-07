@@ -24,10 +24,11 @@ import java.util.List;
  */
 public class Business implements Serializable, BusinessInterface {
 	private static final long serialVersionUID = 1L;
-	private static final String ORDER_RECORD_FILENAME = Config.getInstance().getAttr("projectHome") + Config.getInstance().getAttr("businessXmlLog");
+	private static final String ORDER_RECORD_FILENAME = Config.getInstance().getAttr("businessXmlLog");
 	private List<Share> sharesList = new ArrayList<Share>();
-	private Object recordLock = new Object(); 
-
+	private List<OrderRecord> orderRecords = new ArrayList<OrderRecord>();
+	private Object recordLock = new Object();
+	
 	/**
 	 * Constructor to create a business
 	 * 
@@ -107,21 +108,27 @@ public class Business implements Serializable, BusinessInterface {
 
 		// if no valid listed share was found, return false
 		if (listedShare == null) {
-			log("No valid share found for " + aSO.getShareType() + " (broker ref " + aSO.getBrokerRef() + ")");			
+			log("No valid share found for " + aSO.getShareType() + " (order #" + aSO.getOrderNum() + ")");			
 			return false;
 		}
 
 		// if the order price lower than the current value, return false
 		if (aSO.getUnitPriceOrder() < listedShare.getUnitPrice()) {
-			log("Order price less than minimum issue price " + " (broker ref " + aSO.getBrokerRef() + ")");
+			log("Order price " + aSO.getUnitPriceOrder() + " is less than minimum issue price " + aSO.getUnitPrice() + " (order #" + aSO.getBrokerRef() + ")");
 			return false;
 		}
 
 		// validate the order is for at least 1 share, otherwise return false
 		if (aSO.getQuantity() <= 0) {
-			log("Invalid number of shares requested " + " (broker ref " + aSO.getBrokerRef() + ")");
+			log("Invalid number of shares requested (broker ref " + aSO.getBrokerRef() + ")");
 			return false;
 		}
+		
+		// validate the order number is unique
+		if (!validateOrderNumber(aSO.getOrderNum())) {
+			log("The order number " + aSO.getOrderNum() + " already exists (broker ref " + aSO.getBrokerRef() + ")");
+			return false;
+		}		
 
 		// call authorizeShare as required
 		int authorizations = (int) Math.floor(aSO.getQuantity() / 100);
@@ -130,19 +137,23 @@ public class Business implements Serializable, BusinessInterface {
 			authorizeShare(aSO.getShareType(), 100);
 		authorizeShare(aSO.getShareType(), remainder);
 
-		// record to XML file
-		try {
-			saveRecord(aSO);
-		} catch (FileNotFoundException e) {
-			// Failed to write to the record... Return false
-			e.printStackTrace();
-			log("Error saving XML record for broker ref " + aSO.getBrokerRef() + ": "
-					+ e.getMessage());
-			return false;
-		}
+		// record to local memory file
+		saveRecordToList(aSO);
 
 		// return true
 		log(aSO.getQuantity() + " shares issued successfully for broker ref " + aSO.getBrokerRef());
+		return true;
+	}
+
+	/**
+	 * Checks if an order number is unique, returns true if so
+	 * @param orderNum The order number to check
+	 * @return true if unique, false if not
+	 */
+	private boolean validateOrderNumber(String orderNum) {
+		for (OrderRecord o : orderRecords)
+			if (o.getOrderNum().equals(orderNum)) return false;
+		
 		return true;
 	}
 
@@ -206,6 +217,7 @@ public class Business implements Serializable, BusinessInterface {
 	 *             file, does not exist but cannot be created, or cannot be
 	 *             opened for any other reason then a FileNotFoundException is
 	 *             thrown.
+	 * @deprecated Replaced by saveRecordToList()
 	 */
 	private void saveRecord(ShareOrder order) throws FileNotFoundException {
 		// create the order record
@@ -221,6 +233,17 @@ public class Business implements Serializable, BusinessInterface {
 	}
 
 	/**
+	 * Saves an order of issued shares to local memory
+	 * 
+	 * @param order The order to save
+	 */
+	private void saveRecordToList(ShareOrder order) {
+		synchronized(orderRecords) {
+			orderRecords.add(new OrderRecord(order, false));
+		}
+	}
+	
+	/**
 	 * Checks the order record for an exact match, and if found, updates the
 	 * record to indicate the order is paid and returns true. Otherwise returns
 	 * false.
@@ -234,7 +257,61 @@ public class Business implements Serializable, BusinessInterface {
 	 *         been paid
 	 */
 	public boolean recievePayment(String orderNum, float totalPrice) {
-		// TODO: As the xml record gets large, this method's performance will
+		boolean orderExists = false;
+		boolean totalPriceOK = false;
+		boolean isNotPaid = false;
+		OrderRecord orderRecord = null;
+		
+		// check to see if there is a match that is not already paid
+		synchronized(orderRecords) {			
+			for (OrderRecord o : orderRecords) {				
+				if (o.getOrderNum().equals(orderNum)) {
+					orderExists = true;
+
+					if ((o.getQuantity() * o.getUnitPriceOrder()) == totalPrice)
+						totalPriceOK = true;
+
+					if (!o.isPaid())
+						isNotPaid = true;
+
+					orderRecord = o;
+
+					break; 				// order was found, stop searching
+				}				
+			}
+
+			// handle success case
+			if (isNotPaid && totalPriceOK && orderExists) {
+				orderRecord.setPaid(true); 
+				log("Payment for order " + orderNum + " successful.");
+				return true; 			// return
+			}
+
+		}
+		
+		// handle error cases
+		if (!orderExists) {
+			log("Payment for order " + orderNum + " failed. The order does not exist.");
+			return false;		
+		}
+		
+		if (!totalPriceOK) {
+			log("Payment " + totalPrice  + " for order " + orderNum + " failed. The recorded "
+					+ "total order price does not match: " + orderRecord.getQuantity() +
+					" units sold at " + orderRecord.getUnitPriceOrder());
+			return false;	
+		}
+
+		if (!isNotPaid) {
+			log("Payment for order " + orderNum + " failed. The order has already been paid.");
+			return false;		
+		}
+		
+		log("Payment for order " + orderNum + " failed and no reason is known.");
+		return false;
+		
+		// deprecated method using XML:
+/*	    // As the xml record gets large, this method's performance will
 		// drop off dramatically. A database implementation would be far more
 		// efficient.
 		
@@ -293,7 +370,7 @@ public class Business implements Serializable, BusinessInterface {
 			e.close();
 		}
 		
-		return true;
+		return true;*/
 	}
 
 	/**
