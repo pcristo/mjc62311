@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c352094c-eb85-45f4-9209-6d44e9662fbf" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/business/Business.java" afterPath="$PROJECT_DIR$/src/business/Business.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/stockexchange/Exchange.java" afterPath="$PROJECT_DIR$/src/stockexchange/Exchange.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/stockexchange/ShareSalesStatusList.java" afterPath="$PROJECT_DIR$/src/stockexchange/ShareSalesStatusList.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/config.json" afterPath="$PROJECT_DIR$/src/config.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/files/iteration_one.log" afterPath="$PROJECT_DIR$/src/files/iteration_one.log" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="project.iws" />
@@ -35,24 +39,20 @@
         <entry file="file://$PROJECT_DIR$/src/config.json">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="-0.78571427">
-              <caret line="1" column="34" selection-start-line="1" selection-start-column="34" selection-end-line="1" selection-end-column="34" />
+              <caret line="1" column="67" selection-start-line="1" selection-start-column="67" selection-end-line="1" selection-end-column="67" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Exchange.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Exchange.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/stockexchange/Exchange.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="1.1743929">
-              <caret line="185" column="5" selection-start-line="185" selection-start-column="5" selection-end-line="185" selection-end-column="5" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="168" column="0" selection-start-line="168" selection-start-column="0" selection-end-line="168" selection-end-column="0" />
               <folding>
-                <element signature="method#findBusiness#0;class#Exchange#0" expanded="false" />
-                <element signature="method#getShares#0;class#Exchange#0" expanded="false" />
-                <element signature="method#getListing#0;class#Exchange#0" expanded="false" />
                 <element signature="method#getBusinessTicker#0;class#Exchange#0" expanded="false" />
-                <element signature="method#InitializeShare#0;class#Exchange#0" expanded="false" />
-                <element signature="e#8082#8093#0" expanded="true" />
+                <element signature="method#restock#0;class#Exchange#0" expanded="false" />
                 <element signature="method#printMessage#0;class#Exchange#0" expanded="false" />
                 <element signature="method#createBusinessDirectory#0;class#Exchange#0" expanded="false" />
                 <element signature="method#issueSharesRequest#0;class#Exchange#0" expanded="false" />
@@ -62,16 +62,25 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="google_data.csv" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/files/google_data.csv">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-0.0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+          <provider editor-type-id="com.intellij.database.editor.CsvTableFileEditorProvider">
+            <state />
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="Business.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/business/Business.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-13.603773">
-              <caret line="240" column="0" selection-start-line="240" selection-start-column="0" selection-end-line="240" selection-end-column="0" />
-              <folding>
-                <element signature="method#getShareInfo#0;class#Business#0" expanded="false" />
-                <element signature="method#authorizeShare#0;class#Business#0" expanded="false" />
-                <element signature="method#saveRecord#0;class#Business#0" expanded="false" />
-              </folding>
+            <state vertical-scroll-proportion="-2.490566">
+              <caret line="241" column="0" selection-start-line="241" selection-start-column="0" selection-end-line="241" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -82,7 +91,16 @@
             <state vertical-scroll-proportion="0.0">
               <caret line="38" column="0" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
               <folding>
-                <element signature="e#854#855#0" expanded="true" />
+                <element signature="e#529#530#0" expanded="false" />
+                <element signature="e#557#558#0" expanded="false" />
+                <element signature="e#614#615#0" expanded="false" />
+                <element signature="e#657#658#0" expanded="false" />
+                <element signature="e#693#694#0" expanded="false" />
+                <element signature="e#716#717#0" expanded="false" />
+                <element signature="e#766#767#0" expanded="false" />
+                <element signature="e#799#800#0" expanded="false" />
+                <element signature="e#900#901#0" expanded="false" />
+                <element signature="e#933#934#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -94,17 +112,17 @@
             <state vertical-scroll-proportion="0.0">
               <caret line="73" column="0" selection-start-line="73" selection-start-column="0" selection-end-line="73" selection-end-column="0" />
               <folding>
-                <element signature="e#1567#1568#0" expanded="true" />
+                <element signature="e#1576#1577#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ShareSalesStatusList.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ShareSalesStatusList.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/stockexchange/ShareSalesStatusList.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="186" column="0" selection-start-line="186" selection-start-column="0" selection-end-line="186" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.87969095">
+              <caret line="137" column="25" selection-start-line="137" selection-start-column="25" selection-end-line="137" selection-end-column="25" />
               <folding />
             </state>
           </provider>
@@ -114,7 +132,7 @@
         <entry file="file://$PROJECT_DIR$/test_src/stockexchange/StockExchangeTest.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="62" column="8" selection-start-line="62" selection-start-column="8" selection-end-line="62" selection-end-column="8" />
+              <caret line="45" column="0" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -172,11 +190,11 @@
         <option value="$PROJECT_DIR$/src/stockexchange/OrderedShares.java" />
         <option value="$PROJECT_DIR$/src/stockexchange/ShareItem.java" />
         <option value="$PROJECT_DIR$/test_src/business/BusinessTest.java" />
-        <option value="$PROJECT_DIR$/src/stockexchange/ShareSalesStatusList.java" />
-        <option value="$PROJECT_DIR$/src/config.json" />
-        <option value="$PROJECT_DIR$/src/stockexchange/Exchange.java" />
-        <option value="$PROJECT_DIR$/src/business/Business.java" />
         <option value="$PROJECT_DIR$/test_src/stockexchange/StockExchangeTest.java" />
+        <option value="$PROJECT_DIR$/src/config.json" />
+        <option value="$PROJECT_DIR$/src/business/Business.java" />
+        <option value="$PROJECT_DIR$/src/stockexchange/Exchange.java" />
+        <option value="$PROJECT_DIR$/src/stockexchange/ShareSalesStatusList.java" />
       </list>
     </option>
   </component>
@@ -226,8 +244,8 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="Scratches" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -306,7 +324,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="stockexchange" />
+              <option name="myItemId" value="util" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -324,7 +342,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="share" />
+              <option name="myItemId" value="stockexchange" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -384,7 +402,7 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -830,11 +848,12 @@
       <workItem from="1433684805495" duration="3036000" />
       <workItem from="1433687865920" duration="3934000" />
       <workItem from="1433692393257" duration="3519000" />
+      <workItem from="1433697176143" duration="3255000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="64610000" />
+    <option name="totallyTimeSpent" value="67865000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-13" y="-13" width="2586" height="1554" extended-state="6" />
@@ -848,7 +867,7 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.29681718" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.29681718" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21054688" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -906,7 +925,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="54" />
+      <option name="time" value="56" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="JUnit">
@@ -1217,15 +1236,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.35648754">
           <caret line="155" column="0" selection-start-line="155" selection-start-column="0" selection-end-line="155" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/stockexchange/ShareSalesStatusList.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="186" column="0" selection-start-line="186" selection-start-column="0" selection-end-line="186" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1233,15 +1243,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-7.924528">
           <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/config.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.78571427">
-          <caret line="1" column="34" selection-start-line="1" selection-start-column="34" selection-end-line="1" selection-end-column="34" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1250,7 +1251,16 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="38" column="0" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
           <folding>
-            <element signature="e#854#855#0" expanded="true" />
+            <element signature="e#529#530#0" expanded="false" />
+            <element signature="e#557#558#0" expanded="false" />
+            <element signature="e#614#615#0" expanded="false" />
+            <element signature="e#657#658#0" expanded="false" />
+            <element signature="e#693#694#0" expanded="false" />
+            <element signature="e#716#717#0" expanded="false" />
+            <element signature="e#766#767#0" expanded="false" />
+            <element signature="e#799#800#0" expanded="false" />
+            <element signature="e#900#901#0" expanded="false" />
+            <element signature="e#933#934#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1260,47 +1270,66 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="73" column="0" selection-start-line="73" selection-start-column="0" selection-end-line="73" selection-end-column="0" />
           <folding>
-            <element signature="e#1567#1568#0" expanded="true" />
+            <element signature="e#1576#1577#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/config.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.78571427">
+          <caret line="1" column="67" selection-start-line="1" selection-start-column="67" selection-end-line="1" selection-end-column="67" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/files/google_data.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="com.intellij.database.editor.CsvTableFileEditorProvider">
+        <state />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/business/Business.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-13.603773">
-          <caret line="240" column="0" selection-start-line="240" selection-start-column="0" selection-end-line="240" selection-end-column="0" />
-          <folding>
-            <element signature="method#getShareInfo#0;class#Business#0" expanded="false" />
-            <element signature="method#authorizeShare#0;class#Business#0" expanded="false" />
-            <element signature="method#saveRecord#0;class#Business#0" expanded="false" />
-          </folding>
+        <state vertical-scroll-proportion="-2.490566">
+          <caret line="241" column="0" selection-start-line="241" selection-start-column="0" selection-end-line="241" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test_src/stockexchange/StockExchangeTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="62" column="8" selection-start-line="62" selection-start-column="8" selection-end-line="62" selection-end-column="8" />
+          <caret line="45" column="0" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/stockexchange/Exchange.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.1743929">
-          <caret line="185" column="5" selection-start-line="185" selection-start-column="5" selection-end-line="185" selection-end-column="5" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="168" column="0" selection-start-line="168" selection-start-column="0" selection-end-line="168" selection-end-column="0" />
           <folding>
-            <element signature="method#findBusiness#0;class#Exchange#0" expanded="false" />
-            <element signature="method#getShares#0;class#Exchange#0" expanded="false" />
-            <element signature="method#getListing#0;class#Exchange#0" expanded="false" />
             <element signature="method#getBusinessTicker#0;class#Exchange#0" expanded="false" />
-            <element signature="method#InitializeShare#0;class#Exchange#0" expanded="false" />
-            <element signature="e#8082#8093#0" expanded="true" />
+            <element signature="method#restock#0;class#Exchange#0" expanded="false" />
             <element signature="method#printMessage#0;class#Exchange#0" expanded="false" />
             <element signature="method#createBusinessDirectory#0;class#Exchange#0" expanded="false" />
             <element signature="method#issueSharesRequest#0;class#Exchange#0" expanded="false" />
             <element signature="method#generateOrderNumber#0;class#Exchange#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/stockexchange/ShareSalesStatusList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.87969095">
+          <caret line="137" column="25" selection-start-line="137" selection-start-column="25" selection-end-line="137" selection-end-column="25" />
+          <folding />
         </state>
       </provider>
     </entry>

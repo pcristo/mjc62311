@@ -132,9 +132,7 @@ public class ShareSalesStatusList{
                     this.getAvailableShares().get(i).reduceQuantity(share.getQuantity());
 
                     break;
-
                 }
-
         }
 
         return soldShare;
