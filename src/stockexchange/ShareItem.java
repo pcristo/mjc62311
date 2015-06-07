@@ -8,10 +8,9 @@ import share.*;
  */
 public class ShareItem extends Share {
 
-    private String businessSymbol;
-    private String shareType;
-    private float unitPrice; //Isn't price suppose to always be a double...?
     private int quantity;
+    private float commission;
+    private int soldShares;
 
     //TODO: Include shareorder object in each shareItem for traceability
     private String  orderNum;
@@ -30,6 +29,8 @@ public class ShareItem extends Share {
         super(businessSymbol,shareType,unitPrice);
         this.orderNum = orderNum;
         this.quantity = quantity;
+        this.commission = this.getUnitPrice() * 0.05f;
+
 
     }
 
@@ -53,6 +54,15 @@ public class ShareItem extends Share {
         this.quantity = quantity;
     }
 
+    /**
+     *
+     * @param numberSold
+     */
+    public void setSoldShares(int numberSold) {
+
+        this.soldShares = numberSold;
+    }
+
 
     // ----------------------------- GETTERS ---------------------------------------------
 
@@ -73,6 +83,22 @@ public class ShareItem extends Share {
         return this.orderNum;
     }
 
+    /**
+     *
+     * @return
+     */
+    public float getCommission() {
+        return commission;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public int getSoldShares() {
+
+        return  this.soldShares;
+    }
 
     // ----------------------------- PUBLIC METHODS ------------------------------------------
 
