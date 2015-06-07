@@ -94,7 +94,7 @@ public class ServerDisplayMsgs {
     public static ShareType enterTickerType() {
         System.out.println(TICKERTYPE);
         Scanner scan = new Scanner(System.in);
-        ShareType ticker = ShareType.valueOf(scan.nextLine());
+        ShareType ticker = ShareType.valueOf(scan.nextLine().toUpperCase());
         return ticker;
     }
 
