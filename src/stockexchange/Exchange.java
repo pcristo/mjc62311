@@ -4,6 +4,7 @@ import business.BusinessInterface;
 import client.Customer;
 import logger.LoggerClient;
 import share.ShareOrder;
+import share.ShareType;
 import util.Config;
 
 import java.rmi.AccessException;
@@ -25,11 +26,11 @@ public class Exchange {
     private static  final int COMMISSION_MARKUP = 10;
     private static  final int RESTOCK_THRESHOLD = 100;
     private static  int orderInt = 1000;
-    private static  ShareSalesStatusList shareStatusSaleList;
+    private ShareSalesStatusList shareStatusSaleList;
 
 
 
-    private static Map<String, String> businessDirectory = new HashMap<String, String>();
+    private Map<String, String> businessDirectory = new HashMap<String, String>();
 
 
     private BusinessInterface yahoo;
@@ -54,9 +55,12 @@ public class Exchange {
         yahoo = getBusiness("yahoo");
         microsoft = getBusiness("microsoft");
 
+        printMessage("MICROSOFT TICKER: " + microsoft.getTicker());
 
         this.setBusinessDirectory();
         shareStatusSaleList = new ShareSalesStatusList();
+
+        InitializeShare();
     }
 
 
@@ -141,8 +145,8 @@ public class Exchange {
      * @return
      */
     public ShareSalesStatusList buyShares(ShareList shareItemList, Customer info) {
-        //TODO
-        return shareStatusSaleList;
+
+        return this.shareStatusSaleList;
     }
 
     /**
@@ -155,17 +159,14 @@ public class Exchange {
 
         ShareItem soldShare = null;
 
-
         //TODO : See if share are available
         for  (ShareItem s : shareItemList.getLstShareItems())
         {
             soldShare = shareStatusSaleList.isShareAvailable(s);
 
-
             if (soldShare != null) {
 
                 synchronized (soldShare) {
-
 
                     //TODO : Add shares to SOLD list
                     shareStatusSaleList.addToSoldShares(s, info);
@@ -173,12 +174,11 @@ public class Exchange {
                     if (this.payBusiness(soldShare) )
                         printMessage("Shares paid for " + soldShare.getBusinessSymbol());
                 }
-            } else {
             }
         }
 
         //Restock Share Lists
-        this.restock();
+        //this.restock();
 
         shareStatusSaleList.printShares();
 
@@ -203,8 +203,9 @@ public class Exchange {
             }
         }
         return customerShares;
-    }
 
+
+    }
 
     /**
      *
@@ -244,6 +245,31 @@ public class Exchange {
         } catch(RemoteException rme) {
             return null;
         }
+
+    }
+
+    private void InitializeShare() {
+
+        List<ShareItem> lstShares = new ArrayList<ShareItem>();
+
+        //For Testing
+        lstShares.add(new ShareItem("", "MSFT", ShareType.COMMON, 540.11f, 100));
+        lstShares.add(new ShareItem("","MSFT.B",ShareType.CONVERTIBLE,523.32f,100));
+        lstShares.add(new ShareItem("","MSFT.C",ShareType.PREFERRED,541.28f,100));
+        lstShares.add(new ShareItem("","GOOG",ShareType.COMMON,540.11f,100));
+        lstShares.add(new ShareItem("","GOOG.B",ShareType.CONVERTIBLE,523.32f,100));
+        lstShares.add(new ShareItem("","GOOG.C",ShareType.PREFERRED,541.28f,100));
+        lstShares.add(new ShareItem("","GOOG",ShareType.COMMON,540.11f,100));
+
+        for(ShareItem shareItem : lstShares) {
+
+            ShareItem addShareItem = this.issueSharesRequest(shareItem);
+
+            if (addShareItem != null) {
+                shareStatusSaleList.addToAvailableShares(addShareItem);
+            }
+        }
+
 
     }
 
@@ -347,8 +373,6 @@ public class Exchange {
         businessDirectory.put("GOOG.C", "GOOGLE");
 
     }
-
-
 
 
 

@@ -125,15 +125,11 @@ public class Broker implements BrokerInterface, Serializable{
 //                return false;
 //            }
 //        }
-
-
-
-
-
         ShareList sharesToSell = prepareTrade(tickers, type, quantity);
 
         if (sharesToSell != null) {
             ShareSalesStatusList shareSatusList = exchange.sellShares(sharesToSell, customer);
+            System.out.println(shareSatusList);
             if(shareSatusList.getShares(customer).isEmpty()){
                 return false;
             } else {
