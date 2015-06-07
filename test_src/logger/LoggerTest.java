@@ -11,7 +11,7 @@ public class LoggerTest {
 
     @Test
     public void logTest() {
-        LoggerClient.log("Test 42");
+        LoggerClient.log("Test 65");
         TimerLoggerClient timer = new TimerLoggerClient();
         timer.start();
         try {

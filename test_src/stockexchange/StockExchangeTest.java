@@ -48,7 +48,7 @@ public class StockExchangeTest {
     public void BySharesAndPrintResult() {
 
         //Create new Customer
-        Customer newCust = new Customer(1,"Gay Hazan","123 Money Ave","","Montreal","Quebec","H4W 1N3", "Canada" );
+        Customer newCust = new Customer("Gay Hazan","123 Money Ave","","Montreal","Quebec","H4W 1N3", "Canada" );
 
         //ShareItemList
         ArrayList<ShareItem> lstShares = new ArrayList<ShareItem>();

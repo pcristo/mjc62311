@@ -3,10 +3,13 @@ package client;
 import logger.TimerLoggerClient;
 import org.junit.Before;
 import org.junit.Test;
-import stockexchange.broker.Broker;
+import share.ShareType;
 import stockexchange.broker.BrokerInterface;
 
-import static org.junit.Assert.*;
+import java.util.ArrayList;
+
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 
 public class BrokerServiceClientTest {
@@ -20,6 +23,9 @@ public class BrokerServiceClientTest {
 
 
     @Test
+    /**
+     * Outputs the time of the operation only.  No other logging messages currently.
+     */
     public void testRMI() throws Exception {
         TimerLoggerClient tlc = new TimerLoggerClient();
         tlc.start();
@@ -35,4 +41,29 @@ public class BrokerServiceClientTest {
 
         tlc.end();
     }
+
+    @Test
+    /**
+     *  Test a client purchasing a share
+     */
+    public void testSharePurchase()  {
+        try {
+            BrokerInterface broker = client.getBroker();
+            ArrayList<String> tickers = new ArrayList<String>();
+            tickers.add("GOOG");
+            Customer customer = new Customer("Batman");
+
+            boolean didItWork = broker.sellShares(tickers, ShareType.COMMON, 100, customer);
+            assertTrue(didItWork);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
+
+
+
+
+    }
+
+
 }

@@ -28,7 +28,7 @@ public class BrokerTest {
             add("MSOFT");
             add("AAPL");
         }};
-        customer = new Customer(1001, "Ross", "Ross Street", "Ross Street 2", "Ross town", "Ross Province", "ROS SSMI", "Ross County");
+        customer = new Customer("Ross", "Ross Street", "Ross Street 2", "Ross town", "Ross Province", "ROS SSMI", "Ross County");
 
     }
 
