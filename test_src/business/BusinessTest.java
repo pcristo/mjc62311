@@ -28,6 +28,7 @@ public class BusinessTest {
     @Test
     public void testIssueShares() {
     	ShareOrder aSO = new ShareOrder("a00", "broker1", "GOOG", ShareType.PREFERRED, 0, 150, (float) 1000.0);
+
         try {
             assertTrue(google.issueShares(aSO));
         } catch (RemoteException e) {

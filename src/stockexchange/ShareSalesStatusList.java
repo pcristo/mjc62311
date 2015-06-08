@@ -3,10 +3,7 @@ package stockexchange;
 import client.Customer;
 import share.ShareType;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 /**
@@ -15,8 +12,8 @@ import java.util.Map;
 public class ShareSalesStatusList{
 
 
-    private  Map<ShareItem, Customer> soldShares = new HashMap<ShareItem,Customer>();
-    private  List<ShareItem> availableShares = new ArrayList<ShareItem>();
+    private  Map<Integer,List<ShareItem>> soldShares;
+    private  List<ShareItem> availableShares;
 
 
     // ----------------------     CONSTRUCTOR     ----------------------------------
@@ -24,7 +21,8 @@ public class ShareSalesStatusList{
 
     public ShareSalesStatusList() {
 
-       // availableShares = this.populateAvailable();
+        this.soldShares = new HashMap<Integer, List<ShareItem>>();
+        this.availableShares = new ArrayList<ShareItem>();
 
     }
 
@@ -39,7 +37,7 @@ public class ShareSalesStatusList{
      *
      * @return
      */
-    public Map<ShareItem, Customer> getSoldShares() {
+    public Map<Integer,List<ShareItem>> getSoldShares() {
         return soldShares;
     }
 
@@ -58,22 +56,11 @@ public class ShareSalesStatusList{
      * @param customer wanting stock information
      * @return list of customers stocks
      */
-    public ArrayList<ShareItem> getShares(Customer customer) {
-        ArrayList<ShareItem> customerShares = new ArrayList<ShareItem>();
-        Map<ShareItem, Customer> soldShares = getSoldShares();
-        for (Map.Entry<ShareItem, Customer> entry : soldShares.entrySet()) {
-            ShareItem key = entry.getKey();
-            Customer value = entry.getValue();
-            if(value == customer) {
-                customerShares.add(key);
-            }
-        }
-        return customerShares;
+    public List<ShareItem> getShares(Customer customer) {
 
+       return this.soldShares.get(customer.getCustomerReferenceNumber());
 
     }
-
-
 
 
     //---------------------- PUBLIC METHODS ----------------------------------
@@ -90,13 +77,16 @@ public class ShareSalesStatusList{
 
         System.out.println("\n - ******** Sold Shares ******** -");
 
-        this.soldShares.forEach((ShareItem k, Customer v) -> {
+        //Print Customer referemce and all shares belonging to customer
+        Iterator it = this.soldShares.entrySet().iterator();
 
-            this.printMessage(v.getCustomerReferenceNumber() + " " + k.printShareInfo());
-
-        });
-
-
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry)it.next();
+            this.printMessage("Customer: " + pair.getKey() );
+            for(ShareItem sItem : (List<ShareItem>)pair.getValue()) {
+                this.printMessage(sItem.printShareInfo());
+            }
+        }
     }
 
 
@@ -128,7 +118,12 @@ public class ShareSalesStatusList{
                 if (share.getBusinessSymbol().equals(businessSymbol) && quantity >= share.getQuantity()) {
 
 
-                    soldShare = this.availableShares.get(i);
+                    soldShare = new ShareItem(this.availableShares.get(i).getOrderNum(),
+                                                this.availableShares.get(i).getBusinessSymbol(),
+                                                this.availableShares.get(i).getShareType(),
+                                                this.availableShares.get(i).getUnitPrice(),
+                                                this.availableShares.get(i).getQuantity()) ;
+
                     this.getAvailableShares().get(i).reduceQuantity(share.getQuantity());
 
                     break;
@@ -169,7 +164,26 @@ public class ShareSalesStatusList{
     public void addToSoldShares(ShareItem shareItem, Customer customer) {
 
         synchronized (shareItem){
-            this.soldShares.put(shareItem,customer);
+
+            List<ShareItem> custShares = this.soldShares.get(customer.getCustomerReferenceNumber());
+
+            if (custShares == null) {
+
+                List<ShareItem> newShares = new ArrayList<ShareItem>();
+                newShares.add(shareItem);
+
+                this.soldShares.put(customer.getCustomerReferenceNumber(), newShares);
+
+            } else {
+
+                //TODO : Not sure about the synchronized
+                synchronized(custShares){
+
+                    custShares.add(shareItem);
+
+                }
+            }
+
         }
 
     }

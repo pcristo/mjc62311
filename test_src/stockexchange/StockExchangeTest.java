@@ -60,7 +60,21 @@ public class StockExchangeTest {
         ShareSalesStatusList shareStatus = this.exchange.sellShares(new ShareList(lstShares),newCust);
 
 
-        assertTrue(shareStatus.getSoldShares().get(lstShares.get(0)) == newCust);
+        assertTrue(shareStatus.getShares(newCust).size() == 3);
+
+    }
+
+    @Test
+    public void PrintAllShareFromBusiness() {
+
+        try {
+            System.out.println(this.exchange.yahoo.getSharesList());
+            System.out.println(this.exchange.microsoft.getSharesList());
+            System.out.println(this.exchange.google.getSharesList());
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
 
     }
 }

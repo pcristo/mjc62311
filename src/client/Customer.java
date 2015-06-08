@@ -104,6 +104,7 @@ public class Customer implements Serializable {
     public void setCountry(String country) {
         this.country = country;
     }
+
     @Override
     public String toString() {
         return customerReferenceNumber + ";;d" +name
