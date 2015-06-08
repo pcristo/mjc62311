@@ -1,7 +1,4 @@
 import java.io.IOException;
-import java.rmi.RemoteException;
-
-import client.BrokerServiceClient;
 import stockexchange.broker.Broker;
 import business.Business;
 import logger.LoggerServer;
@@ -13,9 +10,15 @@ import logger.LoggerServer;
  */
 public class projectLauncher {
 	final static int PAUSE_NOTIFICATION_TIME = 250;
-	final static int WAIT_BETWEEN_LAUNCH_TIME = 2000;
+	final static int WAIT_BETWEEN_LAUNCH_TIME = 3000;
 	final static String PREFACE_STRING = "******\t";
 	
+	/**
+	 * Will launch all the servers
+	 * @param args Send no arguments and the launcher will pause and wait for a key before returning
+	 * @throws InterruptedException
+	 * @throws IOException
+	 */
 	public static void main(String[] args) throws InterruptedException,	IOException {
 		
 		// Launch threads
@@ -45,23 +48,19 @@ public class projectLauncher {
 		});
 		broker.start();
 		pause("Launching broker and waiting ", WAIT_BETWEEN_LAUNCH_TIME);
-
-		if (args.length == 0 ){		
-			// let everything get rolling before starting the client
-			System.out.println(PREFACE_STRING + "Client starting... ");
-
-			//BrokerServiceClient.main(null);
-		}
 		
-		System.out.println("Press enter to kill everything uncleanly :D");
-		System.in.read();
-		
-		broker.stop();
-		business.stop();
-		logger.stop();
+		// if any arguments are sent, the do not wait for any key, just continue
+		if (args.length == 0) {
+			System.out.println("Press enter to kill everything uncleanly :D");
+			System.in.read();
 			
-		System.out.println("Okay everyone is dead.");
-		System.exit(1);
+			broker.stop();
+			business.stop();
+			logger.stop();
+				
+			System.out.println("Okay, everyone is dead.");
+			System.exit(0);	
+		}		
 	}
 
 	private static void pause(String msg, int ms) throws InterruptedException {		

@@ -109,25 +109,30 @@ public class Business implements Serializable, BusinessInterface {
 
 		// if no valid listed share was found, return false
 		if (listedShare == null) {
-			log(getTicker() + " failed to issue shares of " + aSO.getBusinessSymbol() + ": No valid share found for " + aSO.getShareType() + " (order #" + aSO.getOrderNum() + ")");			
+			log(getTicker() + " failed to issue shares of " + aSO.getBusinessSymbol() + " " + aSO.getShareType() + 
+					": No valid share found for " + aSO.getShareType() + " (order #" + aSO.getOrderNum() + ")");			
 			return false;
 		}
 
 		// if the order price lower than the current value, return false
 		if (aSO.getUnitPriceOrder() < listedShare.getUnitPrice()) {
-			log(getTicker() + " failed to issue shares of " + aSO.getBusinessSymbol() + ": Order price " + aSO.getUnitPriceOrder() + " is less than minimum issue price " + aSO.getUnitPrice() + " (order #" + aSO.getOrderNum() + ")");
+			log(getTicker() + " failed to issue shares of " + aSO.getBusinessSymbol()  + " " + aSO.getShareType() + 
+					": Order price " + aSO.getUnitPriceOrder() + " is less than minimum issue price " + 
+					aSO.getUnitPrice() + " (order #" + aSO.getOrderNum() + ")");
 			return false;
 		}
 
 		// validate the order is for at least 1 share, otherwise return false
 		if (aSO.getQuantity() <= 0) {
-			log(getTicker() + " failed to issue shares of " + aSO.getBusinessSymbol() + ": Invalid number of shares requested (order #" + aSO.getOrderNum() + ")");
+			log(getTicker() + " failed to issue shares of " + aSO.getBusinessSymbol() + " " + aSO.getShareType() + 
+					": Invalid number of shares requested (order #" + aSO.getOrderNum() + ")");
 			return false;
 		}
 		
 		// validate the order number is unique
 		if (!validateOrderNumber(aSO.getOrderNum())) {
-			log(getTicker() + " failed to issue shares of " + aSO.getBusinessSymbol() + ": The order number " + aSO.getOrderNum() + " already exists");
+			log(getTicker() + " failed to issue shares of " + aSO.getBusinessSymbol()  + " " + aSO.getShareType() + 
+					": The order number " + aSO.getOrderNum() + " already exists");
 			return false;
 		}		
 
@@ -142,7 +147,8 @@ public class Business implements Serializable, BusinessInterface {
 		saveRecordToList(aSO);
 
 		// return true
-		log(getTicker() + " successfully issued " + aSO.getQuantity() + " shares of " + aSO.getBusinessSymbol() + " (order #" + aSO.getOrderNum() + ")");
+		log(getTicker() + " successfully issued " + aSO.getQuantity() + " shares of " + aSO.getBusinessSymbol() + 
+				" " + aSO.getShareType() + " (order #" + aSO.getOrderNum() + ")");
 		return true;
 	}
 

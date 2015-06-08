@@ -28,10 +28,11 @@ public class BusinessTest {
     @Test
     public void testIssueShares() {
     	ShareOrder aSO = new ShareOrder("a00", "broker1", "GOOG", ShareType.PREFERRED, 0, 150, (float) 1000.0);
-    	try {
+
+        try {
             assertTrue(google.issueShares(aSO));
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+        } catch (RemoteException e) {
+            e.printStackTrace();
         }
     }
 

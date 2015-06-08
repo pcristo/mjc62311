@@ -40,6 +40,7 @@ public class BrokerServiceClient {
             System.setSecurityManager(new SecurityManager());
         }
         Registry registry = LocateRegistry.getRegistry(host, port);
+        
         return (BrokerInterface) registry.lookup("broker");
     }
 
