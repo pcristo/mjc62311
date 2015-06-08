@@ -1,5 +1,7 @@
 import static org.junit.Assert.*;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -50,15 +52,19 @@ public class MultiThreadTest {
 			clientThread[i]
 					.setUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
 						public void uncaughtException(Thread th, Throwable ex) {
-							log("Uncaught exception: " + ex.getMessage()
-									+ "in " + th.getName() + "\n"
-									+ "Trace: " + ex.getStackTrace());
+							// stack trace to string, source: http://stackoverflow.com/questions/1149703/how-can-i-convert-a-stack-trace-to-a-string
+							StringWriter sw = new StringWriter();
+							PrintWriter pw = new PrintWriter(sw);
+							ex.printStackTrace(pw);
+							sw.toString(); // stack trace as a string
+							
+							log("***** Uncaught exception - Trace: " + sw.toString());
 						}
 					});
-		}
+		} 
 		
 		// start all the threads
-		for (int i = 0; i < NUMBER_OF_TEST_THREADS; i++) {
+		for (int i = 0; i < NUMBER_OF_TEST_THREADS; i++) { 
 			clientThread[i].start();
 			log("Client " + i + " starting to spam");
 		}			
