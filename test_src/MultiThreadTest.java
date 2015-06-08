@@ -17,8 +17,9 @@ import stockexchange.broker.Broker;
 import stockexchange.broker.BrokerInterface;
 
 public class MultiThreadTest {
-	final static int NUMBER_OF_TEST_THREADS = 2;
-	final static int SLEEP_TIME_BETWEEN_TRIES = 250;
+	final static int NUMBER_OF_TEST_THREADS = 3;
+	final static int SLEEP_TIME_BETWEEN_TRIES = 5;
+	final static int NUMBER_OF_TRANSACTIONS_PER_THREAD = 1000;
 
 	@Before
 	public void setUp() throws Exception {
@@ -30,42 +31,60 @@ public class MultiThreadTest {
 	public void MultipleClientOrders() throws InterruptedException {
 		Thread[] clientThread = new Thread[NUMBER_OF_TEST_THREADS];
 
-		for (Thread t : clientThread)  {
-			t = new Thread(new Runnable() {
+		for (int i = 0; i < NUMBER_OF_TEST_THREADS; i++)  {
+			clientThread[i] = new Thread(new Runnable() {
 				@Override
 				public void run() {
 					try {
 						DummyClient(RandomString(6));
-					} catch (Exception e) {
+					} catch (RemoteException | NotBoundException e) {
 						e.printStackTrace();
 					}
 				}
 			});
-			t.start();
+
+			// set an uncaught exception handler (Source:
+			// http://stackoverflow.com/questions/6546193/how-to-catch-an-exception-from-a-thread)
+			clientThread[i]
+					.setUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
+						public void uncaughtException(Thread th, Throwable ex) {
+							System.out.println("Uncaught exception: " + ex
+									+ "in " + th.getName() + "\n"
+									+ ex.getStackTrace());
+						}
+					});
+			clientThread[i].start();
 		}
 		
-		// wait for each thread to complete
-		for (Thread t : clientThread) 
-			t.join();
+		// wait till all threads are finished
+		for (int i = 0; i < NUMBER_OF_TEST_THREADS; i++)
+			clientThread[i].join();
 	}
 
 	private void DummyClient(String customer) throws RemoteException, NotBoundException {
+		System.out.println("Starting dummy client " + customer);
+		
 		List<ShareItem> lstShares = new ArrayList<ShareItem>();
-		lstShares.add(new ShareItem("", "MSFT", ShareType.COMMON, 540.11f, 100));
-		lstShares.add(new ShareItem("", "MSFT.B", ShareType.CONVERTIBLE, 523.32f, 100));
-		lstShares.add(new ShareItem("", "MSFT.C", ShareType.PREFERRED, 541.28f,	100));
-		lstShares.add(new ShareItem("", "GOOG", ShareType.COMMON, 540.11f, 100));
-		lstShares.add(new ShareItem("", "GOOG.B", ShareType.CONVERTIBLE, 523.32f, 100));
-		lstShares.add(new ShareItem("", "GOOG.C", ShareType.PREFERRED, 541.28f,	100));
-		lstShares.add(new ShareItem("", "GOOG", ShareType.COMMON, 540.11f, 100));
-
+		// "good" orders:
+		lstShares.add(new ShareItem("", "MSFT", ShareType.COMMON, 50.11f, 100));				// should succeed
+		lstShares.add(new ShareItem("", "GOOG", ShareType.COMMON, 540.11f, 100));				// should succeed
+		lstShares.add(new ShareItem("", "GOOG.C", ShareType.PREFERRED, 541.28f,	100));			// should succeed
+		lstShares.add(new ShareItem("", "YHOO.C", ShareType.PREFERRED, 48.22f, 100));			// should succeed
+		// problem orders:
+		lstShares.add(new ShareItem("", "MSFT.B", ShareType.CONVERTIBLE, 5.32f, 50));			// test 50 shares issued
+		lstShares.add(new ShareItem("", "MSFT.C", ShareType.PREFERRED, 49.42f, 200));			// test 200 shares issued
+		lstShares.add(new ShareItem("", "GOOG.B", ShareType.CONVERTIBLE, 523.32f, 100));		// should fail due to price
+		lstShares.add(new ShareItem("", "YHOX", ShareType.COMMON, 43.67f, 100));				// bad symbol
+		lstShares.add(new ShareItem("", "YHOO.B", ShareType.COMMON, 47.42f, 100));				// invalid share type (symbol indicates convertible)
+		
 		BrokerInterface service = new BrokerServiceClient().getBroker();
+		System.out.println("Service found for test customer " + customer);
 
-		for (int i = 0; i < 200; i++) {
+		for (int i = 0; i < NUMBER_OF_TRANSACTIONS_PER_THREAD; i++) {
 			int shareIndex = (int) Math.floor(Math.random()
-					* (lstShares.size() + 1));
+					* lstShares.size());
 
-			// TODO: Need a method to call that orders shares
+			// Make a transaction
 			ArrayList<String> sellist = new ArrayList<String>();
 			sellist.add(lstShares.get(shareIndex).getBusinessSymbol());
 			service.sellShares(sellist,lstShares.get(shareIndex).getShareType(),
