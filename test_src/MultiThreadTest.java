@@ -21,9 +21,9 @@ import stockexchange.broker.Broker;
 import stockexchange.broker.BrokerInterface;
 
 public class MultiThreadTest {
-	final static int NUMBER_OF_TEST_THREADS = 8;
+	final static int NUMBER_OF_TEST_THREADS = 15;
 	final static int SLEEP_TIME_BETWEEN_TRIES = 0;
-	final static int NUMBER_OF_TRANSACTIONS_PER_THREAD = 50;
+	final static int NUMBER_OF_TRANSACTIONS_PER_THREAD = 30000;
 
 	@Before
 	public void setUp() throws Exception {
