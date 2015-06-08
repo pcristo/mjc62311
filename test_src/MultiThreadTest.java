@@ -28,7 +28,7 @@ public class MultiThreadTest {
 	@Before
 	public void setUp() throws Exception {
 		// start up everything
-		projectLauncher.main(new String[1]);
+	//	projectLauncher.main(new String[1]);
 	}
 
 	@Test

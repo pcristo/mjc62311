@@ -130,7 +130,6 @@ public class Broker implements BrokerInterface, Serializable{
 
         if (sharesToSell != null) {
             ShareSalesStatusList shareSatusList = exchange.sellShares(sharesToSell, customer);
-            System.out.println(shareSatusList);
             if(shareSatusList.getShares(customer) == null || shareSatusList.getShares(customer).isEmpty()){
                 return false;
             } else {
@@ -228,13 +227,14 @@ public class Broker implements BrokerInterface, Serializable{
      */
     private boolean validateClientHasShare(String ticker, Customer customer) {
         List<ShareItem> customerShares = exchange.getShares(customer);
-        for (ShareItem share : customerShares) {
-            if (share.getBusinessSymbol() == ticker) {
-                return true;
+        synchronized (customerShares) {
+            for (ShareItem share : customerShares) {
+                if (share.getBusinessSymbol() == ticker) {
+                    return true;
+                }
             }
+            return false;
         }
-        return false;
-
     }
 
     /**

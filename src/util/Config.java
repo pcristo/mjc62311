@@ -15,14 +15,7 @@ public class Config {
     }
 
     public static Config getInstance() {
-
-        Config c = Holder.INSTANCE;
-        try {
-            c.setJson();
-        } catch(Exception ioe){
-            System.out.println("IOE ERROR: " + ioe.getMessage());
-        }
-        return c;
+        return Holder.INSTANCE;
     }
 
     // TODO validate json
@@ -32,29 +25,16 @@ public class Config {
 
     private JSONObject configJson;
 
-//    public Config() {
-//        // Do not create, call getInstance
-//    }
+    public Config() {
+        // Do not create, call getInstance
+        try {
+            setJson();
+        } catch(Exception ioe){
+            System.out.println("IOE ERROR: " + ioe.getMessage());
+        }
+    }
 
-    /**
-     * Only one object per application
-     * No setters, so does not need to be thread safe
-     * Creates and aprses json object
-     * @return Config object
-     */
-//    public static Config getInstance() {
-//
-//
-//        if(instance == null) {
-//            instance = new Config();
-//        }
-//        try {
-//            instance.setJson();
-//        } catch(Exception ioe){
-//            System.out.println("IOE ERROR: " + ioe.getMessage());
-//        }
-//        return instance;
-//    }
+
 
     /**
      * Gets the json file creates a json object for reference
@@ -91,7 +71,7 @@ public class Config {
             String attribute = configJson.getString(attr);
             return attribute.replace("/", File.separator);
         } catch(org.json.JSONException joe) {
-            System.out.println("Json Exception in config");
+            System.out.println("Json Exception in config: attr = " + attr);
             return null;
         }
     }

@@ -40,6 +40,7 @@ public class LoggerServer {
                 logger.start();
 
                 serverSocket.send(receivePacket);
+                serverSocket.close();
             }
         } catch(IOException ioe) {
             System.out.println("IO Exception in host: " + ioe.getMessage());

@@ -254,6 +254,7 @@ public class Exchange {
         lstShares.add(new ShareItem("","GOOG.C",ShareType.PREFERRED,541.28f,100));
         lstShares.add(new ShareItem("","GOOG",ShareType.COMMON,540.11f,100));
 
+
         for(ShareItem shareItem : lstShares) {
 
             ShareItem addShareItem = this.issueSharesRequest(shareItem);

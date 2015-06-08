@@ -12,8 +12,8 @@ import java.util.*;
 public class ShareSalesStatusList{
 
 
-    private  Map<Integer,List<ShareItem>> soldShares;
-    private  List<ShareItem> availableShares;
+    private  volatile Map<Integer,List<ShareItem>> soldShares;
+    private  volatile List<ShareItem> availableShares;
 
 
     // ----------------------     CONSTRUCTOR     ----------------------------------
@@ -21,8 +21,8 @@ public class ShareSalesStatusList{
 
     public ShareSalesStatusList() {
 
-        this.soldShares = new HashMap<Integer, List<ShareItem>>();
-        this.availableShares = new ArrayList<ShareItem>();
+        this.soldShares = Collections.synchronizedMap(new HashMap<Integer, List<ShareItem>>());
+        this.availableShares = Collections.synchronizedList(new ArrayList<ShareItem>());
 
     }
 
@@ -58,7 +58,7 @@ public class ShareSalesStatusList{
      */
     public List<ShareItem> getShares(Customer customer) {
 
-       return this.soldShares.get(customer.getCustomerReferenceNumber());
+        return this.soldShares.get(customer.getCustomerReferenceNumber());
 
     }
 
@@ -79,10 +79,9 @@ public class ShareSalesStatusList{
 
         //Print Customer referemce and all shares belonging to customer
         Iterator it = this.soldShares.entrySet().iterator();
-
         while (it.hasNext()) {
-            Map.Entry pair = (Map.Entry)it.next();
-            this.printMessage("Customer: " + pair.getKey() );
+            Map.Entry pair = (Map.Entry) it.next();
+            this.printMessage("Customer: " + pair.getKey());
 
             synchronized ((List<ShareItem>) pair.getValue()) {
                 for (ShareItem sItem : (List<ShareItem>) pair.getValue()) {
@@ -110,9 +109,9 @@ public class ShareSalesStatusList{
 
 
 
-        //Is Share available
-        for (int i =0; i < this.availableShares.size(); i++)
-        {
+        synchronized (availableShares) {
+            //Is Share available
+            for (int i = 0; i < this.availableShares.size(); i++) {
 
                 businessSymbol = this.availableShares.get(i).getBusinessSymbol();
 
@@ -122,15 +121,16 @@ public class ShareSalesStatusList{
 
 
                     soldShare = new ShareItem(this.availableShares.get(i).getOrderNum(),
-                                                this.availableShares.get(i).getBusinessSymbol(),
-                                                this.availableShares.get(i).getShareType(),
-                                                this.availableShares.get(i).getUnitPrice(),
-                                                this.availableShares.get(i).getQuantity()) ;
+                            this.availableShares.get(i).getBusinessSymbol(),
+                            this.availableShares.get(i).getShareType(),
+                            this.availableShares.get(i).getUnitPrice(),
+                            this.availableShares.get(i).getQuantity());
 
-                    this.getAvailableShares().get(i).reduceQuantity(share.getQuantity());
-
+                    ShareItem si = this.getAvailableShares().get(i);
+                    si.reduceQuantity(share.getQuantity());
                     break;
                 }
+            }
         }
 
         return soldShare;
@@ -141,22 +141,17 @@ public class ShareSalesStatusList{
      * @param soldShareItem
      */
     public void updateShares(ShareItem soldShareItem, Customer customer,  int indexAvailableShare) {
-
-
         this.addToSoldShares(soldShareItem,customer);
+        synchronized (availableShares) {
+            //Update or remove share item depending on share amount sold.
+            ShareItem availableShare = availableShares.get(indexAvailableShare);
 
-        //Update or remove share item depending on share amount sold.
-        ShareItem availableShare = availableShares.get(indexAvailableShare);
-
-        if (availableShare.getQuantity() <= soldShareItem.getQuantity()) {
-
-            this.availableShares.remove(indexAvailableShare);
-
-        } else {
-
-            availableShare.reduceQuantity(soldShareItem.getQuantity());
+            if (availableShare.getQuantity() <= soldShareItem.getQuantity()) {
+                this.availableShares.remove(indexAvailableShare);
+            } else {
+                availableShare.reduceQuantity(soldShareItem.getQuantity());
+            }
         }
-
     }
 
 
@@ -167,23 +162,15 @@ public class ShareSalesStatusList{
     public void addToSoldShares(ShareItem shareItem, Customer customer) {
 
         synchronized (shareItem){
-
             List<ShareItem> custShares = this.soldShares.get(customer.getCustomerReferenceNumber());
-
             if (custShares == null) {
-
                 List<ShareItem> newShares = new ArrayList<ShareItem>();
                 newShares.add(shareItem);
-
                 this.soldShares.put(customer.getCustomerReferenceNumber(), newShares);
-
             } else {
-
                 //TODO : Not sure about the synchronized
                 synchronized(custShares){
-
                     custShares.add(shareItem);
-
                 }
             }
 
@@ -197,21 +184,18 @@ public class ShareSalesStatusList{
      */
     public void addToAvailableShares(ShareItem aShare) {
 
-         //Find this type of share that is at quantity 0
-
-        this.availableShares.add(aShare);
+        //Find this type of share that is at quantity 0
+        synchronized (availableShares) {
+            this.availableShares.add(aShare);
         /*for(ShareItem s : this.getAvailableShares()) {
-
             if (s.getBusinessSymbol() == aShare.getBusinessSymbol()) {
-
                 synchronized (s) {
-
                     s.setOrderNum(aShare.getOrderNum());
                     s.setQuantity(aShare.getQuantity());
                 }
-
             }
         }*/
+        }
     }
 
 
@@ -222,32 +206,33 @@ public class ShareSalesStatusList{
     private ArrayList<ShareItem> populateAvailable() {
 
         ArrayList<ShareItem> availableShares = new ArrayList<ShareItem>();
-
+        synchronized (availableShares) {
         //For Testing
-        ShareItem share1 = new ShareItem("901","MSFT",ShareType.COMMON,540.11f,100);
-        ShareItem share2 = new ShareItem("902","MSFT.B",ShareType.CONVERTIBLE,523.32f,400);
-        ShareItem share3 = new ShareItem("903","MSFT.C",ShareType.PREFERRED,541.28f,700);
-        ShareItem share4 = new ShareItem("904","GOOG",ShareType.COMMON,540.11f,100);
-        ShareItem share5 = new ShareItem("905","GOOG.B",ShareType.CONVERTIBLE,523.32f,400);
-        ShareItem share6 = new ShareItem("906","GOOG.C",ShareType.PREFERRED,541.28f,700);
-        ShareItem share7 = new ShareItem("907","GOOG",ShareType.COMMON,540.11f,100);
+            ShareItem share1 = new ShareItem("901", "MSFT", ShareType.COMMON, 540.11f, 100);
+            ShareItem share2 = new ShareItem("902", "MSFT.B", ShareType.CONVERTIBLE, 523.32f, 400);
+            ShareItem share3 = new ShareItem("903", "MSFT.C", ShareType.PREFERRED, 541.28f, 700);
+            ShareItem share4 = new ShareItem("904", "GOOG", ShareType.COMMON, 540.11f, 100);
+            ShareItem share5 = new ShareItem("905", "GOOG.B", ShareType.CONVERTIBLE, 523.32f, 400);
+            ShareItem share6 = new ShareItem("906", "GOOG.C", ShareType.PREFERRED, 541.28f, 700);
+            ShareItem share7 = new ShareItem("907", "GOOG", ShareType.COMMON, 540.11f, 100);
 
 
-        availableShares.add(share1);
-        availableShares.add(share2);
-        availableShares.add(share3);
-        availableShares.add(share4);
-        availableShares.add(share5);
-        availableShares.add(share6);
-        availableShares.add(share7);
-
+            availableShares.add(share1);
+            availableShares.add(share2);
+            availableShares.add(share3);
+            availableShares.add(share4);
+            availableShares.add(share5);
+            availableShares.add(share6);
+            availableShares.add(share7);
+        }
         return availableShares;
 
     }
 
     public String toString() {
         return "Sold SHares: " + soldShares.toString() + "\nAvailable Shares: " + availableShares;
-    }
+     }
+
 
 
     //---------------------- PRIVATE METHODS ----------------------------------
