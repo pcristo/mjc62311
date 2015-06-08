@@ -227,7 +227,7 @@ public class Broker implements BrokerInterface, Serializable{
      * @return
      */
     private boolean validateClientHasShare(String ticker, Customer customer) {
-        ArrayList<ShareItem> customerShares = exchange.getShares(customer);
+        List<ShareItem> customerShares = exchange.getShares(customer);
         for (ShareItem share : customerShares) {
             if (share.getBusinessSymbol() == ticker) {
                 return true;

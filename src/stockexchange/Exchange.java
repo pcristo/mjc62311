@@ -26,16 +26,12 @@ public class Exchange {
     private static  final int COMMISSION_MARKUP = 10;
     private static  final int RESTOCK_THRESHOLD = 100;
     private static  int orderInt = 1000;
-    private ShareSalesStatusList shareStatusSaleList;
-
-
+    private static ShareSalesStatusList shareStatusSaleList;
 
     private Map<String, String> businessDirectory = new HashMap<String, String>();
-
-
-    private BusinessInterface yahoo;
-    private BusinessInterface microsoft;
-    private BusinessInterface google;
+    public BusinessInterface yahoo;
+    public BusinessInterface microsoft;
+    public BusinessInterface google;
 
 
     // ----------------------     CONSTRUCTOR     ----------------------------------
@@ -146,7 +142,7 @@ public class Exchange {
      */
     public ShareSalesStatusList buyShares(ShareList shareItemList, Customer info) {
 
-        return this.shareStatusSaleList;
+        return shareStatusSaleList;
     }
 
     /**
@@ -173,7 +169,7 @@ public class Exchange {
                     //TODO : Add shares to SOLD list
                     shareStatusSaleList.addToSoldShares(s, info);
 
-                    if (this.payBusiness(soldShare, totalSold) ) {
+                    if (this.payBusiness(soldShare) ) {
                         printMessage("Shares paid for " + soldShare.getBusinessSymbol());
                     }else {
                         printMessage("Shares not paid: " + soldShare.printShareInfo());
@@ -190,25 +186,14 @@ public class Exchange {
         return  shareStatusSaleList;
     }
 
-
-
     /**
      * Given a customer determine get all of that customers stocks
      * @param customer wanting stock information
      * @return list of customers stocks
      */
-    public ArrayList<ShareItem> getShares(Customer customer) {
-        ArrayList<ShareItem> customerShares = new ArrayList<ShareItem>();
-        Map<ShareItem, Customer> soldShares = shareStatusSaleList.getSoldShares();
-        for (Map.Entry<ShareItem, Customer> entry : soldShares.entrySet()) {
-            ShareItem key = entry.getKey();
-            Customer value = entry.getValue();
-            if(value == customer) {
-                customerShares.add(key);
-            }
-        }
-        return customerShares;
+    public List<ShareItem> getShares(Customer customer) {
 
+        return shareStatusSaleList.getShares(customer);
 
     }
 
@@ -253,6 +238,9 @@ public class Exchange {
 
     }
 
+    /**
+     * Used to issue share on Ecxhange start up
+     */
     private void InitializeShare() {
 
         List<ShareItem> lstShares = new ArrayList<ShareItem>();
@@ -291,7 +279,7 @@ public class Exchange {
         List<ShareItem> tempShares = new ArrayList<ShareItem>();
 
         //Check Available stock amount
-        for (ShareItem sItem : this.shareStatusSaleList.getAvailableShares()) {
+        for (ShareItem sItem : shareStatusSaleList.getAvailableShares()) {
 
             synchronized (sItem) {
 
@@ -313,8 +301,12 @@ public class Exchange {
 
     }
 
-
-    private boolean payBusiness(ShareItem soldShare, int quantity) {
+    /**
+     *
+     * @param soldShare
+     * @return
+     */
+    private boolean payBusiness(ShareItem soldShare) {
 
         String businessName = businessDirectory.get(soldShare.getBusinessSymbol());
 
@@ -323,7 +315,7 @@ public class Exchange {
 
             case "microsoft" :
                 try {
-                     return microsoft.recievePayment(soldShare.getOrderNum(),soldShare.getUnitPrice() * quantity);
+                     return microsoft.recievePayment(soldShare.getOrderNum(),soldShare.getUnitPrice() * soldShare.getQuantity());
                 } catch (Exception e) {
                     printMessage(e.getMessage());
                 }
@@ -332,7 +324,7 @@ public class Exchange {
             case "yahoo" :
                 try {
 
-                    return yahoo.recievePayment(soldShare.getOrderNum(), soldShare.getUnitPrice() * quantity);
+                    return yahoo.recievePayment(soldShare.getOrderNum(), soldShare.getUnitPrice() * soldShare.getQuantity());
 
                 } catch (Exception e) {
 
@@ -342,7 +334,7 @@ public class Exchange {
             case "google" :
                 try {
 
-                    return google.recievePayment(soldShare.getOrderNum(),soldShare.getUnitPrice() * quantity);
+                    return google.recievePayment(soldShare.getOrderNum(),soldShare.getUnitPrice() * soldShare.getQuantity());
                 } catch (Exception e) {
 
                     printMessage(e.getMessage());
