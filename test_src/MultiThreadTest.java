@@ -5,6 +5,8 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 
+import logger.LoggerClient;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,9 +19,9 @@ import stockexchange.broker.Broker;
 import stockexchange.broker.BrokerInterface;
 
 public class MultiThreadTest {
-	final static int NUMBER_OF_TEST_THREADS = 4;
-	final static int SLEEP_TIME_BETWEEN_TRIES = 1;
-	final static int NUMBER_OF_TRANSACTIONS_PER_THREAD = 100;
+	final static int NUMBER_OF_TEST_THREADS = 8;
+	final static int SLEEP_TIME_BETWEEN_TRIES = 0;
+	final static int NUMBER_OF_TRANSACTIONS_PER_THREAD = 50;
 
 	@Before
 	public void setUp() throws Exception {
@@ -48,21 +50,29 @@ public class MultiThreadTest {
 			clientThread[i]
 					.setUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
 						public void uncaughtException(Thread th, Throwable ex) {
-							System.out.println("Uncaught exception: " + ex.getMessage()
+							log("Uncaught exception: " + ex.getMessage()
 									+ "in " + th.getName() + "\n"
 									+ "Trace: " + ex.getStackTrace());
 						}
 					});
-			clientThread[i].start();
 		}
 		
+		// start all the threads
+		for (int i = 0; i < NUMBER_OF_TEST_THREADS; i++) {
+			clientThread[i].start();
+			log("Client " + i + " starting to spam");
+		}			
+		
 		// wait till all threads are finished
-		for (int i = 0; i < NUMBER_OF_TEST_THREADS; i++)
+		for (int i = 0; i < NUMBER_OF_TEST_THREADS; i++) {
 			clientThread[i].join();
+			log("Client " + i + " finished spamming");
+		}
+			
 	}
 
 	private void DummyClient(String customer) throws RemoteException, NotBoundException {
-		System.out.println("Starting dummy client " + customer);
+		log("Starting dummy client " + customer);
 		
 		List<ShareItem> lstShares = new ArrayList<ShareItem>();
 		// "good" orders:
@@ -78,7 +88,7 @@ public class MultiThreadTest {
 		lstShares.add(new ShareItem("", "YHOO.B", ShareType.COMMON, 47.42f, 100));				// invalid share type (symbol indicates convertible)
 		
 		BrokerInterface service = new BrokerServiceClient().getBroker();
-		System.out.println("Service found for test customer " + customer);
+		log("Broker service found for test customer " + customer);
 
 		for (int i = 0; i < NUMBER_OF_TRANSACTIONS_PER_THREAD; i++) {
 			int shareIndex = (int) Math.floor(Math.random()
@@ -87,8 +97,10 @@ public class MultiThreadTest {
 			// Make a transaction
 			ArrayList<String> sellist = new ArrayList<String>();
 			sellist.add(lstShares.get(shareIndex).getBusinessSymbol());
-			service.sellShares(sellist,lstShares.get(shareIndex).getShareType(),
-					100, new Customer(customer));
+			if (!service.sellShares(sellist,lstShares.get(shareIndex).getShareType(),
+					lstShares.get(shareIndex).getQuantity(), new Customer(customer))) 
+				log("Client " + customer + " failed to purchase " + lstShares.get(shareIndex).getQuantity() + " " +
+						lstShares.get(shareIndex).getShareType() + " shares of " + lstShares.get(shareIndex).getBusinessSymbol());
 
 			try {
 				Thread.sleep(SLEEP_TIME_BETWEEN_TRIES);
@@ -107,6 +119,14 @@ public class MultiThreadTest {
 		}
 		
 		return returnString.trim();
+	}
+	/**
+	 * Logs a message to both the console and the logging server
+	 * @param msg
+	 */
+	private void log(String msg) {
+		// System.out.println(msg);
+		LoggerClient.log(msg, this.getClass().getName());
 	}
 	
 }
