@@ -83,8 +83,11 @@ public class ShareSalesStatusList{
         while (it.hasNext()) {
             Map.Entry pair = (Map.Entry)it.next();
             this.printMessage("Customer: " + pair.getKey() );
-            for(ShareItem sItem : (List<ShareItem>)pair.getValue()) {
-                this.printMessage(sItem.printShareInfo());
+
+            synchronized ((List<ShareItem>) pair.getValue()) {
+                for (ShareItem sItem : (List<ShareItem>) pair.getValue()) {
+                    this.printMessage(sItem.printShareInfo());
+                }
             }
         }
     }
