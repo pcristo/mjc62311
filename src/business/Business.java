@@ -148,7 +148,7 @@ public class Business implements Serializable, BusinessInterface {
 
 		// return true
 		log(getTicker() + " successfully issued " + aSO.getQuantity() + " shares of " + aSO.getBusinessSymbol() + 
-				" " + aSO.getShareType() + "(order #" + aSO.getOrderNum() + ")");
+				" " + aSO.getShareType() + " (order #" + aSO.getOrderNum() + ")");
 		return true;
 	}
 

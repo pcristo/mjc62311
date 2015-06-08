@@ -17,9 +17,9 @@ import stockexchange.broker.Broker;
 import stockexchange.broker.BrokerInterface;
 
 public class MultiThreadTest {
-	final static int NUMBER_OF_TEST_THREADS = 3;
-	final static int SLEEP_TIME_BETWEEN_TRIES = 5;
-	final static int NUMBER_OF_TRANSACTIONS_PER_THREAD = 1000;
+	final static int NUMBER_OF_TEST_THREADS = 4;
+	final static int SLEEP_TIME_BETWEEN_TRIES = 1;
+	final static int NUMBER_OF_TRANSACTIONS_PER_THREAD = 100;
 
 	@Before
 	public void setUp() throws Exception {
@@ -48,9 +48,9 @@ public class MultiThreadTest {
 			clientThread[i]
 					.setUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
 						public void uncaughtException(Thread th, Throwable ex) {
-							System.out.println("Uncaught exception: " + ex
+							System.out.println("Uncaught exception: " + ex.getMessage()
 									+ "in " + th.getName() + "\n"
-									+ ex.getStackTrace());
+									+ "Trace: " + ex.getStackTrace());
 						}
 					});
 			clientThread[i].start();
@@ -106,7 +106,7 @@ public class MultiThreadTest {
 			returnString += character;
 		}
 		
-		return returnString;
+		return returnString.trim();
 	}
 	
 }
