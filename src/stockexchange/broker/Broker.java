@@ -131,7 +131,7 @@ public class Broker implements BrokerInterface, Serializable{
         if (sharesToSell != null) {
             ShareSalesStatusList shareSatusList = exchange.sellShares(sharesToSell, customer);
             System.out.println(shareSatusList);
-            if(shareSatusList.getShares(customer).isEmpty()){
+            if(shareSatusList.getShares(customer) == null || shareSatusList.getShares(customer).isEmpty()){
                 return false;
             } else {
                 return true;
