@@ -14,6 +14,8 @@ import java.net.UnknownHostException;
  */
 public class LoggerClient {
 
+
+
     /**
      * Classname is prefixed to the message being sent to the logging server
      * Log the message to the log server
@@ -70,7 +72,7 @@ public class LoggerClient {
     public static boolean sendMessage(String msg, String ip, int port) {
         try {
             DatagramSocket clientSocket = new DatagramSocket();
-            clientSocket.setSoTimeout(3000);
+            clientSocket.setSoTimeout(6000);
             byte[] sendData = new byte[1024];
             sendData = msg.getBytes();
 
@@ -82,15 +84,15 @@ public class LoggerClient {
             byte[] buffer2 = new byte[1024];
             DatagramPacket receivedPacket = new DatagramPacket(buffer2, sendData.length, host, port);
             clientSocket.receive(receivedPacket);
-
             clientSocket.close();
-
         } catch(UnknownHostException he){
             System.out.println("Host Exception in logger client: " + he.getMessage());
             return false;
         } catch (IOException ioe) {
             System.out.println("IO Exception in logger client: " + ioe.getMessage());
             return false;
+        } finally {
+      //      clientSocket.close();
         }
 
         return true;

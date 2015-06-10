@@ -3,6 +3,7 @@ package stockexchange;
 import business.BusinessInterface;
 import client.Customer;
 import logger.LoggerClient;
+import logger.TimerLoggerClient;
 import share.ShareOrder;
 import share.ShareType;
 import util.Config;
@@ -25,17 +26,13 @@ public class Exchange {
 
     private static  final int COMMISSION_MARKUP = 10;
     private static  final int RESTOCK_THRESHOLD = 100;
-    private static  int orderInt = 1000;
-    private ShareSalesStatusList shareStatusSaleList;
-
-
+    private static  Integer orderInt = 1100;
+    private static ShareSalesStatusList shareStatusSaleList;
 
     private Map<String, String> businessDirectory = new HashMap<String, String>();
-
-
-    private BusinessInterface yahoo;
-    private BusinessInterface microsoft;
-    private BusinessInterface google;
+    public BusinessInterface yahoo;
+    public BusinessInterface microsoft;
+    public BusinessInterface google;
 
 
     // ----------------------     CONSTRUCTOR     ----------------------------------
@@ -51,11 +48,10 @@ public class Exchange {
      */
     public Exchange() throws AccessException, RemoteException, NotBoundException  {
 
+
         google = getBusiness("google");
         yahoo = getBusiness("yahoo");
         microsoft = getBusiness("microsoft");
-
-        printMessage("MICROSOFT TICKER: " + microsoft.getTicker());
 
         this.setBusinessDirectory();
         shareStatusSaleList = new ShareSalesStatusList();
@@ -146,7 +142,7 @@ public class Exchange {
      */
     public ShareSalesStatusList buyShares(ShareList shareItemList, Customer info) {
 
-        return this.shareStatusSaleList;
+        return shareStatusSaleList;
     }
 
     /**
@@ -156,7 +152,8 @@ public class Exchange {
      * @return ShareSalesStatusList - Can access sold shares and available shares lists
      */
     public ShareSalesStatusList sellShares(ShareList shareItemList, Customer info) {
-
+        TimerLoggerClient tlc = new TimerLoggerClient();
+        tlc.start();
         ShareItem soldShare = null;
 
         //TODO : See if share are available
@@ -173,7 +170,7 @@ public class Exchange {
                     //TODO : Add shares to SOLD list
                     shareStatusSaleList.addToSoldShares(s, info);
 
-                    if (this.payBusiness(soldShare, totalSold) ) {
+                    if (this.payBusiness(soldShare) ) {
                         printMessage("Shares paid for " + soldShare.getBusinessSymbol());
                     }else {
                         printMessage("Shares not paid: " + soldShare.printShareInfo());
@@ -185,30 +182,19 @@ public class Exchange {
         //Restock Share Lists
         this.restock();
 
-        shareStatusSaleList.printShares();
-
+//        shareStatusSaleList.printShares();
+        tlc.end();
         return  shareStatusSaleList;
     }
-
-
 
     /**
      * Given a customer determine get all of that customers stocks
      * @param customer wanting stock information
      * @return list of customers stocks
      */
-    public ArrayList<ShareItem> getShares(Customer customer) {
-        ArrayList<ShareItem> customerShares = new ArrayList<ShareItem>();
-        Map<ShareItem, Customer> soldShares = shareStatusSaleList.getSoldShares();
-        for (Map.Entry<ShareItem, Customer> entry : soldShares.entrySet()) {
-            ShareItem key = entry.getKey();
-            Customer value = entry.getValue();
-            if(value == customer) {
-                customerShares.add(key);
-            }
-        }
-        return customerShares;
+    public List<ShareItem> getShares(Customer customer) {
 
+        return shareStatusSaleList.getShares(customer);
 
     }
 
@@ -253,6 +239,9 @@ public class Exchange {
 
     }
 
+    /**
+     * Used to issue share on Ecxhange start up
+     */
     private void InitializeShare() {
 
         List<ShareItem> lstShares = new ArrayList<ShareItem>();
@@ -265,6 +254,7 @@ public class Exchange {
         lstShares.add(new ShareItem("","GOOG.B",ShareType.CONVERTIBLE,532.23f,100));
         lstShares.add(new ShareItem("","GOOG.C",ShareType.PREFERRED,541.28f,100));
         lstShares.add(new ShareItem("","GOOG",ShareType.COMMON,540.11f,100));
+
 
         for(ShareItem shareItem : lstShares) {
 
@@ -291,7 +281,7 @@ public class Exchange {
         List<ShareItem> tempShares = new ArrayList<ShareItem>();
 
         //Check Available stock amount
-        for (ShareItem sItem : this.shareStatusSaleList.getAvailableShares()) {
+        for (ShareItem sItem : shareStatusSaleList.getAvailableShares()) {
 
             synchronized (sItem) {
 
@@ -313,8 +303,12 @@ public class Exchange {
 
     }
 
-
-    private boolean payBusiness(ShareItem soldShare, int quantity) {
+    /**
+     *
+     * @param soldShare
+     * @return
+     */
+    private boolean payBusiness(ShareItem soldShare) {
 
         String businessName = businessDirectory.get(soldShare.getBusinessSymbol());
 
@@ -323,29 +317,31 @@ public class Exchange {
 
             case "microsoft" :
                 try {
-                     return microsoft.recievePayment(soldShare.getOrderNum(),soldShare.getUnitPrice() * quantity);
+                     return microsoft.recievePayment(soldShare.getOrderNum(),soldShare.getUnitPrice() * soldShare.getQuantity());
                 } catch (Exception e) {
                     printMessage(e.getMessage());
                 }
+                break;
 
             case "yahoo" :
                 try {
 
-                    return yahoo.recievePayment(soldShare.getOrderNum(), soldShare.getUnitPrice() * quantity);
+                    return yahoo.recievePayment(soldShare.getOrderNum(), soldShare.getUnitPrice() * soldShare.getQuantity());
 
                 } catch (Exception e) {
 
                     printMessage(e.getMessage());
                 }
-
+                break;
             case "google" :
                 try {
 
-                    return google.recievePayment(soldShare.getOrderNum(),soldShare.getUnitPrice() * quantity);
+                    return google.recievePayment(soldShare.getOrderNum(),soldShare.getUnitPrice() * soldShare.getQuantity());
                 } catch (Exception e) {
 
                     printMessage(e.getMessage());
                 }
+                break;
         }
 
         return false;
@@ -396,6 +392,7 @@ public class Exchange {
 
         String orderNum = this.generateOrderNumber();
 
+
         synchronized (orderNum) {
 
             switch (businessName.toLowerCase()) {
@@ -406,6 +403,7 @@ public class Exchange {
                     } catch (Exception e) {
                         printMessage(e.getMessage());
                     }
+                    break;
 
                 case "yahoo":
                     try {
@@ -416,7 +414,7 @@ public class Exchange {
 
                         printMessage(e.getMessage());
                     }
-
+                    break;
                 case "google":
                     try {
 
@@ -425,6 +423,7 @@ public class Exchange {
 
                         printMessage(e.getMessage());
                     }
+                    break;
             }
         }
 
@@ -441,7 +440,7 @@ public class Exchange {
     /**
      * Method to generate unique sequential order number for issue share
      */
-    private String generateOrderNumber() {
+    private synchronized String generateOrderNumber() {
 
         orderInt = orderInt + 1;
 

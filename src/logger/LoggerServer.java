@@ -13,6 +13,9 @@ import java.net.DatagramSocket;
  */
 public class LoggerServer {
 
+
+    DatagramSocket serverSocket;
+
     /**
      * Constructor
      * Listens for any incoming log request and delegates it to a new thread
@@ -26,7 +29,7 @@ public class LoggerServer {
 
             int port = Integer.parseInt(Config.getInstance().getAttr("logServerPort"));
 
-            DatagramSocket serverSocket = new DatagramSocket(port);
+            serverSocket = new DatagramSocket(port);
 
             byte[] receiveData = new byte[1024];
             while (true) {
@@ -40,9 +43,12 @@ public class LoggerServer {
                 logger.start();
 
                 serverSocket.send(receivePacket);
+
             }
         } catch(IOException ioe) {
             System.out.println("IO Exception in host: " + ioe.getMessage());
+        } finally {
+            serverSocket.close();
         }
     }
 

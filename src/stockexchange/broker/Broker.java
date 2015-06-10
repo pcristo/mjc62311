@@ -17,6 +17,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Broker class takes customer request and validates it and sends it over
@@ -129,8 +130,7 @@ public class Broker implements BrokerInterface, Serializable{
 
         if (sharesToSell != null) {
             ShareSalesStatusList shareSatusList = exchange.sellShares(sharesToSell, customer);
-            System.out.println(shareSatusList);
-            if(shareSatusList.getShares(customer).isEmpty()){
+            if(shareSatusList.getShares(customer) == null || shareSatusList.getShares(customer).isEmpty()){
                 return false;
             } else {
                 return true;
@@ -138,6 +138,27 @@ public class Broker implements BrokerInterface, Serializable{
         } else {
             return false;
         }
+    }
+
+    /**
+     *
+     * @param shareItems
+     * @param customer
+     * @return
+     * @throws RemoteException
+     */
+    public boolean sellShares(ArrayList<ShareItem> shareItems, Customer customer) throws RemoteException {
+
+        ShareList customerShares = new ShareList(shareItems);
+
+        ShareSalesStatusList shareSalesStatusList = exchange.sellShares(customerShares,customer);
+
+        if (shareSalesStatusList != null)
+            return true;
+
+        return false;
+
+
     }
 
     /**
@@ -205,14 +226,15 @@ public class Broker implements BrokerInterface, Serializable{
      * @return
      */
     private boolean validateClientHasShare(String ticker, Customer customer) {
-        ArrayList<ShareItem> customerShares = exchange.getShares(customer);
-        for (ShareItem share : customerShares) {
-            if (share.getBusinessSymbol() == ticker) {
-                return true;
+        List<ShareItem> customerShares = exchange.getShares(customer);
+        synchronized (customerShares) {
+            for (ShareItem share : customerShares) {
+                if (share.getBusinessSymbol() == ticker) {
+                    return true;
+                }
             }
+            return false;
         }
-        return false;
-
     }
 
     /**

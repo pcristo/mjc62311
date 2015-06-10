@@ -1,18 +1,17 @@
 package client;
 
+import logger.LoggerClient;
+import share.ShareType;
+import stockexchange.ShareItem;
+import stockexchange.broker.BrokerInterface;
+import util.Config;
+
 import java.rmi.NoSuchObjectException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
-
-import logger.LoggerClient;
-
-import share.ShareType;
-import stockexchange.broker.Broker;
-import stockexchange.broker.BrokerInterface;
-import util.Config;
 
 public class MockBroker implements BrokerInterface
 {
@@ -35,6 +34,12 @@ public class MockBroker implements BrokerInterface
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+    @Override
+    public boolean sellShares(ArrayList<ShareItem> customShares, Customer customer) throws RemoteException{
+
+        return false;
+    }
 
 	@Override
 	public ArrayList<String> getTickerListing() throws RemoteException

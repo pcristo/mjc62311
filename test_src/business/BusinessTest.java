@@ -2,13 +2,10 @@ package business;
 
 import org.junit.Before;
 import org.junit.Test;
-
-import share.Share;
 import share.ShareOrder;
 import share.ShareType;
 import util.Config;
 
-import java.io.Console;
 import java.rmi.RemoteException;
 
 import static junit.framework.TestCase.assertTrue;
@@ -28,7 +25,12 @@ public class BusinessTest {
     @Test
     public void testIssueShares() {
     	ShareOrder aSO = new ShareOrder("a00", "broker1", "GOOG", ShareType.PREFERRED, 0, 150, (float) 1000.0);
-    	assertTrue(google.issueShares(aSO));
+
+        try {
+            assertTrue(google.issueShares(aSO));
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test

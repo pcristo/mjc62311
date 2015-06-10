@@ -6,7 +6,6 @@ import share.ShareOrder;
 import share.ShareType;
 import util.Config;
 
-import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
 import java.io.*;
 import java.net.URL;
@@ -101,32 +100,38 @@ public class Business implements Serializable, BusinessInterface {
 	 * @param aSO
 	 *            A ShareOrder to process
 	 * @return true if successful, false if failed
+	 * @throws RemoteException 
 	 */
-	public boolean issueShares(ShareOrder aSO) {
+	public boolean issueShares(ShareOrder aSO) throws RemoteException {
 		// fetch the share that is relevant to this order
 		Share listedShare = getShareInfo(aSO.getShareType());
 
 		// if no valid listed share was found, return false
 		if (listedShare == null) {
-			log("No valid share found for " + aSO.getShareType() + " (order #" + aSO.getOrderNum() + ")");			
+			log(getTicker() + " failed to issue shares of " + aSO.getBusinessSymbol() + " " + aSO.getShareType() + 
+					": No valid share found for " + aSO.getShareType() + " (order #" + aSO.getOrderNum() + ")");			
 			return false;
 		}
 
 		// if the order price lower than the current value, return false
 		if (aSO.getUnitPriceOrder() < listedShare.getUnitPrice()) {
-			log("Order price " + aSO.getUnitPriceOrder() + " is less than minimum issue price " + aSO.getUnitPrice() + " (order #" + aSO.getBrokerRef() + ")");
+			log(getTicker() + " failed to issue shares of " + aSO.getBusinessSymbol()  + " " + aSO.getShareType() + 
+					": Order price " + aSO.getUnitPriceOrder() + " is less than minimum issue price " + 
+					aSO.getUnitPrice() + " (order #" + aSO.getOrderNum() + ")");
 			return false;
 		}
 
 		// validate the order is for at least 1 share, otherwise return false
 		if (aSO.getQuantity() <= 0) {
-			log("Invalid number of shares requested (broker ref " + aSO.getBrokerRef() + ")");
+			log(getTicker() + " failed to issue shares of " + aSO.getBusinessSymbol() + " " + aSO.getShareType() + 
+					": Invalid number of shares requested (order #" + aSO.getOrderNum() + ")");
 			return false;
 		}
 		
 		// validate the order number is unique
 		if (!validateOrderNumber(aSO.getOrderNum())) {
-			log("The order number " + aSO.getOrderNum() + " already exists (broker ref " + aSO.getBrokerRef() + ")");
+			log(getTicker() + " failed to issue shares of " + aSO.getBusinessSymbol()  + " " + aSO.getShareType() + 
+					": The order number " + aSO.getOrderNum() + " already exists");
 			return false;
 		}		
 
@@ -141,7 +146,8 @@ public class Business implements Serializable, BusinessInterface {
 		saveRecordToList(aSO);
 
 		// return true
-		log(aSO.getQuantity() + " shares issued successfully for broker ref " + aSO.getBrokerRef());
+		log(getTicker() + " successfully issued " + aSO.getQuantity() + " shares of " + aSO.getBusinessSymbol() + 
+				" " + aSO.getShareType() + " (order #" + aSO.getOrderNum() + ")");
 		return true;
 	}
 

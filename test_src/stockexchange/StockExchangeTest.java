@@ -2,6 +2,7 @@ package stockexchange;
 
 import client.Customer;
 
+import logger.TimerLoggerClient;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -55,12 +56,27 @@ public class StockExchangeTest {
 
         lstShares.add(new ShareItem("","MSFT.B",ShareType.CONVERTIBLE, 523.32f, 100));
         lstShares.add(new ShareItem("","MSFT.C",ShareType.PREFERRED,541.28f,100));
-        lstShares.add(new ShareItem("","GOOG",ShareType.COMMON,540.11f,100));
+        lstShares.add(new ShareItem("", "GOOG", ShareType.COMMON, 540.11f, 100));
+
+        TimerLoggerClient tlc = new TimerLoggerClient();
 
         ShareSalesStatusList shareStatus = this.exchange.sellShares(new ShareList(lstShares),newCust);
 
+      //  assertTrue(shareStatus.getShares(newCust).size() == 3);
 
-        assertTrue(shareStatus.getSoldShares().get(lstShares.get(0)) == newCust);
+    }
+
+    @Test
+    public void PrintAllShareFromBusiness() {
+
+        try {
+           // System.out.println(this.exchange.yahoo.getSharesList());
+            System.out.println(this.exchange.microsoft.getSharesList());
+            System.out.println(this.exchange.google.getSharesList());
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
 
     }
 }
