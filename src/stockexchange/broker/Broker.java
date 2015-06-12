@@ -205,9 +205,7 @@ public class Broker implements BrokerInterface, Serializable{
                 // We don't trade anything unless all tickers are valid
                 return null;
             } else {
-                // TODO price needs to come from the exchange...thats what it is..an exchange
-                // for now we fake the price at 50
-                // TODO add on broker comission for customer
+
                 float price = 50;
                 String orderNumber = "";
                 sharesToAction.add(new ShareItem(orderNumber, ticker, type, price, quantity));
