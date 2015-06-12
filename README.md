@@ -1,19 +1,23 @@
 # mjc62311
-Comp6231-s15 Team 4
+Comp6231-s15 Team 3
+
+Gay Hazan(Lead)
+Ross Smith
+Patrick Cristofaro
+Sai Sun
+
+Documenation is under:
+
+ressources > documentation > stock broker.docx
 
 # Dependencies
 JUnit4 (intelliJ library)
 json jar (resources/jar)
 
 # Launch procedure
-* Update/validate config.json for correct paths
-* Run "rmiregistry 1099" from /out
-* Start out/logger/LoggerServer.class
-* Start out/business/Business.class
-* Start out/stockexchange/broker/Broker.class
-* Run the client (from src is OK)
-
-# Easier launch procedure
+* Update/validate src/config.json for correct projecthome path
+*
+* Easier launch procedure
 * Run projectLauncher.java
 
 # Extra
