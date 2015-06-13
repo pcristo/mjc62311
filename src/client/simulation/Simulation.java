@@ -1,4 +1,4 @@
-package client;
+package client.simulation;
 
 import common.Customer;
 import common.logger.LoggerClient;

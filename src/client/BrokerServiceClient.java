@@ -1,11 +1,10 @@
 package client;
 
-import Distribution.RMI.Client;
 import common.Customer;
 import common.share.ShareType;
-import stockexchange.exchange.ShareItem;
-import stockexchange.broker.BrokerInterface;
 import common.util.Config;
+import distribution.RMI.Client;
+import stockexchange.broker.BrokerInterface;
 
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -103,17 +102,5 @@ public class BrokerServiceClient {
         return new Customer(info.split(";;d")[1], info.split(";;d")[2], info.split(";;d")[3], info.split(";;d")[4], info.split(";;d")[5], info.split(";;d")[6], info.split(";;d")[7]);
     }
 
-    private static ArrayList<ShareItem> createListofShares() {
-
-        //ShareItemList
-        ArrayList<ShareItem> lstShares = new ArrayList<ShareItem>();
-
-//        lstShares.add(new ShareItem("MSFT.B.B", "convertible", 523.32f, 100));
-//        lstShares.add(new ShareItem("MSFT.C","preferred",541.28f,200));
-//        lstShares.add(new ShareItem("GOOG","common",540.11f,100));
-
-        return lstShares;
-
-    }
 
 }

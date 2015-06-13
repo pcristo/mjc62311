@@ -10,20 +10,15 @@ import java.util.List;
 
 public interface BusinessInterface extends Remote {
 
-    public boolean issueShares(ShareOrder aSO) throws RemoteException;
+    boolean issueShares(ShareOrder aSO) throws RemoteException;
 
-    public Share getShareInfo(ShareType aShareType) throws RemoteException;
+    Share getShareInfo(ShareType aShareType) throws RemoteException;
 
-    public List<Share> getSharesList() throws RemoteException;
+    List<Share> getSharesList() throws RemoteException;
 
-    public boolean recievePayment(String orderNum, float totalPrice) throws RemoteException;
+    boolean recievePayment(String orderNum, float totalPrice) throws RemoteException;
 
-    /**
-     *
-     * @return the ticker commonly used to identify a company
-     * @throws RemoteException
-     */
-    public String getTicker() throws RemoteException;
+    String getTicker() throws RemoteException;
 
 
 

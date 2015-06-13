@@ -1,6 +1,6 @@
 package client;
 
-import Distribution.RMI.Server;
+import distribution.RMI.Server;
 import business.BusinessInterface;
 import common.logger.LoggerClient;
 import common.share.Share;

@@ -1,5 +1,6 @@
-package client;
+package client.simulation;
 
+import client.BrokerServiceClient;
 import common.logger.TimerLoggerClient;
 import common.share.ShareType;
 

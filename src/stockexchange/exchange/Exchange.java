@@ -1,6 +1,6 @@
 package stockexchange.exchange;
 
-import Distribution.RMI.Client;
+import distribution.RMI.Client;
 import business.BusinessInterface;
 import common.Customer;
 import common.logger.LoggerClient;

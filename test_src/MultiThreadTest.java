@@ -100,7 +100,7 @@ public class MultiThreadTest {
 			if (!service.sellShares(sellist,lstShares.get(shareIndex).getShareType(),
 					lstShares.get(shareIndex).getQuantity(), new Customer(customer))) 
 				log("Client " + customer + " failed to purchase " + lstShares.get(shareIndex).getQuantity() + " " +
-						lstShares.get(shareIndex).getShareType() + " shares of " + lstShares.get(shareIndex).getBusinessSymbol());
+						lstShares.get(shareIndex).getShareType() + " shares of " + lstShares.get(shareIndex).getBusinessSymbol() + " on thread " + Thread.currentThread().getId());
 
 			try {
 				Thread.sleep(SLEEP_TIME_BETWEEN_TRIES);

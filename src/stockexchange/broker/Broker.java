@@ -1,6 +1,6 @@
 package stockexchange.broker;
 
-import Distribution.RMI.Server;
+import distribution.RMI.Server;
 import common.Customer;
 import common.logger.LoggerClient;
 import common.share.ShareType;

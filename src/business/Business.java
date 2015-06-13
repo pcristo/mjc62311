@@ -1,6 +1,6 @@
 package business;
 
-import Distribution.RMI.Server;
+import distribution.RMI.Server;
 import common.logger.LoggerClient;
 import common.share.Share;
 import common.share.ShareOrder;
@@ -71,10 +71,10 @@ public class Business implements Serializable, BusinessInterface {
 			bufferedReader.close();
 			
 			// log the activity
-			log("Business " + identifier + " object created.");
+			LoggerClient.log("Business " + identifier + " object created.");
 
 		} catch (IOException ioe) {
-			log("Failed to create business object " + identifier + ": " + ioe.getMessage());
+			LoggerClient.log("Failed to create business object " + identifier + ": " + ioe.getMessage());
 		}
 	}
 
@@ -109,29 +109,29 @@ public class Business implements Serializable, BusinessInterface {
 
 		// if no valid listed common.share was found, return false
 		if (listedShare == null) {
-			log(getTicker() + " failed to issue shares of " + aSO.getBusinessSymbol() + " " + aSO.getShareType() + 
+			LoggerClient.log(getTicker() + " failed to issue shares of " + aSO.getBusinessSymbol() + " " + aSO.getShareType() +
 					": No valid common.share found for " + aSO.getShareType() + " (order #" + aSO.getOrderNum() + ")");
 			return false;
 		}
 
 		// if the order price lower than the current value, return false
 		if (aSO.getUnitPriceOrder() < listedShare.getUnitPrice()) {
-			log(getTicker() + " failed to issue shares of " + aSO.getBusinessSymbol()  + " " + aSO.getShareType() + 
-					": Order price " + aSO.getUnitPriceOrder() + " is less than minimum issue price " + 
+			LoggerClient.log(getTicker() + " failed to issue shares of " + aSO.getBusinessSymbol() + " " + aSO.getShareType() +
+					": Order price " + aSO.getUnitPriceOrder() + " is less than minimum issue price " +
 					aSO.getUnitPrice() + " (order #" + aSO.getOrderNum() + ")");
 			return false;
 		}
 
 		// validate the order is for at least 1 common.share, otherwise return false
 		if (aSO.getQuantity() <= 0) {
-			log(getTicker() + " failed to issue shares of " + aSO.getBusinessSymbol() + " " + aSO.getShareType() + 
+			LoggerClient.log(getTicker() + " failed to issue shares of " + aSO.getBusinessSymbol() + " " + aSO.getShareType() +
 					": Invalid number of shares requested (order #" + aSO.getOrderNum() + ")");
 			return false;
 		}
 		
 		// validate the order number is unique
 		if (!validateOrderNumber(aSO.getOrderNum())) {
-			log(getTicker() + " failed to issue shares of " + aSO.getBusinessSymbol()  + " " + aSO.getShareType() + 
+			LoggerClient.log(getTicker() + " failed to issue shares of " + aSO.getBusinessSymbol() + " " + aSO.getShareType() +
 					": The order number " + aSO.getOrderNum() + " already exists");
 			return false;
 		}		
@@ -147,7 +147,7 @@ public class Business implements Serializable, BusinessInterface {
 		saveRecordToList(aSO);
 
 		// return true
-		log(getTicker() + " successfully issued " + aSO.getQuantity() + " shares of " + aSO.getBusinessSymbol() + 
+		LoggerClient.log(getTicker() + " successfully issued " + aSO.getQuantity() + " shares of " + aSO.getBusinessSymbol() +
 				" " + aSO.getShareType() + " (order #" + aSO.getOrderNum() + ")");
 		return true;
 	}
@@ -289,8 +289,8 @@ public class Business implements Serializable, BusinessInterface {
 
 			// handle success case
 			if (isNotPaid && totalPriceOK && orderExists) {
-				orderRecord.setPaid(true); 
-				log("Payment for order " + orderNum + " successful.");
+				orderRecord.setPaid(true);
+				LoggerClient.log("Payment for order " + orderNum + " successful.");
 				return true; 			// return
 			}
 
@@ -298,86 +298,25 @@ public class Business implements Serializable, BusinessInterface {
 		
 		// handle error cases
 		if (!orderExists) {
-			log("Payment for order " + orderNum + " failed. The order does not exist.");
+			LoggerClient.log("Payment for order " + orderNum + " failed. The order does not exist.");
 			return false;		
 		}
 		
 		if (!totalPriceOK) {
-			log("Payment " + totalPrice  + " for order " + orderNum + " failed. The recorded "
+			LoggerClient.log("Payment " + totalPrice + " for order " + orderNum + " failed. The recorded "
 					+ "total order price does not match: " + orderRecord.getQuantity() +
 					" units sold at " + orderRecord.getUnitPriceOrder());
 			return false;	
 		}
 
 		if (!isNotPaid) {
-			log("Payment for order " + orderNum + " failed. The order has already been paid.");
+			LoggerClient.log("Payment for order " + orderNum + " failed. The order has already been paid.");
 			return false;		
 		}
-		
-		log("Payment for order " + orderNum + " failed and no reason is known.");
+
+		LoggerClient.log("Payment for order " + orderNum + " failed and no reason is known.");
 		return false;
-		
-		// deprecated method using XML:
-/*	    // As the xml record gets large, this method's performance will
-		// drop off dramatically. A database implementation would be far more
-		// efficient.
-		
-		List<OrderRecord> orderRecords = new ArrayList<OrderRecord>();
 
-		// do not allow any other checks for received payment AND do not allow
-		// any new issued shares to be recorded until this request is processed		
-		synchronized(recordLock) {	
-
-			// load all the orders from the xml file
-			XMLDecoder d;
-			try {
-				d = new XMLDecoder(new BufferedInputStream(new FileInputStream(
-						ORDER_RECORD_FILENAME)));
-			} catch (FileNotFoundException e1) {
-				// no file means no records means no match, return false
-				return false;
-			}
-			boolean isDone = false;
-			while (!isDone) {
-				try {
-					orderRecords.add((OrderRecord) d.readObject());
-				} catch (ArrayIndexOutOfBoundsException e) {
-					isDone = true;
-				}
-			}
-			d.close();
-
-			// check to see if there is a match that is not already paid
-			boolean hasMatch = false;
-			for (OrderRecord o : orderRecords) {
-				if ((o.getOrderNum().equals(orderNum))
-						&& ((o.getQuantity() * o.getUnitPriceOrder()) == totalPrice)
-						&& (!o.isPaid())) {
-					hasMatch = true; // match found, set match as true
-					o.setPaid(true); // update the status to paid
-					break; // no need to continue processing after a match is found
-				}
-			}
-
-			// no match, return false
-			if (!hasMatch)
-				return false;
-
-			// if match, save file, return true
-			XMLEncoder e;
-			try {
-				e = new XMLEncoder(new BufferedOutputStream(new FileOutputStream(
-						ORDER_RECORD_FILENAME)));
-			} catch (FileNotFoundException e1) {
-				e1.printStackTrace();
-				return false;
-			}
-			for (OrderRecord o : orderRecords)
-				e.writeObject(o);
-			e.close();
-		}
-		
-		return true;*/
 	}
 
 	/**
@@ -414,13 +353,5 @@ public class Business implements Serializable, BusinessInterface {
 		}
 	}
 
-	
-	/**
-	 * Logs a message to both the console and the logging server
-	 * @param msg
-	 */
-	private void log(String msg) {
-		// System.out.println(msg);
-		LoggerClient.log(msg, this.getClass().getName());
-	}
+
 }
