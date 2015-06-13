@@ -1,5 +1,6 @@
 package business;
 
+import Distribution.RMI.Server;
 import logger.LoggerClient;
 import share.Share;
 import share.ShareOrder;
@@ -10,9 +11,6 @@ import java.beans.XMLEncoder;
 import java.io.*;
 import java.net.URL;
 import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
-import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +25,9 @@ public class Business implements Serializable, BusinessInterface {
 	private List<Share> sharesList = new ArrayList<Share>();
 	private List<OrderRecord> orderRecords = new ArrayList<OrderRecord>();
 	private Object recordLock = new Object();
+
+	private static Server<BusinessInterface> server = new Server<BusinessInterface>();
+
 	
 	/**
 	 * Constructor to create a business
@@ -403,45 +404,16 @@ public class Business implements Serializable, BusinessInterface {
 
 		try {
 			// Reserver port 9095 - 9099 for business services
-			Business.startRMIServer(google, googleName, 9095);
-			Business.startRMIServer(yahoo, yahooName, 9096);
-			Business.startRMIServer(msoft, msoftName, 9097);
+			server.start(google, googleName, 9095);
+			server.start(yahoo, yahooName, 9096);
+			server.start(msoft, msoftName, 9097);
+
 		} catch(RemoteException rme) {
 			System.out.println(rme.getMessage());
 			LoggerClient.log("Remote Exception in Business Server: " + rme.getMessage());
 		}
 	}
 
-	/**
-	 *
-	 * @param business interface to be bound
-	 * @param businessName to bind to
-	 * @param port to bind business to
-	 * @throws RemoteException
-	 */
-	public static void startRMIServer(BusinessInterface business, String businessName, int port) throws RemoteException {
-
-		//TODO remove this.  See updated Config class.
-		//System.setProperty("java.security.policy", Config.getInstance().loadMacSecurityPolicy());
-
-		System.setProperty("java.security.policy", Config.getInstance()
-				.loadSecurityPolicy());
-
-		// load security policy
-		if (System.getSecurityManager() == null) {
-			System.setSecurityManager(new SecurityManager());
-		}
-		// create local rmi registery
-		LocateRegistry.createRegistry(port);
-
-		// bind service to default port portNum
-		BusinessInterface stub = (BusinessInterface) UnicastRemoteObject
-					.exportObject(business, port);
-		Registry registry = LocateRegistry.getRegistry(port);
-		registry.rebind(businessName, stub);
-		System.out.println(businessName + " bound on " + port);
-		LoggerClient.log(businessName + " server bound on " + port);
-	}
 	
 	/**
 	 * Logs a message to both the console and the logging server

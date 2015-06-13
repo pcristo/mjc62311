@@ -1,14 +1,13 @@
 package client;
 
+import Distribution.RMI.Client;
 import share.ShareType;
-import stockexchange.*;
+import stockexchange.ShareItem;
 import stockexchange.broker.BrokerInterface;
 import util.Config;
 
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -29,19 +28,12 @@ public class BrokerServiceClient {
      */
     public BrokerInterface getBroker() throws RemoteException, NotBoundException {
 
+
         String host = Config.getInstance().getAttr("brokerServerIP");
         Integer port = Integer.parseInt(Config.getInstance().getAttr("brokerPort"));
 
-        //TODO remove this.  See updated Config class.
-        //System.setProperty("java.security.policy", Config.getInstance().loadMacSecurityPolicy());
-
-        System.setProperty("java.security.policy", Config.getInstance().loadSecurityPolicy());
-        if (System.getSecurityManager() == null) {
-            System.setSecurityManager(new SecurityManager());
-        }
-        Registry registry = LocateRegistry.getRegistry(host, port);
-        
-        return (BrokerInterface) registry.lookup("broker");
+        Client<BrokerInterface> client = new Client<BrokerInterface>();
+        return client.getService(host, port, "broker");
     }
 
 

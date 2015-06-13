@@ -1,5 +1,6 @@
 package stockexchange.broker;
 
+import Distribution.RMI.Server;
 import client.Customer;
 import logger.LoggerClient;
 import share.ShareType;
@@ -13,9 +14,6 @@ import java.io.Serializable;
 import java.rmi.AccessException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
-import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +30,8 @@ public class Broker implements BrokerInterface, Serializable{
     private static Exchange exchange;
     private static ArrayList<String> tickers;
 
+    private static Server<BrokerInterface> server = new Server<BrokerInterface>();
+
     /**
      * Start up Broker server
      *
@@ -47,7 +47,10 @@ public class Broker implements BrokerInterface, Serializable{
             Broker broker = new Broker();
             try {
                 // Start Broker server.
-                Broker.startRMIServer(broker);
+                Integer port = Integer.parseInt(Config.getInstance().getAttr("brokerPort"));
+                String serviceName = "broker";
+                server.start(broker, serviceName, port);
+
             } catch(RemoteException rme) {
                 LoggerClient.log("Remote Exception in Broker server: " + rme.getMessage());
             }
@@ -64,29 +67,6 @@ public class Broker implements BrokerInterface, Serializable{
         }
     }
 
-    public static void startRMIServer(BrokerInterface broker) throws RemoteException {
-         /** Start RMI Server **/
-
-        System.setProperty("java.security.policy", Config.getInstance().loadSecurityPolicy());
-
-        //load security policy
-        if (System.getSecurityManager() == null) {
-            System.setSecurityManager(new SecurityManager());
-        }
-
-        Integer port = Integer.parseInt(Config.getInstance().getAttr("brokerPort"));
-
-        //create local rmi registery
-        LocateRegistry.createRegistry(port);
-
-        //bind service to default port portNum
-        BrokerInterface stub =
-                    (BrokerInterface) UnicastRemoteObject.exportObject(broker, port);
-        Registry registry = LocateRegistry.getRegistry(port);
-        registry.rebind("broker", stub);
-        LoggerClient.log("broker" + " bound on " + port);
-        LoggerClient.log("All systems ready to go!");
-    }
 
     /**
      * Create broker class, point him to the exhcnage he trades on
@@ -205,9 +185,7 @@ public class Broker implements BrokerInterface, Serializable{
                 // We don't trade anything unless all tickers are valid
                 return null;
             } else {
-                // TODO price needs to come from the exchange...thats what it is..an exchange
-                // for now we fake the price at 50
-                // TODO add on broker comission for customer
+
                 float price = 50;
                 String orderNumber = "";
                 sharesToAction.add(new ShareItem(orderNumber, ticker, type, price, quantity));

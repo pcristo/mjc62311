@@ -67,7 +67,7 @@ public class ShareSalesStatusList{
 
 
     /**
-     *
+     * Method to print available and sold shares
      */
     public void printShares() {
 

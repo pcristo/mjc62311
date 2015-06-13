@@ -1,5 +1,6 @@
 package stockexchange;
 
+import Distribution.RMI.Client;
 import business.BusinessInterface;
 import client.Customer;
 import logger.LoggerClient;
@@ -11,23 +12,21 @@ import util.Config;
 import java.rmi.AccessException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 
-/**
- * Created by Gay on 15-05-25.
- */
 public class Exchange {
 
     private static  final int COMMISSION_MARKUP = 10;
     private static  final int RESTOCK_THRESHOLD = 100;
     private static  Integer orderInt = 1100;
     private static ShareSalesStatusList shareStatusSaleList;
+
+
+    private Client<BusinessInterface> client = new Client<BusinessInterface>();
 
     private Map<String, String> businessDirectory = new HashMap<String, String>();
     public BusinessInterface yahoo;
@@ -71,6 +70,7 @@ public class Exchange {
      */
     public BusinessInterface getBusiness(String businessName) throws RemoteException, NotBoundException{
 
+
         //TODO remove this.  See updated Config class.
         //System.setProperty("java.security.policy", Config.getInstance().loadMacSecurityPolicy());
 
@@ -96,9 +96,7 @@ public class Exchange {
             return null;
         }
         try {
-            Registry registry = LocateRegistry.getRegistry("localhost", port);
-            BusinessInterface server = (BusinessInterface) registry.lookup(businessName);
-
+            BusinessInterface server = client.getService("localhost", port, businessName);
             LoggerClient.log("Bound " + businessName + " on " + port);
             return server;
         } catch(NotBoundException nbe) {
