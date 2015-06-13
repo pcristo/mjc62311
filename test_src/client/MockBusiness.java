@@ -1,11 +1,11 @@
 package client;
 
-import distribution.RMI.Server;
 import business.BusinessInterface;
 import common.logger.LoggerClient;
 import common.share.Share;
 import common.share.ShareOrder;
 import common.share.ShareType;
+import distribution.RMI.Server;
 
 import java.rmi.RemoteException;
 import java.util.List;

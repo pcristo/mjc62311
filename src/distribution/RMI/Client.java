@@ -1,4 +1,4 @@
-package Distribution.RMI;
+package distribution.RMI;
 
 import common.logger.LoggerClient;
 import common.util.Config;
