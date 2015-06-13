@@ -1,7 +1,7 @@
 package Distribution.RMI;
 
-import logger.LoggerClient;
-import util.Config;
+import common.logger.LoggerClient;
+import common.util.Config;
 
 import java.rmi.NotBoundException;
 import java.rmi.Remote;

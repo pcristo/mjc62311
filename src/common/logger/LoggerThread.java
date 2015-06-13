@@ -1,6 +1,6 @@
-package logger;
+package common.logger;
 
-import util.Config;
+import common.util.Config;
 
 import java.io.*;
 import java.net.Socket;
@@ -37,7 +37,7 @@ public class LoggerThread implements Runnable {
             log(finalMsg);
 
         } catch(IOException ioe){
-            System.out.println("IO Exception in logger thread: " + ioe.getMessage());
+            System.out.println("IO Exception in common.logger thread: " + ioe.getMessage());
         }
     }
 

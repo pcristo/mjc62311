@@ -1,6 +1,6 @@
-package logger;
+package common.logger;
 
-import util.Config;
+import common.util.Config;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -32,7 +32,7 @@ public class LoggerClient {
      * Log the message to the log server
      *
      * @param msg String message to be logged
-     * @param className String className that made the logger call
+     * @param className String className that made the common.logger call
      * @return boolean of successful message is logging
      */
     public static boolean log(String msg, String className) {
@@ -86,10 +86,10 @@ public class LoggerClient {
             clientSocket.receive(receivedPacket);
             clientSocket.close();
         } catch(UnknownHostException he){
-            System.out.println("Host Exception in logger client: " + he.getMessage());
+            System.out.println("Host Exception in common.logger client: " + he.getMessage());
             return false;
         } catch (IOException ioe) {
-            System.out.println("IO Exception in logger client: " + ioe.getMessage());
+            System.out.println("IO Exception in common.logger client: " + ioe.getMessage());
             return false;
         } finally {
       //      clientSocket.close();

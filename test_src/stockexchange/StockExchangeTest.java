@@ -1,12 +1,16 @@
 package stockexchange;
 
-import client.Customer;
+import common.Customer;
 
-import logger.TimerLoggerClient;
+import common.logger.TimerLoggerClient;
 import org.junit.Before;
 import org.junit.Test;
 
-import share.ShareType;
+import common.share.ShareType;
+import stockexchange.exchange.Exchange;
+import stockexchange.exchange.ShareItem;
+import stockexchange.exchange.ShareList;
+import stockexchange.exchange.ShareSalesStatusList;
 
 import java.util.ArrayList;
 

@@ -1,11 +1,11 @@
-package util;
+package common.util;
 
 import org.json.JSONObject;
 
 import java.io.*;
 
 /**
- * Class reads in from config.json in util package
+ * Class reads in from config.json in common.util package
  * Is used to get any configuration items set in this json file
  */
 public class Config {

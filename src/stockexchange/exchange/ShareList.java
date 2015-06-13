@@ -1,4 +1,4 @@
-package stockexchange;
+package stockexchange.exchange;
 
 import java.util.ArrayList;
 

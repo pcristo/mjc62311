@@ -1,5 +1,5 @@
 import business.Business;
-import logger.LoggerServer;
+import common.logger.LoggerServer;
 import stockexchange.broker.Broker;
 
 import java.io.IOException;
@@ -27,7 +27,7 @@ public class projectLauncher {
 				()->LoggerServer.main(null)
 		);
 		logger.start();
-		pause("Launching logger and waiting ", WAIT_BETWEEN_LAUNCH_TIME);
+		pause("Launching common.logger and waiting ", WAIT_BETWEEN_LAUNCH_TIME);
 
 		Thread business = new Thread(()->Business.main(null));
 		business.start();

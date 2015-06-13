@@ -1,4 +1,4 @@
-package logger;
+package common.logger;
 
 import org.junit.Before;
 import org.junit.Test;

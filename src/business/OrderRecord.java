@@ -2,8 +2,8 @@ package business;
 
 import java.io.Serializable;
 
-import share.ShareOrder;
-import share.ShareType;
+import common.share.ShareOrder;
+import common.share.ShareType;
 
 /**
  * A class to store a record of an order, including whether or not it is paid

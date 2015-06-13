@@ -1,9 +1,9 @@
-package share;
+package common.share;
 
 import java.io.Serializable;
 
 /**
- * A class for share information
+ * A class for common.share information
  * @author patrick
  */
 public class Share implements Serializable {

@@ -1,14 +1,14 @@
 package stockexchange.broker;
 
 import Distribution.RMI.Server;
-import client.Customer;
-import logger.LoggerClient;
-import share.ShareType;
-import stockexchange.Exchange;
-import stockexchange.ShareItem;
-import stockexchange.ShareList;
-import stockexchange.ShareSalesStatusList;
-import util.Config;
+import common.Customer;
+import common.logger.LoggerClient;
+import common.share.ShareType;
+import stockexchange.exchange.Exchange;
+import stockexchange.exchange.ShareItem;
+import stockexchange.exchange.ShareList;
+import stockexchange.exchange.ShareSalesStatusList;
+import common.util.Config;
 
 import java.io.Serializable;
 import java.rmi.AccessException;
@@ -178,7 +178,7 @@ public class Broker implements BrokerInterface, Serializable{
 
 
 
-        // Prepare shares to action - honestly this should be done a share at a time
+        // Prepare shares to action - honestly this should be done a common.share at a time
         ArrayList<ShareItem> sharesToAction = new ArrayList<ShareItem>();
         for (String ticker : tickers) {
             if (!validateTicker(ticker)) {
@@ -198,7 +198,7 @@ public class Broker implements BrokerInterface, Serializable{
     }
 
     /**
-     * Make sure this customer owns the share they are trying to sell
+     * Make sure this customer owns the common.share they are trying to sell
      *
      * @param ticker
      * @return

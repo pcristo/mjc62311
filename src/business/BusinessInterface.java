@@ -1,8 +1,8 @@
 package business;
 
-import share.Share;
-import share.ShareOrder;
-import share.ShareType;
+import common.share.Share;
+import common.share.ShareOrder;
+import common.share.ShareType;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;

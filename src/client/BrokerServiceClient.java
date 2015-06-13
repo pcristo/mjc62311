@@ -1,10 +1,11 @@
 package client;
 
 import Distribution.RMI.Client;
-import share.ShareType;
-import stockexchange.ShareItem;
+import common.Customer;
+import common.share.ShareType;
+import stockexchange.exchange.ShareItem;
 import stockexchange.broker.BrokerInterface;
-import util.Config;
+import common.util.Config;
 
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;

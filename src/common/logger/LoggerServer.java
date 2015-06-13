@@ -1,6 +1,6 @@
-package logger;
+package common.logger;
 
-import util.Config;
+import common.util.Config;
 
 import java.io.IOException;
 import java.net.DatagramPacket;

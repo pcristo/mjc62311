@@ -1,10 +1,10 @@
 import client.BrokerServiceClient;
-import client.Customer;
-import logger.LoggerClient;
+import common.Customer;
+import common.logger.LoggerClient;
 import org.junit.Before;
 import org.junit.Test;
-import share.ShareType;
-import stockexchange.ShareItem;
+import common.share.ShareType;
+import stockexchange.exchange.ShareItem;
 import stockexchange.broker.BrokerInterface;
 
 import java.io.PrintWriter;
@@ -85,7 +85,7 @@ public class MultiThreadTest {
 		lstShares.add(new ShareItem("", "MSFT.C", ShareType.PREFERRED, 49.42f, 200));			// test 200 shares issued
 		lstShares.add(new ShareItem("", "GOOG.B", ShareType.CONVERTIBLE, 523.32f, 100));		// should fail due to price
 		lstShares.add(new ShareItem("", "YHOX", ShareType.COMMON, 43.67f, 100));				// bad symbol
-		lstShares.add(new ShareItem("", "YHOO.B", ShareType.COMMON, 47.42f, 100));				// invalid share type (symbol indicates convertible)
+		lstShares.add(new ShareItem("", "YHOO.B", ShareType.COMMON, 47.42f, 100));				// invalid common.share type (symbol indicates convertible)
 		
 		BrokerInterface service = new BrokerServiceClient().getBroker();
 		log("Broker service found for test customer " + customer);

@@ -1,10 +1,11 @@
 package client;
 
-import logger.LoggerClient;
-import share.ShareType;
-import stockexchange.ShareItem;
+import common.Customer;
+import common.logger.LoggerClient;
+import common.share.ShareType;
+import stockexchange.exchange.ShareItem;
 import stockexchange.broker.BrokerInterface;
-import util.Config;
+import common.util.Config;
 
 import java.rmi.NoSuchObjectException;
 import java.rmi.RemoteException;

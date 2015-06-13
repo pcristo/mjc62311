@@ -1,7 +1,7 @@
 import StockQuotes.GoogleFinanceTest;
 import business.BusinessTest;
 import client.BrokerServiceClientTest;
-import logger.LoggerTest;
+import common.logger.LoggerTest;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import stockexchange.broker.BrokerTest;

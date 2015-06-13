@@ -1,6 +1,6 @@
 package stockexchange.broker;
 
-import client.Customer;
+import common.Customer;
 import org.junit.Before;
 import org.junit.Test;
 

@@ -1,7 +1,8 @@
 package client;
 
-import logger.LoggerClient;
-import share.ShareType;
+import common.Customer;
+import common.logger.LoggerClient;
+import common.share.ShareType;
 import stockexchange.broker.BrokerInterface;
 
 import java.util.ArrayList;

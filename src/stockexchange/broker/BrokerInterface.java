@@ -1,13 +1,12 @@
 package stockexchange.broker;
 
-import client.Customer;
-import share.ShareType;
-import stockexchange.ShareItem;
+import common.Customer;
+import common.share.ShareType;
+import stockexchange.exchange.ShareItem;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Define operations accessible for the client in the stock exchange server

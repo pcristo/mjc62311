@@ -1,7 +1,7 @@
-package stockexchange;
+package stockexchange.exchange;
 
-import client.Customer;
-import share.ShareType;
+import common.Customer;
+import common.share.ShareType;
 
 import java.util.*;
 
@@ -93,7 +93,7 @@ public class ShareSalesStatusList{
 
 
     /**
-     * Verify if share is available
+     * Verify if common.share is available
      * @param share
      * @return -1 if not available
      */
@@ -143,7 +143,7 @@ public class ShareSalesStatusList{
     public void updateShares(ShareItem soldShareItem, Customer customer,  int indexAvailableShare) {
         this.addToSoldShares(soldShareItem,customer);
         synchronized (availableShares) {
-            //Update or remove share item depending on share amount sold.
+            //Update or remove common.share item depending on common.share amount sold.
             ShareItem availableShare = availableShares.get(indexAvailableShare);
 
             if (availableShare.getQuantity() <= soldShareItem.getQuantity()) {
@@ -184,7 +184,7 @@ public class ShareSalesStatusList{
      */
     public void addToAvailableShares(ShareItem aShare) {
 
-        //Find this type of share that is at quantity 0
+        //Find this type of common.share that is at quantity 0
         synchronized (availableShares) {
             this.availableShares.add(aShare);
         /*for(ShareItem s : this.getAvailableShares()) {

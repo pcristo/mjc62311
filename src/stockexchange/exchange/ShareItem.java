@@ -1,7 +1,7 @@
-package stockexchange;
+package stockexchange.exchange;
 
-import share.Share;
-import share.ShareType;
+import common.share.Share;
+import common.share.ShareType;
 
 /**
  * Created by gay.hazan on 22/05/2015.
@@ -103,7 +103,7 @@ public class ShareItem extends Share {
     // ----------------------------- PUBLIC METHODS ------------------------------------------
 
     /**
-     *  Remove share that were sold from the available listing.
+     *  Remove common.share that were sold from the available listing.
      * @param reduceBy
      */
     public void reduceQuantity(int reduceBy) {
@@ -112,8 +112,8 @@ public class ShareItem extends Share {
     }
 
     /**
-     *  Method to show the complete description of a share
-     * @return String description of the share
+     *  Method to show the complete description of a common.share
+     * @return String description of the common.share
      */
     public String printShareInfo() {
 

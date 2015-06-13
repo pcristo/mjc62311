@@ -1,11 +1,11 @@
 package business;
 
 import Distribution.RMI.Server;
-import logger.LoggerClient;
-import share.Share;
-import share.ShareOrder;
-import share.ShareType;
-import util.Config;
+import common.logger.LoggerClient;
+import common.share.Share;
+import common.share.ShareOrder;
+import common.share.ShareType;
+import common.util.Config;
 
 import java.beans.XMLEncoder;
 import java.io.*;
@@ -60,10 +60,10 @@ public class Business implements Serializable, BusinessInterface {
 					throw new IOException("The CSV file is not correctly formatted.");
 				}
 
-				// extract the share information and create a share object
+				// extract the common.share information and create a common.share object
 				Share s = new Share(column[0], ShareType.valueOf(column[1]), Float.parseFloat(column[2]));
 
-				// add the share to the list
+				// add the common.share to the list
 				this.sharesList.add(s);
 			}
 
@@ -79,13 +79,13 @@ public class Business implements Serializable, BusinessInterface {
 	}
 
 	/**
-	 * @return @return the ticker commonly used to identify a company
+	 * @return the ticker commonly used to identify a company
 	 */
 	public String getTicker() throws RemoteException {
 		// all shares must have the same symbol, but may have different 'extensions'
 		// return the common part of the symbol here:
 
-		// Some share types don't have extension in that case return whole symbol
+		// Some common.share types don't have extension in that case return whole symbol
 		String shareSymbol = sharesList.get(0).getBusinessSymbol();
 		if (shareSymbol.contains(".")) {
 			return sharesList.get(0).getBusinessSymbol().split(".")[0];
@@ -104,13 +104,13 @@ public class Business implements Serializable, BusinessInterface {
 	 * @throws RemoteException 
 	 */
 	public boolean issueShares(ShareOrder aSO) throws RemoteException {
-		// fetch the share that is relevant to this order
+		// fetch the common.share that is relevant to this order
 		Share listedShare = getShareInfo(aSO.getShareType());
 
-		// if no valid listed share was found, return false
+		// if no valid listed common.share was found, return false
 		if (listedShare == null) {
 			log(getTicker() + " failed to issue shares of " + aSO.getBusinessSymbol() + " " + aSO.getShareType() + 
-					": No valid share found for " + aSO.getShareType() + " (order #" + aSO.getOrderNum() + ")");			
+					": No valid common.share found for " + aSO.getShareType() + " (order #" + aSO.getOrderNum() + ")");
 			return false;
 		}
 
@@ -122,7 +122,7 @@ public class Business implements Serializable, BusinessInterface {
 			return false;
 		}
 
-		// validate the order is for at least 1 share, otherwise return false
+		// validate the order is for at least 1 common.share, otherwise return false
 		if (aSO.getQuantity() <= 0) {
 			log(getTicker() + " failed to issue shares of " + aSO.getBusinessSymbol() + " " + aSO.getShareType() + 
 					": Invalid number of shares requested (order #" + aSO.getOrderNum() + ")");
@@ -165,14 +165,14 @@ public class Business implements Serializable, BusinessInterface {
 	}
 
 	/**
-	 * Checks if a share type exists for this business, and returns the share
+	 * Checks if a common.share type exists for this business, and returns the common.share
 	 * info
 	 * 
-	 * @return a share corresponding to the type requested, or null if not
+	 * @return a common.share corresponding to the type requested, or null if not
 	 *         available
 	 */
 	public Share getShareInfo(ShareType shareType) {
-		// flip through the registry searching for a share type that matches the
+		// flip through the registry searching for a common.share type that matches the
 		// request
 		for (Share s : getSharesList())
 			if (s.getShareType().equals(shareType))
@@ -186,7 +186,7 @@ public class Business implements Serializable, BusinessInterface {
 	 * Authorizes shares if they are the an acceptable type and valid quantity
 	 * 
 	 * @param shareType
-	 *            The type of share
+	 *            The type of common.share
 	 * @param quantity
 	 *            The number of shares
 	 * @return true if authorized
@@ -205,7 +205,7 @@ public class Business implements Serializable, BusinessInterface {
 	}
 
 	/**
-	 * Getter to return an array of all the share types available for this
+	 * Getter to return an array of all the common.share types available for this
 	 * business
 	 * 
 	 * @return An array of shares

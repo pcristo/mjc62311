@@ -1,4 +1,4 @@
-package logger;
+package common.logger;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;

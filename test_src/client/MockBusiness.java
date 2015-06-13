@@ -2,10 +2,10 @@ package client;
 
 import Distribution.RMI.Server;
 import business.BusinessInterface;
-import logger.LoggerClient;
-import share.Share;
-import share.ShareOrder;
-import share.ShareType;
+import common.logger.LoggerClient;
+import common.share.Share;
+import common.share.ShareOrder;
+import common.share.ShareType;
 
 import java.rmi.RemoteException;
 import java.util.List;

@@ -1,7 +1,7 @@
 package client;
 
-import logger.TimerLoggerClient;
-import share.ShareType;
+import common.logger.TimerLoggerClient;
+import common.share.ShareType;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -22,7 +22,7 @@ public class BatchSimulation {
     }
 
     /**
-     * Start a group thread to create 1000 share orders running simultaneously
+     * Start a group thread to create 1000 common.share orders running simultaneously
      */
     public static ArrayList<Thread> runBatchPurchase() {
         ArrayList<Thread> threadList = new ArrayList<Thread>();
@@ -46,7 +46,7 @@ public class BatchSimulation {
     /**
      * Wrapper for creating purchase shares thread
      *
-     * @param type ShareTypeof share
+     * @param type ShareTypeof common.share
      * @param ticker String symbol
      * @param name String of customer
      * @return

@@ -4,6 +4,6 @@ Exchange:
 - Need to instantiate 3 business in Exchange class to
     - Reissue Shares
     - Make Payments
-- Assumptions : Shares are sold by businesses, a share that is purchased cannot be resold.
+- Assumptions : Shares are sold by businesses, a common.share that is purchased cannot be resold.
 - Bug when reissuing shares, writing to XML produces an error had to comment the block
 

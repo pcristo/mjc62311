@@ -2,9 +2,9 @@ package business;
 
 import org.junit.Before;
 import org.junit.Test;
-import share.ShareOrder;
-import share.ShareType;
-import util.Config;
+import common.share.ShareOrder;
+import common.share.ShareType;
+import common.util.Config;
 
 import java.rmi.RemoteException;
 

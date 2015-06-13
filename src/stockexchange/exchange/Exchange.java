@@ -1,13 +1,13 @@
-package stockexchange;
+package stockexchange.exchange;
 
 import Distribution.RMI.Client;
 import business.BusinessInterface;
-import client.Customer;
-import logger.LoggerClient;
-import logger.TimerLoggerClient;
-import share.ShareOrder;
-import share.ShareType;
-import util.Config;
+import common.Customer;
+import common.logger.LoggerClient;
+import common.logger.TimerLoggerClient;
+import common.share.ShareOrder;
+import common.share.ShareType;
+import common.util.Config;
 
 import java.rmi.AccessException;
 import java.rmi.NotBoundException;
@@ -154,7 +154,7 @@ public class Exchange {
         tlc.start();
         ShareItem soldShare = null;
 
-        //TODO : See if share are available
+        //TODO : See if common.share are available
         for  (ShareItem s : shareItemList.getLstShareItems())
         {
             int totalSold = s.getQuantity();
@@ -238,7 +238,7 @@ public class Exchange {
     }
 
     /**
-     * Used to issue share on Ecxhange start up
+     * Used to issue common.share on Ecxhange start up
      */
     private void InitializeShare() {
 
@@ -270,7 +270,7 @@ public class Exchange {
     // ---------------------- PRIVATE METHODS ----------------------------------
 
     /**
-     *Method to restock any available share that is below the threshold
+     *Method to restock any available common.share that is below the threshold
      */
     private void restock() {
 
@@ -378,7 +378,7 @@ public class Exchange {
 
 
     /**
-     * Called to send a share request issue to businesses
+     * Called to send a common.share request issue to businesses
      * @param sItem
      * @return ShareItem
      */
@@ -436,7 +436,7 @@ public class Exchange {
 
 
     /**
-     * Method to generate unique sequential order number for issue share
+     * Method to generate unique sequential order number for issue common.share
      */
     private synchronized String generateOrderNumber() {
 
