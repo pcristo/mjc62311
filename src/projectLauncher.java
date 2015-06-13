@@ -12,7 +12,6 @@ import java.io.IOException;
 public class projectLauncher {
 	final static int PAUSE_NOTIFICATION_TIME = 250;
 	final static int WAIT_BETWEEN_LAUNCH_TIME = 3000;
-	final static String PREFACE_STRING = "******\t";
 	
 	/**
 	 * Will launch all the servers
@@ -23,30 +22,18 @@ public class projectLauncher {
 	public static void main(String[] args) throws InterruptedException,	IOException {
 		
 		// Launch threads
-		Thread logger = new Thread(new Runnable() {
-			@Override
-			public void run() {
-				LoggerServer.main(null);
-			}
-		});
+		// Runnable is represented ia lambda
+		Thread logger = new Thread(
+				()->LoggerServer.main(null)
+		);
 		logger.start();
 		pause("Launching logger and waiting ", WAIT_BETWEEN_LAUNCH_TIME);
 
-		Thread business = new Thread(new Runnable() {
-			@Override
-			public void run() {
-				Business.main(null);
-			}
-		});
+		Thread business = new Thread(()->Business.main(null));
 		business.start();
 		pause("Launching business and waiting ", WAIT_BETWEEN_LAUNCH_TIME);
 
-		Thread broker = new Thread(new Runnable() {
-			@Override
-			public void run() {
-				Broker.main(null);
-			}
-		});
+		Thread broker = new Thread(()->Broker.main(null));
 		broker.start();
 		pause("Launching broker and waiting ", WAIT_BETWEEN_LAUNCH_TIME);
 		
@@ -54,15 +41,17 @@ public class projectLauncher {
 		if (args.length == 0) {
 			System.out.println("Press enter to kill everything uncleanly :D");
 			System.in.read();
-			
-			broker.stop();
-			business.stop();
-			logger.stop();
+
+			// Stop is depreciated
+			broker.interrupt();
+			business.interrupt();
+			logger.interrupt();
 				
 			System.out.println("Okay, everyone is dead.");
 			System.exit(0);	
 		}		
 	}
+
 
 	private static void pause(String msg, int ms) throws InterruptedException {		
 		for (int t = ms; t > 0; t -= PAUSE_NOTIFICATION_TIME) {
