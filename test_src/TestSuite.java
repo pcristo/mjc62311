@@ -10,7 +10,6 @@ import stockexchange.broker.BrokerTest;
 /**
 TO RUN
         * 0) Update json.config
-        * 1) Start rmiregistry from the out/ directory of project
         * 2) Compile entire project
         * 3) Run LoggerServer.java
         * 4) Run Business.java
@@ -18,7 +17,11 @@ TO RUN
         * 6) Run this test
         * 7) Validate log file
 **/
-@Suite.SuiteClasses({BrokerServiceClientTest.class, LoggerTest.class, BusinessTest.class, BrokerTest.class, GoogleFinanceTest.class})
+@Suite.SuiteClasses({BrokerServiceClientTest.class,
+                    LoggerTest.class,
+                    BusinessTest.class,
+                    BrokerTest.class,
+                    GoogleFinanceTest.class})
 public class TestSuite {
     //nothing
 }

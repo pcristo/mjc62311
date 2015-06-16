@@ -42,6 +42,10 @@ public class Share implements Serializable {
 	public void setUnitPrice(float unitPrice) {
 		this.unitPrice = unitPrice;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return getBusinessSymbol() + ": (" + getShareType() + ", " + getUnitPrice() + ")";
+	}
+
 }

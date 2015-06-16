@@ -1,5 +1,5 @@
 {
-  "projectHome": "C:/Users/Ross/Dropbox/Distributed_Systems/project/",
+  "projectHome": "C:/Users/b0467851/WORK/school/DistributedSystems/project/",
 
   "jars": "resources/jar",
   "out": "out",
@@ -7,7 +7,7 @@
   "logServerFile": "src/files/iteration_one.log",
   "security": "resources/settings/security.policy",
 
-  "logServerIP" : "166.78.186.20",
+  "logServerIP" : "localhost",
   "logServerPort": "9090",
   "logServerUsername": "root",
   "logServerPassword": "",

@@ -110,7 +110,7 @@ public class Business implements Serializable, BusinessInterface {
 		// if no valid listed common.share was found, return false
 		if (listedShare == null) {
 			LoggerClient.log(getTicker() + " failed to issue shares of " + aSO.getBusinessSymbol() + " " + aSO.getShareType() +
-					": No valid common.share found for " + aSO.getShareType() + " (order #" + aSO.getOrderNum() + ")");
+					": No valid share found for " + aSO.getShareType() + " (order #" + aSO.getOrderNum() + ")");
 			return false;
 		}
 
@@ -174,6 +174,7 @@ public class Business implements Serializable, BusinessInterface {
 	public Share getShareInfo(ShareType shareType) {
 		// flip through the registry searching for a common.share type that matches the
 		// request
+
 		for (Share s : getSharesList())
 			if (s.getShareType().equals(shareType))
 				return s;
