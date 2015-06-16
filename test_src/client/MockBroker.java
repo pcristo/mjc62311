@@ -1,19 +1,18 @@
 package client;
 
+import common.Customer;
+import common.logger.LoggerClient;
+import common.share.ShareType;
+import stockexchange.exchange.ShareItem;
+import stockexchange.broker.BrokerInterface;
+import common.util.Config;
+
 import java.rmi.NoSuchObjectException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
-
-import logger.LoggerClient;
-
-import share.ShareType;
-import stockexchange.ShareItem;
-import stockexchange.broker.Broker;
-import stockexchange.broker.BrokerInterface;
-import util.Config;
 
 public class MockBroker implements BrokerInterface
 {

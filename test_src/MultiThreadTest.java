@@ -1,4 +1,11 @@
-import static org.junit.Assert.*;
+import client.BrokerServiceClient;
+import common.Customer;
+import common.logger.LoggerClient;
+import org.junit.Before;
+import org.junit.Test;
+import common.share.ShareType;
+import stockexchange.exchange.ShareItem;
+import stockexchange.broker.BrokerInterface;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -6,19 +13,6 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
-
-import logger.LoggerClient;
-
-import org.junit.Before;
-import org.junit.Test;
-
-import client.BrokerServiceClient;
-import client.Customer;
-import client.ServerDisplayMsgs;
-import share.ShareType;
-import stockexchange.ShareItem;
-import stockexchange.broker.Broker;
-import stockexchange.broker.BrokerInterface;
 
 public class MultiThreadTest {
 	final static int NUMBER_OF_TEST_THREADS = 15;
@@ -91,7 +85,7 @@ public class MultiThreadTest {
 		lstShares.add(new ShareItem("", "MSFT.C", ShareType.PREFERRED, 49.42f, 200));			// test 200 shares issued
 		lstShares.add(new ShareItem("", "GOOG.B", ShareType.CONVERTIBLE, 523.32f, 100));		// should fail due to price
 		lstShares.add(new ShareItem("", "YHOX", ShareType.COMMON, 43.67f, 100));				// bad symbol
-		lstShares.add(new ShareItem("", "YHOO.B", ShareType.COMMON, 47.42f, 100));				// invalid share type (symbol indicates convertible)
+		lstShares.add(new ShareItem("", "YHOO.B", ShareType.COMMON, 47.42f, 100));				// invalid common.share type (symbol indicates convertible)
 		
 		BrokerInterface service = new BrokerServiceClient().getBroker();
 		log("Broker service found for test customer " + customer);
@@ -106,7 +100,7 @@ public class MultiThreadTest {
 			if (!service.sellShares(sellist,lstShares.get(shareIndex).getShareType(),
 					lstShares.get(shareIndex).getQuantity(), new Customer(customer))) 
 				log("Client " + customer + " failed to purchase " + lstShares.get(shareIndex).getQuantity() + " " +
-						lstShares.get(shareIndex).getShareType() + " shares of " + lstShares.get(shareIndex).getBusinessSymbol());
+						lstShares.get(shareIndex).getShareType() + " shares of " + lstShares.get(shareIndex).getBusinessSymbol() + " on thread " + Thread.currentThread().getId());
 
 			try {
 				Thread.sleep(SLEEP_TIME_BETWEEN_TRIES);

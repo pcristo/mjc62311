@@ -7,3 +7,6 @@ tasks.xml
 .project
 /.settings/
 /.gitignore
+project.userlibraries
+project.eml
+mjc62311.iml

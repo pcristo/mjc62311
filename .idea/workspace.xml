@@ -2,6 +2,59 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c352094c-eb85-45f4-9209-6d44e9662fbf" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/distribution/RMI/Client.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/distribution/RMI/Server.java" />
+      <change type="DELETED" beforePath="C:\Users\b0467851\WORK\school\DistributedSystems\project\.idea\.name" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\b0467851\WORK\school\DistributedSystems\project\.idea\compiler.xml" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\b0467851\WORK\school\DistributedSystems\project\.idea\copyright\profiles_settings.xml" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\b0467851\WORK\school\DistributedSystems\project\.idea\libraries\json_20141113.xml" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\b0467851\WORK\school\DistributedSystems\project\.idea\libraries\json_201411131.xml" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\b0467851\WORK\school\DistributedSystems\project\.idea\misc.xml" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\b0467851\WORK\school\DistributedSystems\project\.idea\modules.xml" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\b0467851\WORK\school\DistributedSystems\project\.idea\uiDesigner.xml" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\b0467851\WORK\school\DistributedSystems\project\.idea\vcs.xml" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\b0467851\WORK\school\DistributedSystems\project\.idea\workspace (Toshy's conflicted copy 2015-05-21).xml" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\b0467851\WORK\school\DistributedSystems\project\mjc62311.iml" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\b0467851\WORK\school\DistributedSystems\project\project.iml" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\b0467851\WORK\school\DistributedSystems\project\src\stockexchange\IShareSaleStatusList.java" afterPath="" />
+      <change type="MOVED" beforePath="C:\Users\b0467851\WORK\school\DistributedSystems\project\src\client\BatchSimulation.java" afterPath="$PROJECT_DIR$/src/client/simulation/BatchSimulation.java" />
+      <change type="MOVED" beforePath="C:\Users\b0467851\WORK\school\DistributedSystems\project\src\client\Customer.java" afterPath="$PROJECT_DIR$/src/common/Customer.java" />
+      <change type="MOVED" beforePath="C:\Users\b0467851\WORK\school\DistributedSystems\project\src\client\Simulation.java" afterPath="$PROJECT_DIR$/src/client/simulation/Simulation.java" />
+      <change type="MOVED" beforePath="C:\Users\b0467851\WORK\school\DistributedSystems\project\src\logger\LoggerClient.java" afterPath="$PROJECT_DIR$/src/common/logger/LoggerClient.java" />
+      <change type="MOVED" beforePath="C:\Users\b0467851\WORK\school\DistributedSystems\project\src\logger\LoggerServer.java" afterPath="$PROJECT_DIR$/src/common/logger/LoggerServer.java" />
+      <change type="MOVED" beforePath="C:\Users\b0467851\WORK\school\DistributedSystems\project\src\logger\LoggerThread.java" afterPath="$PROJECT_DIR$/src/common/logger/LoggerThread.java" />
+      <change type="MOVED" beforePath="C:\Users\b0467851\WORK\school\DistributedSystems\project\src\logger\TimerLoggerClient.java" afterPath="$PROJECT_DIR$/src/common/logger/TimerLoggerClient.java" />
+      <change type="MOVED" beforePath="C:\Users\b0467851\WORK\school\DistributedSystems\project\src\share\Share.java" afterPath="$PROJECT_DIR$/src/common/share/Share.java" />
+      <change type="MOVED" beforePath="C:\Users\b0467851\WORK\school\DistributedSystems\project\src\share\ShareOrder.java" afterPath="$PROJECT_DIR$/src/common/share/ShareOrder.java" />
+      <change type="MOVED" beforePath="C:\Users\b0467851\WORK\school\DistributedSystems\project\src\share\ShareType.java" afterPath="$PROJECT_DIR$/src/common/share/ShareType.java" />
+      <change type="MOVED" beforePath="C:\Users\b0467851\WORK\school\DistributedSystems\project\src\stockexchange\Exchange.java" afterPath="$PROJECT_DIR$/src/stockexchange/exchange/Exchange.java" />
+      <change type="MOVED" beforePath="C:\Users\b0467851\WORK\school\DistributedSystems\project\src\stockexchange\Notes.txt" afterPath="$PROJECT_DIR$/src/stockexchange/exchange/Notes.txt" />
+      <change type="MOVED" beforePath="C:\Users\b0467851\WORK\school\DistributedSystems\project\src\stockexchange\ShareItem.java" afterPath="$PROJECT_DIR$/src/stockexchange/exchange/ShareItem.java" />
+      <change type="MOVED" beforePath="C:\Users\b0467851\WORK\school\DistributedSystems\project\src\stockexchange\ShareList.java" afterPath="$PROJECT_DIR$/src/stockexchange/exchange/ShareList.java" />
+      <change type="MOVED" beforePath="C:\Users\b0467851\WORK\school\DistributedSystems\project\src\stockexchange\ShareSalesStatusList.java" afterPath="$PROJECT_DIR$/src/stockexchange/exchange/ShareSalesStatusList.java" />
+      <change type="MOVED" beforePath="C:\Users\b0467851\WORK\school\DistributedSystems\project\src\util\Config.java" afterPath="$PROJECT_DIR$/src/common/util/Config.java" />
+      <change type="MOVED" beforePath="C:\Users\b0467851\WORK\school\DistributedSystems\project\test_src\logger\LoggerTest.java" afterPath="$PROJECT_DIR$/test_src/common/logger/LoggerTest.java" />
+      <change type="MOVED" beforePath="C:\Users\b0467851\WORK\school\DistributedSystems\project\test_src\util\ConfigTest.java" afterPath="$PROJECT_DIR$/test_src/common/util/ConfigTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/documentation/Stock broker.docx" afterPath="$PROJECT_DIR$/resources/documentation/Stock broker.docx" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/stockexchange/broker/Broker.java" afterPath="$PROJECT_DIR$/src/stockexchange/broker/Broker.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/stockexchange/broker/BrokerInterface.java" afterPath="$PROJECT_DIR$/src/stockexchange/broker/BrokerInterface.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/client/BrokerServiceClient.java" afterPath="$PROJECT_DIR$/src/client/BrokerServiceClient.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test_src/client/BrokerServiceClientTest.java" afterPath="$PROJECT_DIR$/test_src/client/BrokerServiceClientTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test_src/stockexchange/broker/BrokerTest.java" afterPath="$PROJECT_DIR$/test_src/stockexchange/broker/BrokerTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/business/Business.java" afterPath="$PROJECT_DIR$/src/business/Business.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/business/BusinessInterface.java" afterPath="$PROJECT_DIR$/src/business/BusinessInterface.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test_src/business/BusinessTest.java" afterPath="$PROJECT_DIR$/test_src/business/BusinessTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test_src/client/MockBroker.java" afterPath="$PROJECT_DIR$/test_src/client/MockBroker.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test_src/client/MockBusiness.java" afterPath="$PROJECT_DIR$/test_src/client/MockBusiness.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test_src/MultiThreadTest.java" afterPath="$PROJECT_DIR$/test_src/MultiThreadTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/business/OrderRecord.java" afterPath="$PROJECT_DIR$/src/business/OrderRecord.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/client/ServerDisplayMsgs.java" afterPath="$PROJECT_DIR$/src/client/ServerDisplayMsgs.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test_src/stockexchange/StockExchangeTest.java" afterPath="$PROJECT_DIR$/test_src/stockexchange/StockExchangeTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test_src/TestSuite.java" afterPath="$PROJECT_DIR$/test_src/TestSuite.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/files/iteration_one.log" afterPath="$PROJECT_DIR$/src/files/iteration_one.log" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/projectLauncher.java" afterPath="$PROJECT_DIR$/src/projectLauncher.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="project.iws" />
@@ -29,129 +82,7 @@
     <favorites_list name="project" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="MultiThreadTest.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test_src/MultiThreadTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="70" column="8" selection-start-line="70" selection-start-column="8" selection-end-line="70" selection-end-column="8" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BatchSimulation.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/client/BatchSimulation.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="34" column="45" selection-start-line="34" selection-start-column="45" selection-end-line="34" selection-end-column="45" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#376#384#0" expanded="true" />
-                <element signature="e#849#857#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="LoggerServer.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/logger/LoggerServer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="37" column="54" selection-start-line="37" selection-start-column="54" selection-end-line="37" selection-end-column="54" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="config.json" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/config.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.2978972">
-              <caret line="15" column="33" selection-start-line="15" selection-start-column="32" selection-end-line="15" selection-end-column="33" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="LoggerClient.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/logger/LoggerClient.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="85" column="33" selection-start-line="85" selection-start-column="33" selection-end-line="85" selection-end-column="33" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Simulation.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/client/Simulation.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="37" column="80" selection-start-line="37" selection-start-column="80" selection-end-line="37" selection-end-column="80" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Config.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/util/Config.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="12" column="32" selection-start-line="12" selection-start-column="32" selection-end-line="12" selection-end-column="32" />
-              <folding>
-                <element signature="e#341#342#0" expanded="true" />
-                <element signature="e#379#380#0" expanded="true" />
-                <element signature="method#setJson#0;class#Config#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ShareSalesStatusList.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/stockexchange/ShareSalesStatusList.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="226" column="9" selection-start-line="226" selection-start-column="9" selection-end-line="226" selection-end-column="9" />
-              <folding>
-                <element signature="e#875#876#0" expanded="true" />
-                <element signature="e#908#909#0" expanded="true" />
-                <element signature="e#4581#4592#0" expanded="true" />
-                <element signature="e#5661#5672#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Exchange.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/stockexchange/Exchange.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="240" column="7" selection-start-line="240" selection-start-column="7" selection-end-line="240" selection-end-column="7" />
-              <folding>
-                <element signature="method#Exchange#0;class#Exchange#0" expanded="false" />
-                <element signature="method#getBusiness#0;class#Exchange#0" expanded="false" />
-                <element signature="method#findBusiness#0;class#Exchange#0" expanded="false" />
-                <element signature="method#setBusinessDirectory#0;class#Exchange#0" expanded="false" />
-                <element signature="method#payBusiness#0;class#Exchange#0" expanded="false" />
-                <element signature="method#issueSharesRequest#0;class#Exchange#0" expanded="false" />
-                <element signature="method#generateOrderNumber#0;class#Exchange#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="projectLauncher.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/projectLauncher.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="13" column="52" selection-start-line="13" selection-start-column="52" selection-end-line="13" selection-end-column="52" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -237,7 +168,7 @@
     <option name="width" value="1296" />
     <option name="height" value="1040" />
   </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
     <OptionsSetting value="true" id="Remove" />
     <OptionsSetting value="true" id="Checkout" />
@@ -264,8 +195,6 @@
     </navigator>
     <panes>
       <pane id="Scratches" />
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -274,81 +203,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="project" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="project" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="project" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="project" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="test_src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="project" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="project" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="project" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="project" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="util" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="project" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="project" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="stockQuotes" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
+      </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope">
+        <subPane subId="Production" />
       </pane>
     </panes>
   </component>
@@ -733,7 +592,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1296" height="1040" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -744,7 +603,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2880259" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2880259" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -804,15 +663,9 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/test_src/stockexchange/StockExchangeTest.java</url>
-          <line>70</line>
+          <line>76</line>
           <properties />
           <option name="timeStamp" value="59" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/stockexchange/Exchange.java</url>
-          <line>223</line>
-          <properties />
-          <option name="timeStamp" value="62" />
         </line-breakpoint>
         <breakpoint enabled="true" type="java-exception">
           <properties class="java.util.ConcurrentModificationException" package="java.util" />
@@ -836,17 +689,10 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/logger/LoggerClient.java">
+    <entry file="file://$PROJECT_DIR$/src/projectLauncher.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test_src/logger/LoggerTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="13" column="27" selection-start-line="13" selection-start-column="27" selection-end-line="13" selection-end-column="27" />
+          <caret line="13" column="52" selection-start-line="13" selection-start-column="52" selection-end-line="13" selection-end-column="52" />
         </state>
       </provider>
     </entry>
@@ -857,38 +703,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test_src/logger/LoggerTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/logger/LoggerThread.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="51" column="0" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test_src/util/ConfigTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/business/OrderRecord.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.22197309">
           <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/logger/LoggerThread.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.9966178">
-          <caret line="60" column="60" selection-start-line="60" selection-start-column="60" selection-end-line="60" selection-end-column="60" />
         </state>
       </provider>
     </entry>
@@ -913,20 +731,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.idea/misc.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.79843223">
-          <caret line="57" column="14" selection-start-line="57" selection-start-column="14" selection-end-line="57" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/stockexchange/IShareSaleStatusList.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.085020244">
-          <caret line="7" column="18" selection-start-line="7" selection-start-column="18" selection-end-line="7" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/client/ServerDisplayMsgs.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -938,13 +742,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/stockexchange/Notes.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -962,24 +759,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/logger/TimerLoggerClient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.11500548">
-          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/business/BusinessInterface.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="10" column="17" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/share/ShareOrder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.31456953">
-          <caret line="32" column="0" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -990,24 +773,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/share/Share.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="38" column="0" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/files/google_data.csv">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/stockexchange/ShareList.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4180328">
-          <caret line="15" column="26" selection-start-line="15" selection-start-column="26" selection-end-line="15" selection-end-column="26" />
         </state>
       </provider>
     </entry>
@@ -1032,24 +801,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/client/Customer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.29310346">
-          <caret line="11" column="27" selection-start-line="11" selection-start-column="27" selection-end-line="11" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test_src/business/BusinessTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="35" column="0" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/stockexchange/ShareItem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="73" column="0" selection-start-line="73" selection-start-column="0" selection-end-line="73" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -1061,13 +816,6 @@
             <element signature="method#allCompaniesAreInTheDirectoryMapping#0;class#StockExchangeTest#0" expanded="false" />
             <element signature="method#BySharesAndPrintResult#0;class#StockExchangeTest#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test_src/logger/LoggerTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -1120,114 +868,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/stockexchange/Exchange.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="240" column="7" selection-start-line="240" selection-start-column="7" selection-end-line="240" selection-end-column="7" />
-          <folding>
-            <element signature="method#Exchange#0;class#Exchange#0" expanded="false" />
-            <element signature="method#getBusiness#0;class#Exchange#0" expanded="false" />
-            <element signature="method#findBusiness#0;class#Exchange#0" expanded="false" />
-            <element signature="method#setBusinessDirectory#0;class#Exchange#0" expanded="false" />
-            <element signature="method#payBusiness#0;class#Exchange#0" expanded="false" />
-            <element signature="method#issueSharesRequest#0;class#Exchange#0" expanded="false" />
-            <element signature="method#generateOrderNumber#0;class#Exchange#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test_src/MultiThreadTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="70" column="8" selection-start-line="70" selection-start-column="8" selection-end-line="70" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/files/iteration_one.log">
+      <provider selected="true" editor-type-id="LargeFileEditor">
+        <state />
+      </provider>
       <provider editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.13980263">
           <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
         </state>
       </provider>
-      <provider selected="true" editor-type-id="LargeFileEditor">
-        <state />
-      </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/util/Config.java">
+    <entry file="file://$PROJECT_DIR$/src/config.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="12" column="32" selection-start-line="12" selection-start-column="32" selection-end-line="12" selection-end-column="32" />
-          <folding>
-            <element signature="e#341#342#0" expanded="true" />
-            <element signature="e#379#380#0" expanded="true" />
-            <element signature="method#setJson#0;class#Config#0" expanded="false" />
-          </folding>
+        <state vertical-scroll-proportion="0.037383176">
+          <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/stockexchange/ShareSalesStatusList.java">
+    <entry file="file://$PROJECT_DIR$/test_src/MultiThreadTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="226" column="9" selection-start-line="226" selection-start-column="9" selection-end-line="226" selection-end-column="9" />
-          <folding>
-            <element signature="e#875#876#0" expanded="true" />
-            <element signature="e#908#909#0" expanded="true" />
-            <element signature="e#4581#4592#0" expanded="true" />
-            <element signature="e#5661#5672#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/client/Simulation.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="37" column="80" selection-start-line="37" selection-start-column="80" selection-end-line="37" selection-end-column="80" />
-          <folding />
+        <state vertical-scroll-proportion="0.25425652">
+          <caret line="64" column="8" selection-start-line="64" selection-start-column="8" selection-end-line="64" selection-end-column="8" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/projectLauncher.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="13" column="52" selection-start-line="13" selection-start-column="52" selection-end-line="13" selection-end-column="52" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/client/BatchSimulation.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="34" column="45" selection-start-line="34" selection-start-column="45" selection-end-line="34" selection-end-column="45" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#376#384#0" expanded="true" />
-            <element signature="e#849#857#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/logger/LoggerClient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="85" column="33" selection-start-line="85" selection-start-column="33" selection-end-line="85" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/logger/LoggerServer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="37" column="54" selection-start-line="37" selection-start-column="54" selection-end-line="37" selection-end-column="54" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/config.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2978972">
-          <caret line="15" column="33" selection-start-line="15" selection-start-column="32" selection-end-line="15" selection-end-column="33" />
-          <folding />
+        <state vertical-scroll-proportion="0.072644725">
+          <caret line="14" column="4" selection-start-line="14" selection-start-column="4" selection-end-line="14" selection-end-column="4" />
         </state>
       </provider>
     </entry>

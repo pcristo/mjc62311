@@ -1,14 +1,13 @@
 package client;
 
-import share.ShareType;
-import stockexchange.*;
+import common.Customer;
+import common.share.ShareType;
+import common.util.Config;
+import distribution.RMI.Client;
 import stockexchange.broker.BrokerInterface;
-import util.Config;
 
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -29,19 +28,12 @@ public class BrokerServiceClient {
      */
     public BrokerInterface getBroker() throws RemoteException, NotBoundException {
 
+
         String host = Config.getInstance().getAttr("brokerServerIP");
         Integer port = Integer.parseInt(Config.getInstance().getAttr("brokerPort"));
 
-        //TODO remove this.  See updated Config class.
-        //System.setProperty("java.security.policy", Config.getInstance().loadMacSecurityPolicy());
-
-        System.setProperty("java.security.policy", Config.getInstance().loadSecurityPolicy());
-        if (System.getSecurityManager() == null) {
-            System.setSecurityManager(new SecurityManager());
-        }
-        Registry registry = LocateRegistry.getRegistry(host, port);
-        
-        return (BrokerInterface) registry.lookup("broker");
+        Client<BrokerInterface> client = new Client<BrokerInterface>();
+        return client.getService(host, port, "broker");
     }
 
 
@@ -110,17 +102,5 @@ public class BrokerServiceClient {
         return new Customer(info.split(";;d")[1], info.split(";;d")[2], info.split(";;d")[3], info.split(";;d")[4], info.split(";;d")[5], info.split(";;d")[6], info.split(";;d")[7]);
     }
 
-    private static ArrayList<ShareItem> createListofShares() {
-
-        //ShareItemList
-        ArrayList<ShareItem> lstShares = new ArrayList<ShareItem>();
-
-//        lstShares.add(new ShareItem("MSFT.B.B", "convertible", 523.32f, 100));
-//        lstShares.add(new ShareItem("MSFT.C","preferred",541.28f,200));
-//        lstShares.add(new ShareItem("GOOG","common",540.11f,100));
-
-        return lstShares;
-
-    }
 
 }

@@ -1,8 +1,10 @@
+import StockQuotes.GoogleFinanceTest;
+import business.BusinessTest;
 import client.BrokerServiceClientTest;
-import logger.LoggerTest;
-import org.junit.runners.Suite;
-
+import common.logger.LoggerTest;
 import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import stockexchange.broker.BrokerTest;
 
 @RunWith(Suite.class)
 /**
@@ -16,7 +18,7 @@ TO RUN
         * 6) Run this test
         * 7) Validate log file
 **/
-@Suite.SuiteClasses({BrokerServiceClientTest.class, LoggerTest.class})
+@Suite.SuiteClasses({BrokerServiceClientTest.class, LoggerTest.class, BusinessTest.class, BrokerTest.class, GoogleFinanceTest.class})
 public class TestSuite {
     //nothing
 }

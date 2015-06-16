@@ -1,0 +1,9 @@
+Exchange:
+- If the status Available stocks is empty we should run the an initializer that will ask the business to issue shares
+- The business constructor is not default, it takes a paramater not sure how that works with RMI
+- Need to instantiate 3 business in Exchange class to
+    - Reissue Shares
+    - Make Payments
+- Assumptions : Shares are sold by businesses, a common.share that is purchased cannot be resold.
+- Bug when reissuing shares, writing to XML produces an error had to comment the block
+

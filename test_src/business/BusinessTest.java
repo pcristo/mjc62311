@@ -2,13 +2,10 @@ package business;
 
 import org.junit.Before;
 import org.junit.Test;
+import common.share.ShareOrder;
+import common.share.ShareType;
+import common.util.Config;
 
-import share.Share;
-import share.ShareOrder;
-import share.ShareType;
-import util.Config;
-
-import java.io.Console;
 import java.rmi.RemoteException;
 
 import static junit.framework.TestCase.assertTrue;

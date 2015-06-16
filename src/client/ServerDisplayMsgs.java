@@ -4,13 +4,13 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import share.ShareType;
+import common.share.ShareType;
 
 /**
  * Created by Sai on 2015/5/25.
  */
 public class ServerDisplayMsgs {
-    private final static String WELCOME = "Welcome using the share exchange service!\nPlease select desired operation:\n";
+    private final static String WELCOME = "Welcome using the common.share exchange service!\nPlease select desired operation:\n";
     private final static String SEPARATOR = "*************************************************\n*************************************************";
     private final static String OPERATIONS = "1.Sell\n2.Buy\n3.Check listing info\n4.Exit";
     private final static String OPTIONS = "1.Add a ticker\n2.remove a ticker\n3.Continue";
