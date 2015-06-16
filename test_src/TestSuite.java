@@ -2,9 +2,12 @@ import StockQuotes.GoogleFinanceTest;
 import business.BusinessTest;
 import client.BrokerServiceClientTest;
 import common.logger.LoggerTest;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import stockexchange.broker.BrokerTest;
+import stockexchange.exchange.ShareSalesStatusListTest;
 
 @RunWith(Suite.class)
 /**
@@ -21,7 +24,33 @@ TO RUN
                     LoggerTest.class,
                     BusinessTest.class,
                     BrokerTest.class,
-                    GoogleFinanceTest.class})
+                    GoogleFinanceTest.class,
+                    BusinessTest.class,
+                    ShareSalesStatusListTest.class})
 public class TestSuite {
-    //nothing
+    static Thread thread;
+
+    @BeforeClass
+    public static void setUpClass()  {
+        thread = new Thread() {
+            public void run() {
+                try {
+                    projectLauncher.main(null);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        thread.start();
+        try {
+            Thread.sleep(1000);
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    @AfterClass
+    public static void tearDownClass() {
+        thread.interrupt();
+
+    }
 }

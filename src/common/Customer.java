@@ -2,12 +2,12 @@ package common;
 
 import java.io.Serializable;
 
-/**
- * Created by gay.hazan on 22/05/2015.
- */
+
 public class Customer implements Serializable {
 
-    private static int customerReferenceNumber = 0;
+    // TODO remove customerReferenceNumber inlieu for java equals method
+    private static int customerNumberCount = 0;
+    private int customerReferenceNumber;
     private String name;
     private String street1;
     private String street2;
@@ -20,7 +20,8 @@ public class Customer implements Serializable {
 
     // TODO customerReferenceNumber should be generated automatically
     public Customer(String name, String street1, String street2, String city, String province, String postalCode, String country) {
-        this.customerReferenceNumber++;
+        this.customerNumberCount++;
+        customerReferenceNumber = customerNumberCount;
         this.name = name;
         this.street1 = street1;
         this.street2 = street2;
@@ -31,7 +32,8 @@ public class Customer implements Serializable {
     }
 
     public Customer(String name) {
-        customerReferenceNumber++;
+        customerNumberCount++;
+        customerReferenceNumber = customerNumberCount;
         this.name = name;
         street1 = null;
         street2 = null;
@@ -111,6 +113,25 @@ public class Customer implements Serializable {
                 + street1 + street2
                 + city + province
                 + postalCode + country;
+    }
+
+    @Override
+    // TODO make comparison on more than just name
+    public boolean equals(Object obj) {
+        if(!(obj instanceof Customer)) {
+            return false;
+        }
+        if(obj == this) {
+            return true;
+        }
+
+        Customer customer = (Customer) obj;
+        return customer.getCustomerReferenceNumber() == getCustomerReferenceNumber();
+    }
+
+    @Override
+    public int hashCode() {
+        return 3 * 50 + getCustomerReferenceNumber();
     }
 
 }
