@@ -16,22 +16,15 @@ import static org.junit.Assert.*;
 public class ExchangeTest {
 
     MockExchange exchange;
-    Thread logger;
 
     @Before
     public void setUp() throws Exception {
-        logger = new Thread(
-                ()-> LoggerServer.main(null)
-        );
-        logger.start();
         exchange = new MockExchange();
     }
 
     @After
     public void tearDown() throws Exception {
         exchange = null;
-        logger.interrupt();
-        Thread.sleep(1000);
     }
 
     @Test

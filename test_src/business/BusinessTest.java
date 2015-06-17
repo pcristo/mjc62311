@@ -1,5 +1,6 @@
 package business;
 
+import common.logger.LoggerServer;
 import common.share.Share;
 import org.junit.After;
 import org.junit.Before;
@@ -20,15 +21,24 @@ import static junit.framework.TestCase.assertTrue;
  */
 public class BusinessTest {
     Business google;
+    Thread logger;
 
     @Before
     public void setUp() {
+//        logger = new Thread(
+//                ()-> LoggerServer.main(null)
+//        );
+//        logger.start();
+
         google = new Business(Config.getInstance().getAttr("google"));
+
     }
 
     @After
-    public void tearDown() {
+    public void tearDown() throws Exception{
         google = null;
+   //     logger.interrupt();
+      //  Thread.sleep(1000);
     }
 
 

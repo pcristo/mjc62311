@@ -1,4 +1,4 @@
-package client;
+package mock;
 
 import common.Customer;
 import common.logger.LoggerClient;

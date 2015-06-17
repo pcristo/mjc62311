@@ -7,6 +7,7 @@ import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import stockexchange.broker.BrokerTest;
+import stockexchange.exchange.ExchangeTest;
 import stockexchange.exchange.ShareSalesStatusListTest;
 
 @RunWith(Suite.class)
@@ -26,7 +27,9 @@ TO RUN
                     BrokerTest.class,
                     GoogleFinanceTest.class,
                     BusinessTest.class,
-                    ShareSalesStatusListTest.class})
+                    ShareSalesStatusListTest.class,
+                    ExchangeTest.class})
+
 public class TestSuite {
     static Thread thread;
 
