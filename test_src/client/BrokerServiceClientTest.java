@@ -3,9 +3,11 @@ package client;
 import common.logger.TimerLoggerClient;
 import mock.MockBroker;
 import org.junit.After;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import common.share.ShareType;
+import stockexchange.broker.Broker;
 import stockexchange.broker.BrokerInterface;
 
 import java.io.ByteArrayInputStream;
@@ -17,19 +19,18 @@ import static org.junit.Assert.assertTrue;
 public class BrokerServiceClientTest {
 
     static BrokerServiceClient client;
+    MockBroker broker;
 
-    @BeforeClass
-    public static void setUp() throws Exception {
+    @Before
+    public void setUp() throws Exception {
 
-    	MockBroker mock = new MockBroker();
-    	mock.startMock();
+    	broker = new MockBroker();
         client = new BrokerServiceClient();
     }
 
     @After
-    public void tearDown()
-    {
-        MockBroker.stopRegistry();
+    public void tearDown() {
+        broker = null;
     }
 
 
@@ -73,23 +74,6 @@ public class BrokerServiceClientTest {
         ByteArrayInputStream in = new ByteArrayInputStream("22\n1\n2\n3\n4\n5\n6\n7".getBytes());
         ServerDisplayMsgs.setInputStream(in);
         assertTrue(ServerDisplayMsgs.getCustomerInfo().equals("22;;d1;;d2;;d3;;d4;;d5;;d6;;d7"));
-    }
-
-    @Test
-    public void testRMI() throws Exception {
-        TimerLoggerClient tlc = new TimerLoggerClient();
-        tlc.start();
-        BrokerInterface broker = client.getBroker();
-//        assertTrue(broker.equals(MockBroker.getInterface()));
-        assertNotNull(broker.getBusinessTicker("google"));
-        assertNotNull(broker.getBusinessTicker("yahoo"));
-        assertNotNull(broker.getBusinessTicker("microsoft"));
-
-        assertTrue(broker.getBusinessTicker("google").equals("GOOG"));
-        assertTrue(broker.getBusinessTicker("yahoo").equals("YHOO"));
-        assertTrue(broker.getBusinessTicker("microsoft").equals("MSFT"));
-
-        tlc.end();
     }
 
 }

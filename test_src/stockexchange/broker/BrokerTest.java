@@ -1,6 +1,8 @@
 package stockexchange.broker;
 
 import common.Customer;
+import common.share.ShareType;
+import mock.MockBroker;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -8,17 +10,18 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 
 public class BrokerTest {
 
-    Broker broker;
+    MockBroker broker;
     ArrayList<String> shares;
     Customer customer;
 
     @Before
     public void setUp() throws Exception {
-        broker = new Broker();
+        broker = new MockBroker();
         shares = new ArrayList<String>(){{
             add("GOOG");
             add("MSFT");
@@ -36,7 +39,7 @@ public class BrokerTest {
 
     @Test
     public void sellSharesTest() throws RemoteException {
-    //    assertTrue(broker.sellShares(shares, ShareType.COMMON, 100, customer));
+        assertTrue(broker.sellShares(shares, ShareType.COMMON, 100, customer));
     }
 
     @Test

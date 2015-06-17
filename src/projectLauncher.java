@@ -38,7 +38,7 @@ public class projectLauncher {
 		pause("Launching broker and waiting ", WAIT_BETWEEN_LAUNCH_TIME);
 		
 		// if any arguments are sent, the do not wait for any key, just continue
-		if (args.length == 0) {
+		if (args == null || args.length == 0) {
 			System.out.println("Press enter to kill everything uncleanly :D");
 			System.in.read();
 

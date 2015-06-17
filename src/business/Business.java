@@ -39,7 +39,6 @@ public class Business implements Serializable, BusinessInterface {
 		try {
 			// Dynamically load the file
 			String filePath = Config.getInstance().getAttr("files") + "/";
-			System.out.println(filePath);
 			URL sourceURL = Thread.currentThread().getContextClassLoader()
 					.getResource(filePath + identifier);
 			BufferedReader bufferedReader = new BufferedReader(

@@ -2,6 +2,7 @@ import StockQuotes.GoogleFinanceTest;
 import business.BusinessTest;
 import client.BrokerServiceClientTest;
 import common.logger.LoggerTest;
+import common.util.ConfigTest;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
@@ -12,21 +13,26 @@ import stockexchange.exchange.ShareSalesStatusListTest;
 
 @RunWith(Suite.class)
 /**
-TO RUN
-        * 0) Update json.config
-        * 2) Compile entire project
-        * 3) Run LoggerServer.java
-        * 4) Run Business.java
-        * 5) Run Broker.java
-        * 6) Run this test
-        * 7) Validate log file
+ * NOTES:
+ *      All integration tests should be put in IntegrationTest.java
+ *      This class handles anything that requires the business, broker, exchange server
+ *      This test takes 10 seconds to allow time for the servers to be up and running.
+ *
+ *      ALL OTHER TESTS should be runnable without needing the business, broker exchange server
+ *      running.  If you need functionality from one of these servers, create it locally using a Mock class.
+ *      (See Mock Package in test_src).
+ *
+ *      Pass this class before committing code to github.
 **/
-@Suite.SuiteClasses({BrokerServiceClientTest.class,
+@Suite.SuiteClasses({
+                    IntegrationTest.class,
+
+                    BrokerServiceClientTest.class,
                     LoggerTest.class,
                     BusinessTest.class,
                     BrokerTest.class,
+                    ConfigTest.class,
                     GoogleFinanceTest.class,
-                    BusinessTest.class,
                     ShareSalesStatusListTest.class,
                     ExchangeTest.class})
 

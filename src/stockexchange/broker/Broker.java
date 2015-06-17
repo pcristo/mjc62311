@@ -27,8 +27,7 @@ public class Broker implements BrokerInterface, Serializable{
     private static final long serialVersionUID = 1467890432560789065L;
 
     // TODO multiple exchanges
-    private static Exchange exchange;
-    private static ArrayList<String> tickers;
+    protected static Exchange exchange;
 
     private static Server<BrokerInterface> server = new Server<BrokerInterface>();
 
@@ -72,8 +71,18 @@ public class Broker implements BrokerInterface, Serializable{
      * Create broker class, point him to the exhcnage he trades on
      * TODO use multiple exchanges
      */
-    public Broker() throws AccessException, RemoteException, NotBoundException{
-        exchange = new Exchange();
+    public Broker() throws RemoteException, NotBoundException{
+        exchange = getExchange();
+    }
+
+
+    /**
+     * This is a seperate method than consturctor to enable
+     * sub classes to override (see MockBroker)
+     * @return Exchange object
+     */
+    protected Exchange getExchange() throws RemoteException, NotBoundException {
+        return new Exchange();
     }
 
     /**
@@ -100,12 +109,7 @@ public class Broker implements BrokerInterface, Serializable{
      */
     @Override
     public boolean sellShares(ArrayList<String> tickers, ShareType type, int quantity, Customer customer) throws RemoteException {
-//        for (String ticker : tickers) {
-//            if (validateClientHasShare(ticker, customer)) {
-//                // We cant sell what we dont have
-//                return false;
-//            }
-//        }
+
         ShareList sharesToSell = prepareTrade(tickers, type, quantity);
 
         if (sharesToSell != null) {
@@ -121,6 +125,8 @@ public class Broker implements BrokerInterface, Serializable{
     }
 
     /**
+     * Broker sells shares
+     * Customer Buys shares
      *
      * @param shareItems
      * @param customer
@@ -142,7 +148,8 @@ public class Broker implements BrokerInterface, Serializable{
     }
 
     /**
-     * Buy Shares
+     * Broker buys shares
+     * Customer sells shares
      *
      * @param tickers  arraylist that need to be bought
      * @param type     type that the tickers belong to
@@ -150,12 +157,13 @@ public class Broker implements BrokerInterface, Serializable{
      * @param customer customer who made the request
      * @return
      */
-    @Override
     public boolean buyShares(ArrayList<String> tickers, ShareType type, int quantity, Customer customer) throws RemoteException {
+        for(String ticker : tickers) {
+            validateClientHasShare(ticker, customer);
+        }
         ShareList sharesToBuy = prepareTrade(tickers, type, quantity);
         if (sharesToBuy != null) {
-            // WTF do i do with this?
-            ShareSalesStatusList boughtShares = exchange.buyShares(sharesToBuy, customer);
+            exchange.buyShares(sharesToBuy, customer);
 
 
             return true;
@@ -175,9 +183,6 @@ public class Broker implements BrokerInterface, Serializable{
      * @return a shareList used by exchange or null if validation fail
      */
     private ShareList prepareTrade(ArrayList<String> tickers, ShareType type, int quantity) {
-
-
-
         // Prepare shares to action - honestly this should be done a common.share at a time
         ArrayList<ShareItem> sharesToAction = new ArrayList<ShareItem>();
         for (String ticker : tickers) {
