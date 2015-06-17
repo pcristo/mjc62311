@@ -145,47 +145,6 @@ public class ShareSalesStatusList{
         return soldShares;
     }
 
-    /**
-     *
-     * @param soldShareItem ShareItem sold
-     * @param customer Customer affected by update
-     * @param indexAvailableShare
-     */
-    public void updateShares(ShareItem soldShareItem, Customer customer,  int indexAvailableShare) {
-        this.addToSoldShares(soldShareItem,customer);
-        synchronized (availableShares) {
-            //Update or remove common.share item depending on common.share amount sold.
-            ShareItem availableShare = availableShares.get(indexAvailableShare);
-
-            if (availableShare.getQuantity() <= soldShareItem.getQuantity()) {
-                this.availableShares.remove(indexAvailableShare);
-            } else {
-                availableShare.reduceQuantity(soldShareItem.getQuantity());
-            }
-        }
-    }
-
-    /**
-     * Method to print available and sold shares
-     */
-    public void printShares() {
-        System.out.println("- ******** Available Share ******** -");
-        availableShares.forEach( k -> System.out.println(" \n " + k.printShareInfo()));
-        System.out.println("\n - ******** Sold Shares ******** -");
-
-        //Print Customer referemce and all shares belonging to customer
-        Iterator it = this.soldShares.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry pair = (Map.Entry) it.next();
-            System.out.println(" \n " + "Customer: " + pair.getKey());
-
-            synchronized ((List<ShareItem>) pair.getValue()) {
-                for (ShareItem sItem : (List<ShareItem>) pair.getValue()) {
-                    System.out.println(" \n " + sItem.printShareInfo());
-                }
-            }
-        }
-    }
 
 
 }

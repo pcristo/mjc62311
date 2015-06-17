@@ -23,7 +23,7 @@ public class Exchange {
     private static  final int COMMISSION_MARKUP = 10;
     private static  final int RESTOCK_THRESHOLD = 100;
     private static  Integer orderInt = 1100;
-    private static ShareSalesStatusList shareStatusSaleList;
+    protected static ShareSalesStatusList shareStatusSaleList;
 
 
     private Client<BusinessInterface> client = new Client<BusinessInterface>();
@@ -33,33 +33,22 @@ public class Exchange {
     public BusinessInterface microsoft;
     public BusinessInterface google;
 
-
-    // ----------------------     CONSTRUCTOR     ----------------------------------
-
-
-    //TODO make business name in getBusiness an enum
-
     /**
      * Create Exchange object, initializes three businesses
      * @throws AccessException
      * @throws RemoteException
      * @throws NotBoundException
      */
-    public Exchange() throws AccessException, RemoteException, NotBoundException  {
-
-
+    public Exchange() throws RemoteException, NotBoundException  {
         google = getBusiness("google");
         yahoo = getBusiness("yahoo");
         microsoft = getBusiness("microsoft");
 
-        this.setBusinessDirectory();
+        createBusinessDirectory();
         shareStatusSaleList = new ShareSalesStatusList();
 
-        InitializeShare();
+        initializeShares();
     }
-
-
-    //TODO make businessName an enum
 
     /**
      *
@@ -69,11 +58,6 @@ public class Exchange {
      * @throws NotBoundException
      */
     public BusinessInterface getBusiness(String businessName) throws RemoteException, NotBoundException{
-
-
-        //TODO remove this.  See updated Config class.
-        //System.setProperty("java.security.policy", Config.getInstance().loadMacSecurityPolicy());
-
         System.setProperty("java.security.policy", Config.getInstance().loadSecurityPolicy());
 
         if (System.getSecurityManager() == null) {
@@ -81,7 +65,6 @@ public class Exchange {
         }
 
         return findBusiness(businessName, 9095);
-
     }
 
     /**
@@ -106,21 +89,6 @@ public class Exchange {
     }
 
 
-
-    //----------------------     SETTERS     ----------------------------------
-
-    /**
-     * Setter BusinessDirector
-     */
-    private void setBusinessDirectory() {
-
-
-        createBusinessDirectory();
-    }
-
-
-    //----------------------     GETTERS     ----------------------------------
-
     /**
      * Getter : Business Directory
      * @return Map of all business in exchange
@@ -129,49 +97,40 @@ public class Exchange {
         return businessDirectory;
     }
 
-
-    //---------------------- PUBLIC METHODS ----------------------------------
-
     /**
      *
-     * @param shareItemList
-     * @param info
+     * @param shareItemList ShareList of share to purchase from customer
+     * @param info Customer selling shares
      * @return
      */
     public ShareSalesStatusList buyShares(ShareList shareItemList, Customer info) {
-
+        // TODO implement
         return shareStatusSaleList;
     }
 
     /**
-     * Sell Shares
-     * @param shareItemList
-     * @param info
+     * Sell Shares to a Customer (ie Customer is BUYING shares)
+     * @param shareItemList ShareList of shares to transact
+     * @param info Customer object making the transaction
      * @return ShareSalesStatusList - Can access sold shares and available shares lists
      */
     public ShareSalesStatusList sellShares(ShareList shareItemList, Customer info) {
-        TimerLoggerClient tlc = new TimerLoggerClient();
-        tlc.start();
-        ShareItem soldShare = null;
+        ShareItem soldShare;
 
-        //TODO : See if common.share are available
         for  (ShareItem s : shareItemList.getLstShareItems())
         {
-            int totalSold = s.getQuantity();
             soldShare = shareStatusSaleList.isShareAvailable(s);
 
             if (soldShare != null) {
 
                 synchronized (soldShare) {
 
-
-                    //TODO : Add shares to SOLD list
                     shareStatusSaleList.addToSoldShares(s, info);
 
-                    if (this.payBusiness(soldShare) ) {
-                        printMessage("Shares paid for " + soldShare.getBusinessSymbol());
-                    }else {
-                        printMessage("Shares not paid: " + soldShare.printShareInfo());
+                    if (payBusiness(soldShare) ) {
+                        System.out.println(" \n " + "Shares paid for " + soldShare.getBusinessSymbol());
+                    } else {
+                        System.out.println(" \n " + "Shares not paid: " + soldShare.printShareInfo());
                     }
                 }
             }
@@ -179,9 +138,6 @@ public class Exchange {
 
         //Restock Share Lists
         this.restock();
-
-//        shareStatusSaleList.printShares();
-        tlc.end();
         return  shareStatusSaleList;
     }
 
@@ -240,7 +196,7 @@ public class Exchange {
     /**
      * Used to issue common.share on Ecxhange start up
      */
-    private void InitializeShare() {
+    protected void initializeShares() {
 
         List<ShareItem> lstShares = new ArrayList<ShareItem>();
 
@@ -266,17 +222,12 @@ public class Exchange {
 
     }
 
-
-    // ---------------------- PRIVATE METHODS ----------------------------------
-
     /**
      *Method to restock any available common.share that is below the threshold
      */
     private void restock() {
 
-        this.printMessage("...... Restocking Shares .......");
-
-        List<ShareItem> tempShares = new ArrayList<ShareItem>();
+        System.out.println(" \n " + "...... Restocking Shares .......");
 
         //Check Available stock amount
         for (ShareItem sItem : shareStatusSaleList.getAvailableShares()) {
@@ -303,8 +254,8 @@ public class Exchange {
 
     /**
      *
-     * @param soldShare
-     * @return
+     * @param soldShare ShareItem requiring business payment
+     * @return true if payment is processed
      */
     private boolean payBusiness(ShareItem soldShare) {
 
@@ -317,7 +268,7 @@ public class Exchange {
                 try {
                      return microsoft.recievePayment(soldShare.getOrderNum(),soldShare.getUnitPrice() * soldShare.getQuantity());
                 } catch (Exception e) {
-                    printMessage(e.getMessage());
+                    System.out.println(" \n " + e.getMessage());
                 }
                 break;
 
@@ -328,7 +279,7 @@ public class Exchange {
 
                 } catch (Exception e) {
 
-                    printMessage(e.getMessage());
+                    System.out.println(" \n " + e.getMessage());
                 }
                 break;
             case "google" :
@@ -337,7 +288,7 @@ public class Exchange {
                     return google.recievePayment(soldShare.getOrderNum(),soldShare.getUnitPrice() * soldShare.getQuantity());
                 } catch (Exception e) {
 
-                    printMessage(e.getMessage());
+                    System.out.println(" \n " + e.getMessage());
                 }
                 break;
         }
@@ -348,21 +299,11 @@ public class Exchange {
 
 
 
-    /**
-     * Method to print message to console
-     * @param message
-     */
-    private void printMessage(String message) {
-
-        System.out.println(" \n " + message);
-    }
 
     /**
      * Initialize the business directory
      */
-    private void createBusinessDirectory() {
-
-
+    protected void createBusinessDirectory() {
         businessDirectory.put("YHOO", "YAHOO");
         businessDirectory.put("YHOO.B","YAHOO");
         businessDirectory.put("YHOO.C", "YAHOO");
@@ -372,14 +313,13 @@ public class Exchange {
         businessDirectory.put("GOOG", "GOOGLE");
         businessDirectory.put("GOOG.B", "GOOGLE");
         businessDirectory.put("GOOG.C", "GOOGLE");
-
     }
 
 
 
     /**
      * Called to send a common.share request issue to businesses
-     * @param sItem
+     * @param sItem ShareItem to be issued
      * @return ShareItem
      */
     private ShareItem issueSharesRequest(ShareItem sItem) {
@@ -399,7 +339,7 @@ public class Exchange {
                     try {
                         sharesIssued = microsoft.issueShares(new ShareOrder(orderNum, "BR123", sItem.getBusinessSymbol(), sItem.getShareType(), sItem.getUnitPrice(), RESTOCK_THRESHOLD, sItem.getUnitPrice()));
                     } catch (Exception e) {
-                        printMessage(e.getMessage());
+                        System.out.println(" \n " + e.getMessage());
                     }
                     break;
 
@@ -410,7 +350,7 @@ public class Exchange {
 
                     } catch (Exception e) {
 
-                        printMessage(e.getMessage());
+                        System.out.println(" \n " + e.getMessage());
                     }
                     break;
                 case "google":
@@ -419,7 +359,7 @@ public class Exchange {
                         sharesIssued = google.issueShares(new ShareOrder(orderNum, "BR123", sItem.getBusinessSymbol(), sItem.getShareType(), sItem.getUnitPrice(), RESTOCK_THRESHOLD, sItem.getUnitPrice()));
                     } catch (Exception e) {
 
-                        printMessage(e.getMessage());
+                        System.out.println(" \n " + e.getMessage());
                     }
                     break;
             }
@@ -439,13 +379,9 @@ public class Exchange {
      * Method to generate unique sequential order number for issue common.share
      */
     private synchronized String generateOrderNumber() {
-
         orderInt = orderInt + 1;
-
         String orderNumber = Integer.toString(orderInt);
-
         return orderNumber;
-
     }
 
 }

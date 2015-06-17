@@ -21,7 +21,7 @@ public class GoogleFinanceTest {
         try {
             String price = gf.getStock(Company.APPLE);
             System.out.println(price);
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
