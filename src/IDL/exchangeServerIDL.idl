@@ -1,0 +1,25 @@
+module exchangeServer{
+interface ExchangeServerIF
+{
+/*This is indeed the ShareType enum, however, we can't
+use it to replace the exisitng one, since IDL automatically
+generated class needs to be used to ensure CORBA stub communication
+*/
+enum CORBAShareType { PREFERRED, COMMON, CONVERTIBLE };
+
+/*This is indeed the Share class, however, we can't
+use it to replace the exisitng one, since IDL automatically
+generated class is final, and we have a class extends Share class
+*/
+struct BusinessInfo {
+          string businessSymbol;
+          CORBAShareType shareType;
+          float unitPrice;
+     };
+BusinessInfo getBusiness(in string businessName);
+boolean updateSharePrice(in string businessSymbol, in float unitPrice);
+boolean registerBuiness(in string businessSymbol, in float unitPrice);
+boolean unregisterBuiness(in string businessSymbol);
+};
+
+};

@@ -4,3 +4,7 @@ Linux:
 
 Windows:
     netstat -aon  :: shows fun stuff about happening ports
+
+CORBA naming service:
+To run the project, Java Naming service needs to be started first:
+tnameserv -ORBInitialPort 9888, tnameserv should be located within java jdk bin directory.
