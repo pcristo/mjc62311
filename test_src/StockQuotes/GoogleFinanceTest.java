@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import stockQuotes.Company;
+import stockQuotes.Exchange;
 import stockQuotes.GoogleFinance;
 
 
@@ -19,7 +20,7 @@ public class GoogleFinanceTest {
     @Test
     public void getStockTest() {
         try {
-            String price = gf.getStock(Company.APPLE);
+            String price = gf.getStock(new Company("APPL", new Exchange("NASDAQ")));
             System.out.println(price);
         } catch (Exception e) {
             System.out.println(e.getMessage());

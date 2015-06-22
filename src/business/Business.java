@@ -14,6 +14,10 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 
+import stockQuotes.Company;
+import stockQuotes.GoogleFinance;
+import stockexchange.exchange.Exchange;
+
 /**
  * A class for businesses to process transactions/manage shares
  * 
@@ -46,7 +50,7 @@ public class Business implements Serializable, BusinessInterface {
 
 			// reset the shares list
 			this.sharesList = new ArrayList<Share>();
-
+			
 			// Process each line of the csv file
 			String row;
 			String[] column;
@@ -59,9 +63,14 @@ public class Business implements Serializable, BusinessInterface {
 					bufferedReader.close();
 					throw new IOException("The CSV file is not correctly formatted.");
 				}
-
+				
+				// capture the company information, get price from Google webservice
+				GoogleFinance tickers = new GoogleFinance();
+				Company company = new Company(column[0], new stockQuotes.Exchange(column[2]));
+				String price = tickers.getStock(company);
+				
 				// extract the common.share information and create a common.share object
-				Share s = new Share(column[0], ShareType.valueOf(column[1]), Float.parseFloat(column[2]));
+				Share s = new Share(column[0], ShareType.valueOf(column[1]), Float.parseFloat(price));
 
 				// add the common.share to the list
 				this.sharesList.add(s);

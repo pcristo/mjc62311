@@ -3,9 +3,9 @@ package stockQuotes;
 /**
  * Listing of stock exchanges used in project
  */
-public enum Exchange {
-    NASDAQ("NASDAQ"),
-    TSE("TSE");
+public class Exchange {
+    /*NASDAQ("NASDAQ"),
+    TSE("TSE");*/
 
     private String code;
 
@@ -13,7 +13,7 @@ public enum Exchange {
      *
      * @param code of exchange used in google finance
      */
-    Exchange(String code) {
+    public Exchange(String code) {
         this.code = code;
     }
 

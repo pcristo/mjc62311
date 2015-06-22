@@ -1,13 +1,14 @@
 package stockQuotes;
 
 /**
- * Company information (stock symbole and exchange it is traded on)
+ * Company information (stock symbol and exchange it is traded on)
  */
-public enum Company {
-    Bombardier("bbd.b", Exchange.TSE),
+public class Company {
+    /*Bombardier("bbd.b", Exchange.TSE),
     Google("GOOG", Exchange.NASDAQ),
     Microsoft("MSFT", Exchange.NASDAQ),
-    APPLE("AAPL", Exchange.NASDAQ);
+    APPLE("AAPL", Exchange.NASDAQ),
+    YAHOO("YHOO", Exchange.NASDAQ);*/
 
     private String ticker;
     private Exchange exchange;
@@ -17,7 +18,7 @@ public enum Company {
      * @param ticker code used to reference stock
      * @param exchange Exchange stock is listed on
      */
-    Company(String ticker, Exchange exchange) {
+    public Company(String ticker, Exchange exchange) {
         this.ticker = ticker;
         this.exchange = exchange;
     }
