@@ -46,7 +46,8 @@ public class ExchangeTest {
         ShareList sharelist = new ShareList(new ArrayList<ShareItem>() {{
             add(new ShareItem("5", "GOOG", ShareType.COMMON, 1000, 100));
         }});
-        exchange.sellShares(sharelist, new Customer("Ross"));
+
+        exchange.sellShares(sharelist, new Customer("Ross")).PrintNewAvShares();
 
         // TODO ALOT MORE OF THESE TESTS, ONES THAT FAIL, ONES THAT PASS ETC
     }

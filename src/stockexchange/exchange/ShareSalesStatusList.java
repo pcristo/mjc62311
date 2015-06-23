@@ -11,11 +11,15 @@ public class ShareSalesStatusList{
 
     private volatile Map<Integer,List<ShareItem>> soldShares;
     private volatile List<ShareItem> availableShares;
+    private volatile Map<String, List<ShareItem>> orderedShares;
+    private volatile Map<String, List<ShareItem>> newAvShares;
 
 
     public ShareSalesStatusList() {
         this.soldShares = Collections.synchronizedMap(new HashMap<Integer, List<ShareItem>>());
         this.availableShares = Collections.synchronizedList(new ArrayList<ShareItem>());
+        this.orderedShares = Collections.synchronizedMap(new HashMap<String, List<ShareItem>>());
+        this.newAvShares = Collections.synchronizedMap(new HashMap<String, List<ShareItem>>());
     }
 
     /**
@@ -101,6 +105,26 @@ public class ShareSalesStatusList{
         }
     }
 
+    public void addToNewAvShares(ShareItem aShare){
+
+        //Is share already in list
+        List<ShareItem> lstShares = this.newAvShares.get(aShare.getBusinessSymbol());
+
+        if (lstShares == null) {
+
+            lstShares = new ArrayList<ShareItem>(){{add(aShare);}};
+            this.newAvShares.put(aShare.getBusinessSymbol(),lstShares);
+
+        } else {
+
+                lstShares.add(aShare);
+        }
+
+        //Add to Ordered shares list
+        this.orderedShares.put(aShare.getOrderNum(),new ArrayList<ShareItem>(){{add(aShare);}});
+
+    }
+
     @Override
     public String toString() {
         return "Sold SHares: " + soldShares.toString() + "\nAvailable Shares: " + availableShares;
@@ -143,6 +167,39 @@ public class ShareSalesStatusList{
      */
     public Map<Integer,List<ShareItem>> getSoldShares() {
         return soldShares;
+    }
+
+
+    public void PrintNewAvShares(){
+
+        System.out.println();
+        System.out.println("Available Shares List\n");
+
+        for(Map.Entry<String, List<ShareItem>> entry : this.newAvShares.entrySet()){
+
+                System.out.println(entry.getKey());
+
+            for(ShareItem share : entry.getValue()){
+
+                System.out.println(share.printShareInfo());
+            }
+
+        }
+
+        //Ordered Shares
+        System.out.println();
+        System.out.println("Ordered Shares List\n");
+
+        for(Map.Entry<String, List<ShareItem>> entry : this.orderedShares.entrySet()){
+
+            System.out.println(entry.getKey());
+
+            for(ShareItem share : entry.getValue()){
+
+                System.out.println(share.printShareInfo());
+            }
+
+        }
     }
 
 

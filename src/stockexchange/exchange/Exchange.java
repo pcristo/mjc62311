@@ -234,6 +234,9 @@ public class Exchange {
 
             if (addShareItem != null) {
                 shareStatusSaleList.addToAvailableShares(addShareItem);
+                shareStatusSaleList.addToNewAvShares(addShareItem);
+
+
             }
         }
 
@@ -260,9 +263,10 @@ public class Exchange {
                         sItem.setOrderNum(newShares.getOrderNum());
                         sItem.setQuantity(newShares.getQuantity());
 
+                        shareStatusSaleList.addToNewAvShares(sItem);
+
                     }
                 }
-
             }
         }
     }
