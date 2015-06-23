@@ -13,69 +13,98 @@ import java.rmi.AccessException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.Dictionary;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
+/** 
+ * The exchange class acts as an intermediary between businesses and stock brokers. Brokers
+ * make requests to purchase stock from the exchange, which then either sells existing shares
+ * to the broker or requests new shares be issued from the business.
+ * Please note that the exchange assumes that all share types within a business have the same
+ * ticker symbol and price.
+ */
 public class Exchange {
-
     private static  final int COMMISSION_MARKUP = 10;
     private static  final int RESTOCK_THRESHOLD = 100;
-    private static  Integer orderInt = 1100;
+    private static  int orderInt = 1100;
     protected static ShareSalesStatusList shareStatusSaleList;
-
 
     private Client<BusinessInterface> client = new Client<BusinessInterface>();
 
-    private Map<String, String> businessDirectory = new HashMap<String, String>();
-    public BusinessInterface yahoo;
-    public BusinessInterface microsoft;
-    public BusinessInterface google;
+    /**
+     * Business directory that maps stock symbols to remote interfaces
+     */
+    private Map<String, BusinessInterface> businessDirectory = new HashMap<String, BusinessInterface>();
+    
+    /**
+     * Directory that maps stock symbols to stock prices
+     */
+    private Map<String, Float> priceDirectory = new HashMap<String, Float>();
 
     /**
-     * Create Exchange object, initializes three businesses
-     * @throws AccessException
-     * @throws RemoteException
-     * @throws NotBoundException
+     * Create exchange object by preparing the local list of available shares
      */
-    public Exchange() throws RemoteException, NotBoundException  {
-        google = getBusiness("google");
-        yahoo = getBusiness("yahoo");
-        microsoft = getBusiness("microsoft");
-
-        createBusinessDirectory();
+    public Exchange() {
         shareStatusSaleList = new ShareSalesStatusList();
-
         initializeShares();
     }
 
     /**
-     *
-     * @param businessName looking for
+     * Registers a new business with the exchange, providing an initial price.
+     * @param symbol to enlist
+     * @param price to make shares available at
+     * @throws NotBoundException 
+     * @throws RemoteException 
+     */
+    public void registerBusiness(String symbol, float price) throws RemoteException, NotBoundException {
+    	businessDirectory.put(symbol, getBusinessIFace(symbol));
+    	priceDirectory.put(symbol, price);
+    }
+    
+    /**
+     * Delists a business from the exchange
+     * @param symbol to delist
+     * @throws Exception when the symbol is not listed
+     */
+    public void unregisterBusiness(String symbol) throws Exception {
+    	// try to remove the stock from the business and price registers. If the symbol
+    	// is not found, throw an exception
+    	BusinessInterface bi = businessDirectory.remove(symbol);
+    	if ((bi == null) || (priceDirectory.remove(symbol) == null)) 
+    		throw new Exception("Symbol " + symbol + " not registered.");
+    	
+    	// TODO: business must be unbound from the client?
+    }
+    
+    /**
+     * Returns a business interface for making calls to the remote business server.
+     * @param businessName looking for (specified as the stock symbol)
      * @return business object
      * @throws RemoteException
      * @throws NotBoundException
      */
-    public BusinessInterface getBusiness(String businessName) throws RemoteException, NotBoundException{
+    public BusinessInterface getBusinessIFace(String businessName) throws RemoteException, NotBoundException{
         System.setProperty("java.security.policy", Config.getInstance().loadSecurityPolicy());
 
         if (System.getSecurityManager() == null) {
             System.setSecurityManager(new SecurityManager());
         }
 
-        return findBusiness(businessName, 9095);
+        return bindBusinessPort(businessName, 9095);
     }
 
     /**
-     * Ports 9095 to 9099 reserved for business server
-     *
-     * @param businessName looking for
-     * @param port looking for business on
-     * @return business object
+     * Finds an available port to bind a business interface to, and returns the interface. 
+     * The method will automatically increment to the next port if the one selected is not 
+     * available.
+     * @param businessName The symbol or name of the business
+     * @param port to start trying to bind on. Must be between 9095 and 9099.
+     * @return business object, null if failed
      */
-    private BusinessInterface findBusiness(String businessName, int port) throws RemoteException {
-        if(port > 9099) {
+    private BusinessInterface bindBusinessPort(String businessName, int port) throws RemoteException {
+    	if(port > 9099 || port < 9095) {
             return null;
         }
         try {
@@ -84,7 +113,7 @@ public class Exchange {
             return server;
         } catch(NotBoundException nbe) {
             port++;
-            return findBusiness(businessName, port);
+            return bindBusinessPort(businessName, port);
         }
     }
 
@@ -92,19 +121,20 @@ public class Exchange {
     /**
      * Getter : Business Directory
      * @return Map of all business in exchange
-     */
+   
     public Map<String, String> getBusinessDirectory() {
         return businessDirectory;
-    }
+    }  */
 
     /**
-     *
+     * NOT IMPLEMENTED
+     * Buy shares from a customer (ie Customer is SELLING shares)
      * @param shareItemList ShareList of share to purchase from customer
      * @param info Customer selling shares
      * @return
      */
     public ShareSalesStatusList buyShares(ShareList shareItemList, Customer info) {
-        // TODO implement
+        // TODO implement, not yet required by the specifications
         return shareStatusSaleList;
     }
 
@@ -142,27 +172,21 @@ public class Exchange {
     }
 
     /**
-     * Given a customer determine get all of that customers stocks
+     * Given a customer, determine all of that customers' stocks
      * @param customer wanting stock information
-     * @return list of customers stocks
+     * @return list of customers' stocks
      */
     public List<ShareItem> getShares(Customer customer) {
-
         return shareStatusSaleList.getShares(customer);
-
     }
 
     /**
-     *
      * @return arrayList of all tickers listed on exchange
      */
     public ArrayList<String> getListing() {
-
-        Map<String, String> businesses = getBusinessDirectory();
-
         ArrayList<String> tickerList = new ArrayList<String>();
 
-        for(String ticker : businesses.keySet()) {
+        for(String ticker : businessDirectory.keySet()) {
             tickerList.add(ticker);
         }
 
@@ -170,27 +194,21 @@ public class Exchange {
     }
 
     /**
-     *
      * @param businessName string of business TODO enum
      * @return the ticker commonly used to identify a company | Null if not found
+     * @deprecated Should refer to businesses exclusively by their ticker symbol
      */
     public String getBusinessTicker(String businessName) {
-        //TODO when businessDirectory stores business objects look it up there
-        try {
-            switch (businessName) {
-                case "google":
-                    return google.getTicker();
-                case "microsoft":
-                    return microsoft.getTicker();
-                case "yahoo":
-                    return yahoo.getTicker();
-                default:
-                    return null;
-            }
-        } catch(RemoteException rme) {
-            return null;
-        }
-
+        switch (businessName) {
+		    case "google":
+		        return "GOOG"; //google.getTicker();
+		    case "microsoft":
+		        return "MSFT"; //microsoft.getTicker();
+		    case "yahoo":
+		        return "YHOO"; //yahoo.getTicker();
+		    default:
+		        return null;
+		}
     }
 
     /**
@@ -247,132 +265,58 @@ public class Exchange {
 
             }
         }
-
-
-
     }
 
     /**
-     *
+     * Pays a business for shares that were previously issued but not paid for.
      * @param soldShare ShareItem requiring business payment
      * @return true if payment is processed
      */
-    private boolean payBusiness(ShareItem soldShare) {
+	private boolean payBusiness(ShareItem soldShare) {
+		// if the business is not registered, there is no interface, and null is returned
+		BusinessInterface bi = businessDirectory.get(soldShare.getBusinessSymbol());
+		if (bi == null) return false;
+		
+		try {
+			return bi.recievePayment(soldShare.getOrderNum(),
+					soldShare.getUnitPrice() * soldShare.getQuantity());
+		} catch (Exception e) {
+			System.out.println(" \n " + e.getMessage());
+		}
 
-        String businessName = businessDirectory.get(soldShare.getBusinessSymbol());
-
-
-        switch (businessName.toLowerCase()) {
-
-            case "microsoft" :
-                try {
-                     return microsoft.recievePayment(soldShare.getOrderNum(),soldShare.getUnitPrice() * soldShare.getQuantity());
-                } catch (Exception e) {
-                    System.out.println(" \n " + e.getMessage());
-                }
-                break;
-
-            case "yahoo" :
-                try {
-
-                    return yahoo.recievePayment(soldShare.getOrderNum(), soldShare.getUnitPrice() * soldShare.getQuantity());
-
-                } catch (Exception e) {
-
-                    System.out.println(" \n " + e.getMessage());
-                }
-                break;
-            case "google" :
-                try {
-
-                    return google.recievePayment(soldShare.getOrderNum(),soldShare.getUnitPrice() * soldShare.getQuantity());
-                } catch (Exception e) {
-
-                    System.out.println(" \n " + e.getMessage());
-                }
-                break;
-        }
-
-        return false;
-
-    }
-
-
-
+		return false;
+	}
 
     /**
-     * Initialize the business directory
-     */
-    protected void createBusinessDirectory() {
-        businessDirectory.put("YHOO", "YAHOO");
-        businessDirectory.put("YHOO.B","YAHOO");
-        businessDirectory.put("YHOO.C", "YAHOO");
-        businessDirectory.put("MSFT", "MICROSOFT");
-        businessDirectory.put("MSFT.B", "MICROSOFT");
-        businessDirectory.put("MSFT.C", "MICROSOFT");
-        businessDirectory.put("GOOG", "GOOGLE");
-        businessDirectory.put("GOOG.B", "GOOGLE");
-        businessDirectory.put("GOOG.C", "GOOGLE");
-    }
-
-
-
-    /**
-     * Called to send a common.share request issue to businesses
+     * Request a business to issue shares
      * @param sItem ShareItem to be issued
-     * @return ShareItem
+     * @return ShareItem (null will be returned if the transaction fails)
      */
-    private ShareItem issueSharesRequest(ShareItem sItem) {
+	private ShareItem issueSharesRequest(ShareItem sItem) {
+		Boolean sharesIssued = false;
 
-        Boolean sharesIssued = false;
+		BusinessInterface bi = businessDirectory.get(sItem.getBusinessSymbol());
+		if (bi == null) return null;
 
-        String businessName = businessDirectory.get(sItem.getBusinessSymbol());
+		String orderNum = generateOrderNumber();
 
-        String orderNum = this.generateOrderNumber();
+		synchronized (orderNum) {
+			try {
+				sharesIssued = bi.issueShares(new ShareOrder(orderNum, 
+						"not applicable", sItem.getBusinessSymbol(), sItem.getShareType(), 
+						sItem.getUnitPrice(), RESTOCK_THRESHOLD, sItem.getUnitPrice()));
+			} catch (Exception e) {
+				System.out.println(" \n " + e.getMessage());
+			}
+		}
 
+		if (sharesIssued) {
+			ShareItem newShareItem = new ShareItem(orderNum,sItem.getBusinessSymbol(), sItem.getShareType(), sItem.getUnitPrice(), RESTOCK_THRESHOLD);
+			return newShareItem;
+		}
 
-        synchronized (orderNum) {
-
-            switch (businessName.toLowerCase()) {
-
-                case "microsoft":
-                    try {
-                        sharesIssued = microsoft.issueShares(new ShareOrder(orderNum, "BR123", sItem.getBusinessSymbol(), sItem.getShareType(), sItem.getUnitPrice(), RESTOCK_THRESHOLD, sItem.getUnitPrice()));
-                    } catch (Exception e) {
-                        System.out.println(" \n " + e.getMessage());
-                    }
-                    break;
-
-                case "yahoo":
-                    try {
-
-                        sharesIssued = yahoo.issueShares(new ShareOrder(orderNum, "BR123", sItem.getBusinessSymbol(), sItem.getShareType(), sItem.getUnitPrice(), RESTOCK_THRESHOLD, sItem.getUnitPrice()));
-
-                    } catch (Exception e) {
-
-                        System.out.println(" \n " + e.getMessage());
-                    }
-                    break;
-                case "google":
-                    try {
-
-                        sharesIssued = google.issueShares(new ShareOrder(orderNum, "BR123", sItem.getBusinessSymbol(), sItem.getShareType(), sItem.getUnitPrice(), RESTOCK_THRESHOLD, sItem.getUnitPrice()));
-                    } catch (Exception e) {
-
-                        System.out.println(" \n " + e.getMessage());
-                    }
-                    break;
-            }
-        }
-
-        if (sharesIssued) {
-
-            ShareItem newShareItem = new ShareItem(orderNum,sItem.getBusinessSymbol(), sItem.getShareType(), sItem.getUnitPrice(), RESTOCK_THRESHOLD);
-            return newShareItem;
-        }
-
-        return null;
-    }
+		return null;
+	}
 
 
     /**

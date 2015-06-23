@@ -1,5 +1,5 @@
 {
-  "projectHome": "C:/Users/b0467851/WORK/school/DistributedSystems/project/",
+  "projectHome": "/home/patrick/git/mjc62311/",
 
   "jars": "resources/jar",
   "out": "out",
@@ -13,16 +13,21 @@
   "logServerPassword": "",
 
   "backup_logServerIP" : "localhost",
-  "backup_logServerPort": "9090",
+  "backup_logServerPort": "9100",
 
   "brokerServerIP": "localhost",
   "brokerPort": "9089",
 
   "businessServerIP": "localhost",
 
+  "YHOO": "yahoo_data.csv",
   "yahoo": "yahoo_data.csv",
+  "MSFT": "microsoft_data.csv",
   "microsoft": "microsoft_data.csv",
-  "google":"google_data.csv",
+  "GOOG": "google_data.csv",
+  "google": "google_data.csv",
+  "APPL": "apple_data.csv",
+  "apple": "apple_data.csv",
   "businessXmlLog": "out/files/businessOrderRecord.xml",
 
   "macLogServerHome": "/Users/Gay/Documents/Concordia/COMP6231/PROJECT/mjc62311",
