@@ -12,11 +12,7 @@ import common.util.Config;
 import java.rmi.AccessException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-import java.util.ArrayList;
-import java.util.Dictionary;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /** 
  * The exchange class acts as an intermediary between businesses and stock brokers. Brokers
@@ -27,7 +23,7 @@ import java.util.Map;
  */
 public class Exchange {
     private static  final int COMMISSION_MARKUP = 10;
-    private static  final int RESTOCK_THRESHOLD = 100;
+    private static  final int RESTOCK_THRESHOLD = 500;
     private static  int orderInt = 1100;
     protected static ShareSalesStatusList shareStatusSaleList;
 
@@ -41,14 +37,66 @@ public class Exchange {
     /**
      * Directory that maps stock symbols to stock prices
      */
-    private Map<String, Float> priceDirectory = new HashMap<String, Float>();
+    protected Map<String, Float> priceDirectory = new HashMap<String, Float>();
+
+    public BusinessInterface yahoo;
+    public BusinessInterface microsoft;
+    public BusinessInterface google;
 
     /**
      * Create exchange object by preparing the local list of available shares
      */
     public Exchange() {
-        shareStatusSaleList = new ShareSalesStatusList();
-        initializeShares();
+
+        try {
+            //google = getBusiness("google");
+            //yahoo = getBusiness("yahoo");
+            //microsoft = getBusiness("microsoft");
+        }
+        catch(Exception e) {
+
+            System.out.println(e.getMessage());
+        }
+        //shareStatusSaleList = new ShareSalesStatusList();
+        //initializeShares();
+    }
+
+    /**
+     *
+     * @param businessName looking for
+     * @return business object
+     * @throws RemoteException
+     * @throws NotBoundException
+     */
+    public BusinessInterface getBusiness(String businessName) throws RemoteException, NotBoundException{
+        System.setProperty("java.security.policy", Config.getInstance().loadSecurityPolicy());
+
+        if (System.getSecurityManager() == null) {
+            System.setSecurityManager(new SecurityManager());
+        }
+
+        return findBusiness(businessName, 9095);
+    }
+
+    /**
+     * Ports 9095 to 9099 reserved for business server
+     *
+     * @param businessName looking for
+     * @param port looking for business on
+     * @return business object
+     */
+    private BusinessInterface findBusiness(String businessName, int port) throws RemoteException {
+        if(port > 9099) {
+            return null;
+        }
+        try {
+            BusinessInterface server = client.getService("localhost", port, businessName);
+            LoggerClient.log("Bound " + businessName + " on " + port);
+            return server;
+        } catch(NotBoundException nbe) {
+            port++;
+            return findBusiness(businessName, port);
+        }
     }
 
     /**
@@ -145,29 +193,92 @@ public class Exchange {
      * @return ShareSalesStatusList - Can access sold shares and available shares lists
      */
     public ShareSalesStatusList sellShares(ShareList shareItemList, Customer info) {
-        ShareItem soldShare;
+
+        ShareItem soldShare = null;
 
         for  (ShareItem s : shareItemList.getLstShareItems())
         {
-            soldShare = shareStatusSaleList.isShareAvailable(s);
+            int requestedShares = s.getQuantity();
+            int toComplete = requestedShares;
 
-            if (soldShare != null) {
+            //Is business registered in Exchange
+            if (this.priceDirectory.get(s.getBusinessSymbol()) != null){
 
+                //Business Shares Listing
+                List<ShareItem> lstShares = shareStatusSaleList.newAvShares.get(s.getBusinessSymbol());
+
+                synchronized(lstShares)
+                {
+                    //Is quantity on hand
+                    if (this.getShareQuantity(lstShares, s.getShareType()) >= s.getQuantity() ) {
+
+                        for (ShareItem sItem : lstShares) {
+
+                            //Populate new Sold Share
+                            if (soldShare == null) {
+
+                                soldShare = new ShareItem("",
+                                        sItem.getBusinessSymbol(),
+                                        sItem.getShareType(),
+                                        sItem.getUnitPrice(),
+                                        requestedShares);
+                            }
+
+                            //Just iterate through the companies share of a specific share type
+                            if (sItem.getShareType() == s.getShareType()) {
+
+                                if(toComplete == requestedShares && sItem.getQuantity() >= requestedShares) {
+
+                                    //Reduce the available amount
+                                    sItem.reduceQuantity(requestedShares);
+                                    break;
+
+                                } else {
+                                    //Share will be coming from more then one order
+                                    if (toComplete > 0) {
+
+                                        if (sItem.getQuantity() >= toComplete) {
+                                            sItem.reduceQuantity(toComplete);
+                                            toComplete = 0;
+                                        } else {
+                                            toComplete -= sItem.getQuantity();
+                                            sItem.reduceQuantity(sItem.getQuantity());
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    //Pay the companies once shares are at 0 in the newAvailable Shares
+                    List<String> lstOrders = new ArrayList<String>();
+
+                    for(ShareItem sItem : lstShares) {
+
+                        if (sItem.getQuantity() == 0) {
+                            lstOrders.add(sItem.getOrderNum());
+                        }
+                    }
+
+                    //Pay all orders if needed
+                    if (lstOrders.size()>0){
+                        payBusiness(lstOrders);
+                    }
+
+                }
+
+                //TODO: Review this synchronization
                 synchronized (soldShare) {
 
                     shareStatusSaleList.addToSoldShares(s, info);
-
-                    if (payBusiness(soldShare) ) {
-                        System.out.println(" \n " + "Shares paid for " + soldShare.getBusinessSymbol());
-                    } else {
-                        System.out.println(" \n " + "Shares not paid: " + soldShare.printShareInfo());
-                    }
                 }
             }
+
+            //Restock Share Lists
+            this.restock();
         }
 
-        //Restock Share Lists
-        this.restock();
+
         return  shareStatusSaleList;
     }
 
@@ -224,8 +335,8 @@ public class Exchange {
         lstShares.add(new ShareItem("","MSFT.C",ShareType.PREFERRED,541.28f,100));
         lstShares.add(new ShareItem("","GOOG",ShareType.COMMON,540.11f,100));
         lstShares.add(new ShareItem("","GOOG.B",ShareType.CONVERTIBLE,532.23f,100));
-        lstShares.add(new ShareItem("","GOOG.C",ShareType.PREFERRED,541.28f,100));
-        lstShares.add(new ShareItem("","GOOG",ShareType.COMMON,540.11f,100));
+        lstShares.add(new ShareItem("", "GOOG.C", ShareType.PREFERRED, 541.28f, 100));
+        lstShares.add(new ShareItem("", "GOOG", ShareType.COMMON, 540.11f, 100));
 
 
         for(ShareItem shareItem : lstShares) {
@@ -239,8 +350,6 @@ public class Exchange {
 
             }
         }
-
-
     }
 
     /**
@@ -251,7 +360,7 @@ public class Exchange {
         System.out.println(" \n " + "...... Restocking Shares .......");
 
         //Check Available stock amount
-        for (ShareItem sItem : shareStatusSaleList.getAvailableShares()) {
+        /*for (ShareItem sItem : shareStatusSaleList.getAvailableShares()) {
 
             synchronized (sItem) {
 
@@ -268,27 +377,82 @@ public class Exchange {
                     }
                 }
             }
+        }*/
+
+        for(Map.Entry<String, List<ShareItem>> entry : shareStatusSaleList.newAvShares.entrySet()){
+
+            List<ShareItem> addToList = new ArrayList<ShareItem>();
+
+            for(ShareItem sItem : entry.getValue()) {
+
+                synchronized (sItem){
+
+                    if (sItem.getQuantity() < RESTOCK_THRESHOLD) {
+
+                        ShareItem newShares = this.issueSharesRequest(sItem);
+
+                        if (newShares != null && sItem.getQuantity() == 0) {
+                            sItem.setOrderNum(newShares.getOrderNum());
+                            sItem.increaseQuantity(newShares.getQuantity());
+
+                            shareStatusSaleList.addToOrderedShares(
+                                    new ShareItem(sItem.getOrderNum(),sItem.getBusinessSymbol(),sItem.getShareType(), sItem.getUnitPrice(),sItem.getQuantity())
+                            );
+                        }
+                        else
+                        {
+                            addToList.add(newShares);
+                            shareStatusSaleList.addToOrderedShares(
+                                    new ShareItem(newShares.getOrderNum(),newShares.getBusinessSymbol(),newShares.getShareType(), newShares.getUnitPrice(),newShares.getQuantity())
+                            );
+                        }
+
+                    }
+                }
+
+
+            }
+
+            entry.getValue().addAll(addToList);
         }
     }
 
     /**
      * Pays a business for shares that were previously issued but not paid for.
-     * @param soldShare ShareItem requiring business payment
+     * @param lstOrders List of order numbers that have been depleted
      * @return true if payment is processed
      */
-	private boolean payBusiness(ShareItem soldShare) {
-		// if the business is not registered, there is no interface, and null is returned
-		BusinessInterface bi = businessDirectory.get(soldShare.getBusinessSymbol());
-		if (bi == null) return false;
-		
-		try {
-			return bi.recievePayment(soldShare.getOrderNum(),
-					soldShare.getUnitPrice() * soldShare.getQuantity());
-		} catch (Exception e) {
-			System.out.println(" \n " + e.getMessage());
-		}
+	private boolean payBusiness(List<String> lstOrders) {
 
-		return false;
+        boolean paid = false;
+
+        for(String orderNumber : lstOrders ){
+
+            ShareItem shareToBePaid = shareStatusSaleList.orderedShares.get(orderNumber);
+
+            synchronized (shareToBePaid) {
+
+                // if the business is not registered, there is no interface, and null is returned
+		        BusinessInterface bi = businessDirectory.get(shareToBePaid.getBusinessSymbol());
+                if (bi != null) {
+                    try {
+                        paid = bi.recievePayment(shareToBePaid.getOrderNum(),
+                                shareToBePaid.getUnitPrice() * shareToBePaid.getQuantity());
+
+                        if (paid) {
+
+                            shareStatusSaleList.orderedShares.remove(orderNumber);
+                        }
+
+                    } catch (Exception e) {
+                        System.out.println(" \n " + e.getMessage());
+                    }
+                }
+            }
+        }
+
+		return paid;
+
 	}
 
     /**
@@ -296,7 +460,7 @@ public class Exchange {
      * @param sItem ShareItem to be issued
      * @return ShareItem (null will be returned if the transaction fails)
      */
-	private ShareItem issueSharesRequest(ShareItem sItem) {
+	protected ShareItem issueSharesRequest(ShareItem sItem) {
 		Boolean sharesIssued = false;
 
 		BusinessInterface bi = businessDirectory.get(sItem.getBusinessSymbol());
@@ -326,10 +490,33 @@ public class Exchange {
     /**
      * Method to generate unique sequential order number for issue common.share
      */
-    private synchronized String generateOrderNumber() {
+    protected synchronized String generateOrderNumber() {
         orderInt = orderInt + 1;
         String orderNumber = Integer.toString(orderInt);
         return orderNumber;
+    }
+
+    /**
+     * Retrieve the total quantity of share and share type
+     * @param lstShareItem
+     * @param sType
+     * @return
+     */
+    private int getShareQuantity(List<ShareItem> lstShareItem, ShareType sType) {
+
+        int totQuantity = 0;
+
+        //Retrieve Business Shares in Available list
+        for (ShareItem sItem : lstShareItem){
+
+            if (sItem.getShareType() == sType){
+                totQuantity = totQuantity + sItem.getQuantity();
+            }
+
+        }
+
+        return totQuantity;
+
     }
 
 }

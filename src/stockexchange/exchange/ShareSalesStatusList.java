@@ -11,14 +11,14 @@ public class ShareSalesStatusList{
 
     private volatile Map<Integer,List<ShareItem>> soldShares;
     private volatile List<ShareItem> availableShares;
-    private volatile Map<String, List<ShareItem>> orderedShares;
-    private volatile Map<String, List<ShareItem>> newAvShares;
+    protected volatile Map<String, ShareItem> orderedShares;
+    protected volatile Map<String, List<ShareItem>> newAvShares;
 
 
     public ShareSalesStatusList() {
         this.soldShares = Collections.synchronizedMap(new HashMap<Integer, List<ShareItem>>());
         this.availableShares = Collections.synchronizedList(new ArrayList<ShareItem>());
-        this.orderedShares = Collections.synchronizedMap(new HashMap<String, List<ShareItem>>());
+        this.orderedShares = Collections.synchronizedMap(new HashMap<String, ShareItem>());
         this.newAvShares = Collections.synchronizedMap(new HashMap<String, List<ShareItem>>());
     }
 
@@ -45,6 +45,9 @@ public class ShareSalesStatusList{
      * @return -1 if not available | ShareItem
      */
     public ShareItem isShareAvailable(ShareItem share) {
+
+        //TODO: To be removed once PM2 code is tested and runs
+        // PM1 CODE
         ShareItem soldShare = null;
         String businessSymbol;
         int quantity = 0;
@@ -67,6 +70,9 @@ public class ShareSalesStatusList{
                 }
             }
         }
+
+        //PM2 CODE
+
         return soldShare;
     }
 
@@ -109,19 +115,26 @@ public class ShareSalesStatusList{
 
         //Is share already in list
         List<ShareItem> lstShares = this.newAvShares.get(aShare.getBusinessSymbol());
+        ShareItem newShare = new ShareItem(aShare.getOrderNum(),aShare.getBusinessSymbol(), aShare.getShareType(),aShare.getUnitPrice(),aShare.getQuantity());
 
         if (lstShares == null) {
-
-            lstShares = new ArrayList<ShareItem>(){{add(aShare);}};
+            lstShares = new ArrayList<ShareItem>(){{add(newShare);}};
             this.newAvShares.put(aShare.getBusinessSymbol(),lstShares);
 
         } else {
 
-                lstShares.add(aShare);
+                lstShares.add(newShare);
         }
 
         //Add to Ordered shares list
-        this.orderedShares.put(aShare.getOrderNum(),new ArrayList<ShareItem>(){{add(aShare);}});
+        this.addToOrderedShares(aShare);
+
+    }
+
+    public void addToOrderedShares(ShareItem aShare){
+
+        //Add to Ordered shares list
+        this.orderedShares.put(aShare.getOrderNum(),aShare);
 
     }
 
@@ -190,17 +203,30 @@ public class ShareSalesStatusList{
         System.out.println();
         System.out.println("Ordered Shares List\n");
 
-        for(Map.Entry<String, List<ShareItem>> entry : this.orderedShares.entrySet()){
+        for(Map.Entry<String, ShareItem> entry : this.orderedShares.entrySet()){
+
+            System.out.println(entry.getValue().printShareInfo());
+
+        }
+
+        //Sold Shares
+        System.out.println();
+        System.out.println("Sold Shares List\n");
+
+        for(Map.Entry<Integer, List<ShareItem>> entry : this.soldShares.entrySet()){
 
             System.out.println(entry.getKey());
 
-            for(ShareItem share : entry.getValue()){
+            for(ShareItem sItem : entry.getValue()){
 
-                System.out.println(share.printShareInfo());
+                System.out.println(sItem.printShareInfo());
             }
 
         }
+
     }
+
+
 
 
 

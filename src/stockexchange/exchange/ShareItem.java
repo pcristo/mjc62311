@@ -103,6 +103,15 @@ public class ShareItem extends Share {
     // ----------------------------- PUBLIC METHODS ------------------------------------------
 
     /**
+     * Increase the share quantity of current share
+     * @param increaseBy
+     */
+    public void increaseQuantity(int increaseBy){
+
+        this.quantity = this.quantity + increaseBy;
+    }
+
+    /**
      *  Remove common.share that were sold from the available listing.
      * @param reduceBy
      */
