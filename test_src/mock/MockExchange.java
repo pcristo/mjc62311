@@ -29,7 +29,7 @@ public class MockExchange extends Exchange  {
      * @throws NotBoundException
      */
     public MockExchange() throws RemoteException, NotBoundException {
-        google = getBusiness("google");
+        google = getBusiness1("google");
 
         //createBusinessDirectory();
         shareStatusSaleList = new ShareSalesStatusList();
@@ -42,7 +42,7 @@ public class MockExchange extends Exchange  {
      * @return
      */
     @Override
-    public BusinessInterface getBusiness(String businessName) {
+    public BusinessInterface getBusiness1(String businessName) {
         return new Business("google_data.csv");
     }
 

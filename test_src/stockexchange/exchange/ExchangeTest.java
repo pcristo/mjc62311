@@ -29,7 +29,7 @@ public class ExchangeTest {
 
     @Test
     public void testGetBusiness() throws Exception {
-        BusinessInterface google = exchange.getBusiness("google");
+        BusinessInterface google = exchange.getBusiness1("google");
         assertEquals(google.getTicker(), "GOOG");
     }
 
@@ -44,8 +44,8 @@ public class ExchangeTest {
     @Test
     public void testSellShares() throws Exception {
         ShareList sharelist = new ShareList(new ArrayList<ShareItem>() {
-            {add(new ShareItem("", "GOOG", ShareType.COMMON, 1000, 100));}
-            {add(new ShareItem("","GOOG", ShareType.COMMON, 800,600));}
+            {add(new ShareItem("", "GOOG", ShareType.COMMON, 1000, 500));}
+            {add(new ShareItem("","GOOG", ShareType.COMMON, 800,200));}
         });
 
         exchange.sellShares(sharelist, new Customer("Ross")).PrintNewAvShares();
@@ -77,5 +77,35 @@ public class ExchangeTest {
     @Test
     public void testGetBusinessTicker() throws Exception {
         assertTrue(exchange.getBusinessTicker("google").equals("GOOG"));
+    }
+
+    @Test
+    public void testUpdateSharePriceExistingCompany() throws Exception {
+
+        exchange.updateSharePrice("GOOG", 600f);
+
+        assertTrue(exchange.priceDirectory.get("GOOG") == 600f);
+
+    }
+
+    @Test
+    public void testUpdateSharePriceNoCompany() throws Exception {
+
+        assertFalse(exchange.updateSharePrice("XXXX", 300f));
+
+
+    }
+
+    @Test
+    public void testGetBusinessExistingCompany() throws Exception {
+
+        String busInfo = exchange.getBusiness("GOOG");
+        assertTrue(busInfo.equals("GOOG 540.11"));
+    }
+
+    @Test
+    public void testGetBusinessNotExistingCompany() throws Exception {
+        String busInfo = exchange.getBusiness("XXXX");
+        assertTrue(busInfo.isEmpty());
     }
 }

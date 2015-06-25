@@ -68,7 +68,7 @@ public class Exchange {
      * @throws RemoteException
      * @throws NotBoundException
      */
-    public BusinessInterface getBusiness(String businessName) throws RemoteException, NotBoundException{
+    public BusinessInterface getBusiness1(String businessName) throws RemoteException, NotBoundException{
         System.setProperty("java.security.policy", Config.getInstance().loadSecurityPolicy());
 
         if (System.getSecurityManager() == null) {
@@ -433,10 +433,11 @@ public class Exchange {
             synchronized (shareToBePaid) {
 
                 // if the business is not registered, there is no interface, and null is returned
-		        BusinessInterface bi = businessDirectory.get(shareToBePaid.getBusinessSymbol());
-                if (bi != null) {
+		        //TODO To Review
+		        //BusinessInterface bi = businessDirectory.get(shareToBePaid.getBusinessSymbol());
+                //if (bi != null) {
                     try {
-                        paid = bi.recievePayment(shareToBePaid.getOrderNum(),
+                        paid = google.recievePayment(shareToBePaid.getOrderNum(),
                                 shareToBePaid.getUnitPrice() * shareToBePaid.getQuantity());
 
                         if (paid) {
@@ -447,7 +448,7 @@ public class Exchange {
                     } catch (Exception e) {
                         System.out.println(" \n " + e.getMessage());
                     }
-                }
+                //}
             }
         }
 
@@ -518,5 +519,56 @@ public class Exchange {
         return totQuantity;
 
     }
+
+     /**
+     *  updateSharePrice(SYMBOL, PRICE) updates existing business’s share price. If business
+     *  does not exist, it’s an error.
+     * @param symbol
+     * @param price
+     * @return
+     */
+    public boolean updateSharePrice(String symbol, float price) {
+
+        //Does business exist in exchange
+        if (this.priceDirectory.get(symbol) == null) {
+            return false;
+        } else {
+
+            //Update Registry price
+            synchronized (this.priceDirectory.get(symbol)){
+                this.priceDirectory.put(symbol, price);
+            }
+
+            //Update all prices in available shares
+            synchronized (shareStatusSaleList.newAvShares.get(symbol)){
+
+                for (ShareItem sItem : shareStatusSaleList.newAvShares.get(symbol)){
+                    sItem.setUnitPrice(price);
+                }
+            }
+        }
+
+        return false;
+
+    }
+
+     /**
+     * getBusinesses(COMP6231) — (assuming, e.g., COMP6231 is a registered business
+     * symbol ID in this example). gets the business info, such as symbol and share price,
+     * the business must exist on this stock exchange
+     * @param symbol
+     * @return
+     */
+    public String getBusiness(String symbol){
+        //Does business exist in exchange
+        if (this.priceDirectory.get(symbol) == null) {
+            return "";
+        } else {
+
+            return symbol + " " + this.priceDirectory.get(symbol);
+
+            }
+    }
+
 
 }
