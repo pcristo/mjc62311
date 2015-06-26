@@ -7,7 +7,6 @@ import common.share.ShareOrder;
 import common.share.ShareType;
 import common.util.Config;
 
-import java.beans.XMLEncoder;
 import java.io.*;
 import java.net.URL;
 import java.rmi.RemoteException;
@@ -16,7 +15,6 @@ import java.util.List;
 
 import stockQuotes.Company;
 import stockQuotes.GoogleFinance;
-import stockexchange.exchange.Exchange;
 
 /**
  * A class for businesses to process transactions/manage shares
@@ -25,14 +23,12 @@ import stockexchange.exchange.Exchange;
  */
 public class Business implements Serializable, BusinessInterface {
 	private static final long serialVersionUID = 1L;
-	private static final String ORDER_RECORD_FILENAME = Config.getInstance().getAttr("businessXmlLog");
 	private List<Share> sharesList = new ArrayList<Share>();
 	private List<OrderRecord> orderRecords = new ArrayList<OrderRecord>();
 	private Object recordLock = new Object();
 
 	private static Server<BusinessInterface> server = new Server<BusinessInterface>();
 
-	
 	/**
 	 * Constructor to create a business
 	 * 
@@ -45,6 +41,7 @@ public class Business implements Serializable, BusinessInterface {
 			String filePath = Config.getInstance().getAttr("files") + "/";
 			URL sourceURL = Thread.currentThread().getContextClassLoader()
 					.getResource(filePath + identifier);
+			System.out.println(sourceURL.toString()); // TODO delete this line
 			BufferedReader bufferedReader = new BufferedReader(
 					new InputStreamReader(sourceURL.openStream()));
 
@@ -64,7 +61,7 @@ public class Business implements Serializable, BusinessInterface {
 					throw new IOException("The CSV file is not correctly formatted.");
 				}
 				
-				// capture the company information, get price from Google webservice
+				// capture the company information, get price from Google web service
 				GoogleFinance tickers = new GoogleFinance();
 				Company company = new Company(column[0], new stockQuotes.Exchange(column[2]));
 				String price = tickers.getStock(company);
@@ -237,7 +234,7 @@ public class Business implements Serializable, BusinessInterface {
 	 * @deprecated Replaced by saveRecordToList()
 	 */
 	private void saveRecord(ShareOrder order) throws FileNotFoundException {
-		// create the order record
+		/*
 		OrderRecord orderRecord = new OrderRecord(order, false);
 
 		synchronized(recordLock) {
@@ -246,7 +243,8 @@ public class Business implements Serializable, BusinessInterface {
 					new FileOutputStream(ORDER_RECORD_FILENAME, true)));
 			e.writeObject(orderRecord); // append the new order to the record
 			e.close();
-		}
+			
+		} */
 	}
 
 	/**
@@ -329,11 +327,11 @@ public class Business implements Serializable, BusinessInterface {
 
 	}
 
-	/**
+	/** TODO: Delete commented code
 	 * Create business interfaces and bind them to ports 9095 - 9099
 	 * @param args
 	 */
-	public static void main(String args[]) {
+	/*public static void main(String args[]) {
 		//TODO business name in enum
 
 		// Start google server
@@ -361,7 +359,7 @@ public class Business implements Serializable, BusinessInterface {
 			System.out.println(rme.getMessage());
 			LoggerClient.log("Remote Exception in Business Server: " + rme.getMessage());
 		}
-	}
+	} */
 
 
 }

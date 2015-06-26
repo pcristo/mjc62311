@@ -14,8 +14,6 @@ import java.net.UnknownHostException;
  */
 public class LoggerClient {
 
-
-
     /**
      * Classname is prefixed to the message being sent to the logging server
      * Log the message to the log server
@@ -39,6 +37,10 @@ public class LoggerClient {
         System.out.println(msg);
         // Check to see if we have backup server ready to go.
 
+    	// handle the case where logging has been disabled
+    	if (Config.getInstance().getAttr("loggingDisabled").equals("true"))
+    		return true;
+    	
         msg = className + " :: " + msg;
 
         Config c = Config.getInstance();
@@ -69,13 +71,12 @@ public class LoggerClient {
      * @param port int of the port to send message on
      * @return
      */
-    public static boolean sendMessage(String msg, String ip, int port) {
-        try {
+    public static boolean sendMessage(String msg, String ip, int port) {  	
+    	try {
             DatagramSocket clientSocket = new DatagramSocket();
             clientSocket.setSoTimeout(6000);
             byte[] sendData = new byte[1024];
             sendData = msg.getBytes();
-
 
             InetAddress host = InetAddress.getByName(ip);
             DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length,  host , port);

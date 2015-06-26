@@ -8665,3 +8665,172 @@ Log Server Started
 2015/06/17 15:05:45: business.Business :: Payment for order 1317 successful.
 2015/06/17 15:05:45: business.Business :: GOOG successfully issued 100 shares of MSFT COMMON (order #1243)
 2015/06/17 15:05:45: business.Business :: GOOG failed to issue shares of MSFT.B CONVERTIBLE: Order price 523.32 is less than minimum issue price 523.32 (order #1244)
+
+Log Server Started
+
+Log Server Started
+
+Log Server Started
+
+Log Server Started
+
+Log Server Started
+
+Log Server Started
+
+Log Server Started
+
+Log Server Started
+
+Log Server Started
+
+Log Server Started
+
+Log Server Started
+
+Log Server Started
+
+Log Server Started
+
+Log Server Started
+
+Log Server Started
+
+Log Server Started
+
+Log Server Started
+
+Log Server Started
+
+Log Server Started
+
+Log Server Started
+
+Log Server Started
+
+Log Server Started
+
+Log Server Started
+
+Log Server Started
+
+Log Server Started
+
+Log Server Started
+
+Log Server Started
+
+Log Server Started
+
+Log Server Started
+
+Log Server Started
+
+Log Server Started
+
+Log Server Started
+
+Log Server Started
+
+Log Server Started
+
+Log Server Started
+
+Log Server Started
+
+Log Server Started
+
+Log Server Started
+
+Log Server Started
+
+Log Server Started
+
+Log Server Started
+
+Log Server Started
+
+Log Server Started
+
+Log Server Started
+
+Log Server Started
+
+Log Server Started
+2015/06/25 21:49:20: business.Business :: Business yahoo_data.csv object created.
+
+Log Server Started
+2015/06/25 21:56:24: business.Business :: Business google_data.csv object created.
+2015/06/25 21:56:30: business.Business :: GOOG successfully issued 150 shares of GOOG COMMON (order #4)
+
+Log Server Started
+2015/06/25 21:56:36: business.Business :: GOOG failed to issue shares of GOOG COMMON: The order number 4 already exists
+
+Log Server Started
+2015/06/25 21:58:59: business.Business :: Business microsoft_data.csv object created.
+2015/06/25 21:58:59: business.Business :: Business google_data.csv object created.
+2015/06/25 21:58:59: business.Business :: Business yahoo_data.csv object created.
+
+Log Server Started
+2015/06/25 21:59:51: business.Business :: Business yahoo_data.csv object created.
+2015/06/25 21:59:51: business.Business :: Business google_data.csv object created.
+2015/06/25 21:59:51: business.Business :: Business apple_data.csv object created.
+2015/06/25 21:59:53: business.Business :: Business microsoft_data.csv object created.
+
+Log Server Started
+2015/06/25 22:02:12: business.Business :: Business yahoo_data.csv object created.
+2015/06/25 22:02:12: business.Business :: Business google_data.csv object created.
+2015/06/25 22:02:12: business.Business :: Business microsoft_data.csv object created.
+
+Log Server Started
+2015/06/25 22:04:44: business.Business :: Business google_data.csv object created.
+2015/06/25 22:04:44: business.Business :: Business microsoft_data.csv object created.
+2015/06/25 22:04:44: business.Business :: Business apple_data.csv object created.
+2015/06/25 22:04:44: business.Business :: Business yahoo_data.csv object created.
+
+Log Server Started
+2015/06/25 22:05:24: business.Business :: Business google_data.csv object created.
+2015/06/25 22:05:30: business.Business :: GOOG successfully issued 150 shares of GOOG COMMON (order #4)
+2015/06/25 22:05:36: business.Business :: GOOG failed to issue shares of GOOG COMMON: The order number 4 already exists
+
+Log Server Started
+
+Log Server Started
+
+Log Server Started
+
+Log Server Started
+
+Log Server Started
+
+Log Server Started
+
+Log Server Started
+
+Log Server Started
+
+Log Server Started
+2015/06/25 22:11:32: business.Business :: Business google_data.csv object created.
+2015/06/25 22:11:38: business.Business :: GOOG successfully issued 150 shares of GOOG COMMON (order #4)
+2015/06/25 22:11:44: business.Business :: GOOG failed to issue shares of GOOG COMMON: The order number 4 already exists
+2015/06/25 22:11:51: business.Business :: Business apple_data.csv object created.
+2015/06/25 22:11:51: business.Business :: Business yahoo_data.csv object created.
+2015/06/25 22:11:51: business.Business :: Business microsoft_data.csv object created.
+2015/06/25 22:11:51: business.Business :: Business google_data.csv object created.
+2015/06/25 22:11:56: business.Business :: Business google_data.csv object created.
+2015/06/25 22:12:02: business.Business :: Business microsoft_data.csv object created.
+2015/06/25 22:12:10: business.Business :: Business yahoo_data.csv object created.
+2015/06/25 22:12:16: business.Business :: Business apple_data.csv object created.
+2015/06/25 22:12:22: business.Business :: Business google_data.csv object created.
+2015/06/25 22:12:28: business.Business :: Business google_data.csv object created.
+2015/06/25 22:12:35: business.Business :: Business google_data.csv object created.
+2015/06/25 22:12:41: business.Business :: GOOG failed to issue shares of GOOG CONVERTIBLE: Invalid number of shares requested (order #3)
+2015/06/25 22:12:49: business.Business :: Business google_data.csv object created.
+2015/06/25 22:12:55: business.Business :: GOOG failed to issue shares of GOOG CONVERTIBLE: Order price 0.0 is less than minimum issue price 0.0 (order #2)
+2015/06/25 22:13:01: business.Business :: Business google_data.csv object created.
+2015/06/25 22:13:07: business.Business :: GOOG successfully issued 150 shares of GOOG COMMON (order #1)
+2015/06/25 22:13:14: business.Business :: Business google_data.csv object created.
+
+Log Server Started
+2015/06/25 22:14:01: business.Business :: Business google_data.csv object created.
+2015/06/25 22:14:07: business.Business :: GOOG failed to issue shares of GOOG CONVERTIBLE: Order price 0.0 is less than minimum issue price 0.0 (order #2)

@@ -1,4 +1,5 @@
 import business.Business;
+import business.BusinessServer;
 import common.logger.LoggerServer;
 import stockexchange.broker.Broker;
 
@@ -22,15 +23,13 @@ public class projectLauncher {
 	public static void main(String[] args) throws InterruptedException,	IOException {
 		
 		// Launch threads
-		// Runnable is represented ia lambda
-		Thread logger = new Thread(
-				()->LoggerServer.main(null)
-		);
+		Thread logger = new Thread(()->LoggerServer.main(null));
 		logger.start();
 		pause("Launching common.logger and waiting ", WAIT_BETWEEN_LAUNCH_TIME);
 
-		Thread business = new Thread(()->Business.main(null));
-		business.start();
+		Thread[] businesses = { BusinessServer.launch("GOOG"),
+				BusinessServer.launch("APPL"), BusinessServer.launch("YHOO"),
+				BusinessServer.launch("MSFT") };
 		pause("Launching business and waiting ", WAIT_BETWEEN_LAUNCH_TIME);
 
 		Thread broker = new Thread(()->Broker.main(null));
@@ -42,9 +41,10 @@ public class projectLauncher {
 			System.out.println("Press enter to kill everything uncleanly :D");
 			System.in.read();
 
-			// Stop is depreciated
+			// Stop all running threads
 			broker.interrupt();
-			business.interrupt();
+			for(Thread t : businesses)
+				t.interrupt();
 			logger.interrupt();
 				
 			System.out.println("Okay, everyone is dead.");
@@ -52,10 +52,8 @@ public class projectLauncher {
 		}		
 	}
 
-
 	private static void pause(String msg, int ms) throws InterruptedException {		
 		for (int t = ms; t > 0; t -= PAUSE_NOTIFICATION_TIME) {
-			// System.out.println(PREFACE_STRING + msg + t + " ms");
 			Thread.sleep(PAUSE_NOTIFICATION_TIME);
 		}
 	}

@@ -4,16 +4,17 @@
   "jars": "resources/jar",
   "out": "out",
   "files": "files",
-  "logServerFile": "src/files/iteration_one.log",
+  "logServerFile": "src/files/iteration_two.log",
   "security": "resources/settings/security.policy",
 
   "logServerIP" : "localhost",
-  "logServerPort": "9090",
+  "logServerPort": "19082",
   "logServerUsername": "root",
   "logServerPassword": "",
+  "loggingDisabled": "true",
 
   "backup_logServerIP" : "localhost",
-  "backup_logServerPort": "9100",
+  "backup_logServerPort": "19083",
 
   "brokerServerIP": "localhost",
   "brokerPort": "9089",
