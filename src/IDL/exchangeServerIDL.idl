@@ -1,6 +1,5 @@
 module exchangeServer{
-interface ExchangeServerIF
-{
+
 /*This is indeed the ShareType enum, however, we can't
 use it to replace the exisitng one, since IDL automatically
 generated class needs to be used to ensure CORBA stub communication
@@ -16,10 +15,87 @@ struct BusinessInfo {
           CORBAShareType shareType;
           float unitPrice;
      };
-BusinessInfo getBusiness(in string businessName);
+     
+/*This is indeed the ShareItem class, however, we can't
+use it to replace the exisitng one, since IDL automatically
+generated class is final, and we have a class extends Share class
+*/
+struct CORBAShareItem {
+          string businessSymbol;
+          CORBAShareType shareType;
+          float unitPrice;
+          float orderNum;
+     };
+
+     /*This is indeed the ShareOrder class, however, we can't
+     use it to replace the exisitng one, since IDL automatically
+     generated class is final, and we have a class extends Share class
+     */
+     struct CORBAShareOrder {
+	string orderNum;
+	string brokerRef;
+	float quantity;
+	float unitPrice;
+	float unitPriceOrder;
+	CORBAShareType shareType;
+	string businessSymbol;
+          };
+     
+ /*This is indeed the Customer class, however, we can't
+use it to replace the exisitng one, since IDL automatically
+generated class needs to be used to ensure CORBA stub communication
+*/    
+struct CORBACustomer {
+    long customerReferenceNumber;
+    string name;
+    string street1;
+    string street2;
+    string city;
+    string province;
+    string postalCode;
+    string country;
+     };
+     
+interface ExchangeServerIF
+{
+exchangeServer::BusinessInfo getBusiness(in string businessName);
 boolean updateSharePrice(in string businessSymbol, in float unitPrice);
-boolean registerBuiness(in string businessSymbol, in float unitPrice);
-boolean unregisterBuiness(in string businessSymbol);
+boolean registerBusiness(in string businessSymbol, in float unitPrice);
+boolean unregisterBusiness(in string businessSymbol);
+};
+
+interface BusinessInterface
+{
+    boolean issueShares(in exchangeServer::CORBAShareOrder aSO);
+
+    exchangeServer::BusinessInfo getShareInfo(in exchangeServer::CORBAShareType aShareType);
+
+	typedef sequence<exchangeServer::BusinessInfo> ShareList; 
+
+    ShareList getSharesList();
+
+    boolean recievePayment(in string orderNum, in float totalPrice);
+
+    string getTicker();
+};
+
+interface BrokerInterface
+{
+	typedef sequence<string> tickerList;
+    boolean buyShares(in tickerList list, in exchangeServer::CORBAShareType type, in long quantity, in exchangeServer::CORBACustomer customer);
+
+    boolean sellShares(in tickerList list, in exchangeServer::CORBAShareType type, in long quantity, in exchangeServer::CORBACustomer customer);
+
+	typedef sequence<exchangeServer::CORBAShareItem> shareItemList;
+
+    tickerList getTickerListing();
+
+    string getBusinessTicker(in string businessName);
+    //CORBA IDL doesn't support function overloading, so have to change function name
+    //but remember sellShareList is equal to the previous public boolean sellShares(ArrayList<ShareItem> lstShares, Customer customer)
+    boolean sellShareList(in shareItemList lstShares, in exchangeServer::CORBACustomer customer);
+    
+
 };
 
 };
