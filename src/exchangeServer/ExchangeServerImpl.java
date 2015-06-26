@@ -1,7 +1,5 @@
 package exchangeServer;
 
-import exchangeServer.ExchangeServerIFPackage.BusinessInfo;
-import exchangeServer.ExchangeServerIFPackage.CORBAShareType;
 import org.omg.CORBA.ORB;
 
 /**
@@ -41,14 +39,12 @@ public class ExchangeServerImpl extends ExchangeServerIFPOA {
     }
 
     @Override
-    public boolean registerBuiness(String businessSymbol, float unitPrice) {
-        //TODO:implement real logic
+    public boolean registerBusiness(String businessSymbol, float unitPrice) {
         return false;
     }
 
     @Override
-    public boolean unregisterBuiness(String businessSymbol) {
-        //TODO:implement real logic
+    public boolean unregisterBusiness(String businessSymbol) {
         return false;
     }
 }

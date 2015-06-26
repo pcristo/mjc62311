@@ -12,7 +12,7 @@ public class ExchangeServerIFHelper
      * @param a an any
      * @param t ExchangeServerIF value
      */
-    public static void insert(org.omg.CORBA.Any a, exchangeServer.ExchangeServerIF t)
+    public static void insert(org.omg.CORBA.Any a, ExchangeServerIF t)
     {
         a.insert_Object(t , type());
     }
@@ -23,7 +23,7 @@ public class ExchangeServerIFHelper
      * @param a an any
      * @return the extracted ExchangeServerIF value
      */
-    public static exchangeServer.ExchangeServerIF extract( org.omg.CORBA.Any a )
+    public static ExchangeServerIF extract( org.omg.CORBA.Any a )
     {
         if ( !a.type().equivalent( type() ) )
         {
@@ -31,7 +31,7 @@ public class ExchangeServerIFHelper
         }
         try
         {
-            return exchangeServer.ExchangeServerIFHelper.narrow( a.extract_Object() );
+            return ExchangeServerIFHelper.narrow( a.extract_Object() );
         }
         catch ( final org.omg.CORBA.BAD_PARAM e )
         {
@@ -73,9 +73,9 @@ public class ExchangeServerIFHelper
      * @param istream the input stream
      * @return the readed ExchangeServerIF value
      */
-    public static exchangeServer.ExchangeServerIF read(org.omg.CORBA.portable.InputStream istream)
+    public static ExchangeServerIF read(org.omg.CORBA.portable.InputStream istream)
     {
-        return(exchangeServer.ExchangeServerIF)istream.read_Object(exchangeServer._ExchangeServerIFStub.class);
+        return(ExchangeServerIF)istream.read_Object(_ExchangeServerIFStub.class);
     }
 
     /**
@@ -83,7 +83,7 @@ public class ExchangeServerIFHelper
      * @param ostream the output stream
      * @param value ExchangeServerIF value
      */
-    public static void write(org.omg.CORBA.portable.OutputStream ostream, exchangeServer.ExchangeServerIF value)
+    public static void write(org.omg.CORBA.portable.OutputStream ostream, ExchangeServerIF value)
     {
         ostream.write_Object((org.omg.CORBA.portable.ObjectImpl)value);
     }

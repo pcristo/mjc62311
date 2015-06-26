@@ -1,4 +1,4 @@
-package exchangeServer.ExchangeServerIFPackage;
+package exchangeServer;
 
 /**
  * Enum definition: CORBAShareType.
@@ -55,7 +55,7 @@ public final class CORBAShareType implements org.omg.CORBA.portable.IDLEntity
      * Maintains singleton property for serialized enums.
      * Issue 4271: IDL/Java issue, Mapping for IDL enum.
      */
-    public java.lang.Object readResolve() throws java.io.ObjectStreamException
+    public Object readResolve() throws java.io.ObjectStreamException
     {
         return from_int( value() );
     }
@@ -92,7 +92,7 @@ public final class CORBAShareType implements org.omg.CORBA.portable.IDLEntity
      * Return a string representation
      * @return a string representation of the enumeration
      */
-    public java.lang.String toString()
+    public String toString()
     {
         switch ( _CORBAShareType_value )
         {

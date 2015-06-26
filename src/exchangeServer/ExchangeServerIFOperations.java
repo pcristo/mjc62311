@@ -10,7 +10,7 @@ public interface ExchangeServerIFOperations
     /**
      * Operation getBusiness
      */
-    public exchangeServer.ExchangeServerIFPackage.BusinessInfo getBusiness(String businessName);
+    public BusinessInfo getBusiness(String businessName);
 
     /**
      * Operation updateSharePrice
@@ -18,13 +18,13 @@ public interface ExchangeServerIFOperations
     public boolean updateSharePrice(String businessSymbol, float unitPrice);
 
     /**
-     * Operation registerBuiness
+     * Operation registerBusiness
      */
-    public boolean registerBuiness(String businessSymbol, float unitPrice);
+    public boolean registerBusiness(String businessSymbol, float unitPrice);
 
     /**
-     * Operation unregisterBuiness
+     * Operation unregisterBusiness
      */
-    public boolean unregisterBuiness(String businessSymbol);
+    public boolean unregisterBusiness(String businessSymbol);
 
 }

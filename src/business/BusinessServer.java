@@ -22,12 +22,7 @@ public class BusinessServer implements Runnable {
 		// TODO: replace this with a CORBA call
 		Exchange exchange = new Exchange();
 		float price = business.getShareInfo(ShareType.COMMON).getUnitPrice();
-		try {
-			exchange.registerBusiness(businessSymbol, price);
-		} catch (RemoteException | NotBoundException e) {
-			// TODO Auto-generated catch block (log something)
-			e.printStackTrace();
-		}
+		exchange.registerBusiness(businessSymbol, price);
 
 		// keep the server running forever...
 		while (true) {

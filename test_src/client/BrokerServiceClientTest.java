@@ -1,14 +1,10 @@
 package client;
 
-import common.logger.TimerLoggerClient;
 import mock.MockBroker;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import common.share.ShareType;
-import stockexchange.broker.Broker;
-import stockexchange.broker.BrokerInterface;
 
 import java.io.ByteArrayInputStream;
 

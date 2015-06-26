@@ -1,58 +1,60 @@
-package exchangeServer;
+package exchangeServer.BusinessInterfacePackage;
+
+import exchangeServer.BusinessInfo;
 
 /**
- * Holder class for : ExchangeServerIF
+ * Holder class for : ShareList
  * 
  * @author OpenORB Compiler
  */
-final public class ExchangeServerIFHolder
+final public class ShareListHolder
         implements org.omg.CORBA.portable.Streamable
 {
     /**
-     * Internal ExchangeServerIF value
+     * Internal ShareList value
      */
-    public ExchangeServerIF value;
+    public BusinessInfo[] value;
 
     /**
      * Default constructor
      */
-    public ExchangeServerIFHolder()
+    public ShareListHolder()
     { }
 
     /**
      * Constructor with value initialisation
      * @param initial the initial value
      */
-    public ExchangeServerIFHolder(ExchangeServerIF initial)
+    public ShareListHolder(BusinessInfo[] initial)
     {
         value = initial;
     }
 
     /**
-     * Read ExchangeServerIF from a marshalled stream
+     * Read ShareList from a marshalled stream
      * @param istream the input stream
      */
     public void _read(org.omg.CORBA.portable.InputStream istream)
     {
-        value = ExchangeServerIFHelper.read(istream);
+        value = ShareListHelper.read(istream);
     }
 
     /**
-     * Write ExchangeServerIF into a marshalled stream
+     * Write ShareList into a marshalled stream
      * @param ostream the output stream
      */
     public void _write(org.omg.CORBA.portable.OutputStream ostream)
     {
-        ExchangeServerIFHelper.write(ostream,value);
+        ShareListHelper.write(ostream,value);
     }
 
     /**
-     * Return the ExchangeServerIF TypeCode
+     * Return the ShareList TypeCode
      * @return a TypeCode
      */
     public org.omg.CORBA.TypeCode _type()
     {
-        return ExchangeServerIFHelper.type();
+        return ShareListHelper.type();
     }
 
 }

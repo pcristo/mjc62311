@@ -3,9 +3,12 @@ package client.simulation;
 import common.Customer;
 import common.logger.LoggerClient;
 import common.share.ShareType;
-import stockexchange.broker.BrokerInterface;
+import exchangeServer.BrokerInterface;
+import exchangeServer.CORBACustomer;
+import exchangeServer.CORBAShareType;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.ConcurrentModificationException;
 
 
@@ -29,7 +32,7 @@ public class Simulation implements Runnable{
     public void run() {
         LoggerClient.log("SIMULATION THREAD STARTED - CUSTOMER NAME IS " + customer.getName());
         try {
-            ArrayList<String> tickers = broker.getTickerListing();
+            ArrayList<String> tickers = new ArrayList(Arrays.asList(broker.getTickerListing()));
             System.out.println(tickers);
             if(tickers.size() != 9 ||
                     !tickers.contains("MSFT") || !tickers.contains("GOOG") || !tickers.contains("YHOO")) {
@@ -37,7 +40,7 @@ public class Simulation implements Runnable{
             } else {
                 LoggerClient.log("TICKER RECIEVED SUCCESS!");
             }
-            boolean sell = broker.sellShares(tickers, type, 100, customer);
+            boolean sell = broker.sellShares((String[])tickers.toArray(), convertShareType(type), 100, convertCustomer(customer));
             status = sell;
             if (!sell) {
                 LoggerClient.log("FAIL!!!IMULATION THREAD - " + customer.getName() + " SELLING " + tickers.get(0) + ": FAILED!");
@@ -52,6 +55,27 @@ public class Simulation implements Runnable{
             System.out.println("Exception in thread: " + customer.getName() + " selling " + tickers.get(0));
             e.printStackTrace();
             //System.exit(-1);
+        }
+    }
+
+    private CORBACustomer convertCustomer(Customer c)
+    {
+        CORBACustomer customer = new CORBACustomer(c.getCustomerReferenceNumber(),c.getName(),c.getStreet1(),c.getStreet2(),c.getCity(),c.getProvince(),c.getPostalCode(),c.getCountry());
+        return customer;
+    }
+
+    private CORBAShareType convertShareType(ShareType sharetype)
+    {
+        switch (sharetype)
+        {
+            case COMMON:
+                return CORBAShareType.COMMON;
+            case CONVERTIBLE:
+                return CORBAShareType.CONVERTIBLE;
+            case PREFERRED:
+                return CORBAShareType.PREFERRED;
+            default:
+                return CORBAShareType.PREFERRED;
         }
     }
 

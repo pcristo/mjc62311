@@ -2,6 +2,7 @@ package client;
 
 import java.util.Properties;
 
+import common.util.Config;
 import org.omg.CORBA.ORB;
 import org.omg.CORBA.ORBPackage.InvalidName;
 import org.omg.CosNaming.NameComponent;
@@ -28,7 +29,6 @@ public class ExchangeServiceClient_CORBA
 	private static ExchangeServerIF m_serverIF;
 	private static NamingContextExt ncRef;
 	private static ORB orb;
-	private static ORB listenerOrb;
 	private String m_server;
 	private String m_company;
 
@@ -38,12 +38,12 @@ public class ExchangeServiceClient_CORBA
 			org.omg.CosNaming.NamingContextPackage.InvalidName, AdapterInactive
 	{
 		Properties props = System.getProperties();
-		props.put("org.omg.CORBA.ORBInitialPort", "9999");
+		props.put("org.omg.CORBA.ORBInitialPort", Config.getInstance().getAttr("namingServicePort"));
 		props.put("org.omg.CORBA.ORBInitialHost", "localhost");
 		String[] args =
 		{};
 		orb = ORB.init(args, null);
-		listenerOrb = ORB.init(args, null);
+
 		// get the root naming context
 		org.omg.CORBA.Object objRef = orb
 				.resolve_initial_references("NameService");

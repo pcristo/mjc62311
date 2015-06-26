@@ -1,9 +1,7 @@
 import client.BrokerServiceClient;
 import common.logger.TimerLoggerClient;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import stockexchange.broker.BrokerInterface;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;

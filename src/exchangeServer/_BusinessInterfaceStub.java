@@ -1,16 +1,18 @@
 package exchangeServer;
 
+import exchangeServer.BusinessInterfacePackage.ShareListHelper;
+
 /**
- * Interface definition: ExchangeServerIF.
+ * Interface definition: BusinessInterface.
  * 
  * @author OpenORB Compiler
  */
-public class _ExchangeServerIFStub extends org.omg.CORBA.portable.ObjectImpl
-        implements ExchangeServerIF
+public class _BusinessInterfaceStub extends org.omg.CORBA.portable.ObjectImpl
+        implements BusinessInterface
 {
     static final String[] _ids_list =
     {
-        "IDL:exchangeServer/ExchangeServerIF:1.0"
+        "IDL:exchangeServer/BusinessInterface:1.0"
     };
 
     public String[] _ids()
@@ -18,12 +20,12 @@ public class _ExchangeServerIFStub extends org.omg.CORBA.portable.ObjectImpl
      return _ids_list;
     }
 
-    private final static Class _opsClass = ExchangeServerIFOperations.class;
+    private final static Class _opsClass = BusinessInterfaceOperations.class;
 
     /**
-     * Operation getBusiness
+     * Operation issueShares
      */
-    public BusinessInfo getBusiness(String businessName)
+    public boolean issueShares(CORBAShareOrder aSO)
     {
         while(true)
         {
@@ -32,8 +34,58 @@ public class _ExchangeServerIFStub extends org.omg.CORBA.portable.ObjectImpl
                 org.omg.CORBA.portable.InputStream _input = null;
                 try
                 {
-                    org.omg.CORBA.portable.OutputStream _output = this._request("getBusiness",true);
-                    _output.write_string(businessName);
+                    org.omg.CORBA.portable.OutputStream _output = this._request("issueShares",true);
+                    CORBAShareOrderHelper.write(_output,aSO);
+                    _input = this._invoke(_output);
+                    boolean _arg_ret = _input.read_boolean();
+                    return _arg_ret;
+                }
+                catch(org.omg.CORBA.portable.RemarshalException _exception)
+                {
+                    continue;
+                }
+                catch(org.omg.CORBA.portable.ApplicationException _exception)
+                {
+                    String _exception_id = _exception.getId();
+                    throw new org.omg.CORBA.UNKNOWN("Unexpected User Exception: "+ _exception_id);
+                }
+                finally
+                {
+                    this._releaseReply(_input);
+                }
+            }
+            else
+            {
+                org.omg.CORBA.portable.ServantObject _so = _servant_preinvoke("issueShares",_opsClass);
+                if (_so == null)
+                   continue;
+                BusinessInterfaceOperations _self = (BusinessInterfaceOperations) _so.servant;
+                try
+                {
+                    return _self.issueShares( aSO);
+                }
+                finally
+                {
+                    _servant_postinvoke(_so);
+                }
+            }
+        }
+    }
+
+    /**
+     * Operation getShareInfo
+     */
+    public BusinessInfo getShareInfo(CORBAShareType aShareType)
+    {
+        while(true)
+        {
+            if (!this._is_local())
+            {
+                org.omg.CORBA.portable.InputStream _input = null;
+                try
+                {
+                    org.omg.CORBA.portable.OutputStream _output = this._request("getShareInfo",true);
+                    CORBAShareTypeHelper.write(_output,aShareType);
                     _input = this._invoke(_output);
                     BusinessInfo _arg_ret = BusinessInfoHelper.read(_input);
                     return _arg_ret;
@@ -54,13 +106,13 @@ public class _ExchangeServerIFStub extends org.omg.CORBA.portable.ObjectImpl
             }
             else
             {
-                org.omg.CORBA.portable.ServantObject _so = _servant_preinvoke("getBusiness",_opsClass);
+                org.omg.CORBA.portable.ServantObject _so = _servant_preinvoke("getShareInfo",_opsClass);
                 if (_so == null)
                    continue;
-                ExchangeServerIFOperations _self = (ExchangeServerIFOperations) _so.servant;
+                BusinessInterfaceOperations _self = (BusinessInterfaceOperations) _so.servant;
                 try
                 {
-                    return _self.getBusiness( businessName);
+                    return _self.getShareInfo( aShareType);
                 }
                 finally
                 {
@@ -71,9 +123,9 @@ public class _ExchangeServerIFStub extends org.omg.CORBA.portable.ObjectImpl
     }
 
     /**
-     * Operation updateSharePrice
+     * Operation getSharesList
      */
-    public boolean updateSharePrice(String businessSymbol, float unitPrice)
+    public BusinessInfo[] getSharesList()
     {
         while(true)
         {
@@ -82,9 +134,58 @@ public class _ExchangeServerIFStub extends org.omg.CORBA.portable.ObjectImpl
                 org.omg.CORBA.portable.InputStream _input = null;
                 try
                 {
-                    org.omg.CORBA.portable.OutputStream _output = this._request("updateSharePrice",true);
-                    _output.write_string(businessSymbol);
-                    _output.write_float(unitPrice);
+                    org.omg.CORBA.portable.OutputStream _output = this._request("getSharesList",true);
+                    _input = this._invoke(_output);
+                    BusinessInfo[] _arg_ret = ShareListHelper.read(_input);
+                    return _arg_ret;
+                }
+                catch(org.omg.CORBA.portable.RemarshalException _exception)
+                {
+                    continue;
+                }
+                catch(org.omg.CORBA.portable.ApplicationException _exception)
+                {
+                    String _exception_id = _exception.getId();
+                    throw new org.omg.CORBA.UNKNOWN("Unexpected User Exception: "+ _exception_id);
+                }
+                finally
+                {
+                    this._releaseReply(_input);
+                }
+            }
+            else
+            {
+                org.omg.CORBA.portable.ServantObject _so = _servant_preinvoke("getSharesList",_opsClass);
+                if (_so == null)
+                   continue;
+                BusinessInterfaceOperations _self = (BusinessInterfaceOperations) _so.servant;
+                try
+                {
+                    return _self.getSharesList();
+                }
+                finally
+                {
+                    _servant_postinvoke(_so);
+                }
+            }
+        }
+    }
+
+    /**
+     * Operation recievePayment
+     */
+    public boolean recievePayment(String orderNum, float totalPrice)
+    {
+        while(true)
+        {
+            if (!this._is_local())
+            {
+                org.omg.CORBA.portable.InputStream _input = null;
+                try
+                {
+                    org.omg.CORBA.portable.OutputStream _output = this._request("recievePayment",true);
+                    _output.write_string(orderNum);
+                    _output.write_float(totalPrice);
                     _input = this._invoke(_output);
                     boolean _arg_ret = _input.read_boolean();
                     return _arg_ret;
@@ -105,13 +206,13 @@ public class _ExchangeServerIFStub extends org.omg.CORBA.portable.ObjectImpl
             }
             else
             {
-                org.omg.CORBA.portable.ServantObject _so = _servant_preinvoke("updateSharePrice",_opsClass);
+                org.omg.CORBA.portable.ServantObject _so = _servant_preinvoke("recievePayment",_opsClass);
                 if (_so == null)
                    continue;
-                ExchangeServerIFOperations _self = (ExchangeServerIFOperations) _so.servant;
+                BusinessInterfaceOperations _self = (BusinessInterfaceOperations) _so.servant;
                 try
                 {
-                    return _self.updateSharePrice( businessSymbol,  unitPrice);
+                    return _self.recievePayment( orderNum,  totalPrice);
                 }
                 finally
                 {
@@ -122,9 +223,9 @@ public class _ExchangeServerIFStub extends org.omg.CORBA.portable.ObjectImpl
     }
 
     /**
-     * Operation registerBusiness
+     * Operation getTicker
      */
-    public boolean registerBusiness(String businessSymbol, float unitPrice)
+    public String getTicker()
     {
         while(true)
         {
@@ -133,11 +234,9 @@ public class _ExchangeServerIFStub extends org.omg.CORBA.portable.ObjectImpl
                 org.omg.CORBA.portable.InputStream _input = null;
                 try
                 {
-                    org.omg.CORBA.portable.OutputStream _output = this._request("registerBusiness",true);
-                    _output.write_string(businessSymbol);
-                    _output.write_float(unitPrice);
+                    org.omg.CORBA.portable.OutputStream _output = this._request("getTicker",true);
                     _input = this._invoke(_output);
-                    boolean _arg_ret = _input.read_boolean();
+                    String _arg_ret = _input.read_string();
                     return _arg_ret;
                 }
                 catch(org.omg.CORBA.portable.RemarshalException _exception)
@@ -156,63 +255,13 @@ public class _ExchangeServerIFStub extends org.omg.CORBA.portable.ObjectImpl
             }
             else
             {
-                org.omg.CORBA.portable.ServantObject _so = _servant_preinvoke("registerBusiness",_opsClass);
+                org.omg.CORBA.portable.ServantObject _so = _servant_preinvoke("getTicker",_opsClass);
                 if (_so == null)
                    continue;
-                ExchangeServerIFOperations _self = (ExchangeServerIFOperations) _so.servant;
+                BusinessInterfaceOperations _self = (BusinessInterfaceOperations) _so.servant;
                 try
                 {
-                    return _self.registerBusiness( businessSymbol,  unitPrice);
-                }
-                finally
-                {
-                    _servant_postinvoke(_so);
-                }
-            }
-        }
-    }
-
-    /**
-     * Operation unregisterBusiness
-     */
-    public boolean unregisterBusiness(String businessSymbol)
-    {
-        while(true)
-        {
-            if (!this._is_local())
-            {
-                org.omg.CORBA.portable.InputStream _input = null;
-                try
-                {
-                    org.omg.CORBA.portable.OutputStream _output = this._request("unregisterBusiness",true);
-                    _output.write_string(businessSymbol);
-                    _input = this._invoke(_output);
-                    boolean _arg_ret = _input.read_boolean();
-                    return _arg_ret;
-                }
-                catch(org.omg.CORBA.portable.RemarshalException _exception)
-                {
-                    continue;
-                }
-                catch(org.omg.CORBA.portable.ApplicationException _exception)
-                {
-                    String _exception_id = _exception.getId();
-                    throw new org.omg.CORBA.UNKNOWN("Unexpected User Exception: "+ _exception_id);
-                }
-                finally
-                {
-                    this._releaseReply(_input);
-                }
-            }
-            else
-            {
-                org.omg.CORBA.portable.ServantObject _so = _servant_preinvoke("unregisterBusiness",_opsClass);
-                if (_so == null)
-                   continue;
-                ExchangeServerIFOperations _self = (ExchangeServerIFOperations) _so.servant;
-                try
-                {
-                    return _self.unregisterBusiness( businessSymbol);
+                    return _self.getTicker();
                 }
                 finally
                 {

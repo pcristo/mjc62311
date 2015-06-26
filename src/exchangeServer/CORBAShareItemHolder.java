@@ -1,58 +1,58 @@
-package exchangeServer.ExchangeServerIFPackage;
+package exchangeServer;
 
 /**
- * Holder class for : BusinessInfo
+ * Holder class for : CORBAShareItem
  * 
  * @author OpenORB Compiler
  */
-final public class BusinessInfoHolder
+final public class CORBAShareItemHolder
         implements org.omg.CORBA.portable.Streamable
 {
     /**
-     * Internal BusinessInfo value
+     * Internal CORBAShareItem value
      */
-    public exchangeServer.ExchangeServerIFPackage.BusinessInfo value;
+    public CORBAShareItem value;
 
     /**
      * Default constructor
      */
-    public BusinessInfoHolder()
+    public CORBAShareItemHolder()
     { }
 
     /**
      * Constructor with value initialisation
      * @param initial the initial value
      */
-    public BusinessInfoHolder(exchangeServer.ExchangeServerIFPackage.BusinessInfo initial)
+    public CORBAShareItemHolder(CORBAShareItem initial)
     {
         value = initial;
     }
 
     /**
-     * Read BusinessInfo from a marshalled stream
+     * Read CORBAShareItem from a marshalled stream
      * @param istream the input stream
      */
     public void _read(org.omg.CORBA.portable.InputStream istream)
     {
-        value = BusinessInfoHelper.read(istream);
+        value = CORBAShareItemHelper.read(istream);
     }
 
     /**
-     * Write BusinessInfo into a marshalled stream
+     * Write CORBAShareItem into a marshalled stream
      * @param ostream the output stream
      */
     public void _write(org.omg.CORBA.portable.OutputStream ostream)
     {
-        BusinessInfoHelper.write(ostream,value);
+        CORBAShareItemHelper.write(ostream,value);
     }
 
     /**
-     * Return the BusinessInfo TypeCode
+     * Return the CORBAShareItem TypeCode
      * @return a TypeCode
      */
     public org.omg.CORBA.TypeCode _type()
     {
-        return BusinessInfoHelper.type();
+        return CORBAShareItemHelper.type();
     }
 
 }

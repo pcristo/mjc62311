@@ -1,11 +1,11 @@
-package exchangeServer.ExchangeServerIFPackage;
+package exchangeServer;
 
 /** 
- * Helper class for : BusinessInfo
+ * Helper class for : CORBAShareItem
  *  
  * @author OpenORB Compiler
  */ 
-public class BusinessInfoHelper
+public class CORBAShareItemHelper
 {
     private static final boolean HAS_OPENORB;
     static
@@ -23,22 +23,22 @@ public class BusinessInfoHelper
         HAS_OPENORB = hasOpenORB;
     }
     /**
-     * Insert BusinessInfo into an any
+     * Insert CORBAShareItem into an any
      * @param a an any
-     * @param t BusinessInfo value
+     * @param t CORBAShareItem value
      */
-    public static void insert(org.omg.CORBA.Any a, exchangeServer.ExchangeServerIFPackage.BusinessInfo t)
+    public static void insert(org.omg.CORBA.Any a, CORBAShareItem t)
     {
-        a.insert_Streamable(new exchangeServer.ExchangeServerIFPackage.BusinessInfoHolder(t));
+        a.insert_Streamable(new CORBAShareItemHolder(t));
     }
 
     /**
-     * Extract BusinessInfo from an any
+     * Extract CORBAShareItem from an any
      *
      * @param a an any
-     * @return the extracted BusinessInfo value
+     * @return the extracted CORBAShareItem value
      */
-    public static exchangeServer.ExchangeServerIFPackage.BusinessInfo extract( org.omg.CORBA.Any a )
+    public static CORBAShareItem extract( org.omg.CORBA.Any a )
     {
         if ( !a.type().equivalent( type() ) )
         {
@@ -49,13 +49,13 @@ public class BusinessInfoHelper
             org.openorb.orb.core.Any any = (org.openorb.orb.core.Any)a;
             try {
                 org.omg.CORBA.portable.Streamable s = any.extract_Streamable();
-                if ( s instanceof exchangeServer.ExchangeServerIFPackage.BusinessInfoHolder )
-                    return ( ( exchangeServer.ExchangeServerIFPackage.BusinessInfoHolder ) s ).value;
+                if ( s instanceof CORBAShareItemHolder )
+                    return ( ( CORBAShareItemHolder ) s ).value;
             }
             catch ( org.omg.CORBA.BAD_INV_ORDER ex )
             {
             }
-            exchangeServer.ExchangeServerIFPackage.BusinessInfoHolder h = new exchangeServer.ExchangeServerIFPackage.BusinessInfoHolder( read( a.create_input_stream() ) );
+            CORBAShareItemHolder h = new CORBAShareItemHolder( read( a.create_input_stream() ) );
             a.insert_Streamable( h );
             return h.value;
         }
@@ -69,7 +69,7 @@ public class BusinessInfoHelper
     private static boolean _working = false;
 
     /**
-     * Return the BusinessInfo TypeCode
+     * Return the CORBAShareItem TypeCode
      * @return a TypeCode
      */
     public static org.omg.CORBA.TypeCode type()
@@ -82,18 +82,21 @@ public class BusinessInfoHelper
                     return org.omg.CORBA.ORB.init().create_recursive_tc(id());
                 _working = true;
                 org.omg.CORBA.ORB orb = org.omg.CORBA.ORB.init();
-                org.omg.CORBA.StructMember _members[] = new org.omg.CORBA.StructMember[ 3 ];
+                org.omg.CORBA.StructMember _members[] = new org.omg.CORBA.StructMember[ 4 ];
 
                 _members[ 0 ] = new org.omg.CORBA.StructMember();
                 _members[ 0 ].name = "businessSymbol";
                 _members[ 0 ].type = orb.get_primitive_tc( org.omg.CORBA.TCKind.tk_string );
                 _members[ 1 ] = new org.omg.CORBA.StructMember();
                 _members[ 1 ].name = "shareType";
-                _members[ 1 ].type = exchangeServer.ExchangeServerIFPackage.CORBAShareTypeHelper.type();
+                _members[ 1 ].type = CORBAShareTypeHelper.type();
                 _members[ 2 ] = new org.omg.CORBA.StructMember();
                 _members[ 2 ].name = "unitPrice";
                 _members[ 2 ].type = orb.get_primitive_tc( org.omg.CORBA.TCKind.tk_float );
-                _tc = orb.create_struct_tc( id(), "BusinessInfo", _members );
+                _members[ 3 ] = new org.omg.CORBA.StructMember();
+                _members[ 3 ].name = "orderNum";
+                _members[ 3 ].type = orb.get_primitive_tc( org.omg.CORBA.TCKind.tk_float );
+                _tc = orb.create_struct_tc( id(), "CORBAShareItem", _members );
                 _working = false;
             }
         }
@@ -101,7 +104,7 @@ public class BusinessInfoHelper
     }
 
     /**
-     * Return the BusinessInfo IDL ID
+     * Return the CORBAShareItem IDL ID
      * @return an ID
      */
     public static String id()
@@ -109,34 +112,36 @@ public class BusinessInfoHelper
         return _id;
     }
 
-    private final static String _id = "IDL:exchangeServer/ExchangeServerIF/BusinessInfo:1.0";
+    private final static String _id = "IDL:exchangeServer/CORBAShareItem:1.0";
 
     /**
-     * Read BusinessInfo from a marshalled stream
+     * Read CORBAShareItem from a marshalled stream
      * @param istream the input stream
-     * @return the readed BusinessInfo value
+     * @return the readed CORBAShareItem value
      */
-    public static exchangeServer.ExchangeServerIFPackage.BusinessInfo read(org.omg.CORBA.portable.InputStream istream)
+    public static CORBAShareItem read(org.omg.CORBA.portable.InputStream istream)
     {
-        exchangeServer.ExchangeServerIFPackage.BusinessInfo new_one = new exchangeServer.ExchangeServerIFPackage.BusinessInfo();
+        CORBAShareItem new_one = new CORBAShareItem();
 
         new_one.businessSymbol = istream.read_string();
-        new_one.shareType = exchangeServer.ExchangeServerIFPackage.CORBAShareTypeHelper.read(istream);
+        new_one.shareType = CORBAShareTypeHelper.read(istream);
         new_one.unitPrice = istream.read_float();
+        new_one.orderNum = istream.read_float();
 
         return new_one;
     }
 
     /**
-     * Write BusinessInfo into a marshalled stream
+     * Write CORBAShareItem into a marshalled stream
      * @param ostream the output stream
-     * @param value BusinessInfo value
+     * @param value CORBAShareItem value
      */
-    public static void write(org.omg.CORBA.portable.OutputStream ostream, exchangeServer.ExchangeServerIFPackage.BusinessInfo value)
+    public static void write(org.omg.CORBA.portable.OutputStream ostream, CORBAShareItem value)
     {
         ostream.write_string( value.businessSymbol );
-        exchangeServer.ExchangeServerIFPackage.CORBAShareTypeHelper.write( ostream, value.shareType );
+        CORBAShareTypeHelper.write( ostream, value.shareType );
         ostream.write_float( value.unitPrice );
+        ostream.write_float( value.orderNum );
     }
 
 }

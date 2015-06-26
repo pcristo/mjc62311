@@ -5,7 +5,6 @@ import org.junit.Before;
 import org.junit.Test;
 import common.share.ShareType;
 import stockexchange.exchange.ShareItem;
-import stockexchange.broker.BrokerInterface;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;

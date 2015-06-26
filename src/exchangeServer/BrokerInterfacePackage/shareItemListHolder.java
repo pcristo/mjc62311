@@ -1,58 +1,60 @@
-package exchangeServer;
+package exchangeServer.BrokerInterfacePackage;
+
+import exchangeServer.CORBAShareItem;
 
 /**
- * Holder class for : ExchangeServerIF
+ * Holder class for : shareItemList
  * 
  * @author OpenORB Compiler
  */
-final public class ExchangeServerIFHolder
+final public class shareItemListHolder
         implements org.omg.CORBA.portable.Streamable
 {
     /**
-     * Internal ExchangeServerIF value
+     * Internal shareItemList value
      */
-    public ExchangeServerIF value;
+    public CORBAShareItem[] value;
 
     /**
      * Default constructor
      */
-    public ExchangeServerIFHolder()
+    public shareItemListHolder()
     { }
 
     /**
      * Constructor with value initialisation
      * @param initial the initial value
      */
-    public ExchangeServerIFHolder(ExchangeServerIF initial)
+    public shareItemListHolder(CORBAShareItem[] initial)
     {
         value = initial;
     }
 
     /**
-     * Read ExchangeServerIF from a marshalled stream
+     * Read shareItemList from a marshalled stream
      * @param istream the input stream
      */
     public void _read(org.omg.CORBA.portable.InputStream istream)
     {
-        value = ExchangeServerIFHelper.read(istream);
+        value = shareItemListHelper.read(istream);
     }
 
     /**
-     * Write ExchangeServerIF into a marshalled stream
+     * Write shareItemList into a marshalled stream
      * @param ostream the output stream
      */
     public void _write(org.omg.CORBA.portable.OutputStream ostream)
     {
-        ExchangeServerIFHelper.write(ostream,value);
+        shareItemListHelper.write(ostream,value);
     }
 
     /**
-     * Return the ExchangeServerIF TypeCode
+     * Return the shareItemList TypeCode
      * @return a TypeCode
      */
     public org.omg.CORBA.TypeCode _type()
     {
-        return ExchangeServerIFHelper.type();
+        return shareItemListHelper.type();
     }
 
 }

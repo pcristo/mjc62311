@@ -1,4 +1,4 @@
-package exchangeServer.ExchangeServerIFPackage;
+package exchangeServer;
 
 /** 
  * Helper class for : CORBAShareType
@@ -12,7 +12,7 @@ public class CORBAShareTypeHelper
      * @param a an any
      * @param t CORBAShareType value
      */
-    public static void insert(org.omg.CORBA.Any a, exchangeServer.ExchangeServerIFPackage.CORBAShareType t)
+    public static void insert(org.omg.CORBA.Any a, CORBAShareType t)
     {
         a.type(type());
         write(a.create_output_stream(),t);
@@ -24,7 +24,7 @@ public class CORBAShareTypeHelper
      * @param a an any
      * @return the extracted CORBAShareType value
      */
-    public static exchangeServer.ExchangeServerIFPackage.CORBAShareType extract( org.omg.CORBA.Any a )
+    public static CORBAShareType extract( org.omg.CORBA.Any a )
     {
         if ( !a.type().equivalent( type() ) )
         {
@@ -64,14 +64,14 @@ public class CORBAShareTypeHelper
         return _id;
     }
 
-    private final static String _id = "IDL:exchangeServer/ExchangeServerIF/CORBAShareType:1.0";
+    private final static String _id = "IDL:exchangeServer/CORBAShareType:1.0";
 
     /**
      * Read CORBAShareType from a marshalled stream
      * @param istream the input stream
      * @return the readed CORBAShareType value
      */
-    public static exchangeServer.ExchangeServerIFPackage.CORBAShareType read(org.omg.CORBA.portable.InputStream istream)
+    public static CORBAShareType read(org.omg.CORBA.portable.InputStream istream)
     {
         return CORBAShareType.from_int(istream.read_ulong());
     }
@@ -81,7 +81,7 @@ public class CORBAShareTypeHelper
      * @param ostream the output stream
      * @param value CORBAShareType value
      */
-    public static void write(org.omg.CORBA.portable.OutputStream ostream, exchangeServer.ExchangeServerIFPackage.CORBAShareType value)
+    public static void write(org.omg.CORBA.portable.OutputStream ostream, CORBAShareType value)
     {
         ostream.write_ulong(value.value());
     }

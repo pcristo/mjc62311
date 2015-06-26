@@ -1,9 +1,15 @@
 package stockexchange.broker;
 
-import distribution.RMI.Server;
 import common.Customer;
 import common.logger.LoggerClient;
 import common.share.ShareType;
+import exchangeServer.*;
+import org.omg.CORBA.ORB;
+import org.omg.CosNaming.NameComponent;
+import org.omg.CosNaming.NamingContextExt;
+import org.omg.CosNaming.NamingContextExtHelper;
+import org.omg.PortableServer.POA;
+import org.omg.PortableServer.POAHelper;
 import stockexchange.exchange.Exchange;
 import stockexchange.exchange.ShareItem;
 import stockexchange.exchange.ShareList;
@@ -15,21 +21,24 @@ import java.rmi.AccessException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Properties;
+
+import static exchangeServer.CORBAShareType.COMMON;
 
 /**
  * Broker class takes customer request and validates it and sends it over
  * to stock exchange
  */
-public class Broker implements BrokerInterface, Serializable{
+public class Broker extends BrokerInterfacePOA implements Serializable{
 
     // Require for serialization.  Ensures object deserialized and serialized are the same.
     private static final long serialVersionUID = 1467890432560789065L;
 
     // TODO multiple exchanges
     protected static Exchange exchange;
-
-    private static Server<BrokerInterface> server = new Server<BrokerInterface>();
+    private ORB m_orb;
 
     /**
      * Start up Broker server
@@ -42,27 +51,50 @@ public class Broker implements BrokerInterface, Serializable{
             Business server. Broker handles exceptions in creating Broker server and
             Exchange not connecting to Business.
         */
-        try {
-            Broker broker = new Broker();
-            try {
-                // Start Broker server.
-                Integer port = Integer.parseInt(Config.getInstance().getAttr("brokerPort"));
-                String serviceName = "broker";
-                server.start(broker, serviceName, port);
 
-            } catch(RemoteException rme) {
-                LoggerClient.log("Remote Exception in Broker server: " + rme.getMessage());
-            }
-        // Exceptions for not being able to reach Business server through exchange.
-        } catch (AccessException ae) {
-            LoggerClient.log("Access Exception in creating Broker / Exchange.  " +
-                        "Ensure Business server is running :: " + ae.getMessage());
-        } catch (RemoteException rme) {
-            LoggerClient.log("Remote Exception in creating Broker / Exchange." +
-                    "Ensure Business server is running :: " + rme.getMessage());
-        } catch (NotBoundException nbe) {
-            LoggerClient.log("NotBound Exception in creating Broker / Exchange." +
-                    "Ensure Business server is running :: " + nbe.getMessage());
+    }
+
+    public void setORB(ORB orb_val) {
+        m_orb = orb_val;
+    }
+
+    public static void startService(String serviceName)
+    {
+        try
+        {
+            Properties props = System.getProperties();
+            props.put("org.omg.CORBA.ORBInitialPort", Config.getInstance().getAttr("namingServicePort"));
+            props.put("org.omg.CORBA.ORBInitialHost", "localhost");
+            // Create and initialize the ORB
+            ORB orb = ORB.init(new String[]{}, null);
+            POA rootpoa = POAHelper.narrow(orb
+                    .resolve_initial_references("RootPOA"));
+            rootpoa.the_POAManager().activate();
+            String csv = Config.getInstance().getAttr(serviceName);
+            Broker m_server = new Broker();
+            m_server.setORB(orb);
+
+            // get object reference from the servant
+            org.omg.CORBA.Object ref = rootpoa.servant_to_reference(m_server);
+
+            BrokerInterface srf =BrokerInterfaceHelper.narrow(ref);
+
+            // get the root naming context
+            org.omg.CORBA.Object objRef = orb
+                    .resolve_initial_references("NameService");
+            NamingContextExt ncRef = NamingContextExtHelper.narrow(objRef);
+            //bind references to names in naming service
+
+            NameComponent path[] = ncRef.to_name(serviceName);
+            ncRef.rebind(path, srf);
+            System.out.println("Server is ready and waiting ...");
+
+            // wait for invocations from clients
+            orb.run();
+        } catch (Exception e)
+        {
+            System.err.println("ERROR: " + e);
+            e.printStackTrace(System.out);
         }
     }
 
@@ -85,36 +117,50 @@ public class Broker implements BrokerInterface, Serializable{
         return new Exchange();
     }
 
-    /**
-     * @return list of company tickers on the stock exchange
-     * TODO multiple exchanges
-     */
     @Override
-    public ArrayList<String> getTickerListing() throws RemoteException {
-        return exchange.getListing();
+    public boolean buyShares(String[] list, CORBAShareType type, int quantity, CORBACustomer customer) {
+        for(String ticker : list) {
+            validateClientHasShare(ticker, convertCustomer(customer));
+        }
+        ShareList sharesToBuy = prepareTrade(new ArrayList(Arrays.asList(list)), backConvertShareType(type), quantity);
+        if (sharesToBuy != null) {
+            exchange.buyShares(sharesToBuy,convertCustomer( customer));
+
+
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    public String getBusinessTicker(String businessName) throws RemoteException {
-        return exchange.getBusinessTicker(businessName);
+    private ShareType backConvertShareType(CORBAShareType sharetype)
+    {
+        switch (sharetype.toString())
+        {
+            case "COMMON":
+                return ShareType.COMMON;
+            case "CONVERTIBLE":
+                return ShareType.CONVERTIBLE;
+            case "PREFERRED":
+                return ShareType.PREFERRED;
+            default:
+                return ShareType.PREFERRED;
+        }
     }
 
-    /**
-     * Sell Shares
-     *
-     * @param tickers  arraylist that need to be sold
-     * @param type     type that the tickers belong to
-     * @param quantity that wants to be sold
-     * @param customer customer who made the request
-     * @return
-     */
-    @Override
-    public boolean sellShares(ArrayList<String> tickers, ShareType type, int quantity, Customer customer) throws RemoteException {
+    private Customer convertCustomer(CORBACustomer c)
+    {
+        Customer customer = new Customer(c.name,c.street1,c.street2,c.city,c.province,c.postalCode,c.country);
+        return customer;
+    }
 
-        ShareList sharesToSell = prepareTrade(tickers, type, quantity);
+    @Override
+    public boolean sellShares(String[] list, CORBAShareType type, int quantity, CORBACustomer customer) {
+        ShareList sharesToSell = prepareTrade(new ArrayList(Arrays.asList(list)), backConvertShareType(type), quantity);
 
         if (sharesToSell != null) {
-            ShareSalesStatusList shareSatusList = exchange.sellShares(sharesToSell, customer);
-            if(shareSatusList.getShares(customer) == null || shareSatusList.getShares(customer).isEmpty()){
+            ShareSalesStatusList shareSatusList = exchange.sellShares(sharesToSell, convertCustomer(customer));
+            if(shareSatusList.getShares(convertCustomer(customer)) == null || shareSatusList.getShares(convertCustomer(customer)).isEmpty()){
                 return false;
             } else {
                 return true;
@@ -122,6 +168,31 @@ public class Broker implements BrokerInterface, Serializable{
         } else {
             return false;
         }
+    }
+
+    /**
+     * @return list of company tickers on the stock exchange
+     * TODO multiple exchanges
+     */
+    @Override
+    public String[] getTickerListing(){
+        return (String[]) exchange.getListing().toArray();
+    }
+
+    public String getBusinessTicker(String businessName){
+        return exchange.getBusinessTicker(businessName);
+    }
+
+    @Override
+    public boolean sellShareList(CORBAShareItem[] lstShares, CORBACustomer customer) {
+        ShareList customerShares = new ShareList(new ArrayList(Arrays.asList(lstShares)));
+
+        ShareSalesStatusList shareSalesStatusList = exchange.sellShares(customerShares,convertCustomer(customer));
+
+        if (shareSalesStatusList != null)
+            return true;
+
+        return false;
     }
 
     /**

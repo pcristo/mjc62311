@@ -1,58 +1,58 @@
 package exchangeServer;
 
 /**
- * Holder class for : ExchangeServerIF
+ * Holder class for : BrokerInterface
  * 
  * @author OpenORB Compiler
  */
-final public class ExchangeServerIFHolder
+final public class BrokerInterfaceHolder
         implements org.omg.CORBA.portable.Streamable
 {
     /**
-     * Internal ExchangeServerIF value
+     * Internal BrokerInterface value
      */
-    public ExchangeServerIF value;
+    public BrokerInterface value;
 
     /**
      * Default constructor
      */
-    public ExchangeServerIFHolder()
+    public BrokerInterfaceHolder()
     { }
 
     /**
      * Constructor with value initialisation
      * @param initial the initial value
      */
-    public ExchangeServerIFHolder(ExchangeServerIF initial)
+    public BrokerInterfaceHolder(BrokerInterface initial)
     {
         value = initial;
     }
 
     /**
-     * Read ExchangeServerIF from a marshalled stream
+     * Read BrokerInterface from a marshalled stream
      * @param istream the input stream
      */
     public void _read(org.omg.CORBA.portable.InputStream istream)
     {
-        value = ExchangeServerIFHelper.read(istream);
+        value = BrokerInterfaceHelper.read(istream);
     }
 
     /**
-     * Write ExchangeServerIF into a marshalled stream
+     * Write BrokerInterface into a marshalled stream
      * @param ostream the output stream
      */
     public void _write(org.omg.CORBA.portable.OutputStream ostream)
     {
-        ExchangeServerIFHelper.write(ostream,value);
+        BrokerInterfaceHelper.write(ostream,value);
     }
 
     /**
-     * Return the ExchangeServerIF TypeCode
+     * Return the BrokerInterface TypeCode
      * @return a TypeCode
      */
     public org.omg.CORBA.TypeCode _type()
     {
-        return ExchangeServerIFHelper.type();
+        return BrokerInterfaceHelper.type();
     }
 
 }

@@ -1,4 +1,4 @@
-package exchangeServer.ExchangeServerIFPackage;
+package exchangeServer;
 
 /**
  * Struct definition: BusinessInfo.
@@ -15,7 +15,7 @@ public final class BusinessInfo implements org.omg.CORBA.portable.IDLEntity
     /**
      * Struct member shareType
      */
-    public exchangeServer.ExchangeServerIFPackage.CORBAShareType shareType;
+    public CORBAShareType shareType;
 
     /**
      * Struct member unitPrice
@@ -34,7 +34,7 @@ public final class BusinessInfo implements org.omg.CORBA.portable.IDLEntity
      * @param shareType shareType struct member
      * @param unitPrice unitPrice struct member
      */
-    public BusinessInfo(String businessSymbol, exchangeServer.ExchangeServerIFPackage.CORBAShareType shareType, float unitPrice)
+    public BusinessInfo(String businessSymbol, CORBAShareType shareType, float unitPrice)
     {
         this.businessSymbol = businessSymbol;
         this.shareType = shareType;
