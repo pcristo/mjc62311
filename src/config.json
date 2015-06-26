@@ -18,6 +18,7 @@
 
   "brokerServerIP": "localhost",
   "brokerPort": "9089",
+  "namingServicePort": "9999",
 
   "businessServerIP": "localhost",
 
