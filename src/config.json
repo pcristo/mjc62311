@@ -1,9 +1,9 @@
 {
-  "projectHome": "/home/patrick/git/mjc62311/",
+  "projectHome": "",
 
   "jars": "resources/jar",
   "out": "out",
-  "files": "files",
+  "files": "src/files",
   "logServerFile": "src/files/iteration_two.log",
   "security": "resources/settings/security.policy",
 
@@ -19,17 +19,22 @@
   "brokerServerIP": "localhost",
   "brokerPort": "9089",
   "namingServicePort": "9999",
+  "exchangeServiceName": "exchange",
 
   "businessServerIP": "localhost",
 
   "YHOO": "yahoo_data.csv",
+  "yahoo_data.csv": "yahoo",
   "yahoo": "yahoo_data.csv",
   "MSFT": "microsoft_data.csv",
   "microsoft": "microsoft_data.csv",
+  "microsoft_data.csv": "microsoft",
   "GOOG": "google_data.csv",
   "google": "google_data.csv",
+  "google_data.csv": "google",
   "APPL": "apple_data.csv",
   "apple": "apple_data.csv",
+  "apple_data.csv": "apple",
   "businessXmlLog": "out/files/businessOrderRecord.xml",
 
   "macLogServerHome": "/Users/Gay/Documents/Concordia/COMP6231/PROJECT/mjc62311",

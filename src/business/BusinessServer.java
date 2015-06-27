@@ -6,11 +6,13 @@ import java.rmi.RemoteException;
 import common.logger.LoggerServer;
 import common.share.ShareType;
 import common.util.Config;
+import exchangeServer.ExchangeServerIF;
 import stockexchange.exchange.Exchange;
 
 public class BusinessServer implements Runnable {
 	private Business business;
 	private String businessSymbol = "";
+    public static Exchange m_exchange = null;
 	
 	/**
 	 * Starts a server thread for a new business. The business will be the one
@@ -18,11 +20,12 @@ public class BusinessServer implements Runnable {
 	 */
 	public void run() {
 		Business business = new Business(Config.getInstance().getAttr(businessSymbol));		
-		
-		// TODO: replace this with a CORBA call
-		Exchange exchange = new Exchange();
+
+		//get the CORBA interface for exchange server
+		//make sure exchange server has started in prior to this
+		ExchangeServerIF m_server = m_exchange.getExchangeServiceIFace();
 		float price = business.getShareInfo(ShareType.COMMON).getUnitPrice();
-		exchange.registerBusiness(businessSymbol, price);
+		m_server.registerBusiness(businessSymbol, price);
 
 		// keep the server running forever...
 		while (true) {

@@ -49,11 +49,11 @@ public class Business extends BusinessInterfacePOA implements Serializable{
 	public Business(String identifier) {
 		try {
 			// Dynamically load the file
-			String filePath = Config.getInstance().getAttr("files") + "/";
-			URL sourceURL = Thread.currentThread().getContextClassLoader()
-					.getResource(filePath + identifier);
+			String filePath = Config.getInstance().getAttr("files") + "\\";
+
+			InputStream inputStream = new FileInputStream(filePath + identifier);
 			BufferedReader bufferedReader = new BufferedReader(
-					new InputStreamReader(sourceURL.openStream()));
+					new InputStreamReader(inputStream));
 
 			// reset the shares list
 			this.sharesList = new ArrayList<Share>();
@@ -76,6 +76,10 @@ public class Business extends BusinessInterfacePOA implements Serializable{
 				Company company = new Company(column[0], new stockQuotes.Exchange(column[2]));
 				String price = tickers.getStock(company);
 
+				if(price.equals(""))
+				{
+					price = "0";
+				}
 				// extract the common.share information and create a common.share object
 				Share s = new Share(column[0], ShareType.valueOf(column[1]), Float.parseFloat(price));
 
@@ -85,6 +89,11 @@ public class Business extends BusinessInterfacePOA implements Serializable{
 
 			// Close the file
 			bufferedReader.close();
+			if(identifier.contains(".csv"))
+			{
+				identifier = Config.getInstance().getAttr(identifier);
+			}
+			startService(identifier);
 
 			// log the activity
 			LoggerClient.log("Business " + identifier + " object created.");

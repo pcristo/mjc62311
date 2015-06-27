@@ -28,7 +28,7 @@ import java.util.*;
  * Please note that the exchange assumes that all share types within a business have the same
  * ticker symbol and price.
  */
-public class Exchange  extends ExchangeServerIFPOA {
+public class Exchange  extends ExchangeServerIFPOA implements Runnable{
     private static  final int COMMISSION_MARKUP = 10;
     private static  final int RESTOCK_THRESHOLD = 100;
     private static  int orderInt = 1100;
@@ -43,6 +43,7 @@ public class Exchange  extends ExchangeServerIFPOA {
      * Directory that maps stock symbols to stock prices
      */
     private Map<String, Float> priceDirectory = new HashMap<String, Float>();
+    private org.omg.CORBA.ORB m_orb;
 
     /**
      * Create exchange object by preparing the local list of available shares
@@ -126,6 +127,96 @@ public class Exchange  extends ExchangeServerIFPOA {
         }
 
         return m_serverIF;
+    }
+
+    public ExchangeServerIF getExchangeServiceIFace()
+    {
+        Properties props = System.getProperties();
+        props.put("org.omg.CORBA.ORBInitialPort", Config.getInstance().getAttr("namingServicePort"));
+        props.put("org.omg.CORBA.ORBInitialHost", "localhost");
+        String[] args =
+                {};
+        ORB orb = ORB.init(args, null);
+
+        // get the root naming context
+        org.omg.CORBA.Object objRef = null;
+        try {
+            objRef = orb
+                    .resolve_initial_references("NameService");
+        } catch (InvalidName invalidName) {
+            invalidName.printStackTrace();
+        }
+        // Use NamingContextExt instead of NamingContext. This is
+        // part of the Interoperable naming Service.
+        NamingContextExt ncRef = NamingContextExtHelper.narrow(objRef);
+        ExchangeServerIF m_serverIF = null;
+        try
+        {
+
+            if (m_serverIF != null)
+                m_serverIF._release();
+            m_serverIF = ExchangeServerIFHelper.narrow(ncRef
+                    .resolve_str(Config.getInstance().getAttr("exchangeServiceName")));
+        } catch (NotFound | CannotProceed
+                | org.omg.CosNaming.NamingContextPackage.InvalidName e)
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        POA rootPOA = null;
+        try {
+            rootPOA = POAHelper.narrow(orb
+                    .resolve_initial_references("RootPOA"));
+        } catch (InvalidName invalidName) {
+            invalidName.printStackTrace();
+        }
+        // Resolve MessageServer
+        NameComponent[] nc =
+                { new NameComponent("MessageServer", "") };
+        try {
+            rootPOA.the_POAManager().activate();
+        } catch (AdapterInactive adapterInactive) {
+            adapterInactive.printStackTrace();
+        }
+
+        return m_serverIF;
+    }
+
+    public static void startService() {
+        try {
+            Properties props = System.getProperties();
+            props.put("org.omg.CORBA.ORBInitialPort", Config.getInstance().getAttr("namingServicePort"));
+            props.put("org.omg.CORBA.ORBInitialHost", "localhost");
+            // Create and initialize the ORB
+            ORB orb = ORB.init(new String[]{}, null);
+            POA rootpoa = POAHelper.narrow(orb
+                    .resolve_initial_references("RootPOA"));
+            rootpoa.the_POAManager().activate();
+
+            Exchange m_server = new Exchange();
+            m_server.setORB(orb);
+
+            // get object reference from the servant
+            org.omg.CORBA.Object ref = rootpoa.servant_to_reference(m_server);
+
+            ExchangeServerIF srf = ExchangeServerIFHelper.narrow(ref);
+
+            // get the root naming context
+            org.omg.CORBA.Object objRef = orb
+                    .resolve_initial_references("NameService");
+            NamingContextExt ncRef = NamingContextExtHelper.narrow(objRef);
+            //bind references to names in naming service
+
+            NameComponent path[] = ncRef.to_name(Config.getInstance().getAttr("exchangeServiceName"));
+            ncRef.rebind(path, srf);
+            System.out.println("Server is ready and waiting ...");
+
+            // wait for invocations from clients
+            orb.run();
+        } catch (Exception e) {
+            System.err.println("ERROR: " + e);
+            e.printStackTrace(System.out);
+        }
     }
 
     /**
@@ -392,4 +483,20 @@ public class Exchange  extends ExchangeServerIFPOA {
         return orderNumber;
     }
 
+    public void setORB(ORB ORB) {
+        m_orb = ORB;
+    }
+
+    @Override
+    public void run() {
+        startService();
+        while(true)
+        {
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
