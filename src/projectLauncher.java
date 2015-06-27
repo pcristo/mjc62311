@@ -10,63 +10,81 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 /**
- * Run this class either in debug or regular mode to set up all your servers. Works on
- * all platforms.
+ * Run this class either in debug or regular mode to set up all your servers.
+ * Works on all platforms.
+ * 
  * @author patrick
  */
-public class projectLauncher {
+public class projectLauncher
+{
 	final static int PAUSE_NOTIFICATION_TIME = 250;
 	final static int WAIT_BETWEEN_LAUNCH_TIME = 3000;
 	private serverThread m_namingService;
 
 	/**
 	 * Will launch all the servers
-	 * @param args Send no arguments and the launcher will pause and wait for a key before returning
+	 * 
+	 * @param args
+	 *            Send no arguments and the launcher will pause and wait for a
+	 *            key before returning
 	 * @throws InterruptedException
 	 * @throws IOException
 	 */
-	public static void main(String[] args) throws InterruptedException,	IOException {
+	public static void main(String[] args) throws InterruptedException,
+			IOException
+	{
 
-		//launch naming service is the VERY first step
+		// launch naming service is the VERY first step
 		projectLauncher launcher = new projectLauncher();
-		launcher.startNamingService(Integer.parseInt(Config.getInstance().getAttr("namingServicePort")));
-        Exchange m_exchangeServer = new Exchange();
-        BusinessServer.m_exchange = m_exchangeServer;
-        System.out.println("exchange server is up and running");
-        Thread exchangeThread = new Thread(m_exchangeServer);
-        exchangeThread.start();
+		launcher.startNamingService(Integer.parseInt(Config.getInstance()
+				.getAttr("namingServicePort")));
+		Exchange m_exchangeServer = new Exchange();
+		m_exchangeServer.setInstance(m_exchangeServer);
+		BusinessServer.m_exchange = m_exchangeServer;
+		System.out.println("exchange server is up and running");
+		Thread exchangeThread = new Thread(m_exchangeServer);
+		exchangeThread.start();
+		// wait for the exchange service to be registered
+		Thread.sleep(4000);
 		// Launch threads
-		Thread logger = new Thread(()->LoggerServer.main(null));
+		Thread logger = new Thread(() -> LoggerServer.main(null));
 		logger.start();
 		pause("Launching common.logger and waiting ", WAIT_BETWEEN_LAUNCH_TIME);
 
-		Thread[] businesses = { BusinessServer.launch("GOOG"),
-				BusinessServer.launch("APPL"), BusinessServer.launch("YHOO"),
-				BusinessServer.launch("MSFT") };
+		Thread[] businesses =
+		{
+				BusinessServer.launch("GOOG"), BusinessServer.launch("APPL"),
+				BusinessServer.launch("YHOO"), BusinessServer.launch("MSFT")
+		};
 		pause("Launching business and waiting ", WAIT_BETWEEN_LAUNCH_TIME);
 
-		Thread broker = new Thread(()->Broker.main(null));
+		Broker m_broker = new Broker();
+		m_broker.setExchange(m_exchangeServer);
+		Thread broker = new Thread(new Broker());
 		broker.start();
 		pause("Launching broker and waiting ", WAIT_BETWEEN_LAUNCH_TIME);
-		
+
 		// if any arguments are sent, the do not wait for any key, just continue
-		if (args == null || args.length == 0) {
+		if (args == null || args.length == 0)
+		{
 			System.out.println("Press enter to kill everything uncleanly :D");
 			System.in.read();
 
 			// Stop all running threads
 			broker.interrupt();
-			for(Thread t : businesses)
+			for (Thread t : businesses)
 				t.interrupt();
 			logger.interrupt();
-				
+
 			System.out.println("Okay, everyone is dead.");
-			System.exit(0);	
-		}		
+			System.exit(0);
+		}
 	}
 
-	private static void pause(String msg, int ms) throws InterruptedException {		
-		for (int t = ms; t > 0; t -= PAUSE_NOTIFICATION_TIME) {
+	private static void pause(String msg, int ms) throws InterruptedException
+	{
+		for (int t = ms; t > 0; t -= PAUSE_NOTIFICATION_TIME)
+		{
 			Thread.sleep(PAUSE_NOTIFICATION_TIME);
 		}
 	}

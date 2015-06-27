@@ -39,8 +39,7 @@ public class GoogleFinance implements StockQuotes{
                 all += inputLine;
             }
             in.close();
-
-            JSONObject obj = new JSONObject(all);
+            JSONObject obj = new JSONObject(all.replace("[", "").replace("]", ""));
             return obj.getString("l");
         } catch(IOException e) {
             // TODO

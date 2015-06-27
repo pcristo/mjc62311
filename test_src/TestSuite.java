@@ -1,4 +1,3 @@
-import StockQuotes.GoogleFinanceTest;
 import business.BusinessTest;
 import client.BrokerServiceClientTest;
 import common.logger.LoggerTest;
@@ -7,6 +6,8 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
+
+import stockQuotes.GoogleFinanceTest;
 import stockexchange.broker.BrokerTest;
 import stockexchange.exchange.ExchangeTest;
 import stockexchange.exchange.ShareSalesStatusListTest;

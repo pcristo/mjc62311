@@ -1,8 +1,10 @@
 package client;
 
 import java.util.Properties;
+import java.util.Scanner;
 
 import common.util.Config;
+
 import org.omg.CORBA.ORB;
 import org.omg.CORBA.ORBPackage.InvalidName;
 import org.omg.CosNaming.NameComponent;
@@ -38,7 +40,8 @@ public class ExchangeServiceClient_CORBA
 			org.omg.CosNaming.NamingContextPackage.InvalidName, AdapterInactive
 	{
 		Properties props = System.getProperties();
-		props.put("org.omg.CORBA.ORBInitialPort", Config.getInstance().getAttr("namingServicePort"));
+		props.put("org.omg.CORBA.ORBInitialPort",
+				Config.getInstance().getAttr("namingServicePort"));
 		props.put("org.omg.CORBA.ORBInitialHost", "localhost");
 		String[] args =
 		{};
@@ -68,7 +71,9 @@ public class ExchangeServiceClient_CORBA
 				.resolve_initial_references("RootPOA"));
 		// Resolve MessageServer
 		NameComponent[] nc =
-		{ new NameComponent("MessageServer", "") };
+		{
+			new NameComponent("MessageServer", "")
+		};
 		rootPOA.the_POAManager().activate();
 		// orb.run();
 
@@ -76,25 +81,84 @@ public class ExchangeServiceClient_CORBA
 
 	public static void main(String[] args)
 	{
-        try {
-            ExchangeServiceClient_CORBA server = new ExchangeServiceClient_CORBA("localhost","GOOGLE");
-            System.out.println(m_serverIF.getBusiness("GOOGLE").businessSymbol);
-        } catch (InvalidName invalidName) {
-            invalidName.printStackTrace();
-        } catch (ServantAlreadyActive servantAlreadyActive) {
-            servantAlreadyActive.printStackTrace();
-        } catch (WrongPolicy wrongPolicy) {
-            wrongPolicy.printStackTrace();
-        } catch (ServantNotActive servantNotActive) {
-            servantNotActive.printStackTrace();
-        } catch (NotFound notFound) {
-            notFound.printStackTrace();
-        } catch (CannotProceed cannotProceed) {
-            cannotProceed.printStackTrace();
-        } catch (org.omg.CosNaming.NamingContextPackage.InvalidName invalidName) {
-            invalidName.printStackTrace();
-        } catch (AdapterInactive adapterInactive) {
-            adapterInactive.printStackTrace();
-        }
-    }
+		try
+		{
+			ExchangeServiceClient_CORBA server = new ExchangeServiceClient_CORBA(
+					"localhost", "exchange");
+			boolean terminate = false;
+			while (!terminate)
+			{
+				ServerDisplayMsgs.printExchangeServerOptions();
+				Scanner scan = new Scanner(System.in);
+				switch (ServerDisplayMsgs.printExchangeServerOptions())
+				{
+				case 1:
+					System.out.println("Please enter business name");
+					scan = new Scanner(System.in);
+					String businessName = scan.nextLine();
+					System.out.println(server.m_serverIF
+							.getBusiness(businessName));
+					break;
+				case 2:
+					System.out.println("Please enter business name");
+					scan = new Scanner(System.in);
+					String name = scan.nextLine();
+					scan = new Scanner(System.in);
+					float price = scan.nextFloat();
+					System.out.println(server.m_serverIF.updateSharePrice(name,
+							price));
+					break;
+
+				case 3:
+					System.out.println("Please enter business name");
+					scan = new Scanner(System.in);
+					String name1 = scan.nextLine();
+					scan = new Scanner(System.in);
+					float price1 = scan.nextFloat();
+					System.out.println(server.m_serverIF.registerBusiness(
+							name1, price1));
+					break;
+				case 4:
+					System.out.println("Please enter business name");
+					scan = new Scanner(System.in);
+					String name2 = scan.nextLine();
+					scan = new Scanner(System.in);
+					System.out.println(server.m_serverIF
+							.unregisterBusiness(name2));
+					break;
+				case 5:
+					terminate = true;
+					break;
+				default:
+					terminate = true;
+					break;
+
+				}
+			}
+		} catch (InvalidName invalidName)
+		{
+			invalidName.printStackTrace();
+		} catch (ServantAlreadyActive servantAlreadyActive)
+		{
+			servantAlreadyActive.printStackTrace();
+		} catch (WrongPolicy wrongPolicy)
+		{
+			wrongPolicy.printStackTrace();
+		} catch (ServantNotActive servantNotActive)
+		{
+			servantNotActive.printStackTrace();
+		} catch (NotFound notFound)
+		{
+			notFound.printStackTrace();
+		} catch (CannotProceed cannotProceed)
+		{
+			cannotProceed.printStackTrace();
+		} catch (org.omg.CosNaming.NamingContextPackage.InvalidName invalidName)
+		{
+			invalidName.printStackTrace();
+		} catch (AdapterInactive adapterInactive)
+		{
+			adapterInactive.printStackTrace();
+		}
+	}
 }
