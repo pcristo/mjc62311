@@ -79,6 +79,7 @@ public class MockExchange extends Exchange  {
         }
     }
 
+
     protected ShareItem issueSharesRequest(ShareItem sItem) {
         Boolean sharesIssued = false;
 
@@ -100,5 +101,7 @@ public class MockExchange extends Exchange  {
 
         return null;
     }
+
+
 
 }

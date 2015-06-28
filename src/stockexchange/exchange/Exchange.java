@@ -62,20 +62,61 @@ public class Exchange extends ExchangeServerIFPOA implements Runnable
 		initializeShares();
 	}
 
+	/**
+	 *  * getBusinesses(COMP6231) ? (assuming, e.g., COMP6231 is a registered business
+	 * symbol ID in this example). gets the business info, such as symbol and share price,
+	 * the business must exist on this stock exchange
+	 * @param businessName
+	 * @return
+	 */
 	@Override
-	public BusinessInfo getBusiness(String businessName)
-	{
-		// TODO: implement real logic here
+	public BusinessInfo getBusiness(String businessName) {
+
+		//TODO : BusinessInfo ??????
+		//Make sure businesss is in exchange so that we can retireve business info
+		BusinessInterface bi = businessDirectory.get(businessName);
+
+		if (bi == null) {
+			return null;
+		}
+
 		return new BusinessInfo("google", CORBAShareType.COMMON, 1);
 	}
 
+	/**
+	 *  updateSharePrice(SYMBOL, PRICE) updates existing business's share price. If business
+	 *  does not exist, it's an error.
+	 * @param businessSymbol
+	 * @param unitPrice
+	 * @return
+	 */
 	@Override
 	public boolean updateSharePrice(String businessSymbol, float unitPrice)
 	{
-		// TODO: implement real logic here
+		//Does business exist in exchange
+		if (this.priceDirectory.get(businessSymbol) == null) {
+			return false;
+		} else {
+
+			//Update Registry price
+			synchronized (this.priceDirectory.get(businessSymbol)){
+				this.priceDirectory.put(businessSymbol, unitPrice);
+			}
+
+			//Update all prices in available shares
+			synchronized (shareStatusSaleList.newAvShares.get(businessSymbol)){
+
+				for (ShareItem sItem : shareStatusSaleList.newAvShares.get(businessSymbol)){
+					sItem.setUnitPrice(unitPrice);
+				}
+			}
+		}
 		return false;
 	}
 
+	/**
+	 * TODO: What is this for ???
+	 */
 	private void writeBusinessToFile()
 	{
 		try
@@ -120,8 +161,7 @@ public class Exchange extends ExchangeServerIFPOA implements Runnable
 	 * @throws RemoteException
 	 */
 	@Override
-	public boolean registerBusiness(String symbol, float price)
-	{
+	public boolean registerBusiness(String symbol, float price) {
 		synchronized (businessDirectory)
 		{
 			businessDirectory.put(symbol, getBusinessIFace(symbol));
@@ -132,8 +172,7 @@ public class Exchange extends ExchangeServerIFPOA implements Runnable
 		return true;
 	}
 
-	public BusinessInterface getBusinessIFace(String symbol)
-	{
+	public BusinessInterface getBusinessIFace(String symbol) {
 		Properties props = System.getProperties();
 		props.put("org.omg.CORBA.ORBInitialPort",
 				Config.getInstance().getAttr("namingServicePort"));
@@ -193,8 +232,7 @@ public class Exchange extends ExchangeServerIFPOA implements Runnable
 		return m_serverIF;
 	}
 
-	public ExchangeServerIF getExchangeServiceIFace()
-	{
+	public ExchangeServerIF getExchangeServiceIFace() {
 		Properties props = System.getProperties();
 		props.put("org.omg.CORBA.ORBInitialPort",
 				Config.getInstance().getAttr("namingServicePort"));
@@ -257,13 +295,11 @@ public class Exchange extends ExchangeServerIFPOA implements Runnable
 	/**
 	 * Used by CORBA
 	 */
-	public void setInstance(Exchange e)
-	{
+	public void setInstance(Exchange e) {
 		m_instance = e;
 	}
 
-	public static void startService()
-	{
+	public static void startService() {
 		try
 		{
 			Properties props = System.getProperties();
@@ -365,38 +401,87 @@ public class Exchange extends ExchangeServerIFPOA implements Runnable
 	 * @return ShareSalesStatusList - Can access sold shares and available
 	 *         shares lists
 	 */
-	public ShareSalesStatusList sellShares(ShareList shareItemList,
-			Customer info)
+	public ShareSalesStatusList sellShares(ShareList shareItemList, Customer info)
 	{
-		ShareItem soldShare;
+		ShareItem soldShare = null;
 
-		for (ShareItem s : shareItemList.getLstShareItems())
-		{
-			soldShare = shareStatusSaleList.isShareAvailable(s);
+		for  (ShareItem s : shareItemList.getLstShareItems()) {
+			int requestedShares = s.getQuantity();
+			int toComplete = requestedShares;
 
-			if (soldShare != null)
-			{
+			//Is business registered in Exchange
+			if (this.priceDirectory.get(s.getBusinessSymbol()) != null){
 
-				synchronized (soldShare)
+				//Business Shares Listing
+				List<ShareItem> lstShares = shareStatusSaleList.newAvShares.get(s.getBusinessSymbol());
+
+				synchronized(lstShares)
 				{
+					//Is quantity on hand
+					if (this.getShareQuantity(lstShares, s.getShareType()) >= s.getQuantity() ) {
 
-					shareStatusSaleList.addToSoldShares(s, info);
+						for (ShareItem sItem : lstShares) {
 
-					if (payBusiness(soldShare))
-					{
-						System.out.println(" \n " + "Shares paid for "
-								+ soldShare.getBusinessSymbol());
-					} else
-					{
-						System.out.println(" \n " + "Shares not paid: "
-								+ soldShare.printShareInfo());
+							//Populate new Sold Share
+							if (soldShare == null) {
+
+								soldShare = new ShareItem("",
+										sItem.getBusinessSymbol(),
+										sItem.getShareType(),
+										sItem.getUnitPrice(),
+										requestedShares);
+							}
+
+							//Just iterate through the companies share of a specific share type
+							if (sItem.getShareType() == s.getShareType()) {
+
+								if(toComplete == requestedShares && sItem.getQuantity() >= requestedShares) {
+
+									//Reduce the available amount
+									sItem.reduceQuantity(requestedShares);
+									break;
+
+								} else {
+									//Share will be coming from more then one order
+									if (toComplete > 0) {
+
+										if (sItem.getQuantity() >= toComplete) {
+											sItem.reduceQuantity(toComplete);
+											toComplete = 0;
+										} else {
+											toComplete -= sItem.getQuantity();
+											sItem.reduceQuantity(sItem.getQuantity());
+										}
+									}
+								}
+							}
+						}
 					}
+
+					//Pay the companies once shares are at 0 in the newAvailable Shares
+					List<String> lstOrders = new ArrayList<String>();
+					soldShare = shareStatusSaleList.isShareAvailable(s);
+
+					for(ShareItem sItem : lstShares) {
+
+						if (sItem.getQuantity() == 0) {
+							lstOrders.add(sItem.getOrderNum());
+						}
+					}
+
+					//Pay all orders if needed
+					if (lstOrders.size()>0){
+						payBusiness(lstOrders);
+					}
+
 				}
 			}
+
+			//Restock Share Lists
+			this.restock();
+
 		}
 
-		// Restock Share Lists
-		this.restock();
 		return shareStatusSaleList;
 	}
 
@@ -450,6 +535,29 @@ public class Exchange extends ExchangeServerIFPOA implements Runnable
 	}
 
 	/**
+	 * Retrieve the total quantity of share and share type
+	 * @param lstShareItem
+	 * @param sType
+	 * @return
+	 */
+	private int getShareQuantity(List<ShareItem> lstShareItem, ShareType sType) {
+
+		int totQuantity = 0;
+
+		//Retrieve Business Shares in Available list
+		for (ShareItem sItem : lstShareItem){
+
+			if (sItem.getShareType() == sType){
+				totQuantity = totQuantity + sItem.getQuantity();
+			}
+
+		}
+
+		return totQuantity;
+
+	}
+
+	/**
 	 * Used to issue common.share on Ecxhange start up
 	 */
 	protected void initializeShares()
@@ -491,64 +599,93 @@ public class Exchange extends ExchangeServerIFPOA implements Runnable
 	/**
 	 * Method to restock any available common.share that is below the threshold
 	 */
-	private void restock()
-	{
+	private void restock() {
 
 		System.out.println(" \n " + "...... Restocking Shares .......");
 
-		// Check Available stock amount
-		for (ShareItem sItem : shareStatusSaleList.getAvailableShares())
-		{
+		for(Map.Entry<String, List<ShareItem>> entry : shareStatusSaleList.newAvShares.entrySet()) {
 
-			synchronized (sItem)
-			{
+			List<ShareItem> addToList = new ArrayList<ShareItem>();
 
-				if (sItem.getQuantity() < RESTOCK_THRESHOLD)
-				{
+			for (ShareItem sItem : entry.getValue()) {
 
-					ShareItem newShares = this.issueSharesRequest(sItem);
+				synchronized (sItem) {
 
-					if (newShares != null)
-					{
-						sItem.setOrderNum(newShares.getOrderNum());
-						sItem.setQuantity(newShares.getQuantity());
+					if (sItem.getQuantity() < RESTOCK_THRESHOLD) {
 
-						shareStatusSaleList.addToNewAvShares(sItem);
+						ShareItem newShares = this.issueSharesRequest(sItem);
+
+						if (newShares != null && sItem.getQuantity() == 0) {
+							sItem.setOrderNum(newShares.getOrderNum());
+							sItem.increaseQuantity(newShares.getQuantity());
+
+							shareStatusSaleList.addToOrderedShares(
+									new ShareItem(sItem.getOrderNum(), sItem.getBusinessSymbol(), sItem.getShareType(), sItem.getUnitPrice(), sItem.getQuantity())
+							);
+						} else {
+							addToList.add(newShares);
+							shareStatusSaleList.addToOrderedShares(
+									new ShareItem(newShares.getOrderNum(), newShares.getBusinessSymbol(), newShares.getShareType(), newShares.getUnitPrice(), newShares.getQuantity())
+							);
+						}
 
 					}
 				}
+
+
 			}
+
+			entry.getValue().addAll(addToList);
 		}
 	}
 
 	/**
 	 * Pays a business for shares that were previously issued but not paid for.
 	 * 
-	 * @param soldShare
+	 * @param lstOrders
 	 *            ShareItem requiring business payment
 	 * @return true if payment is processed
 	 */
-	private boolean payBusiness(ShareItem soldShare)
-	{
-		// if the business is not registered, there is no interface, and null is
-		// returned
-		BusinessInterface bi = businessDirectory.get(soldShare
-				.getBusinessSymbol());
-		if (bi == null)
-			return false;
+	private boolean payBusiness(List<String> lstOrders) {
+		boolean paid = false;
 
-		try
-		{
-			return bi.recievePayment(soldShare.getOrderNum(),
-					soldShare.getUnitPrice() * soldShare.getQuantity());
-		} catch (Exception e)
-		{
-			System.out.println(" \n " + e.getMessage());
+		for (String orderNumber : lstOrders) {
+
+			ShareItem shareToBePaid = shareStatusSaleList.orderedShares.get(orderNumber);
+
+			synchronized (shareToBePaid) {
+
+				// if the business is not registered, there is no interface, and null is returned
+				//BusinessInterface bi = businessDirectory.get(shareToBePaid.getBusinessSymbol());
+				try {
+					// if the business is not registered, there is no interface, and null is
+					BusinessInterface bi = businessDirectory.get(shareToBePaid.getBusinessSymbol());
+
+					if (bi == null) {
+						return false;
+					}
+
+					paid = bi.recievePayment(shareToBePaid.getOrderNum(), shareToBePaid.getUnitPrice() * shareToBePaid.getQuantity());
+
+					if (paid) {
+						shareStatusSaleList.orderedShares.remove(orderNumber);
+					}
+
+				} catch (Exception e) {
+
+					System.out.println(" \n " + e.getMessage());
+				}
+			}
 		}
-
-		return false;
+		return paid;
 	}
 
+
+	/**
+	 *
+	 * @param sharetype
+	 * @return
+	 */
 	protected ShareType backConvertShareType(CORBAShareType sharetype)
 	{
 		switch (sharetype.toString())
@@ -564,6 +701,11 @@ public class Exchange extends ExchangeServerIFPOA implements Runnable
 		}
 	}
 
+	/**
+	 *
+	 * @param sharetype
+	 * @return
+	 */
 	protected CORBAShareType convertShareType(ShareType sharetype)
 	{
 		switch (sharetype)
@@ -586,8 +728,7 @@ public class Exchange extends ExchangeServerIFPOA implements Runnable
 	 *            ShareItem to be issued
 	 * @return ShareItem (null will be returned if the transaction fails)
 	 */
-	private ShareItem issueSharesRequest(ShareItem sItem)
-	{
+	private ShareItem issueSharesRequest(ShareItem sItem) {
 		Boolean sharesIssued = false;
 
 		BusinessInterface bi = businessDirectory.get(sItem.getBusinessSymbol());

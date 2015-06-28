@@ -55,6 +55,18 @@ public class ExchangeTest {
     }
 
     @Test
+    public void testSellSharesMock() throws Exception {
+
+        ShareList sharelist = new ShareList(new ArrayList<ShareItem>() {
+            {add(new ShareItem("", "GOOG", ShareType.COMMON, 1000, 500));}
+            {add(new ShareItem("","GOOG", ShareType.COMMON, 800,200));}
+        });
+
+        exchange.sellShares(sharelist, new Customer("Ross")).PrintNewAvShares();
+    }
+
+
+    @Test
     public void testGetShares() throws Exception {
         assertNull(exchange.getShares(new Customer("Ross")));
 
