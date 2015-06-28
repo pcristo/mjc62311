@@ -96,7 +96,7 @@ public class Exchange extends ExchangeServerIFPOA implements Runnable
 			for (String key : businessDirectory.keySet())
 			{
 				// use ;;d as a separator
-				bw.write(key + ";;d" + businessDirectory.get(key));
+				bw.write(key + ";;d" + businessDirectory.get(key) + "\n");
 			}
 
 			bw.close();
