@@ -1,9 +1,10 @@
 package mock;
 
 import business.Business;
-import business.BusinessInterface;
 import common.share.ShareOrder;
 import common.share.ShareType;
+import exchangeServer.BusinessInterface;
+import exchangeServer.CORBAShareOrder;
 import stockexchange.exchange.Exchange;
 import stockexchange.exchange.ShareItem;
 import stockexchange.exchange.ShareSalesStatusList;
@@ -22,13 +23,15 @@ import java.util.Map;
 public class MockExchange extends Exchange  {
 
 
+    private final Business google;
+
     /**
      * Create Exchange object, initializes three businesses
      *
      * @throws RemoteException
      * @throws NotBoundException
      */
-    public MockExchange() throws RemoteException, NotBoundException {
+    public MockExchange(){
         google = getBusiness1("google");
 
         //createBusinessDirectory();
@@ -41,14 +44,14 @@ public class MockExchange extends Exchange  {
      * @param businessName looking for
      * @return
      */
-    @Override
-    public BusinessInterface getBusiness1(String businessName) {
+    public Business getBusiness1(String businessName) {
         return new Business("google_data.csv");
     }
 
     @Override
-    public void registerBusiness(String symbol, float price){
+    public boolean registerBusiness(String symbol, float price){
         priceDirectory.put(symbol, price);
+        return true;
     }
 
     @Override
@@ -76,7 +79,6 @@ public class MockExchange extends Exchange  {
         }
     }
 
-    @Override
     protected ShareItem issueSharesRequest(ShareItem sItem) {
         Boolean sharesIssued = false;
 
@@ -84,9 +86,8 @@ public class MockExchange extends Exchange  {
 
         synchronized (orderNum) {
             try {
-                sharesIssued = google.issueShares(new ShareOrder(orderNum,
-                        "not applicable", sItem.getBusinessSymbol(), sItem.getShareType(),
-                        sItem.getUnitPrice(), 500, sItem.getUnitPrice()));
+                sharesIssued = google.issueShares(new CORBAShareOrder(orderNum,
+                        "not applicable", 500,sItem.getUnitPrice(),sItem.getUnitPrice(), convertShareType(sItem.getShareType()),sItem.getBusinessSymbol()));
             } catch (Exception e) {
                 System.out.println(" \n " + e.getMessage());
             }

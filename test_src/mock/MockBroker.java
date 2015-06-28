@@ -22,7 +22,7 @@ public class MockBroker extends Broker {
     }
 
     @Override
-    protected Exchange getExchange() throws RemoteException, NotBoundException {
+    protected Exchange getExchange(){
         return new MockExchange();
     }
 

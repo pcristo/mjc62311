@@ -2,6 +2,8 @@ package stockexchange.broker;
 
 import common.Customer;
 import common.share.ShareType;
+import exchangeServer.CORBACustomer;
+import exchangeServer.CORBAShareType;
 import mock.MockBroker;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,7 +19,7 @@ public class BrokerTest {
 
     MockBroker broker;
     ArrayList<String> shares;
-    Customer customer;
+    CORBACustomer customer;
 
     @Before
     public void setUp() throws Exception {
@@ -27,19 +29,19 @@ public class BrokerTest {
             add("MSFT");
             add("YHOO");
         }};
-        customer = new Customer("Ross", "Ross Street", "Ross Street 2", "Ross town", "Ross Province", "ROS SSMI", "Ross County");
+        customer = new CORBACustomer(1,"Ross", "Ross Street", "Ross Street 2", "Ross town", "Ross Province", "ROS SSMI", "Ross County");
 
     }
 
     @Test
     public void getTickerListingTest() throws RemoteException{
         // 3 businesses * 3
-        assertEquals(broker.getTickerListing().size(), 9);
+        assertEquals(broker.getTickerListing().length, 9);
     }
 
     @Test
-    public void sellSharesTest() throws RemoteException {
-        assertTrue(broker.sellShares(shares, ShareType.COMMON, 100, customer));
+    public void sellSharesTest(){
+        assertTrue(broker.sellShares(shares.toArray(new String[shares.size()]), CORBAShareType.COMMON.COMMON, 100, customer));
     }
 
     @Test

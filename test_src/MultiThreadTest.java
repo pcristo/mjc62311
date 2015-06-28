@@ -1,6 +1,9 @@
 import client.BrokerServiceClient;
 import common.Customer;
 import common.logger.LoggerClient;
+import exchangeServer.BrokerInterface;
+import exchangeServer.CORBACustomer;
+import exchangeServer.CORBAShareType;
 import org.junit.Before;
 import org.junit.Test;
 import common.share.ShareType;
@@ -96,8 +99,8 @@ public class MultiThreadTest {
 			// Make a transaction
 			ArrayList<String> sellist = new ArrayList<String>();
 			sellist.add(lstShares.get(shareIndex).getBusinessSymbol());
-			if (!service.sellShares(sellist,lstShares.get(shareIndex).getShareType(),
-					lstShares.get(shareIndex).getQuantity(), new Customer(customer))) 
+			if (!service.sellShares(sellist.toArray(new String[sellist.size()]),convertShareType(lstShares.get(shareIndex).getShareType()),
+					lstShares.get(shareIndex).getQuantity(),convertCustomer( new Customer(customer))))
 				log("Client " + customer + " failed to purchase " + lstShares.get(shareIndex).getQuantity() + " " +
 						lstShares.get(shareIndex).getShareType() + " shares of " + lstShares.get(shareIndex).getBusinessSymbol() + " on thread " + Thread.currentThread().getId());
 
@@ -106,6 +109,31 @@ public class MultiThreadTest {
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
+		}
+	}
+
+	private CORBACustomer convertCustomer(Customer c)
+	{
+		CORBACustomer customer = new CORBACustomer(
+				c.getCustomerReferenceNumber(), c.getName(), c.getStreet1(),
+				c.getStreet2(), c.getCity(), c.getProvince(),
+				c.getPostalCode(), c.getCountry());
+		return customer;
+	}
+
+
+	protected CORBAShareType convertShareType(ShareType sharetype)
+	{
+		switch (sharetype)
+		{
+			case COMMON:
+				return CORBAShareType.COMMON;
+			case CONVERTIBLE:
+				return CORBAShareType.CONVERTIBLE;
+			case PREFERRED:
+				return CORBAShareType.PREFERRED;
+			default:
+				return CORBAShareType.PREFERRED;
 		}
 	}
 	

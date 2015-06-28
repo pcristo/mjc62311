@@ -44,12 +44,12 @@ public class Exchange extends ExchangeServerIFPOA implements Runnable
 	/**
 	 * Business directory that maps stock symbols to remote interfaces
 	 */
-	private Map<String, BusinessInterface> businessDirectory = new HashMap<String, BusinessInterface>();
+	protected Map<String, BusinessInterface> businessDirectory = new HashMap<String, BusinessInterface>();
 
 	/**
 	 * Directory that maps stock symbols to stock prices
 	 */
-	private Map<String, Float> priceDirectory = new HashMap<String, Float>();
+	protected Map<String, Float> priceDirectory = new HashMap<String, Float>();
 	private org.omg.CORBA.ORB m_orb;
 	private static Exchange m_instance;
 
@@ -549,7 +549,7 @@ public class Exchange extends ExchangeServerIFPOA implements Runnable
 		return false;
 	}
 
-	private ShareType backConvertShareType(CORBAShareType sharetype)
+	protected ShareType backConvertShareType(CORBAShareType sharetype)
 	{
 		switch (sharetype.toString())
 		{
@@ -564,7 +564,7 @@ public class Exchange extends ExchangeServerIFPOA implements Runnable
 		}
 	}
 
-	private CORBAShareType convertShareType(ShareType sharetype)
+	protected CORBAShareType convertShareType(ShareType sharetype)
 	{
 		switch (sharetype)
 		{
@@ -631,7 +631,7 @@ public class Exchange extends ExchangeServerIFPOA implements Runnable
 	/**
 	 * Method to generate unique sequential order number for issue common.share
 	 */
-	private synchronized String generateOrderNumber()
+	protected synchronized String generateOrderNumber()
 	{
 		orderInt = orderInt + 1;
 		String orderNumber = Integer.toString(orderInt);

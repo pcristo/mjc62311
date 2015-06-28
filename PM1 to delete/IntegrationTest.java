@@ -1,5 +1,6 @@
 import client.BrokerServiceClient;
 import common.logger.TimerLoggerClient;
+import exchangeServer.BrokerInterface;
 import org.junit.Before;
 import org.junit.Test;
 

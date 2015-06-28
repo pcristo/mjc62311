@@ -1,9 +1,10 @@
 package stockexchange.exchange;
 
-import business.BusinessInterface;
+import business.Business;
 import common.Customer;
 import common.logger.LoggerServer;
 import common.share.ShareType;
+import exchangeServer.BusinessInterface;
 import mock.MockExchange;
 import org.junit.After;
 import org.junit.Before;
@@ -29,7 +30,7 @@ public class ExchangeTest {
 
     @Test
     public void testGetBusiness() throws Exception {
-        BusinessInterface google = exchange.getBusiness1("google");
+        Business google = exchange.getBusiness1("google");
         assertEquals(google.getTicker(), "GOOG");
     }
 
@@ -99,13 +100,13 @@ public class ExchangeTest {
     @Test
     public void testGetBusinessExistingCompany() throws Exception {
 
-        String busInfo = exchange.getBusiness("GOOG");
-        assertTrue(busInfo.equals("GOOG 540.11"));
+        String busInfo = exchange.getBusiness("GOOG").businessSymbol;
+        assertTrue(busInfo.equals("GOOG"));
     }
 
     @Test
     public void testGetBusinessNotExistingCompany() throws Exception {
-        String busInfo = exchange.getBusiness("XXXX");
+        String busInfo = exchange.getBusiness("XXXX").businessSymbol;
         assertTrue(busInfo.isEmpty());
     }
 }

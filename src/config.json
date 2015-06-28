@@ -38,7 +38,7 @@
   "apple": "apple_data.csv",
   "apple_data.csv": "APPL",
   "businessXmlLog": "out/files/businessOrderRecord.xml",
-  "businessRecord": ""src/files/businessRecord.txt,
+  "businessRecord": "src/files/businessRecord.txt",
 
   "macLogServerHome": "/Users/Gay/Documents/Concordia/COMP6231/PROJECT/mjc62311",
   "macSecurity": "/resources/settings/security.policy"

@@ -3,6 +3,8 @@ package business;
 import common.logger.LoggerServer;
 import common.share.Share;
 
+import exchangeServer.BusinessInfo;
+import exchangeServer.CORBAShareType;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -122,15 +124,14 @@ public class BusinessTest {
 	public void TestGetShareList() {
 		Business google = new Business(Config.getInstance().getAttr("GOOG"));
 
-		List<Share> shares = google.getSharesList();
-		shares.forEach((share) -> {
-			share.getBusinessSymbol();
-			assertTrue(share.getBusinessSymbol().contains("GOOG"));
-			ShareType type = share.getShareType();
-			assertTrue(type == ShareType.COMMON || type == ShareType.PREFERRED
-					|| type == ShareType.CONVERTIBLE);
+		BusinessInfo[] shares = google.getSharesList();
+		for(BusinessInfo info : shares) {
+			assertTrue(info.businessSymbol.contains("GOOG"));
+			CORBAShareType type = info.shareType;
+			assertTrue(type == CORBAShareType.COMMON || type == CORBAShareType.PREFERRED
+					|| type == CORBAShareType.CONVERTIBLE);
 
-		});
+		};
 	}
 
 	@Test

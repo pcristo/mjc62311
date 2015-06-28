@@ -24,43 +24,47 @@ import stockexchange.exchange.ShareSalesStatusListTest;
  *      (See Mock Package in test_src).
  *
  *      Pass this class before committing code to github.
-**/
-@Suite.SuiteClasses({
-                    IntegrationTest.class,
+ **/
+@Suite.SuiteClasses(
+{
+		BrokerServiceClientTest.class, LoggerTest.class, BusinessTest.class,
+		BrokerTest.class, ConfigTest.class, GoogleFinanceTest.class,
+		ShareSalesStatusListTest.class, ExchangeTest.class
+})
+public class TestSuite
+{
+	static Thread thread;
 
-                    BrokerServiceClientTest.class,
-                    LoggerTest.class,
-                    BusinessTest.class,
-                    BrokerTest.class,
-                    ConfigTest.class,
-                    GoogleFinanceTest.class,
-                    ShareSalesStatusListTest.class,
-                    ExchangeTest.class})
+	@BeforeClass
+	public static void setUpClass()
+	{
+		thread = new Thread()
+		{
+			public void run()
+			{
+				try
+				{
+					projectLauncher.main(null);
+				} catch (Exception e)
+				{
+					e.printStackTrace();
+				}
+			}
+		};
+		thread.start();
+		try
+		{
+			Thread.sleep(1000);
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
 
-public class TestSuite {
-    static Thread thread;
+	@AfterClass
+	public static void tearDownClass()
+	{
+		thread.interrupt();
 
-    @BeforeClass
-    public static void setUpClass()  {
-        thread = new Thread() {
-            public void run() {
-                try {
-                    projectLauncher.main(null);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        };
-        thread.start();
-        try {
-            Thread.sleep(1000);
-        } catch(Exception e){
-            e.printStackTrace();
-        }
-    }
-    @AfterClass
-    public static void tearDownClass() {
-        thread.interrupt();
-
-    }
+	}
 }
