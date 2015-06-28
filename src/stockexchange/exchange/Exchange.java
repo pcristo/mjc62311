@@ -6,6 +6,7 @@ import common.share.ShareOrder;
 import common.share.ShareType;
 import common.util.Config;
 import exchangeServer.*;
+
 import org.omg.CORBA.ORB;
 import org.omg.CORBA.ORBPackage.InvalidName;
 import org.omg.CosNaming.NameComponent;
@@ -17,6 +18,11 @@ import org.omg.PortableServer.POA;
 import org.omg.PortableServer.POAHelper;
 import org.omg.PortableServer.POAManagerPackage.AdapterInactive;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.*;
@@ -70,6 +76,39 @@ public class Exchange extends ExchangeServerIFPOA implements Runnable
 		return false;
 	}
 
+	private void writeBusinessToFile()
+	{
+		try
+		{
+			// always clear the file content before writing
+			new PrintWriter(Config.getInstance().getAttr("businessRecord"))
+					.close();
+			File file = new File(Config.getInstance().getAttr("businessRecord"));
+
+			// if file doesnt exists, then create it
+			if (!file.exists())
+			{
+				file.createNewFile();
+			}
+
+			FileWriter fw = new FileWriter(file.getAbsoluteFile());
+			BufferedWriter bw = new BufferedWriter(fw);
+			for (String key : businessDirectory.keySet())
+			{
+				// use ;;d as a separator
+				bw.write(key + ";;d" + businessDirectory.get(key));
+			}
+
+			bw.close();
+
+			System.out.println("Updated business databse");
+
+		} catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+	}
+
 	/**
 	 * Registers a new business with the exchange, providing an initial price.
 	 * 
@@ -80,10 +119,16 @@ public class Exchange extends ExchangeServerIFPOA implements Runnable
 	 * @throws NotBoundException
 	 * @throws RemoteException
 	 */
+	@Override
 	public boolean registerBusiness(String symbol, float price)
 	{
-		businessDirectory.put(symbol, getBusinessIFace(symbol));
-		priceDirectory.put(symbol, price);
+		synchronized (businessDirectory)
+		{
+			businessDirectory.put(symbol, getBusinessIFace(symbol));
+			priceDirectory.put(symbol, price);
+			writeBusinessToFile();
+		}
+
 		return true;
 	}
 
@@ -267,6 +312,7 @@ public class Exchange extends ExchangeServerIFPOA implements Runnable
 	 * @throws Exception
 	 *             when the symbol is not listed
 	 */
+	@Override
 	public boolean unregisterBusiness(String symbol)
 	{
 		// try to remove the stock from the business and price registers. If the
@@ -276,10 +322,12 @@ public class Exchange extends ExchangeServerIFPOA implements Runnable
 		if ((bi == null) || (priceDirectory.remove(symbol) == null))
 		{
 			return false;
-			// throw new Exception("Symbol " + symbol + " not registered.");
 		}
+		writeBusinessToFile();
 		return true;
 		// TODO: business must be unbound from the client?
+		// TODO: since business will be running as a separate thread, so
+		// stopping the thread is enough
 	}
 
 	/**
