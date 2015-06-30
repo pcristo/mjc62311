@@ -21,6 +21,9 @@
 
   "businessServerIP": "localhost",
 
+  "namingServiceAddr": "localhost",
+  "namingServicePort": "9999",
+
   "YHOO": "yahoo_data.csv",
   "yahoo": "yahoo_data.csv",
   "MSFT": "microsoft_data.csv",

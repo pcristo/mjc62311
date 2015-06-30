@@ -1,7 +1,8 @@
 package business;
 
+import java.util.Properties;
+
 import org.omg.CORBA.*;
-import org.omg.CORBA.Object;
 import org.omg.CORBA.ORBPackage.InvalidName;
 import org.omg.CosNaming.*;
 import org.omg.CosNaming.NamingContextPackage.CannotProceed;
@@ -12,9 +13,10 @@ import org.omg.PortableServer.POAManagerPackage.AdapterInactive;
 import org.omg.PortableServer.POAPackage.ServantNotActive;
 import org.omg.PortableServer.POAPackage.WrongPolicy;
 
+import common.util.Config;
+
 import business_domain.interface_business;
 import business_domain.interface_businessHelper;
-import stockexchange.exchange.Exchange;
 import exchange_domain.iExchange;
 import exchange_domain.iExchangeHelper;
 
@@ -27,6 +29,7 @@ import exchange_domain.iExchangeHelper;
  */
 public class BusinessServer implements Runnable {
 	private BusinessServant business = new BusinessServant();
+	private String thisSymbol;
 
 	/**
 	 * Launches a new business server within a new thread.
@@ -35,7 +38,7 @@ public class BusinessServer implements Runnable {
 	 *            The symbol of the business to launch.
 	 * @return The thread that has been started
 	 */
-	public static Thread launch(String symbol) {
+	public static Thread launch(String symbol) {		
 		BusinessServer business = new BusinessServer();
 		business.setBusinessSymbol(symbol);
 
@@ -58,7 +61,7 @@ public class BusinessServer implements Runnable {
 				throw new Exception("Could not register with exchange");
 		} catch (Exception e) {
 			// TODO patrickc log this in the logger
-			System.err.println("Business Server Error - " + e);
+			System.err.println("Business Server Error - " + e.getMessage());
 			e.printStackTrace(System.out);
 			System.exit(0);
 		}
@@ -74,7 +77,7 @@ public class BusinessServer implements Runnable {
 	 * @param businessSymbol
 	 */
 	protected void setBusinessSymbol(String businessSymbol) {
-		business.setBusinessSymbol(businessSymbol);
+		thisSymbol = businessSymbol;
 	}
 
 	/**
@@ -91,12 +94,17 @@ public class BusinessServer implements Runnable {
 	private void InitORB() throws InvalidName, NotFound, CannotProceed,
 			org.omg.CosNaming.NamingContextPackage.InvalidName,
 			ServantNotActive, WrongPolicy, AdapterInactive {
+		// Set up ORB properties
+		Properties p = new Properties();
+        p.put("org.omg.CORBA.ORBInitialPort", Config.getInstance().getAttr("namingServicePort"));
+        p.put("org.omg.CORBA.ORBInitialHost", Config.getInstance().getAttr("namingServiceAddr"));
+        
 		// Create a new object request broker
-		ORB orb = ORB.init(new String[0], null);
+		ORB orb = ORB.init(new String[0], p);
 		POA rootpoa = POAHelper.narrow(orb
 				.resolve_initial_references("RootPOA"));
 		rootpoa.the_POAManager().activate();
-
+		
 		// get object reference from the servant
 		org.omg.CORBA.Object ref = rootpoa.servant_to_reference(business);
 		interface_business href = interface_businessHelper.narrow(ref);
@@ -106,11 +114,11 @@ public class BusinessServer implements Runnable {
 		NamingContextExt ncRef = NamingContextExtHelper.narrow(objRef);
 
 		NameComponent path[] = ncRef
-				.to_name("business-" + business.getTicker());
+				.to_name("business-" + thisSymbol);
 		ncRef.rebind(path, href);
 
 		// TODO: patrickc log the event
-		System.out.println("Business Server " + business.getTicker()
+		System.out.println("Business Server " + thisSymbol
 				+ " ready and waiting ...");
 
 	}
@@ -124,8 +132,13 @@ public class BusinessServer implements Runnable {
 	 */
 	private boolean RegisterExchange() throws NotFound, CannotProceed,
 			org.omg.CosNaming.NamingContextPackage.InvalidName, InvalidName {
-		// Get the exchange object
-		ORB orb = ORB.init(new String[0], null);
+		// Set up ORB properties
+		Properties p = new Properties();
+        p.put("org.omg.CORBA.ORBInitialPort", Config.getInstance().getAttr("namingServicePort"));
+        p.put("org.omg.CORBA.ORBInitialHost", Config.getInstance().getAttr("namingServiceAddr"));
+        
+        // Get the exchange object
+		ORB orb = ORB.init(new String[0], p);
 
 		org.omg.CORBA.Object object = orb
 				.resolve_initial_references("NameService");
