@@ -1,69 +1,86 @@
 package business;
 
-import java.rmi.NotBoundException;
-import java.rmi.RemoteException;
+import org.omg.CORBA.*;
+import org.omg.CORBA.Object;
+import org.omg.CosNaming.*;
+import org.omg.CosNaming.NamingContextPackage.*;
 
-import common.logger.LoggerServer;
-import common.share.ShareType;
-import common.util.Config;
-import stockexchange.exchange.Exchange;
-
+/**
+ * This class creates a new instance of a business, creates the ORB, 
+ * registers with the CORBA Naming Service, and runs the server in 
+ * a background thread
+ *  
+ * @see http://www.javacoffeebreak.com/articles/javaidl/javaidl.html
+ * @author patrick
+ */
 public class BusinessServer implements Runnable {
-	private Business business;
+	private BusinessServant business;
 	private String businessSymbol = "";
 	
 	/**
-	 * Starts a server thread for a new business. The business will be the one
-	 * specified by the businessSymbol property.
+	 * Initializes the ORB, connects to naming service, keeps 
+	 * the server alive. You should call the static method launch(String symbol)
+	 * instead of calling run directly
 	 */
+	@Override
 	public void run() {
-		Business business = new Business(Config.getInstance().getAttr(businessSymbol));		
-		
-		// TODO: replace this with a CORBA call
-		Exchange exchange = new Exchange();
-		float price = business.getShareInfo(ShareType.COMMON).getUnitPrice();
 		try {
-			exchange.registerBusiness(businessSymbol, price);
-		} catch (RemoteException | NotBoundException e) {
-			// TODO Auto-generated catch block (log something)
-			e.printStackTrace();
-		}
+			// Create ORB
+			ORB orb = ORB.init(new String[0], null);
 
-		// keep the server running forever...
-		while (true) {
-			try {
-				Thread.sleep(200);
-			} 
-			catch (InterruptedException e) {
-				// TODO log something
-			}
-		}
-	}
+			// Connect object to ORB
+			orb.connect((Object) business);
 
-	/** 
-	 * Sets the business symbol handled by this server. Can only be set once.
-	 * @param businessSymbol
-	 */
-	public void setBusinessSymbol(String businessSymbol) {
-		if (this.businessSymbol.equals("")) {
-			this.businessSymbol = businessSymbol;
-			System.out.println("Set symbol " + businessSymbol); // TODO delete this line
-		}
+			// TODO: patrickc log the event
 
+			// Get nameservice reference
+			org.omg.CORBA.Object object = orb
+					.resolve_initial_references("NameService");
+
+			// Cast to naming context
+			NamingContext namingContext = NamingContextHelper.narrow(object);
+
+			// Add a new naming component for our interface
+			NameComponent list[] = { new NameComponent("business-" + businessSymbol, "") };
+
+			// Now notify naming service of our new interface
+			namingContext.rebind(list, (Object) business);
+
+		} catch (Exception e) {
+			System.err.println("ORB Error - " + e);
+			e.printStackTrace(System.out);
+			System.exit(0);
+		}
+		
+		// loop forever
+		while (true) {}
 	}
 	
 	/**
+	 * Sets the business symbol handled by this server. Can only be set once.
+	 * 
+	 * @param businessSymbol
+	 */
+	protected void setBusinessSymbol(String businessSymbol) {
+		if (this.businessSymbol.equals("")) {
+			this.businessSymbol = businessSymbol;
+		}
+	}
+		
+	/**
 	 * Launches a new business server within a new thread.
-	 * @param symbol The symbol of the business to launch.
+	 * 
+	 * @param symbol
+	 *            The symbol of the business to launch.
 	 * @return The thread that has been started
 	 */
 	public static Thread launch(String symbol) {
-		BusinessServer instance = new BusinessServer();
-		instance.setBusinessSymbol(symbol);
-		
-		Thread thread = new Thread(()->instance.run());
+		BusinessServer business = new BusinessServer();
+		business.setBusinessSymbol(symbol);
+
+		Thread thread = new Thread(() -> business.run());
 		thread.start();
-		
+
 		return thread;
 	}
 }

@@ -1,6 +1,5 @@
 package business;
 
-import distribution.RMI.Server;
 import common.logger.LoggerClient;
 import common.share.Share;
 import common.share.ShareOrder;
@@ -9,7 +8,6 @@ import common.util.Config;
 
 import java.io.*;
 import java.net.URL;
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,13 +19,10 @@ import stockQuotes.GoogleFinance;
  * 
  * @author patrick
  */
-public class Business implements Serializable, BusinessInterface {
+public class Business implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private List<Share> sharesList = new ArrayList<Share>();
 	private List<OrderRecord> orderRecords = new ArrayList<OrderRecord>();
-	private Object recordLock = new Object();
-
-	private static Server<BusinessInterface> server = new Server<BusinessInterface>();
 
 	/**
 	 * Constructor to create a business
@@ -41,7 +36,6 @@ public class Business implements Serializable, BusinessInterface {
 			String filePath = Config.getInstance().getAttr("files") + "/";
 			URL sourceURL = Thread.currentThread().getContextClassLoader()
 					.getResource(filePath + identifier);
-			System.out.println(sourceURL.toString()); // TODO delete this line
 			BufferedReader bufferedReader = new BufferedReader(
 					new InputStreamReader(sourceURL.openStream()));
 
@@ -87,7 +81,7 @@ public class Business implements Serializable, BusinessInterface {
 	/**
 	 * @return the ticker commonly used to identify a company
 	 */
-	public String getTicker() throws RemoteException {
+	public String getTicker()  {
 		// all shares must have the same symbol, but may have different 'extensions'
 		// return the common part of the symbol here:
 
@@ -107,9 +101,9 @@ public class Business implements Serializable, BusinessInterface {
 	 * @param aSO
 	 *            A ShareOrder to process
 	 * @return true if successful, false if failed
-	 * @throws RemoteException 
+	 * @ 
 	 */
-	public boolean issueShares(ShareOrder aSO) throws RemoteException {
+	public boolean issueShares(ShareOrder aSO)  {
 		// fetch the common.share that is relevant to this order
 		Share listedShare = getShareInfo(aSO.getShareType());
 
@@ -222,32 +216,6 @@ public class Business implements Serializable, BusinessInterface {
 	}
 
 	/**
-	 * Saves an order of issued shares to an XML record
-	 * 
-	 * @param order
-	 *            The order to write to file
-	 * @throws FileNotFoundException
-	 *             If the file exists but is a directory rather than a regular
-	 *             file, does not exist but cannot be created, or cannot be
-	 *             opened for any other reason then a FileNotFoundException is
-	 *             thrown.
-	 * @deprecated Replaced by saveRecordToList()
-	 */
-	private void saveRecord(ShareOrder order) throws FileNotFoundException {
-		/*
-		OrderRecord orderRecord = new OrderRecord(order, false);
-
-		synchronized(recordLock) {
-			// write to file
-			XMLEncoder e = new XMLEncoder(new BufferedOutputStream(
-					new FileOutputStream(ORDER_RECORD_FILENAME, true)));
-			e.writeObject(orderRecord); // append the new order to the record
-			e.close();
-			
-		} */
-	}
-
-	/**
 	 * Saves an order of issued shares to local memory
 	 * 
 	 * @param order The order to save
@@ -326,40 +294,5 @@ public class Business implements Serializable, BusinessInterface {
 		return false;
 
 	}
-
-	/** TODO: Delete commented code
-	 * Create business interfaces and bind them to ports 9095 - 9099
-	 * @param args
-	 */
-	/*public static void main(String args[]) {
-		//TODO business name in enum
-
-		// Start google server
-		String googleName = "google";
-		String googleCsv = Config.getInstance().getAttr(googleName);
-		BusinessInterface google = new Business(googleCsv);
-
-		// Start yahoo server
-		String yahooName = "yahoo";
-		String yahooCsv = Config.getInstance().getAttr(yahooName);
-		BusinessInterface yahoo = new Business(yahooCsv);
-
-		// Start msoft server
-		String msoftName = "microsoft";
-		String msoftCsv = Config.getInstance().getAttr(msoftName);
-		BusinessInterface msoft = new Business(msoftCsv);
-
-		try {
-			// Reserver port 9095 - 9099 for business services
-			server.start(google, googleName, 9095);
-			server.start(yahoo, yahooName, 9096);
-			server.start(msoft, msoftName, 9097);
-
-		} catch(RemoteException rme) {
-			System.out.println(rme.getMessage());
-			LoggerClient.log("Remote Exception in Business Server: " + rme.getMessage());
-		}
-	} */
-
 
 }

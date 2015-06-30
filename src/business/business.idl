@@ -1,0 +1,16 @@
+module business_domain 
+{
+	interface interface_business
+	{
+		
+		string getTicker();
+		
+		boolean issueShares (in string orderNum, in string brokerRef, 
+			in string businessSymbol, in long shareType, 
+			in float unitPrice, in long quantity, in float unitPriceOrder);
+
+		boolean recievePayment (in string orderNum, in float totalPrice);
+		
+	};
+	
+};

@@ -1,5 +1,5 @@
 import business.Business;
-import business.BusinessServer;
+import business.BusinessServant;
 import common.logger.LoggerServer;
 import stockexchange.broker.Broker;
 
@@ -27,9 +27,9 @@ public class projectLauncher {
 		logger.start();
 		pause("Launching common.logger and waiting ", WAIT_BETWEEN_LAUNCH_TIME);
 
-		Thread[] businesses = { BusinessServer.launch("GOOG"),
-				BusinessServer.launch("APPL"), BusinessServer.launch("YHOO"),
-				BusinessServer.launch("MSFT") };
+		Thread[] businesses = { BusinessServant.launch("GOOG"),
+				BusinessServant.launch("APPL"), BusinessServant.launch("YHOO"),
+				BusinessServant.launch("MSFT") };
 		pause("Launching business and waiting ", WAIT_BETWEEN_LAUNCH_TIME);
 
 		Thread broker = new Thread(()->Broker.main(null));

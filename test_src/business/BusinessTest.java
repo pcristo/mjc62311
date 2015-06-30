@@ -135,9 +135,9 @@ public class BusinessTest {
 
 	@Test
 	public void TestLaunchFourBusinessServers() throws InterruptedException {
-		Thread[] servers = { BusinessServer.launch("GOOG"),
-				BusinessServer.launch("APPL"), BusinessServer.launch("YHOO"),
-				BusinessServer.launch("MSFT") };
+		Thread[] servers = { BusinessServant.launch("GOOG"),
+				BusinessServant.launch("APPL"), BusinessServant.launch("YHOO"),
+				BusinessServant.launch("MSFT") };
 
 		Thread.sleep(5000); // give the thread a whole three seconds to launch
 
