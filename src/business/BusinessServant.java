@@ -28,7 +28,6 @@ public class BusinessServant extends interface_businessPOA {
 		if (this.businessSymbol.equals("")) {
 			this.businessSymbol = businessSymbol;
 		}
-
 	}
 
 	/**
