@@ -38,17 +38,16 @@ public class MockExchange extends Exchange  {
     }
 
     /**
-     * @param businessName looking for
+     * 
+     * @param symbol to enlist
+     * @param price to make shares available at
      * @return
      */
     @Override
-    public BusinessInterface getBusiness1(String businessName) {
-        return new Business("google_data.csv");
-    }
-
-    @Override
-    public void registerBusiness(String symbol, float price){
+    public boolean registerBusiness(String symbol, float price){
         priceDirectory.put(symbol, price);
+
+        return true;
     }
 
     @Override

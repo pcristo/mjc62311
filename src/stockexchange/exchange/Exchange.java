@@ -128,9 +128,20 @@ public class Exchange extends iExchangePOA {
      * @throws NotBoundException 
      * @throws RemoteException 
      */
-    public void registerBusiness(String symbol, float price) throws RemoteException, NotBoundException {
-    	businessDirectory.put(symbol, getBusinessIFace(symbol));
-    	priceDirectory.put(symbol, price);
+    public boolean registerBusiness(String symbol, float price) {
+
+        try{
+            //businessDirectory.put(symbol, getBusinessIFace(symbol));
+            priceDirectory.put(symbol, price);
+            return true;
+        }
+        catch (Exception e) {
+
+            System.out.println(e.getMessage());
+        }
+
+
+        return false;
     }
     
     /**
@@ -536,17 +547,18 @@ public class Exchange extends iExchangePOA {
 
             //Update Registry price
             synchronized (this.priceDirectory.get(symbol)){
-                System.out.println("IN 1");
+
                 this.priceDirectory.put(symbol, price);
+                System.out.println("IN 1");
             }
 
             //Update all prices in available shares
-            synchronized (shareStatusSaleList.newAvShares.get(symbol)){
-                System.out.println("IN 2");
+           /* synchronized (shareStatusSaleList.newAvShares.get(symbol)){
+
                 for (ShareItem sItem : shareStatusSaleList.newAvShares.get(symbol)){
                     sItem.setUnitPrice(price);
                 }
-            }
+            }*/
         }
 
         //TODO: REMOVE ONCE TESTING IS DONE
