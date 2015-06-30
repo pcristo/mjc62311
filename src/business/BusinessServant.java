@@ -31,6 +31,16 @@ public class BusinessServant extends interface_businessPOA {
 
 	}
 
+	/**
+	 * Gets the price of a share
+	 * @return price of share
+	 */
+	public float getUnitPrice() {
+		// All share types are assumed to have the same price, so return 
+		// price of a common share
+		return business.getShareInfo(ShareType.COMMON).getUnitPrice();
+	}
+	
 	/*
 	 * IMPLEMENTATION OF THE BUSINESS STUB
 	 */

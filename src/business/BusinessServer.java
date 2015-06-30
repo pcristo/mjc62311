@@ -7,6 +7,9 @@ import org.omg.CosNaming.*;
 import org.omg.CosNaming.NamingContextPackage.CannotProceed;
 import org.omg.CosNaming.NamingContextPackage.NotFound;
 
+import exchange_domain.iExchange;
+import exchange_domain.iExchangeHelper;
+
 /**
  * This class creates a new instance of a business, creates the ORB, registers
  * with the CORBA Naming Service, and runs the server in a background thread
@@ -43,7 +46,7 @@ public class BusinessServer implements Runnable {
 	public void run() {
 		try {
 			InitORB();
-			RegisterExchange();
+			if (!RegisterExchange()) throw new Exception("Could not register with exchange");
 		} catch (Exception e) {
 			// TODO patrickc log this in the logger
 			System.err.println("Business Server Error - " + e);
@@ -53,8 +56,8 @@ public class BusinessServer implements Runnable {
 
 		// loop forever
 		while (true) {
+			} // TODO patrickc catch interrupt to deregister server
 		}
-	}
 
 	/**
 	 * Sets the business symbol handled by this server. Can only be set once.
@@ -99,10 +102,15 @@ public class BusinessServer implements Runnable {
 		namingContext.rebind(list, (Object) business);
 	}
 
+
 	/**
-	 * 
+	 * @return true if successful, false if not
+	 * @throws NotFound
+	 * @throws CannotProceed
+	 * @throws org.omg.CosNaming.NamingContextPackage.InvalidName
+	 * @throws InvalidName
 	 */
-	private void RegisterExchange() {
+	private boolean RegisterExchange() throws NotFound, CannotProceed, org.omg.CosNaming.NamingContextPackage.InvalidName, InvalidName {
 		// Get the exchange object
 		ORB orb = ORB.init(new String[0], null);
 
@@ -118,7 +126,7 @@ public class BusinessServer implements Runnable {
 		iExchange exchange = iExchangeHelper.narrow(objectReference);
 
 		// Register to it
-
+		return exchange.registerBusiness(business.getTicker(), business.getUnitPrice());
 	}
 
 }
