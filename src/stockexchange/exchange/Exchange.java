@@ -1,18 +1,21 @@
 package stockexchange.exchange;
 
-import distribution.RMI.Client;
 import business.BusinessInterface;
 import common.Customer;
 import common.logger.LoggerClient;
-import common.logger.TimerLoggerClient;
 import common.share.ShareOrder;
 import common.share.ShareType;
 import common.util.Config;
+import distribution.RMI.Client;
+import exchange_domain.iExchangePOA;
+import org.omg.CORBA.ORB;
 
-import java.rmi.AccessException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /** 
  * The exchange class acts as an intermediary between businesses and stock brokers. Brokers
@@ -21,11 +24,17 @@ import java.util.*;
  * Please note that the exchange assumes that all share types within a business have the same
  * ticker symbol and price.
  */
-public class Exchange {
+public class Exchange extends iExchangePOA {
     private static  final int COMMISSION_MARKUP = 10;
     private static  final int RESTOCK_THRESHOLD = 500;
     private static  int orderInt = 1100;
     protected static ShareSalesStatusList shareStatusSaleList;
+
+    private ORB orb;
+
+    public void setORB(ORB orb_val) {
+        orb = orb_val;
+    }
 
     private Client<BusinessInterface> client = new Client<BusinessInterface>();
 
@@ -48,7 +57,10 @@ public class Exchange {
      */
     public Exchange() {
 
+        //TODO: Remove
+        System.out.println("In Exchange");
         try {
+            priceDirectory.put("GOOG", 100f);
             //google = getBusiness("google");
             //yahoo = getBusiness("yahoo");
             //microsoft = getBusiness("microsoft");
@@ -57,7 +69,17 @@ public class Exchange {
 
             System.out.println(e.getMessage());
         }
-        //shareStatusSaleList = new ShareSalesStatusList();
+
+        shareStatusSaleList = new ShareSalesStatusList();
+
+        //TODO: REMOVE ONCE TESTING IS DONE
+
+        for(Map.Entry<String, Float> entry : priceDirectory.entrySet()) {
+
+            System.out.println(entry.getKey() + " " + entry.getValue()) ;
+        }
+
+
         //initializeShares();
     }
 
@@ -330,24 +352,19 @@ public class Exchange {
         List<ShareItem> lstShares = new ArrayList<ShareItem>();
 
         //For Testing
-        lstShares.add(new ShareItem("", "MSFT", ShareType.COMMON, 540.11f, 100));
-        lstShares.add(new ShareItem("","MSFT.B",ShareType.CONVERTIBLE,523.32f,100));
-        lstShares.add(new ShareItem("","MSFT.C",ShareType.PREFERRED,541.28f,100));
-        lstShares.add(new ShareItem("","GOOG",ShareType.COMMON,540.11f,100));
-        lstShares.add(new ShareItem("","GOOG.B",ShareType.CONVERTIBLE,532.23f,100));
-        lstShares.add(new ShareItem("", "GOOG.C", ShareType.PREFERRED, 541.28f, 100));
-        lstShares.add(new ShareItem("", "GOOG", ShareType.COMMON, 540.11f, 100));
+        for(Map.Entry<String, Float> entry : this.priceDirectory.entrySet()) {
 
+            lstShares.add(new ShareItem("",entry.getKey(), ShareType.COMMON,entry.getValue(),100));
+            lstShares.add(new ShareItem("",entry.getKey(), ShareType.CONVERTIBLE,entry.getValue(),100));
+            lstShares.add(new ShareItem("",entry.getKey(), ShareType.PREFERRED,entry.getValue(),100));
+        }
 
         for(ShareItem shareItem : lstShares) {
 
             ShareItem addShareItem = this.issueSharesRequest(shareItem);
 
             if (addShareItem != null) {
-                shareStatusSaleList.addToAvailableShares(addShareItem);
                 shareStatusSaleList.addToNewAvShares(addShareItem);
-
-
             }
         }
     }
@@ -358,26 +375,6 @@ public class Exchange {
     private void restock() {
 
         System.out.println(" \n " + "...... Restocking Shares .......");
-
-        //Check Available stock amount
-        /*for (ShareItem sItem : shareStatusSaleList.getAvailableShares()) {
-
-            synchronized (sItem) {
-
-                if (sItem.getQuantity() < RESTOCK_THRESHOLD) {
-
-                    ShareItem newShares = this.issueSharesRequest(sItem);
-
-                    if (newShares != null) {
-                        sItem.setOrderNum(newShares.getOrderNum());
-                        sItem.setQuantity(newShares.getQuantity());
-
-                        shareStatusSaleList.addToNewAvShares(sItem);
-
-                    }
-                }
-            }
-        }*/
 
         for(Map.Entry<String, List<ShareItem>> entry : shareStatusSaleList.newAvShares.entrySet()){
 
@@ -529,6 +526,9 @@ public class Exchange {
      */
     public boolean updateSharePrice(String symbol, float price) {
 
+        //TODO: Remove
+        System.out.println(symbol);
+
         //Does business exist in exchange
         if (this.priceDirectory.get(symbol) == null) {
             return false;
@@ -536,17 +536,26 @@ public class Exchange {
 
             //Update Registry price
             synchronized (this.priceDirectory.get(symbol)){
+                System.out.println("IN 1");
                 this.priceDirectory.put(symbol, price);
             }
 
             //Update all prices in available shares
             synchronized (shareStatusSaleList.newAvShares.get(symbol)){
-
+                System.out.println("IN 2");
                 for (ShareItem sItem : shareStatusSaleList.newAvShares.get(symbol)){
                     sItem.setUnitPrice(price);
                 }
             }
         }
+
+        //TODO: REMOVE ONCE TESTING IS DONE
+
+        for(Map.Entry<String, Float> entry : priceDirectory.entrySet()) {
+
+            System.out.println(entry.getKey() + " " + entry.getValue()) ;
+        }
+
 
         return false;
 

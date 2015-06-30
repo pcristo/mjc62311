@@ -26,7 +26,7 @@ public class BrokerServiceClient {
      * @throws RemoteException
      * @throws NotBoundException
      */
-    public BrokerInterface getBroker() throws RemoteException, NotBoundException {
+   public BrokerInterface getBroker() throws RemoteException, NotBoundException {
 
 
         String host = Config.getInstance().getAttr("brokerServerIP");

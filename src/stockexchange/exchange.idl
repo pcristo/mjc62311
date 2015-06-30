@@ -1,0 +1,9 @@
+module exchange_domain
+{
+    interface iExchange
+    {
+        // update share price
+        boolean updateSharePrice(in string symbol, in float PRICE);
+
+    };
+};
