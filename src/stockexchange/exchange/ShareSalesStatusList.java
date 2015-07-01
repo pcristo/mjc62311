@@ -100,17 +100,9 @@ public class ShareSalesStatusList{
     }
 
     /**
-     *
-     * @param aShare ShareItem to add to available shares
+     * Add share to available shares list
+     * @param aShare
      */
-    public void addToAvailableShares(ShareItem aShare) {
-
-        //Find this type of common.share that is at quantity 0
-        synchronized (availableShares) {
-            this.availableShares.add(aShare);
-        }
-    }
-
     public void addToNewAvShares(ShareItem aShare){
 
         //Is share already in list
@@ -131,6 +123,10 @@ public class ShareSalesStatusList{
 
     }
 
+    /**
+     * Keep track of ordered shared until they are paid
+     * @param aShare
+     */
     public void addToOrderedShares(ShareItem aShare){
 
         //Add to Ordered shares list
@@ -138,45 +134,9 @@ public class ShareSalesStatusList{
 
     }
 
-    @Override
-    public String toString() {
-        return "Sold SHares: " + soldShares.toString() + "\nAvailable Shares: " + availableShares;
-    }
-
-
     /**
      *
-     * @return ArrayList of ShareItems of shares that are available for purchase
-     */
-    private ArrayList<ShareItem> populateAvailable() {
-
-        ArrayList<ShareItem> availableShares = new ArrayList<ShareItem>();
-        synchronized (availableShares) {
-            //For Testing
-            ShareItem share1 = new ShareItem("901", "MSFT", ShareType.COMMON, 540.11f, 100);
-            ShareItem share2 = new ShareItem("902", "MSFT.B", ShareType.CONVERTIBLE, 523.32f, 400);
-            ShareItem share3 = new ShareItem("903", "MSFT.C", ShareType.PREFERRED, 541.28f, 700);
-            ShareItem share4 = new ShareItem("904", "GOOG", ShareType.COMMON, 540.11f, 100);
-            ShareItem share5 = new ShareItem("905", "GOOG.B", ShareType.CONVERTIBLE, 523.32f, 400);
-            ShareItem share6 = new ShareItem("906", "GOOG.C", ShareType.PREFERRED, 541.28f, 700);
-            ShareItem share7 = new ShareItem("907", "GOOG", ShareType.COMMON, 540.11f, 100);
-
-
-            availableShares.add(share1);
-            availableShares.add(share2);
-            availableShares.add(share3);
-            availableShares.add(share4);
-            availableShares.add(share5);
-            availableShares.add(share6);
-            availableShares.add(share7);
-        }
-        return availableShares;
-
-    }
-
-    /**
-     *
-     * @return Map of share items index by ? //TODO
+     * @return Map of share items index by customer id
      */
     public Map<Integer,List<ShareItem>> getSoldShares() {
         return soldShares;
@@ -191,12 +151,18 @@ public class ShareSalesStatusList{
         return this.newAvShares;
     }
 
+    /**
+     * Getter of Map of ordered shares
+     * @return
+     */
     public Map<String, ShareItem> getOrderesShares() {
 
         return this.orderedShares;
     }
 
-
+    /**
+     * Display all sold shares, avaialble shares and ordered shares
+     */
     public void PrintNewAvShares(){
 
         System.out.println();
@@ -204,7 +170,7 @@ public class ShareSalesStatusList{
 
         for(Map.Entry<String, List<ShareItem>> entry : this.newAvShares.entrySet()){
 
-                System.out.println(entry.getKey());
+            System.out.println(entry.getKey());
 
             for(ShareItem share : entry.getValue()){
 
@@ -239,6 +205,15 @@ public class ShareSalesStatusList{
         }
 
     }
+
+    @Override
+    public String toString() {
+        return "Sold SHares: " + soldShares.toString() + "\nAvailable Shares: " + availableShares;
+    }
+
+
+
+
 
 
 

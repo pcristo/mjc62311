@@ -244,7 +244,7 @@ public class MockExchange extends Exchange {
 
     public BusinessServant getMockBusiness(String businessName) {
 
-        this.businessDirectory.get(businessName);
+        return this.businessDirectory.get(businessName);
 
     }
 }

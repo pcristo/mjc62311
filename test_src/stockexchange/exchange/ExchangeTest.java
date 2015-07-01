@@ -32,7 +32,7 @@ public class ExchangeTest {
         assertEquals(google.getTicker(), "GOOG");
     }
 
-    
+
     @Test
     public void testSellShares() throws Exception {
         ShareList sharelist = new ShareList(new ArrayList<ShareItem>() {

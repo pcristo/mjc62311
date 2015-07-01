@@ -281,7 +281,7 @@ public class Exchange extends iExchangePOA {
      * @return arrayList of all tickers listed on exchange
      */
     public ArrayList<String> getListing() {
-        System.out.println(businessDirectory);
+
         ArrayList<String> tickerList = new ArrayList<String>();
 
         for(String ticker : businessDirectory.keySet()) {
@@ -394,7 +394,7 @@ public class Exchange extends iExchangePOA {
             synchronized (shareToBePaid) {
 
                 // if the business is not registered, there is no interface, and null is returned
-		        //TODO To Review
+
 		        interface_business bi = businessDirectory.get(shareToBePaid.getBusinessSymbol());
                 if (bi != null) {
                     try {
@@ -430,11 +430,12 @@ public class Exchange extends iExchangePOA {
 
         String orderNum = generateOrderNumber();
 
-		/*synchronized (orderNum) {
+		synchronized (orderNum) {
 			try {
-				sharesIssued = bi.issueShares(new ShareOrder(orderNum, 
-						"not applicable", sItem.getBusinessSymbol(), sItem.getShareType(), 
-						sItem.getUnitPrice(), RESTOCK_THRESHOLD, sItem.getUnitPrice()));
+
+				sharesIssued = bi.issueShares(orderNum,
+						"br01", sItem.getBusinessSymbol(), 0,
+						sItem.getUnitPrice(), RESTOCK_THRESHOLD, sItem.getUnitPrice());
 			} catch (Exception e) {
 				System.out.println(" \n " + e.getMessage());
 			}
@@ -443,7 +444,7 @@ public class Exchange extends iExchangePOA {
 		if (sharesIssued) {
 			ShareItem newShareItem = new ShareItem(orderNum,sItem.getBusinessSymbol(), sItem.getShareType(), sItem.getUnitPrice(), RESTOCK_THRESHOLD);
 			return newShareItem;
-		}*/
+		}
 
 		return null;
 	}
@@ -482,8 +483,8 @@ public class Exchange extends iExchangePOA {
     }
 
      /**
-     *  updateSharePrice(SYMBOL, PRICE) updates existing business’s share price. If business
-     *  does not exist, it’s an error.
+     *  updateSharePrice(SYMBOL, PRICE) updates existing businessï¿½s share price. If business
+     *  does not exist, itï¿½s an error.
      * @param symbol
      * @param price
      * @return
