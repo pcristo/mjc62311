@@ -32,7 +32,6 @@
   "google": "google_data.csv",
   "APPL": "apple_data.csv",
   "apple": "apple_data.csv",
-  "businessXmlLog": "out/files/businessOrderRecord.xml",
 
   "macLogServerHome": "/Users/Gay/Documents/Concordia/COMP6231/PROJECT/mjc62311",
   "macSecurity": "/resources/settings/security.policy"
