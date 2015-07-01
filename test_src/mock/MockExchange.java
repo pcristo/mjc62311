@@ -29,7 +29,6 @@ public class MockExchange extends Exchange  {
      * @throws NotBoundException
      */
     public MockExchange() throws RemoteException, NotBoundException {
-        google = getBusiness1("google");
 
         //createBusinessDirectory();
         shareStatusSaleList = new ShareSalesStatusList();
