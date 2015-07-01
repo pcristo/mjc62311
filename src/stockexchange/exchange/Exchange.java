@@ -18,6 +18,7 @@ import org.omg.CosNaming.*;
 import java.io.*;
 import java.io.DataInputStream;
 import java.util.Properties;
+import java.util.logging.Logger;
 
 /** 
  * The exchange class acts as an intermediary between businesses and stock brokers. Brokers
@@ -27,6 +28,7 @@ import java.util.Properties;
  * ticker symbol and price.
  */
 public class Exchange extends iExchangePOA {
+
     private static  final int COMMISSION_MARKUP = 10;
     private static  final int RESTOCK_THRESHOLD = 500;
     private static  int orderInt = 1100;
@@ -50,9 +52,6 @@ public class Exchange extends iExchangePOA {
      */
     protected Map<String, Float> priceDirectory = new HashMap<String, Float>();
 
-    public BusinessInterface yahoo;
-    public BusinessInterface microsoft;
-    public BusinessInterface google;
 
     /**
      * Create exchange object by preparing the local list of available shares
@@ -76,12 +75,11 @@ public class Exchange extends iExchangePOA {
      * @return business object
      * @throws NotBoundException
      */
-    public void getBusiness(String businessName) {
+    public String getBusiness(String businessName) {
 
-        float price = this.priceDirectory.get(businessName);
+        String busInfo = "Business Ticker : " + this.getBusinessTicker(businessName) +  " Price : " + this.priceDirectory.get(businessName);
 
-        System.out.println("Businesss : " + businessName + " Price : " + this.priceDirectory.get(businessName));
-
+        return busInfo;
     }
 
 
@@ -97,7 +95,7 @@ public class Exchange extends iExchangePOA {
             businessDirectory.put(symbol, getBusinessIFace(symbol));
             priceDirectory.put(symbol, price);
 
-            return this.businessDirectory.get(symbol).issueShares(generateOrderNumber(),"br01",symbol,0,price,1000, price);
+            return this.orderShares(this.businessDirectory.get(symbol), symbol, price, 1000);
 
         }
         catch (Exception e) {
@@ -105,6 +103,7 @@ public class Exchange extends iExchangePOA {
             System.out.println(e.getMessage());
         }
 
+        this.printCurrentShareInfo();
 
         return false;
     }
@@ -127,11 +126,9 @@ public class Exchange extends iExchangePOA {
     }
     
     /**
-     * Returns a business interface for making calls to the remote business server.
-     * @param businessName looking for (specified as the stock symbol)
-     * @return business object
-     * @throws RemoteException
-     * @throws NotBoundException
+     *  Returns a business interface for making calls to the remote business server.
+     * @param businessName
+     * @return
      */
     public interface_business getBusinessIFace(String businessName){
 
@@ -162,24 +159,16 @@ public class Exchange extends iExchangePOA {
         return null;
     }
 
-
     /**
-     * Getter : Business Directory
-     * @return Map of all business in exchange
-   
-    public Map<String, String> getBusinessDirectory() {
-        return businessDirectory;
-    }  */
-
-    /**
-     * NOT IMPLEMENTED
-     * Buy shares from a customer (ie Customer is SELLING shares)
-     * @param shareItemList ShareList of share to purchase from customer
-     * @param info Customer selling shares
+     * BuyShares is currently not part of our requirements
+     * @param shareItemList
+     * @param info
      * @return
      */
     public ShareSalesStatusList buyShares(ShareList shareItemList, Customer info) {
-        // TODO implement, not yet required by the specifications
+
+        //TODO: Currently not part of the requirements
+
         return shareStatusSaleList;
     }
 
@@ -303,21 +292,21 @@ public class Exchange extends iExchangePOA {
     }
 
     /**
-     * @param businessName string of business TODO enum
+     * Get the ticker for the business
+     * @param businessName
      * @return the ticker commonly used to identify a company | Null if not found
-     * @deprecated Should refer to businesses exclusively by their ticker symbol
      */
     public String getBusinessTicker(String businessName) {
-        switch (businessName) {
-		    case "google":
-		        return "GOOG"; //google.getTicker();
-		    case "microsoft":
-		        return "MSFT"; //microsoft.getTicker();
-		    case "yahoo":
-		        return "YHOO"; //yahoo.getTicker();
-		    default:
-		        return null;
-		}
+
+        //Is business registerd
+        interface_business iBusiness = this.businessDirectory.get(businessName);
+
+        if (iBusiness != null) {
+
+            return iBusiness.getTicker();
+        }
+
+        return null;
     }
 
     /**
@@ -348,7 +337,7 @@ public class Exchange extends iExchangePOA {
     /**
      *Method to restock any available common.share that is below the threshold
      */
-    private void restock() {
+    protected void restock() {
 
         System.out.println(" \n " + "...... Restocking Shares .......");
 
@@ -383,7 +372,6 @@ public class Exchange extends iExchangePOA {
                     }
                 }
 
-
             }
 
             entry.getValue().addAll(addToList);
@@ -395,7 +383,7 @@ public class Exchange extends iExchangePOA {
      * @param lstOrders List of order numbers that have been depleted
      * @return true if payment is processed
      */
-	private boolean payBusiness(List<String> lstOrders) {
+	protected boolean payBusiness(List<String> lstOrders) {
 
         boolean paid = false;
 
@@ -407,10 +395,10 @@ public class Exchange extends iExchangePOA {
 
                 // if the business is not registered, there is no interface, and null is returned
 		        //TODO To Review
-		        //BusinessInterface bi = businessDirectory.get(shareToBePaid.getBusinessSymbol());
-                //if (bi != null) {
+		        interface_business bi = businessDirectory.get(shareToBePaid.getBusinessSymbol());
+                if (bi != null) {
                     try {
-                        paid = google.recievePayment(shareToBePaid.getOrderNum(),
+                        paid = bi.recievePayment(shareToBePaid.getOrderNum(),
                                 shareToBePaid.getUnitPrice() * shareToBePaid.getQuantity());
 
                         if (paid) {
@@ -421,7 +409,7 @@ public class Exchange extends iExchangePOA {
                     } catch (Exception e) {
                         System.out.println(" \n " + e.getMessage());
                     }
-                //}
+                }
             }
         }
 
@@ -476,7 +464,7 @@ public class Exchange extends iExchangePOA {
      * @param sType
      * @return
      */
-    private int getShareQuantity(List<ShareItem> lstShareItem, ShareType sType) {
+    protected int getShareQuantity(List<ShareItem> lstShareItem, ShareType sType) {
 
         int totQuantity = 0;
 
@@ -528,5 +516,80 @@ public class Exchange extends iExchangePOA {
 
         return false;
 
+    }
+
+    /**
+     * Order shares from business
+     * @param iBusiness
+     * @param symbol
+     * @param price
+     * @param quantity
+     * @return true if order was successful or false if not
+     */
+    protected boolean orderShares(interface_business iBusiness, String symbol, float price,  int quantity) {
+
+        boolean ordered = false;
+
+        try {
+
+            String orderNumber = generateOrderNumber();
+
+            ordered =  iBusiness.issueShares(orderNumber, "br01", symbol, 0, price, quantity, price);
+
+            if (ordered) {
+
+                ShareItem newShares = new ShareItem(orderNumber,symbol,ShareType.COMMON,price, quantity);
+
+                shareStatusSaleList.addToNewAvShares(newShares);
+                shareStatusSaleList.addToOrderedShares(newShares);
+
+                LoggerClient.log("Sucessfully added " + quantity + " shares of " + iBusiness.getTicker());
+
+            }
+
+
+        } catch(Exception e) {
+            LoggerClient.log(e.getMessage());
+        }
+
+        return  ordered;
+    }
+
+
+    public void printCurrentShareInfo() {
+
+        //Print all Ordered Shares
+
+        System.out.println("Ordered Shares Listing");
+        System.out.println("----------------------");
+        for(Map.Entry<String, ShareItem> entry : shareStatusSaleList.orderedShares.entrySet()) {
+
+            System.out.println(entry.getKey());
+            System.out.println(entry.getValue().printShareInfo());
+        }
+
+        //Print All Available Shares
+        System.out.println("Available Shares Listing");
+        System.out.println("----------------------");
+        for(Map.Entry<String, List<ShareItem>> entry : shareStatusSaleList.newAvShares.entrySet()) {
+
+            System.out.println(entry.getKey());
+
+            for(ShareItem sItem : entry.getValue()) {
+                System.out.println(sItem.printShareInfo());
+            }
+        }
+
+        //Print All Available Shares
+        LoggerClient.log("Sold Shares Listing");
+        LoggerClient.log("----------------------");
+        for(Map.Entry<Integer, List<ShareItem>> entry : shareStatusSaleList.getSoldShares().entrySet()) {
+
+            System.out.println("Customer ID : " + entry.getKey());
+
+            for(ShareItem sItem : entry.getValue()) {
+                System.out.println(sItem.printShareInfo());
+            }
+        }
     }
 }

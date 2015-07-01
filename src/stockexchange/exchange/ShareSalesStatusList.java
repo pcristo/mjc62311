@@ -134,7 +134,7 @@ public class ShareSalesStatusList{
     public void addToOrderedShares(ShareItem aShare){
 
         //Add to Ordered shares list
-        this.orderedShares.put(aShare.getOrderNum(),aShare);
+        this.orderedShares.put(aShare.getOrderNum(), aShare);
 
     }
 
@@ -180,6 +180,20 @@ public class ShareSalesStatusList{
      */
     public Map<Integer,List<ShareItem>> getSoldShares() {
         return soldShares;
+    }
+
+    /**
+     * Getter for the availavle shares
+     * @return Map of avaialble shares
+     */
+    public Map<String,List<ShareItem>> getNewAvShares() {
+
+        return this.newAvShares;
+    }
+
+    public Map<String, ShareItem> getOrderesShares() {
+
+        return this.orderedShares;
     }
 
 

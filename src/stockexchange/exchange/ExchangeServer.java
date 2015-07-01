@@ -31,7 +31,7 @@ public class ExchangeServer {
             POA rootpoa = POAHelper.narrow(orb.resolve_initial_references("RootPOA"));
             rootpoa.the_POAManager().activate();
 
-            // Create a new address book ...
+            // Create an Exchange book ...
             servant = new Exchange();
             servant.setORB(orb);
 

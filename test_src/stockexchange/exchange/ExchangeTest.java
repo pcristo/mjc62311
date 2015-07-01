@@ -1,5 +1,6 @@
 package stockexchange.exchange;
 
+import business.BusinessServant;
 import common.Customer;
 import common.share.ShareType;
 import mock.MockExchange;
@@ -27,18 +28,11 @@ public class ExchangeTest {
 
     @Test
     public void testGetBusiness() throws Exception {
-        //BusinessInterface google = exchange.getBusiness1("google");
-        //assertEquals(google.getTicker(), "GOOG");
+        BusinessServant google = exchange.getMockBusiness("GOOG");
+        assertEquals(google.getTicker(), "GOOG");
     }
 
-    @Test
-    public void testGetBusinessDirectory() throws Exception {
-        //assertTrue(exchange.getBusinessDirectory().get("GOOG") == "GOOGLE");
-        //assertTrue(exchange.getBusinessDirectory().get("MSFT") == "MICROSOFT");
-        //assertTrue(exchange.getBusinessDirectory().get("YHOO") == "YAHOO");
-    }
-
-
+    
     @Test
     public void testSellShares() throws Exception {
         ShareList sharelist = new ShareList(new ArrayList<ShareItem>() {
@@ -94,16 +88,16 @@ public class ExchangeTest {
 
     }
 
-//    @Test
-//    public void testGetBusinessExistingCompany() throws Exception {
-//
-//        String busInfo = exchange.getBusiness("GOOG");
-//        assertTrue(busInfo.equals("GOOG 540.11"));
-//    }
-//
-//    @Test
-//    public void testGetBusinessNotExistingCompany() throws Exception {
-//        String busInfo = exchange.getBusiness("XXXX");
-//        assertTrue(busInfo.isEmpty());
-//    }
+    @Test
+    public void testGetBusinessExistingCompany() throws Exception {
+
+        String busInfo = exchange.getBusiness("GOOG");
+        assertTrue(busInfo.equals("GOOG 540.11"));
+    }
+
+    @Test
+    public void testGetBusinessNotExistingCompany() throws Exception {
+        String busInfo = exchange.getBusiness("XXXX");
+        assertTrue(busInfo.isEmpty());
+    }
 }

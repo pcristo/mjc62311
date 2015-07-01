@@ -4,6 +4,7 @@ import common.Customer;
 import common.logger.LoggerClient;
 import common.share.ShareType;
 import common.util.Config;
+
 import distribution.RMI.Server;
 import stockexchange.exchange.Exchange;
 import stockexchange.exchange.ShareItem;
