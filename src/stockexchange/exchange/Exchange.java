@@ -1,21 +1,23 @@
 package stockexchange.exchange;
 
 import business.BusinessInterface;
+import business_domain.interface_business;
+import business_domain.interface_businessHelper;
 import common.Customer;
 import common.logger.LoggerClient;
 import common.share.ShareOrder;
 import common.share.ShareType;
 import common.util.Config;
-import distribution.RMI.Client;
-import exchange_domain.iExchangePOA;
-import org.omg.CORBA.ORB;
-
 import java.rmi.NotBoundException;
-import java.rmi.RemoteException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
+import distribution.RMI.Client;
+import exchange_domain.*;
+import org.omg.CORBA.*;
+import org.omg.CosNaming.*;
+import java.io.*;
+import java.io.DataInputStream;
+import java.util.Properties;
 
 /** 
  * The exchange class acts as an intermediary between businesses and stock brokers. Brokers
@@ -41,7 +43,7 @@ public class Exchange extends iExchangePOA {
     /**
      * Business directory that maps stock symbols to remote interfaces
      */
-    private Map<String, BusinessInterface> businessDirectory = new HashMap<String, BusinessInterface>();
+    private Map<String, interface_business> businessDirectory = new HashMap<String, interface_business>();
     
     /**
      * Directory that maps stock symbols to stock prices
@@ -58,64 +60,44 @@ public class Exchange extends iExchangePOA {
     public Exchange() {
 
         try {
-            priceDirectory.put("GOOG", 100f);
-            //google = getBusiness("google");
-            //yahoo = getBusiness("yahoo");
-            //microsoft = getBusiness("microsoft");
+
+            shareStatusSaleList = new ShareSalesStatusList();
         }
         catch(Exception e) {
 
             System.out.println(e.getMessage());
         }
 
-        shareStatusSaleList = new ShareSalesStatusList();
-
-        //TODO: REMOVE ONCE TESTING IS DONE
-
-        for(Map.Entry<String, Float> entry : priceDirectory.entrySet()) {
-
-            System.out.println(entry.getKey() + " " + entry.getValue()) ;
-        }
-
-
-        //initializeShares();
     }
-
 
     /**
-     * Ports 9095 to 9099 reserved for business server
      *
      * @param businessName looking for
-     * @param port looking for business on
      * @return business object
+     * @throws NotBoundException
      */
-    private BusinessInterface findBusiness(String businessName, int port) throws RemoteException {
-        if(port > 9099) {
-            return null;
-        }
-        try {
-            BusinessInterface server = client.getService("localhost", port, businessName);
-            LoggerClient.log("Bound " + businessName + " on " + port);
-            return server;
-        } catch(NotBoundException nbe) {
-            port++;
-            return findBusiness(businessName, port);
-        }
+    public void getBusiness(String businessName) {
+
+        float price = this.priceDirectory.get(businessName);
+
+        System.out.println("Businesss : " + businessName + " Price : " + this.priceDirectory.get(businessName));
     }
+
 
     /**
      * Registers a new business with the exchange, providing an initial price.
-     * @param symbol to enlist
-     * @param price to make shares available at
-     * @throws NotBoundException 
-     * @throws RemoteException 
+     * @param symbol
+     * @param price
+     * @return
      */
     public boolean registerBusiness(String symbol, float price) {
 
         try{
-            //businessDirectory.put(symbol, getBusinessIFace(symbol));
+            businessDirectory.put(symbol, getBusinessIFace(symbol));
             priceDirectory.put(symbol, price);
-            return true;
+
+            return this.businessDirectory.get(symbol).issueShares(generateOrderNumber(),"br01",symbol,0,price,1000, price);
+
         }
         catch (Exception e) {
 
@@ -134,7 +116,7 @@ public class Exchange extends iExchangePOA {
     public boolean unregister(String symbol) {
     	// try to remove the stock from the business and price registers. If the symbol
     	// is not found, throw an exception
-    	BusinessInterface bi = businessDirectory.remove(symbol);
+    	interface_business bi = businessDirectory.remove(symbol);
     	if ((bi == null) || (priceDirectory.remove(symbol) == null)) 
     		return false;
     	
@@ -150,36 +132,33 @@ public class Exchange extends iExchangePOA {
      * @throws RemoteException
      * @throws NotBoundException
      */
-    public BusinessInterface getBusinessIFace(String businessName) throws RemoteException, NotBoundException{
-        System.setProperty("java.security.policy", Config.getInstance().loadSecurityPolicy());
+    public interface_business getBusinessIFace(String businessName){
 
-        if (System.getSecurityManager() == null) {
-            System.setSecurityManager(new SecurityManager());
-        }
-
-        return bindBusinessPort(businessName, 9095);
-    }
-
-    /**
-     * Finds an available port to bind a business interface to, and returns the interface. 
-     * The method will automatically increment to the next port if the one selected is not 
-     * available.
-     * @param businessName The symbol or name of the business
-     * @param port to start trying to bind on. Must be between 9095 and 9099.
-     * @return business object, null if failed
-     */
-    private BusinessInterface bindBusinessPort(String businessName, int port) throws RemoteException {
-    	if(port > 9099 || port < 9095) {
-            return null;
-        }
         try {
-            BusinessInterface server = client.getService("localhost", port, businessName);
-            LoggerClient.log("Bound " + businessName + " on " + port);
-            return server;
-        } catch(NotBoundException nbe) {
-            port++;
-            return bindBusinessPort(businessName, port);
+            // Set up ORB properties
+            // Hi Gay! I had to add this to allow setting of port and IP
+            // address. see Config.json. -patrick
+            Properties p = new Properties();
+            p.put("org.omg.CORBA.ORBInitialPort",
+                    Config.getInstance().getAttr("namingServicePort"));
+            p.put("org.omg.CORBA.ORBInitialHost",
+                    Config.getInstance().getAttr("namingServiceAddr"));
+
+            ORB orb = ORB.init(new String[0],p);
+            org.omg.CORBA.Object objRef = orb
+                    .resolve_initial_references("NameService");
+            NamingContextExt ncRef = NamingContextExtHelper.narrow(objRef);
+            interface_business iBusiness = (interface_business) interface_businessHelper.narrow(ncRef
+                    .resolve_str("business-"+businessName.toUpperCase()));
+
+            return iBusiness;
         }
+        catch(Exception e) {
+
+            System.out.println(e.getMessage());
+        }
+
+        return null;
     }
 
 
@@ -456,12 +435,12 @@ public class Exchange extends iExchangePOA {
 	protected ShareItem issueSharesRequest(ShareItem sItem) {
 		Boolean sharesIssued = false;
 
-		BusinessInterface bi = businessDirectory.get(sItem.getBusinessSymbol());
+		interface_business bi = businessDirectory.get(sItem.getBusinessSymbol());
 		if (bi == null) return null;
 
 		String orderNum = generateOrderNumber();
 
-		synchronized (orderNum) {
+		/*synchronized (orderNum) {
 			try {
 				sharesIssued = bi.issueShares(new ShareOrder(orderNum, 
 						"not applicable", sItem.getBusinessSymbol(), sItem.getShareType(), 
@@ -474,7 +453,7 @@ public class Exchange extends iExchangePOA {
 		if (sharesIssued) {
 			ShareItem newShareItem = new ShareItem(orderNum,sItem.getBusinessSymbol(), sItem.getShareType(), sItem.getUnitPrice(), RESTOCK_THRESHOLD);
 			return newShareItem;
-		}
+		}*/
 
 		return null;
 	}
@@ -545,35 +524,7 @@ public class Exchange extends iExchangePOA {
             }*/
         }
 
-        //TODO: REMOVE ONCE TESTING IS DONE
-
-        for(Map.Entry<String, Float> entry : priceDirectory.entrySet()) {
-
-            System.out.println(entry.getKey() + " " + entry.getValue()) ;
-        }
-
-
         return false;
 
     }
-
-     /**
-     * getBusinesses(COMP6231) — (assuming, e.g., COMP6231 is a registered business
-     * symbol ID in this example). gets the business info, such as symbol and share price,
-     * the business must exist on this stock exchange
-     * @param symbol
-     * @return
-     */
-    public String getBusiness(String symbol){
-        //Does business exist in exchange
-        if (this.priceDirectory.get(symbol) == null) {
-            return "";
-        } else {
-
-            return symbol + " " + this.priceDirectory.get(symbol);
-
-            }
-    }
-
-
 }
