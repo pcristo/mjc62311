@@ -83,22 +83,6 @@ public class Exchange extends iExchangePOA {
         //initializeShares();
     }
 
-    /**
-     *
-     * @param businessName looking for
-     * @return business object
-     * @throws RemoteException
-     * @throws NotBoundException
-     */
-    public BusinessInterface getBusiness1(String businessName) throws RemoteException, NotBoundException{
-        System.setProperty("java.security.policy", Config.getInstance().loadSecurityPolicy());
-
-        if (System.getSecurityManager() == null) {
-            System.setSecurityManager(new SecurityManager());
-        }
-
-        return findBusiness(businessName, 9095);
-    }
 
     /**
      * Ports 9095 to 9099 reserved for business server
