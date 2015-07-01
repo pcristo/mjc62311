@@ -57,8 +57,6 @@ public class Exchange extends iExchangePOA {
      */
     public Exchange() {
 
-        //TODO: Remove
-        System.out.println("In Exchange");
         try {
             priceDirectory.put("GOOG", 100f);
             //google = getBusiness("google");
@@ -133,14 +131,16 @@ public class Exchange extends iExchangePOA {
      * @param symbol to delist
      * @throws Exception when the symbol is not listed
      */
-    public void unregisterBusiness(String symbol) throws Exception {
+    public boolean unregister(String symbol) {
     	// try to remove the stock from the business and price registers. If the symbol
     	// is not found, throw an exception
     	BusinessInterface bi = businessDirectory.remove(symbol);
     	if ((bi == null) || (priceDirectory.remove(symbol) == null)) 
-    		throw new Exception("Symbol " + symbol + " not registered.");
+    		return false;
     	
     	// TODO: business must be unbound from the client?
+
+        return true;
     }
     
     /**
