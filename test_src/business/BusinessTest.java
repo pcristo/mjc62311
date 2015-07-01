@@ -1,17 +1,9 @@
 package business;
 
-import common.logger.LoggerServer;
 import common.share.Share;
-
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-
 import common.share.ShareOrder;
 import common.share.ShareType;
-import common.util.Config;
+import org.junit.Test;
 
 import java.rmi.RemoteException;
 import java.util.List;
@@ -19,48 +11,26 @@ import java.util.List;
 import static junit.framework.TestCase.assertFalse;
 import static junit.framework.TestCase.assertTrue;
 
-/**
- * Created by Ross on 2015-05-26. Edited by Patrick on 2015-05-27
- */
 public class BusinessTest {
-	static Thread logger;
 
-	@BeforeClass
-	public static void setUp() throws InterruptedException {
-		// start up the logger
-		logger = new Thread(() -> LoggerServer.main(null));
-		logger.start();
-		Thread.sleep(4000);
-
-		if (!logger.isAlive())
-			throw new InterruptedException();
-
-		System.out.println("Logger started OK");
-	}
-
-	@AfterClass
-	public static void tearDown() throws Exception {
-		logger.interrupt();
-		System.out.println("Logger stopped OK");
-	}
 
 	@Test
 	public void testCreateBusiness() {
-		new Business(Config.getInstance().getAttr("GOOG"));
-		new Business(Config.getInstance().getAttr("MSFT"));
-		new Business(Config.getInstance().getAttr("YHOO"));
-		new Business(Config.getInstance().getAttr("APPL"));
+		new Business("GOOG");
+		new Business("MSFT");
+		new Business("YHOO");
+		new Business("APPL");
 	}
 
 	@Test
 	public void testGetTicker() throws RemoteException {
-		Business google = new Business(Config.getInstance().getAttr("GOOG"));
+		Business google = new Business("GOOG");
 		assertTrue(google.getTicker().equals("GOOG"));
 	}
 
 	@Test
 	public void TestOrderShares() throws Exception {
-		Business google = new Business(Config.getInstance().getAttr("GOOG"));
+		Business google = new Business("GOOG");
 		Share gshareCommon = google.getShareInfo(ShareType.COMMON);
 
 		// Create a (valid) order and send the request
@@ -72,7 +42,7 @@ public class BusinessTest {
 
 	@Test
 	public void TestInvalidOrderFails_PriceTooLow() throws Exception {
-		Business google = new Business(Config.getInstance().getAttr("GOOG"));
+		Business google = new Business("GOOG");
 		Share gshareConvertible = google.getShareInfo(ShareType.CONVERTIBLE);
 
 		// Can't issue, price is too low
@@ -84,7 +54,7 @@ public class BusinessTest {
 
 	@Test
 	public void TestInvalidOrderFails_OrderQuantityBad() throws Exception {
-		Business google = new Business(Config.getInstance().getAttr("GOOG"));
+		Business google = new Business("GOOG");
 		Share gshareConvertible = google.getShareInfo(ShareType.CONVERTIBLE);
 
 		// Can't issue, need to order at least 1 share
@@ -97,7 +67,7 @@ public class BusinessTest {
 
 	@Test
 	public void TestInvalidOrderFails_DuplicateOrderNumber() throws Exception {
-		Business google = new Business(Config.getInstance().getAttr("GOOG"));
+		Business google = new Business("GOOG");
 		Share gshareCommon = google.getShareInfo(ShareType.COMMON);
 
 		// Order successfully the first time, then repeat and fail because same
@@ -111,7 +81,7 @@ public class BusinessTest {
 
 	@Test
 	public void TestGetShareInfo() {
-		Business google = new Business(Config.getInstance().getAttr("GOOG"));
+		Business google = new Business("GOOG");
 
 		assertTrue(google.getShareInfo(ShareType.PREFERRED) != null);
 		assertTrue(google.getShareInfo(ShareType.COMMON) != null);
@@ -120,7 +90,7 @@ public class BusinessTest {
 
 	@Test
 	public void TestGetShareList() {
-		Business google = new Business(Config.getInstance().getAttr("GOOG"));
+		Business google = new Business("GOOG");
 
 		List<Share> shares = google.getSharesList();
 		shares.forEach((share) -> {

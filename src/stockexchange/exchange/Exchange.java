@@ -43,7 +43,7 @@ public class Exchange extends iExchangePOA {
     /**
      * Business directory that maps stock symbols to remote interfaces
      */
-    private Map<String, interface_business> businessDirectory = new HashMap<String, interface_business>();
+    protected Map<String, interface_business> businessDirectory = new HashMap<String, interface_business>();
     
     /**
      * Directory that maps stock symbols to stock prices
@@ -81,6 +81,7 @@ public class Exchange extends iExchangePOA {
         float price = this.priceDirectory.get(businessName);
 
         System.out.println("Businesss : " + businessName + " Price : " + this.priceDirectory.get(businessName));
+
     }
 
 
@@ -291,6 +292,7 @@ public class Exchange extends iExchangePOA {
      * @return arrayList of all tickers listed on exchange
      */
     public ArrayList<String> getListing() {
+        System.out.println(businessDirectory);
         ArrayList<String> tickerList = new ArrayList<String>();
 
         for(String ticker : businessDirectory.keySet()) {
@@ -438,7 +440,7 @@ public class Exchange extends iExchangePOA {
 		interface_business bi = businessDirectory.get(sItem.getBusinessSymbol());
 		if (bi == null) return null;
 
-		String orderNum = generateOrderNumber();
+        String orderNum = generateOrderNumber();
 
 		/*synchronized (orderNum) {
 			try {

@@ -1,14 +1,14 @@
 package stockexchange.broker;
 
-import distribution.RMI.Server;
 import common.Customer;
 import common.logger.LoggerClient;
 import common.share.ShareType;
+import common.util.Config;
+import distribution.RMI.Server;
 import stockexchange.exchange.Exchange;
 import stockexchange.exchange.ShareItem;
 import stockexchange.exchange.ShareList;
 import stockexchange.exchange.ShareSalesStatusList;
-import common.util.Config;
 
 import java.io.Serializable;
 import java.rmi.AccessException;

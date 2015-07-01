@@ -1,6 +1,5 @@
 package stockexchange.exchange;
 
-import business.BusinessInterface;
 import common.Customer;
 import common.share.ShareType;
 import mock.MockExchange;
@@ -95,16 +94,16 @@ public class ExchangeTest {
 
     }
 
-    @Test
-    public void testGetBusinessExistingCompany() throws Exception {
-
-        String busInfo = exchange.getBusiness("GOOG");
-        assertTrue(busInfo.equals("GOOG 540.11"));
-    }
-
-    @Test
-    public void testGetBusinessNotExistingCompany() throws Exception {
-        String busInfo = exchange.getBusiness("XXXX");
-        assertTrue(busInfo.isEmpty());
-    }
+//    @Test
+//    public void testGetBusinessExistingCompany() throws Exception {
+//
+//        String busInfo = exchange.getBusiness("GOOG");
+//        assertTrue(busInfo.equals("GOOG 540.11"));
+//    }
+//
+//    @Test
+//    public void testGetBusinessNotExistingCompany() throws Exception {
+//        String busInfo = exchange.getBusiness("XXXX");
+//        assertTrue(busInfo.isEmpty());
+//    }
 }
