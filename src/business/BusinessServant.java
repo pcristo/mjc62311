@@ -1,14 +1,8 @@
 package business;
 
-import java.rmi.NotBoundException;
-import java.rmi.RemoteException;
-
 import business_domain.interface_businessPOA;
-import common.logger.LoggerServer;
 import common.share.ShareOrder;
 import common.share.ShareType;
-import common.util.Config;
-import stockexchange.exchange.Exchange;
 
 /**
  * This class provides CORBA servant implementation for the business class.
