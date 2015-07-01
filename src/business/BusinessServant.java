@@ -17,17 +17,13 @@ import stockexchange.exchange.Exchange;
  */
 public class BusinessServant extends interface_businessPOA {
 	private Business business;
-	private String businessSymbol = "";
 
 	/**
-	 * Sets the business symbol handled by this servant. Can only be set once.
-	 * 
-	 * @param businessSymbol
+	 * Constructor
+	 * @param businessSymbol the symbol for the business to create
 	 */
-	public void setBusinessSymbol(String businessSymbol) {
-		if (this.businessSymbol.equals("")) {
-			this.businessSymbol = businessSymbol;
-		}
+	public BusinessServant(String businessSymbol) {
+		business = new Business(businessSymbol);
 	}
 
 	/**

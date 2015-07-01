@@ -33,9 +33,10 @@ public class Business implements Serializable {
 	public Business(String identifier) {
 		try {
 			// Dynamically load the file
-			String filePath = Config.getInstance().getAttr("files") + "/";
+			String filePath = Config.getInstance().getAttr("files") + "/" +
+					Config.getInstance().getAttr(identifier);
 			URL sourceURL = Thread.currentThread().getContextClassLoader()
-					.getResource(filePath + identifier);
+					.getResource(filePath);
 			BufferedReader bufferedReader = new BufferedReader(
 					new InputStreamReader(sourceURL.openStream()));
 

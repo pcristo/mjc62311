@@ -28,9 +28,16 @@ import exchange_domain.iExchangeHelper;
  * @author patrick
  */
 public class BusinessServer implements Runnable {
-	private BusinessServant business = new BusinessServant();
-	private String thisSymbol;
+	private BusinessServant business; 
 
+	/**
+	 * Constructor
+	 * @param businessSymbol the symbol for the business to create
+	 */
+	public BusinessServer(String businessSymbol) {
+		business = new BusinessServant(businessSymbol);
+	}
+	
 	/**
 	 * Launches a new business server within a new thread.
 	 * 
@@ -39,8 +46,7 @@ public class BusinessServer implements Runnable {
 	 * @return The thread that has been started
 	 */
 	public static Thread launch(String symbol) {		
-		BusinessServer business = new BusinessServer();
-		business.setBusinessSymbol(symbol);
+		BusinessServer business = new BusinessServer(symbol);
 
 		Thread thread = new Thread(() -> business.run());
 		thread.start();
@@ -69,15 +75,6 @@ public class BusinessServer implements Runnable {
 		// loop forever
 		while (true) {
 		} // TODO patrickc catch interrupt to deregister server
-	}
-
-	/**
-	 * Sets the business symbol handled by this server.
-	 * 
-	 * @param businessSymbol
-	 */
-	protected void setBusinessSymbol(String businessSymbol) {
-		thisSymbol = businessSymbol;
 	}
 
 	/**
@@ -114,11 +111,11 @@ public class BusinessServer implements Runnable {
 		NamingContextExt ncRef = NamingContextExtHelper.narrow(objRef);
 
 		NameComponent path[] = ncRef
-				.to_name("business-" + thisSymbol);
+				.to_name("business-" + business.getTicker());
 		ncRef.rebind(path, href);
 
 		// TODO: patrickc log the event
-		System.out.println("Business Server " + thisSymbol
+		System.out.println("Business Server " + business.getTicker()
 				+ " ready and waiting ...");
 
 	}
