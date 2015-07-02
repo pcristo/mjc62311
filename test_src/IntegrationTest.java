@@ -7,6 +7,7 @@ import org.junit.Test;
 import stockexchange.broker.BrokerInterface;
 import stockexchange.exchange.Exchange;
 import stockexchange.exchange.ExchangeServer;
+import stockexchange.exchange.TestClient;
 
 import static junit.framework.TestCase.assertNull;
 import static org.junit.Assert.assertNotNull;
@@ -70,6 +71,12 @@ public class IntegrationTest {
 
             Thread.sleep(5000); // give the threads plenty of time to launch
 
+            //Client Purchase Test
+            Thread client = TestClient.launch();
+            client.sleep(5000);
+
+
+
             // test passes if servers are still running
             for (Thread s : servers) {
                 TestCase.assertTrue(s.isAlive());
@@ -78,19 +85,14 @@ public class IntegrationTest {
             }
 
 
-            assertNotNull(exchange.getBusinessIFace("GOOG"));
+            //assertNotNull(exchange.getBusinessIFace("GOOG"));
 
 
-            thread.interrupt();
+            //thread.interrupt();
 
         } catch(Exception e) {
             System.out.println("Exeption in Integration test: " + e.getMessage());
         }
-
-
-
-
-
     }
 
 }

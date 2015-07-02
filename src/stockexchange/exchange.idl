@@ -2,10 +2,32 @@ module exchange_domain
 {
     interface iExchange
     {
+        struct corShareItem{
+            string orderNumString;
+            string businessSymbol;
+            long shareType;
+            float unitPrice;
+            long quantity;
+        };
+
+        struct customer{
+            string name;
+            string street1;
+            string street2;
+            string city;
+            string province;
+            string postalCode;
+            string country;
+        };
+
+        typedef sequence <corShareItem> lstCorShareItem;
+
         // update share price
         boolean updateSharePrice(in string symbol, in float price);
         boolean registerBusiness(in string symbol, in float price);
         boolean unregister(in string symbol);
+
+        void clientOrder (in lstCorShareItem corShares, in customer corCustomer);
 
     };
 };

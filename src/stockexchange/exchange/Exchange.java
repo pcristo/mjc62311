@@ -13,6 +13,8 @@ import java.util.*;
 
 import distribution.RMI.Client;
 import exchange_domain.*;
+import exchange_domain.iExchangePackage.corShareItem;
+import exchange_domain.iExchangePackage.customer;
 import org.omg.CORBA.*;
 import org.omg.CosNaming.*;
 import java.io.*;
@@ -240,13 +242,13 @@ public class Exchange extends iExchangePOA {
                     List<String> lstOrders = new ArrayList<String>();
 
                     for(ShareItem sItem : lstShares) {
-
                         if (sItem.getQuantity() == 0) {
                             lstOrders.add(sItem.getOrderNum());
                         }
                     }
 
                     //Pay all orders if needed
+
                     if (lstOrders.size()>0){
                         payBusiness(lstOrders);
                     }
@@ -339,8 +341,6 @@ public class Exchange extends iExchangePOA {
      */
     protected void restock() {
 
-        System.out.println(" \n " + "...... Restocking Shares .......");
-
         for(Map.Entry<String, List<ShareItem>> entry : shareStatusSaleList.newAvShares.entrySet()){
 
             List<ShareItem> addToList = new ArrayList<ShareItem>();
@@ -350,6 +350,8 @@ public class Exchange extends iExchangePOA {
                 synchronized (sItem){
 
                     if (sItem.getQuantity() < RESTOCK_THRESHOLD) {
+
+                        System.out.println(" \n " + "...... Restocking Shares .......");
 
                         ShareItem newShares = this.issueSharesRequest(sItem);
 
@@ -386,12 +388,12 @@ public class Exchange extends iExchangePOA {
 	protected boolean payBusiness(List<String> lstOrders) {
 
         boolean paid = false;
-
         for(String orderNumber : lstOrders ){
 
             ShareItem shareToBePaid = shareStatusSaleList.orderedShares.get(orderNumber);
 
             synchronized (shareToBePaid) {
+
 
                 // if the business is not registered, there is no interface, and null is returned
 
@@ -592,5 +594,26 @@ public class Exchange extends iExchangePOA {
                 System.out.println(sItem.printShareInfo());
             }
         }
+    }
+
+
+    //----------------------- Corba Translation ----------------------------
+
+    public void clientOrder (corShareItem[] corShares, customer corCustomer) {
+
+        //Translate to ShareItem list
+        ArrayList<ShareItem> lstCustShares = new ArrayList<ShareItem>();
+
+        Customer newCust = new Customer(corCustomer.name,corCustomer.street1,corCustomer.street2,corCustomer.city,
+                                        corCustomer.province,corCustomer.postalCode,corCustomer.country);
+
+        for (corShareItem sItem : corShares) {
+
+            lstCustShares.add(new ShareItem(sItem.orderNumString, sItem.businessSymbol,ShareType.COMMON, sItem.unitPrice, sItem.quantity));
+        }
+
+        this.sellShares(new ShareList(lstCustShares),newCust);
+
+
     }
 }
