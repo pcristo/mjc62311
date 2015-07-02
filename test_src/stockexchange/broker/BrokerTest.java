@@ -32,10 +32,12 @@ public class BrokerTest {
     }
 
     @Test
-    public void getTickerListingTest() throws RemoteException{
+    public void getTickerListingTest() throws RemoteException {
         // 3 businesses * 3
-        assertEquals(broker.getTickerListing().size(), 9);
+          assertEquals(broker.getTickerListing().size(), 9);
     }
+
+
 
     @Test
     public void sellSharesTest() throws RemoteException {

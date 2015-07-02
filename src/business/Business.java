@@ -5,14 +5,16 @@ import common.share.Share;
 import common.share.ShareOrder;
 import common.share.ShareType;
 import common.util.Config;
+import stockQuotes.Company;
+import stockQuotes.GoogleFinance;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-
-import stockQuotes.Company;
-import stockQuotes.GoogleFinance;
 
 /**
  * A class for businesses to process transactions/manage shares
@@ -23,6 +25,7 @@ public class Business implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private List<Share> sharesList = new ArrayList<Share>();
 	private List<OrderRecord> orderRecords = new ArrayList<OrderRecord>();
+
 
 	/**
 	 * Constructor to create a business
@@ -116,10 +119,11 @@ public class Business implements Serializable {
 		}
 
 		// if the order price lower than the current value, return false
+
 		if (aSO.getUnitPriceOrder() < listedShare.getUnitPrice()) {
 			LoggerClient.log(getTicker() + " failed to issue shares of " + aSO.getBusinessSymbol() + " " + aSO.getShareType() +
 					": Order price " + aSO.getUnitPriceOrder() + " is less than minimum issue price " +
-					aSO.getUnitPrice() + " (order #" + aSO.getOrderNum() + ")");
+					listedShare.getUnitPrice() + " (order #" + aSO.getOrderNum() + ")");
 			return false;
 		}
 

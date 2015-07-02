@@ -1,6 +1,6 @@
 package stockexchange.exchange;
 
-import business.BusinessInterface;
+import business.BusinessServant;
 import common.Customer;
 import common.share.ShareType;
 import mock.MockExchange;
@@ -28,15 +28,8 @@ public class ExchangeTest {
 
     @Test
     public void testGetBusiness() throws Exception {
-        //BusinessInterface google = exchange.getBusiness1("google");
-        //assertEquals(google.getTicker(), "GOOG");
-    }
-
-    @Test
-    public void testGetBusinessDirectory() throws Exception {
-        //assertTrue(exchange.getBusinessDirectory().get("GOOG") == "GOOGLE");
-        //assertTrue(exchange.getBusinessDirectory().get("MSFT") == "MICROSOFT");
-        //assertTrue(exchange.getBusinessDirectory().get("YHOO") == "YAHOO");
+        BusinessServant google = exchange.getMockBusiness("GOOG");
+        assertEquals(google.getTicker(), "GOOG");
     }
 
 

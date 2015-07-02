@@ -1,22 +1,23 @@
 package stockexchange.exchange;
 
-import java.util.Properties;
-
-import org.omg.CORBA.*;
-import org.omg.CosNaming.*;
-
-import exchange_domain.*;
-
-import org.omg.CosNaming.NamingContextPackage.*;
+import common.util.Config;
+import exchange_domain.iExchange;
+import exchange_domain.iExchangeHelper;
+import org.omg.CORBA.ORB;
+import org.omg.CosNaming.NameComponent;
+import org.omg.CosNaming.NamingContextExt;
+import org.omg.CosNaming.NamingContextExtHelper;
 import org.omg.PortableServer.POA;
 import org.omg.PortableServer.POAHelper;
 
-import common.util.Config;
+import java.util.Properties;
 
 /**
  * Created by Gay on 6/29/2015.
  */
 public class ExchangeServer {
+
+    static public Exchange servant;
 
     public static void main(String args[]) {
         try {
@@ -30,8 +31,8 @@ public class ExchangeServer {
             POA rootpoa = POAHelper.narrow(orb.resolve_initial_references("RootPOA"));
             rootpoa.the_POAManager().activate();
 
-            // Create a new address book ...
-            Exchange servant = new Exchange();
+            // Create an Exchange book ...
+            servant = new Exchange();
             servant.setORB(orb);
 
 

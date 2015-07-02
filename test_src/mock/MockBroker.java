@@ -4,7 +4,6 @@ package mock;
 import stockexchange.broker.Broker;
 import stockexchange.exchange.Exchange;
 
-
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
@@ -18,7 +17,7 @@ public class MockBroker extends Broker {
 
 
     public MockBroker() throws RemoteException, NotBoundException {
-        super();
+       exchange = getExchange();
     }
 
     @Override

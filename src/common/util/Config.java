@@ -72,6 +72,7 @@ public class Config {
             return attribute.replace("/", File.separator);
         } catch(org.json.JSONException joe) {
             System.out.println("Json Exception in config: attr = " + attr);
+            System.out.println(joe.getMessage());
             return null;
         }
     }

@@ -33,7 +33,7 @@ public class ShareSalesStatusListTest {
     @Test
     public void testGetShares() throws Exception {
         assertNull(shareSalesStatusList.getShares(new Customer("Ross")));
-        shareSalesStatusList.addToAvailableShares(new ShareItem("test", "GOOG", ShareType.COMMON, (float) 1000, 100));
+        shareSalesStatusList.addToNewAvShares(new ShareItem("test", "GOOG", ShareType.COMMON, (float) 1000, 100));
         assertNull(shareSalesStatusList.getShares(new Customer("Ross")));
     }
 
@@ -44,7 +44,7 @@ public class ShareSalesStatusListTest {
 
         assertNull(shareAvailable);
 
-        shareSalesStatusList.addToAvailableShares(new ShareItem("test", "GOOG", ShareType.COMMON, (float) 1000, 100));
+        shareSalesStatusList.addToNewAvShares(new ShareItem("test", "GOOG", ShareType.COMMON, (float) 1000, 100));
 
         shareAvailable = shareSalesStatusList.isShareAvailable(
                 new ShareItem("test", "GOOG", ShareType.COMMON, (float) 1000, 100));

@@ -1,14 +1,13 @@
 import StockQuotes.GoogleFinanceTest;
 import business.BusinessTest;
 import client.BrokerServiceClientTest;
+import common.logger.LoggerServer;
 import common.logger.LoggerTest;
 import common.util.ConfigTest;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
-import stockexchange.broker.BrokerTest;
-import stockexchange.exchange.ExchangeTest;
 import stockexchange.exchange.ShareSalesStatusListTest;
 
 @RunWith(Suite.class)
@@ -30,11 +29,12 @@ import stockexchange.exchange.ShareSalesStatusListTest;
                     BrokerServiceClientTest.class,
                     LoggerTest.class,
                     BusinessTest.class,
-                    BrokerTest.class,
+//                    BrokerTest.class,
                     ConfigTest.class,
                     GoogleFinanceTest.class,
                     ShareSalesStatusListTest.class,
-                    ExchangeTest.class})
+ //                   ExchangeTest.class
+              })
 
 public class TestSuite {
     static Thread thread;
@@ -44,7 +44,9 @@ public class TestSuite {
         thread = new Thread() {
             public void run() {
                 try {
-                    projectLauncher.main(null);
+                    // Make sure ORBD is running on 9999
+                    LoggerServer.main(null);
+          //          projectLauncher.main(null);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

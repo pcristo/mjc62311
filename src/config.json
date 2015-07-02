@@ -1,5 +1,5 @@
 {
-  "projectHome": "/home/patrick/git/mjc62311/",
+  "projectHome": "C:/Users/Gay/Documents/COMP6231/Project/mjc62311/",
 
   "jars": "resources/jar",
   "out": "out",
@@ -22,7 +22,7 @@
   "businessServerIP": "localhost",
 
   "namingServiceAddr": "localhost",
-  "namingServicePort": "9999",
+  "namingServicePort": "900",
 
   "YHOO": "yahoo_data.csv",
   "yahoo": "yahoo_data.csv",
@@ -32,7 +32,6 @@
   "google": "google_data.csv",
   "APPL": "apple_data.csv",
   "apple": "apple_data.csv",
-  "businessXmlLog": "out/files/businessOrderRecord.xml",
 
   "macLogServerHome": "/Users/Gay/Documents/Concordia/COMP6231/PROJECT/mjc62311",
   "macSecurity": "/resources/settings/security.policy"
