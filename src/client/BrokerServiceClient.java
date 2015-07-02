@@ -51,7 +51,7 @@ public class BrokerServiceClient implements Runnable {
 			NamingContextExt ncRef = NamingContextExtHelper.narrow(objRef);
 			iExchange exchange = (iExchange) iExchangeHelper.narrow(ncRef.resolve_str("exchange"));
 
-			exchange.clientOrder(toSell, new customer("Gay","x","x","x","x","x","x"));
+			exchange.clientOrder(toSell, new customer("Gay","","","","","",""));
 
 
 		} catch (Exception e) {
