@@ -4,19 +4,14 @@ import business.BusinessInterface;
 import business_domain.interface_business;
 import business_domain.interface_businessHelper;
 import common.Customer;
-import common.logger.LoggerClient;
-import common.share.ShareOrder;
 import common.share.ShareType;
 import common.util.Config;
 import java.rmi.NotBoundException;
 import java.util.*;
 
-import distribution.RMI.Client;
 import exchange_domain.*;
 import org.omg.CORBA.*;
 import org.omg.CosNaming.*;
-import java.io.*;
-import java.io.DataInputStream;
 import java.util.Properties;
 
 /** 
@@ -37,9 +32,7 @@ public class Exchange extends iExchangePOA {
     public void setORB(ORB orb_val) {
         orb = orb_val;
     }
-
-    private Client<BusinessInterface> client = new Client<BusinessInterface>();
-
+    
     /**
      * Business directory that maps stock symbols to remote interfaces
      */
@@ -492,8 +485,8 @@ public class Exchange extends iExchangePOA {
     }
 
      /**
-     *  updateSharePrice(SYMBOL, PRICE) updates existing business’s share price. If business
-     *  does not exist, it’s an error.
+     *  updateSharePrice(SYMBOL, PRICE) updates existing business's share price. If business
+     *  does not exist, it's an error.
      * @param symbol
      * @param price
      * @return

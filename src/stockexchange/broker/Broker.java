@@ -17,7 +17,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-// TODO: exchange field should map to the ORB Exchange
 // TODO: create IDL for client interface
 // TODO: create a server class that launches a thread, creates this object, loops,
 //       similarly to business class.
@@ -86,10 +85,10 @@ public class Broker implements Serializable{
      * This is a separate method than constructor to enable
      * sub classes to override (see MockBroker)
      * @return Exchange object
-     */
+     
     protected Exchange getExchange() {
         return new Exchange();
-    }
+    }*/
 
     /**
      * @return list of company tickers on the stock exchange
@@ -135,8 +134,7 @@ public class Broker implements Serializable{
      * @param shareItems
      * @param customer
      * @return
-     * @throws RemoteException
-     */
+     
     public boolean sellShares(ArrayList<ShareItem> shareItems, Customer customer) {
 
         ShareList customerShares = new ShareList(shareItems);
@@ -147,7 +145,7 @@ public class Broker implements Serializable{
             return true;
 
         return false;
-    }
+    }*/
 
     /**
      * Broker buys shares
@@ -158,7 +156,7 @@ public class Broker implements Serializable{
      * @param quantity that wants to be bought
      * @param customer customer who made the request
      * @return
-     */
+   
     public boolean buyShares(ArrayList<String> tickers, ShareType type, int quantity, Customer customer) {
         for(String ticker : tickers) {
             validateClientHasShare(ticker, customer);
@@ -170,7 +168,7 @@ public class Broker implements Serializable{
         } else {
             return false;
         }
-    }
+    }  */
 
 
     /**
@@ -206,7 +204,7 @@ public class Broker implements Serializable{
      *
      * @param ticker
      * @return
-     */
+     
     private boolean validateClientHasShare(String ticker, Customer customer) {
         List<ShareItem> customerShares = exchange.getShares(customer);
         synchronized (customerShares) {
@@ -217,7 +215,7 @@ public class Broker implements Serializable{
             }
             return false;
         }
-    }
+    }*/
 
     /**
      * Ensure the ticker is a valid ticker listed on the exchange
