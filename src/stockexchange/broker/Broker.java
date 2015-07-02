@@ -1,6 +1,6 @@
 package stockexchange.broker;
 
-import distribution.RMI.Server;
+//import distribution.RMI.Server;
 import common.Customer;
 import common.logger.LoggerClient;
 import common.share.ShareType;
@@ -11,17 +11,23 @@ import stockexchange.exchange.ShareSalesStatusList;
 import common.util.Config;
 
 import java.io.Serializable;
-import java.rmi.AccessException;
-import java.rmi.NotBoundException;
-import java.rmi.RemoteException;
+//import java.rmi.AccessException;
+//import java.rmi.NotBoundException;
+//import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
+
+// TODO: exchange field should map to the ORB Exchange
+// TODO: create IDL for client interface
+// TODO: create a server class that launches a thread, creates this object, loops,
+//       similarly to business class.
+
 
 /**
  * Broker class takes customer request and validates it and sends it over
  * to stock exchange
  */
-public class Broker implements BrokerInterface, Serializable{
+public class Broker implements Serializable{
 
     // Require for serialization.  Ensures object deserialized and serialized are the same.
     private static final long serialVersionUID = 1467890432560789065L;
@@ -29,19 +35,17 @@ public class Broker implements BrokerInterface, Serializable{
     // TODO multiple exchanges
     protected static Exchange exchange;
 
-    private static Server<BrokerInterface> server = new Server<BrokerInterface>();
-
-    /**
+    /*
      * Start up Broker server
      *
      * Requires Business Server running
-     */
+     *
     public static void main(String[] args) {
         /*
             Broker acts as a server and also calls Exchange which connects to
             Business server. Broker handles exceptions in creating Broker server and
             Exchange not connecting to Business.
-        */
+        
         try {
             Broker broker = new Broker();
             try {
@@ -64,24 +68,26 @@ public class Broker implements BrokerInterface, Serializable{
             LoggerClient.log("NotBound Exception in creating Broker / Exchange." +
                     "Ensure Business server is running :: " + nbe.getMessage());
         }
-    }
-
+        
+    }*/
 
     /**
-     * Create broker class, point him to the exhcnage he trades on
+     * Create broker class, point him to the exchange he trades on
      * TODO use multiple exchanges
      */
-    public Broker() throws RemoteException, NotBoundException{
-        exchange = getExchange();
+    public Broker() {
+    	// TODO: Fetch the IOR from ORB
+    	
+    	// exchange = getExchange();
     }
 
 
     /**
-     * This is a seperate method than consturctor to enable
+     * This is a separate method than constructor to enable
      * sub classes to override (see MockBroker)
      * @return Exchange object
      */
-    protected Exchange getExchange() throws RemoteException, NotBoundException {
+    protected Exchange getExchange() {
         return new Exchange();
     }
 
@@ -89,14 +95,13 @@ public class Broker implements BrokerInterface, Serializable{
      * @return list of company tickers on the stock exchange
      * TODO multiple exchanges
      */
-    @Override
-    public ArrayList<String> getTickerListing() throws RemoteException {
+    public ArrayList<String> getTickerListing() {
         return exchange.getListing();
     }
 
-    public String getBusinessTicker(String businessName) throws RemoteException {
+    /*public String getBusinessTicker(String businessName) {
         return exchange.getBusinessTicker(businessName);
-    }
+    }*/
 
     /**
      * Sell Shares
@@ -107,8 +112,7 @@ public class Broker implements BrokerInterface, Serializable{
      * @param customer customer who made the request
      * @return
      */
-    @Override
-    public boolean sellShares(ArrayList<String> tickers, ShareType type, int quantity, Customer customer) throws RemoteException {
+    public boolean sellShares(ArrayList<String> tickers, ShareType type, int quantity, Customer customer) {
 
         ShareList sharesToSell = prepareTrade(tickers, type, quantity);
 
@@ -133,7 +137,7 @@ public class Broker implements BrokerInterface, Serializable{
      * @return
      * @throws RemoteException
      */
-    public boolean sellShares(ArrayList<ShareItem> shareItems, Customer customer) throws RemoteException {
+    public boolean sellShares(ArrayList<ShareItem> shareItems, Customer customer) {
 
         ShareList customerShares = new ShareList(shareItems);
 
@@ -143,8 +147,6 @@ public class Broker implements BrokerInterface, Serializable{
             return true;
 
         return false;
-
-
     }
 
     /**
@@ -157,20 +159,17 @@ public class Broker implements BrokerInterface, Serializable{
      * @param customer customer who made the request
      * @return
      */
-    public boolean buyShares(ArrayList<String> tickers, ShareType type, int quantity, Customer customer) throws RemoteException {
+    public boolean buyShares(ArrayList<String> tickers, ShareType type, int quantity, Customer customer) {
         for(String ticker : tickers) {
             validateClientHasShare(ticker, customer);
         }
         ShareList sharesToBuy = prepareTrade(tickers, type, quantity);
         if (sharesToBuy != null) {
             exchange.buyShares(sharesToBuy, customer);
-
-
             return true;
         } else {
             return false;
         }
-
     }
 
 
