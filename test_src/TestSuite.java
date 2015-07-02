@@ -1,6 +1,5 @@
 import StockQuotes.GoogleFinanceTest;
 import business.BusinessTest;
-import client.BrokerServiceClientTest;
 import common.logger.LoggerServer;
 import common.logger.LoggerTest;
 import common.util.ConfigTest;
@@ -26,7 +25,7 @@ import stockexchange.exchange.ShareSalesStatusListTest;
 @Suite.SuiteClasses({
                     IntegrationTest.class,
 
-                    BrokerServiceClientTest.class,
+
                     LoggerTest.class,
                     BusinessTest.class,
 //                    BrokerTest.class,

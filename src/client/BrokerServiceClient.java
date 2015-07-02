@@ -1,33 +1,23 @@
-package stockexchange.exchange;
+package client;
 
 import exchange_domain.*;
 
 import exchange_domain.iExchangePackage.*;
 import org.omg.CORBA.*;
-import org.omg.CORBA.ORBPackage.InvalidName;
 import org.omg.CosNaming.*;
 
 import common.util.Config;
-import org.omg.CosNaming.NamingContextPackage.CannotProceed;
-import org.omg.CosNaming.NamingContextPackage.NotFound;
-import org.omg.PortableServer.POA;
-import org.omg.PortableServer.POAHelper;
-import org.omg.PortableServer.POAManagerPackage.AdapterInactive;
-import org.omg.PortableServer.POAPackage.ServantNotActive;
-import org.omg.PortableServer.POAPackage.WrongPolicy;
 
-import java.io.*;
-import java.io.DataInputStream;
 import java.util.Properties;
 
 /**
  * Created by Gay on 6/29/2015.
  */
-public class TestClient implements Runnable {
+public class BrokerServiceClient implements Runnable {
 
 	public static Thread launch(){
 
-		TestClient client = new TestClient();
+		BrokerServiceClient client = new BrokerServiceClient();
 		Thread thread = new Thread(() -> client.run());
 		thread.start();
 

@@ -16,13 +16,13 @@ public class MockBroker extends Broker {
 
 
 
-    public MockBroker() throws RemoteException, NotBoundException {
+    /*public MockBroker() throws RemoteException, NotBoundException {
        exchange = getExchange();
-    }
+    }*/
 
-    @Override
+    /*@Override
     protected Exchange getExchange() throws RemoteException, NotBoundException {
         return new MockExchange();
-    }
+    }*/
 
 }

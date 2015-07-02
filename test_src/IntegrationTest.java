@@ -4,10 +4,9 @@ import common.logger.TimerLoggerClient;
 import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
-import stockexchange.broker.BrokerInterface;
+
 import stockexchange.exchange.Exchange;
 import stockexchange.exchange.ExchangeServer;
-import stockexchange.exchange.TestClient;
 
 import static junit.framework.TestCase.assertNull;
 import static org.junit.Assert.assertNotNull;
@@ -20,24 +19,6 @@ public class IntegrationTest {
     @Before
     public void setUp()  {
 
-    }
-
-
- //   @Test
-    public void testRMI() throws Exception {
-        BrokerServiceClient client = new BrokerServiceClient();
-        TimerLoggerClient tlc = new TimerLoggerClient();
-        tlc.start();
-        BrokerInterface broker = client.getBroker();
-        assertNotNull(broker.getBusinessTicker("google"));
-        assertNotNull(broker.getBusinessTicker("yahoo"));
-        assertNotNull(broker.getBusinessTicker("microsoft"));
-
-        assertTrue(broker.getBusinessTicker("google").equals("GOOG"));
-        assertTrue(broker.getBusinessTicker("yahoo").equals("YHOO"));
-        assertTrue(broker.getBusinessTicker("microsoft").equals("MSFT"));
-
-        tlc.end();
     }
 
 
@@ -72,7 +53,7 @@ public class IntegrationTest {
             Thread.sleep(5000); // give the threads plenty of time to launch
 
             //Client Purchase Test
-            Thread client = TestClient.launch();
+            Thread client = BrokerServiceClient.launch();
             client.sleep(5000);
 
 

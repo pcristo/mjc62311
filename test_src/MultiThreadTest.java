@@ -5,7 +5,6 @@ import org.junit.Before;
 import org.junit.Test;
 import common.share.ShareType;
 import stockexchange.exchange.ShareItem;
-import stockexchange.broker.BrokerInterface;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -87,7 +86,7 @@ public class MultiThreadTest {
 		lstShares.add(new ShareItem("", "YHOX", ShareType.COMMON, 43.67f, 100));				// bad symbol
 		lstShares.add(new ShareItem("", "YHOO.B", ShareType.COMMON, 47.42f, 100));				// invalid common.share type (symbol indicates convertible)
 		
-		BrokerInterface service = new BrokerServiceClient().getBroker();
+		/*BrokerInterface service = new BrokerServiceClient().getBroker();
 		log("Broker service found for test customer " + customer);
 
 		for (int i = 0; i < NUMBER_OF_TRANSACTIONS_PER_THREAD; i++) {
@@ -107,7 +106,7 @@ public class MultiThreadTest {
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-		}
+		}*/
 	}
 	
 	private String RandomString(int size) {

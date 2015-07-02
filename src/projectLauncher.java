@@ -33,17 +33,17 @@ public class projectLauncher {
 				BusinessServer.launch("MSFT") };
 		pause("Launching business and waiting ", WAIT_BETWEEN_LAUNCH_TIME);
 
-		Thread broker = new Thread(()->Broker.main(null));
+		/*Thread broker = new Thread(()->Broker.main(null));
 		broker.start();
-		pause("Launching broker and waiting ", WAIT_BETWEEN_LAUNCH_TIME);
+		pause("Launching broker and waiting ", WAIT_BETWEEN_LAUNCH_TIME);*/
 		
 		// if any arguments are sent, the do not wait for any key, just continue
 		if (args == null || args.length == 0) {
 			System.out.println("Press enter to kill everything uncleanly :D");
 			System.in.read();
 
-			// Stop all running threads
-			broker.interrupt();
+			/*// Stop all running threads
+			broker.interrupt();*/
 			for(Thread t : businesses)
 				t.interrupt();
 			logger.interrupt();
