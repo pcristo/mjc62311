@@ -354,7 +354,8 @@ public class Exchange extends iExchangePOA {
 
                     if (sItem.getQuantity() < RESTOCK_THRESHOLD) {
 
-                        System.out.println(" \n " + "...... Restocking Shares .......");
+                        //TODO: this belongs in log 
+                    	//System.out.println(" \n " + "...... Restocking Shares .......");
 
                         ShareItem newShares = this.issueSharesRequest(sItem);
 

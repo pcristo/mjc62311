@@ -271,7 +271,7 @@ public class Business implements Serializable {
 			// handle success case
 			if (isNotPaid && totalPriceOK && orderExists) {
 				orderRecord.setPaid(true);
-				LoggerClient.log("Payment for order " + orderNum + " successful.");
+				LoggerClient.log("Payment to business for order " + orderNum + " successful.");
 				return true; 			// return
 			}
 
@@ -279,23 +279,23 @@ public class Business implements Serializable {
 		
 		// handle error cases
 		if (!orderExists) {
-			LoggerClient.log("Payment for order " + orderNum + " failed. The order does not exist.");
+			LoggerClient.log("Payment to business for order " + orderNum + " failed. The order does not exist.");
 			return false;		
 		}
 		
 		if (!totalPriceOK) {
-			LoggerClient.log("Payment " + totalPrice + " for order " + orderNum + " failed. The recorded "
+			LoggerClient.log("Payment " + totalPrice + " to business for order " + orderNum + " failed. The recorded "
 					+ "total order price does not match: " + orderRecord.getQuantity() +
 					" units sold at " + orderRecord.getUnitPriceOrder());
 			return false;	
 		}
 
 		if (!isNotPaid) {
-			LoggerClient.log("Payment for order " + orderNum + " failed. The order has already been paid.");
+			LoggerClient.log("Payment to business for order " + orderNum + " failed. The order has already been paid.");
 			return false;		
 		}
 
-		LoggerClient.log("Payment for order " + orderNum + " failed and no reason is known.");
+		LoggerClient.log("Payment to business for order " + orderNum + " failed and no reason is known.");
 		return false;
 
 	}

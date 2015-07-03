@@ -145,7 +145,7 @@ public class MultiThreadTest {
 						+ lstShares.get(shareIndex).getShareType()
 						+ " shares of "
 						+ lstShares.get(shareIndex).getBusinessSymbol()
-						+ " on thread ");// + Thread.currentThread().getId());
+						+ " on thread " + Thread.currentThread().getId());
 			}
 
 			try {

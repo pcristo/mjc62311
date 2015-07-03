@@ -60,7 +60,7 @@ Save the file, then scroll to the field named *namingServicePort* and take note 
 Assuming the CORBA naming service is going to run locally, open a terminal window and launch the CORBA naming service on the port from the previous section. **Note:** Some configurations may require you to run this command as root.
 
 ```
-$ orbd -ORBIntialPort 9999 - ORBInitialHost localhost
+$ tnameserv -ORBIntialPort 9999
 ```
 
 ### 2.3 - Run JUnit Tests

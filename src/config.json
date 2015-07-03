@@ -16,22 +16,13 @@
   "backup_logServerIP" : "localhost",
   "backup_logServerPort": "19083",
 
-  "brokerServerIP": "localhost",
-  "brokerPort": "9089",
-
-  "businessServerIP": "localhost",
-
   "namingServiceAddr": "localhost",
   "namingServicePort": "9999",
 
   "YHOO": "yahoo_data.csv",
-  "yahoo": "yahoo_data.csv",
   "MSFT": "microsoft_data.csv",
-  "microsoft": "microsoft_data.csv",
   "GOOG": "google_data.csv",
-  "google": "google_data.csv",
   "APPL": "apple_data.csv",
-  "apple": "apple_data.csv",
 
   "macLogServerHome": "/Users/Gay/Documents/Concordia/COMP6231/PROJECT/mjc62311",
   "macSecurity": "/resources/settings/security.policy"

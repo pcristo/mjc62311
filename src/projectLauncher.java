@@ -12,7 +12,7 @@ import java.io.IOException;
  */
 public class projectLauncher {
 	final static int PAUSE_NOTIFICATION_TIME = 250;
-	final static int WAIT_BETWEEN_LAUNCH_TIME = 3000;
+	final static int WAIT_BETWEEN_LAUNCH_TIME = 750;
 	
 	/**
 	 * Will launch all the servers
