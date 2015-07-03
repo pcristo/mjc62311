@@ -1,7 +1,7 @@
 package business;
 
-import business_domain.interface_business;
-import business_domain.interface_businessPOA;
+import corba.business_domain.interface_business;
+import corba.business_domain.interface_businessPOA;
 import common.share.ShareOrder;
 import common.share.ShareType;
 import org.omg.CORBA.*;
@@ -38,7 +38,6 @@ public class BusinessServant extends interface_businessPOA implements interface_
 	/*
 	 * IMPLEMENTATION OF THE BUSINESS STUB
 	 */
-
 	public String getTicker() {
 		return business.getTicker();
 	}

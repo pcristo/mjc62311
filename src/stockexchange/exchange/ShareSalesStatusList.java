@@ -44,9 +44,6 @@ public class ShareSalesStatusList{
      * @return -1 if not available | ShareItem
      */
     public ShareItem isShareAvailable(ShareItem share) {
-
-        //TODO: To be removed once PM2 code is tested and runs
-        // PM1 CODE
         ShareItem soldShare = null;
         String businessSymbol;
         int quantity = 0;
@@ -69,8 +66,6 @@ public class ShareSalesStatusList{
                 }
             }
         }
-
-        //PM2 CODE
 
         return soldShare;
     }
@@ -141,23 +136,7 @@ public class ShareSalesStatusList{
         return soldShares;
     }
 
-    /**
-     * Getter for the availavle shares
-     * @return Map of avaialble shares
-     */
-    public Map<String,List<ShareItem>> getNewAvShares() {
 
-        return this.newAvShares;
-    }
-
-    /**
-     * Getter of Map of ordered shares
-     * @return
-     */
-    public Map<String, ShareItem> getOrderesShares() {
-
-        return this.orderedShares;
-    }
 
     /**
      * Display all sold shares, avaialble shares and ordered shares
@@ -172,7 +151,6 @@ public class ShareSalesStatusList{
             System.out.println(entry.getKey());
 
             for(ShareItem share : entry.getValue()){
-
                 System.out.println(share.printShareInfo());
             }
 
@@ -183,9 +161,7 @@ public class ShareSalesStatusList{
         System.out.println("Ordered Shares List\n");
 
         for(Map.Entry<String, ShareItem> entry : this.orderedShares.entrySet()){
-
             System.out.println(entry.getValue().printShareInfo());
-
         }
 
         //Sold Shares
@@ -193,16 +169,12 @@ public class ShareSalesStatusList{
         System.out.println("Sold Shares List\n");
 
         for(Map.Entry<Integer, List<ShareItem>> entry : this.soldShares.entrySet()){
-
             System.out.println(entry.getKey());
-
             for(ShareItem sItem : entry.getValue()){
 
                 System.out.println(sItem.printShareInfo());
             }
-
         }
-
     }
 
     @Override

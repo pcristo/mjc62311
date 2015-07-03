@@ -1,14 +1,14 @@
 package stockexchange.exchange;
 
-import business_domain.interface_business;
-import business_domain.interface_businessHelper;
+import corba.business_domain.interface_business;
+import corba.business_domain.interface_businessHelper;
 import common.Customer;
 import common.logger.LoggerClient;
 import common.share.ShareType;
 import common.util.Config;
-import exchange_domain.iExchangePOA;
-import exchange_domain.iExchangePackage.corShareItem;
-import exchange_domain.iExchangePackage.customer;
+import corba.exchange_domain.iExchangePOA;
+import corba.exchange_domain.iExchangePackage.corShareItem;
+import corba.exchange_domain.iExchangePackage.customer;
 import org.omg.CORBA.ORB;
 import org.omg.CosNaming.NamingContextExt;
 import org.omg.CosNaming.NamingContextExtHelper;
@@ -25,11 +25,10 @@ import java.util.*;
  */
 public class Exchange extends iExchangePOA {
 
-    private static  final int COMMISSION_MARKUP = 10;
     private static  final int RESTOCK_THRESHOLD = 500;
     private static  int orderInt = 1100;
     protected static ShareSalesStatusList shareStatusSaleList;
-	public static Exchange exchange;  // TODO Most disgusting solution ever
+	public static Exchange exchange;
 
     private ORB orb;
 
@@ -47,20 +46,18 @@ public class Exchange extends iExchangePOA {
      */
     protected Map<String, Float> priceDirectory = new HashMap<String, Float>();
 
-
     /**
      * Create exchange object by preparing the local list of available shares
      */
     public Exchange() {
-    	Exchange.exchange = this; // TODO part of disgusting soln
-    	
+        // Creating a static reference to self
+        // Singleton better sutied here...
+    	Exchange.exchange = this;
         try {
-
             shareStatusSaleList = new ShareSalesStatusList();
         }
         catch(Exception e) {
-
-            System.out.println(e.getMessage());
+            LoggerClient.log("Exception in exchange: " + e.getMessage());
         }
 
     }
@@ -83,8 +80,6 @@ public class Exchange extends iExchangePOA {
     }
 
 
-
-
     /**
      * Registers a new business with the exchange, providing an initial price.
      * @param symbol
@@ -92,21 +87,16 @@ public class Exchange extends iExchangePOA {
      * @return
      */
     public boolean registerBusiness(String symbol, float price) {
-
         try{
             businessDirectory.put(symbol, getBusinessIFace(symbol));
             priceDirectory.put(symbol, price);
 
             return this.orderShares(this.businessDirectory.get(symbol), symbol, price, 1000);
-
-        }
-        catch (Exception e) {
-
-            System.out.println(e.getMessage());
+        } catch (Exception e) {
+            LoggerClient.log("Exchange exception in registerBusiness: " + e.getMessage());
         }
 
         this.printCurrentShareInfo();
-
         return false;
     }
     
@@ -119,11 +109,9 @@ public class Exchange extends iExchangePOA {
     	// try to remove the stock from the business and price registers. If the symbol
     	// is not found, throw an exception
     	interface_business bi = businessDirectory.remove(symbol);
-    	if ((bi == null) || (priceDirectory.remove(symbol) == null)) 
-    		return false;
-    	
-    	// TODO: business must be unbound from the client?
-
+    	if ((bi == null) || (priceDirectory.remove(symbol) == null)) {
+            return false;
+        }
         return true;
     }
     
@@ -133,11 +121,8 @@ public class Exchange extends iExchangePOA {
      * @return
      */
     public interface_business getBusinessIFace(String businessName){
-
         try {
             // Set up ORB properties
-            // Hi Gay! I had to add this to allow setting of port and IP
-            // address. see Config.json. -patrick
             Properties p = new Properties();
             p.put("org.omg.CORBA.ORBInitialPort",
                     Config.getInstance().getAttr("namingServicePort"));
@@ -154,25 +139,11 @@ public class Exchange extends iExchangePOA {
             return iBusiness;
         }
         catch(Exception e) {
-
             System.out.println(e.getMessage());
         }
-
         return null;
     }
 
-    /**
-     * BuyShares is currently not part of our requirements
-     * @param shareItemList
-     * @param info
-     * @return
-     */
-    public ShareSalesStatusList buyShares(ShareList shareItemList, Customer info) {
-
-        //TODO: Currently not part of the requirements
-
-        return shareStatusSaleList;
-    }
 
     /**
      * Sell Shares to a Customer (ie Customer is BUYING shares)
@@ -249,16 +220,13 @@ public class Exchange extends iExchangePOA {
                     }
 
                     //Pay all orders if needed
-
                     if (lstOrders.size()>0){
                         payBusiness(lstOrders);
                     }
 
                 }
 
-                //TODO: Review this synchronization
                 synchronized (soldShareLock) {
-
                     shareStatusSaleList.addToSoldShares(s, info);
                 }
             }
@@ -266,7 +234,6 @@ public class Exchange extends iExchangePOA {
             //Restock Share Lists
             this.restock();
         }
-
 
         return  shareStatusSaleList;
     }
@@ -300,61 +267,25 @@ public class Exchange extends iExchangePOA {
      * @return the ticker commonly used to identify a company | Null if not found
      */
     public String getBusinessTicker(String businessName) {
-
         //Is business registerd
         interface_business iBusiness = this.businessDirectory.get(businessName);
 
         if (iBusiness != null) {
-
             return iBusiness.getTicker();
         }
-
         return null;
     }
 
-    /**
-     * Used to issue common.share on Ecxhange start up
-     */
-    protected void initializeShares() {
-
-        List<ShareItem> lstShares = new ArrayList<ShareItem>();
-
-        //For Testing
-        for(Map.Entry<String, Float> entry : this.priceDirectory.entrySet()) {
-
-            lstShares.add(new ShareItem("",entry.getKey(), ShareType.COMMON,entry.getValue(),100));
-            lstShares.add(new ShareItem("",entry.getKey(), ShareType.CONVERTIBLE,entry.getValue(),100));
-            lstShares.add(new ShareItem("",entry.getKey(), ShareType.PREFERRED,entry.getValue(),100));
-        }
-
-        for(ShareItem shareItem : lstShares) {
-
-            ShareItem addShareItem = this.issueSharesRequest(shareItem);
-
-            if (addShareItem != null) {
-                shareStatusSaleList.addToNewAvShares(addShareItem);
-            }
-        }
-    }
 
     /**
      *Method to restock any available common.share that is below the threshold
      */
     protected void restock() {
-
         for(Map.Entry<String, List<ShareItem>> entry : shareStatusSaleList.newAvShares.entrySet()){
-
             List<ShareItem> addToList = new ArrayList<ShareItem>();
-
             for(ShareItem sItem : entry.getValue()) {
-
                 synchronized (sItem){
-
                     if (sItem.getQuantity() < RESTOCK_THRESHOLD) {
-
-                        //TODO: this belongs in log 
-                    	//System.out.println(" \n " + "...... Restocking Shares .......");
-
                         ShareItem newShares = this.issueSharesRequest(sItem);
 
                         if (newShares != null && sItem.getQuantity() == 0) {
@@ -372,12 +303,9 @@ public class Exchange extends iExchangePOA {
                                     new ShareItem(newShares.getOrderNum(),newShares.getBusinessSymbol(),newShares.getShareType(), newShares.getUnitPrice(),newShares.getQuantity())
                             );
                         }
-
                     }
                 }
-
             }
-
             entry.getValue().addAll(addToList);
         }
     }
@@ -388,15 +316,11 @@ public class Exchange extends iExchangePOA {
      * @return true if payment is processed
      */
 	protected boolean payBusiness(List<String> lstOrders) {
-
         boolean paid = false;
         for(String orderNumber : lstOrders ){
 
             ShareItem shareToBePaid = shareStatusSaleList.orderedShares.get(orderNumber);
-
             synchronized (shareToBePaid) {
-
-
                 // if the business is not registered, there is no interface, and null is returned
 
 		        interface_business bi = businessDirectory.get(shareToBePaid.getBusinessSymbol());
@@ -406,19 +330,16 @@ public class Exchange extends iExchangePOA {
                                 shareToBePaid.getUnitPrice() * shareToBePaid.getQuantity());
 
                         if (paid) {
-
                             shareStatusSaleList.orderedShares.remove(orderNumber);
                         }
 
                     } catch (Exception e) {
-                        System.out.println(" \n " + e.getMessage());
+                        LoggerClient.log("Exchange Exception in payBusiness: " + e.getMessage());
                     }
                 }
             }
         }
-
 		return paid;
-
 	}
 
     /**
@@ -436,7 +357,6 @@ public class Exchange extends iExchangePOA {
 
 		synchronized (orderNum) {
 			try {
-
 				sharesIssued = bi.issueShares(orderNum,
 						"br01", sItem.getBusinessSymbol(), 0,
 						sItem.getUnitPrice(), RESTOCK_THRESHOLD, sItem.getUnitPrice());
@@ -494,10 +414,6 @@ public class Exchange extends iExchangePOA {
      * @return
      */
     public boolean updateSharePrice(String symbol, float price) {
-
-        //TODO: Remove
-        System.out.println(symbol);
-
         //Does business exist in exchange
         if (this.priceDirectory.get(symbol) == null) {
             return false;
@@ -505,17 +421,8 @@ public class Exchange extends iExchangePOA {
 
             //Update Registry price
             synchronized (this.priceDirectory.get(symbol)){
-
                 this.priceDirectory.put(symbol, price);
-                System.out.println("IN 1");
             }
-
-            //Update all prices in available shares
-           /* synchronized (shareStatusSaleList.newAvShares.get(symbol)){
-                for (ShareItem sItem : shareStatusSaleList.newAvShares.get(symbol)){
-                    sItem.setUnitPrice(price);
-                }
-            }*/
         }
 
         return false;
@@ -537,21 +444,16 @@ public class Exchange extends iExchangePOA {
         try {
 
             String orderNumber = generateOrderNumber();
-
             ordered =  iBusiness.issueShares(orderNumber, "br01", symbol, 0, price, quantity, price);
 
             if (ordered) {
-
                 ShareItem newShares = new ShareItem(orderNumber,symbol,ShareType.COMMON,price, quantity);
 
                 shareStatusSaleList.addToNewAvShares(newShares);
                 shareStatusSaleList.addToOrderedShares(newShares);
 
                 LoggerClient.log("Sucessfully added " + quantity + " shares of " + iBusiness.getTicker());
-
             }
-
-
         } catch(Exception e) {
             LoggerClient.log(e.getMessage());
         }
@@ -597,24 +499,18 @@ public class Exchange extends iExchangePOA {
         }
     }
 
-
-    //----------------------- Corba Translation ----------------------------
-
     public void clientOrder (corShareItem[] corShares, customer corCustomer) {
 
-        //Translate to ShareItem list
+        // Translate to ShareItem list
         ArrayList<ShareItem> lstCustShares = new ArrayList<ShareItem>();
 
         Customer newCust = new Customer(corCustomer.name,corCustomer.street1,corCustomer.street2,corCustomer.city,
                                         corCustomer.province,corCustomer.postalCode,corCustomer.country);
 
         for (corShareItem sItem : corShares) {
-
             lstCustShares.add(new ShareItem(sItem.orderNumString, sItem.businessSymbol,ShareType.COMMON, sItem.unitPrice, sItem.quantity));
         }
 
         this.sellShares(new ShareList(lstCustShares),newCust);
-
-
     }
 }

@@ -1,5 +1,5 @@
+import FrontEnd.FrontEnd;
 import business.BusinessServer;
-import client.BrokerServiceClient;
 import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
@@ -33,7 +33,7 @@ public class IntegrationTest {
         Thread.sleep(5000); // give the threads plenty of time to launch
 
         //Client Purchase Test
-        Thread client = BrokerServiceClient.launch();
+        Thread client = FrontEnd.launch();
         client.sleep(5000);
 
 

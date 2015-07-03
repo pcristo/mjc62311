@@ -1,6 +1,5 @@
-import broker_domain.iBroker;
-import broker_domain.iBrokerHelper;
-import common.Customer;
+import corba.broker_domain.iBroker;
+import corba.broker_domain.iBrokerHelper;
 import common.logger.LoggerClient;
 
 import org.junit.Before;
@@ -12,8 +11,6 @@ import org.omg.CosNaming.NamingContextHelper;
 
 import common.share.ShareType;
 import common.util.Config;
-import exchange_domain.iExchange;
-import exchange_domain.iExchangeHelper;
 import stockexchange.exchange.ShareItem;
 
 import java.io.PrintWriter;

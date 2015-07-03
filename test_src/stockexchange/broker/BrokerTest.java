@@ -25,7 +25,7 @@ public class BrokerTest {
             add("GOOG");
             add("MSFT");
             add("YHOO");
-            add("AAPL");
+            add("APPL");
         }};
         customer = new Customer("Ross", "Ross Street", "Ross Street 2", "Ross town", "Ross Province", "ROS SSMI", "Ross County");
     }
@@ -33,12 +33,17 @@ public class BrokerTest {
     @Test
     public void getTickerListingTest() {
         // 3 businesses
-        assertEquals(broker.getTickerListing().size(), 3);
+        assertEquals(broker.getTickerListing().size(), 4);
     }
 
     @Test
     public void sellSharesTest()  {
         assertTrue(broker.sellShares(shares, ShareType.COMMON, 100, customer));
+    }
+
+    @Test
+    public void getBusinessTickerTest() {
+        assertTrue(broker.getBusinessTicker("GOOG").equals("GOOG"));
     }
 
 }

@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 /**
  * A class for common.share information
- * @author patrick
  */
 public class Share implements Serializable {
 

@@ -18,11 +18,6 @@ public class Config {
         return Holder.INSTANCE;
     }
 
-    // TODO validate json
-
-    //private static volatile Config instance = null;
-
-
     private JSONObject configJson;
 
     public Config() {
@@ -44,10 +39,6 @@ public class Config {
         configJson = null;
 
         InputStream in = Thread.currentThread().getContextClassLoader().getResourceAsStream("config.json");
-
-
-      // File f = new File("C:\\Users\\Ross\\Dropbox\\Distributed_Systems\\project\\src\\config.json");
-      //  InputStream in = new FileInputStream(f);
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(in));
         StringBuilder out = new StringBuilder();
@@ -75,21 +66,6 @@ public class Config {
             System.out.println("Json Exception in config: attr = " + attr);
             System.out.println(joe.getMessage());
             return null;
-        }
-    }
-
-    /**
-     * Get security policy for RMI communication
-     * @return String of location to security policy
-     */
-    public String loadSecurityPolicy() {
-
-        // TODO untested
-        // TODO fix this for realsies
-        if( System.getProperty("os.name").toLowerCase().contains("mac")){
-            return loadMacSecurityPolicy();
-        } else {
-            return this.configJson.getString("projectHome") + configJson.getString("security");
         }
     }
 

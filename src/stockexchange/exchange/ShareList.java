@@ -2,9 +2,6 @@ package stockexchange.exchange;
 
 import java.util.ArrayList;
 
-/**
- * Created by gay.hazan on 22/05/2015.
- */
 public class ShareList {
 
     private ArrayList<ShareItem> lstShareItems;
@@ -23,14 +20,6 @@ public class ShareList {
      */
     public ArrayList<ShareItem> getLstShareItems() {
         return lstShareItems;
-    }
-
-    /**
-     *
-     * @param lstShareItems
-     */
-    public void setLstShareItems(ArrayList<ShareItem> lstShareItems) {
-        this.lstShareItems = lstShareItems;
     }
 
     public String toString() {

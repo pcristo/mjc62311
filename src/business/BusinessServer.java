@@ -1,8 +1,12 @@
 package business;
 
-import java.util.Properties;
-
-import org.omg.CORBA.*;
+import common.logger.LoggerClient;
+import common.util.Config;
+import corba.business_domain.interface_business;
+import corba.business_domain.interface_businessHelper;
+import corba.exchange_domain.iExchange;
+import corba.exchange_domain.iExchangeHelper;
+import org.omg.CORBA.ORB;
 import org.omg.CORBA.ORBPackage.InvalidName;
 import org.omg.CosNaming.*;
 import org.omg.CosNaming.NamingContextPackage.CannotProceed;
@@ -13,12 +17,7 @@ import org.omg.PortableServer.POAManagerPackage.AdapterInactive;
 import org.omg.PortableServer.POAPackage.ServantNotActive;
 import org.omg.PortableServer.POAPackage.WrongPolicy;
 
-import common.util.Config;
-
-import business_domain.interface_business;
-import business_domain.interface_businessHelper;
-import exchange_domain.iExchange;
-import exchange_domain.iExchangeHelper;
+import java.util.Properties;
 
 /**
  * This class creates a new instance of a business, creates the ORB, registers
@@ -66,15 +65,12 @@ public class BusinessServer implements Runnable {
 			if (!RegisterExchange())
 				throw new Exception("Could not register with exchange");
 		} catch (Exception e) {
-			// TODO patrickc log this in the logger
-			System.err.println("Business Server Error - " + e.getMessage());
-			e.printStackTrace(System.out);
+			LoggerClient.log("Business Server Error - " + e.getMessage());
 			System.exit(0);
 		}
 
-		// loop forever
-		while (true) {
-		} // TODO patrickc catch interrupt to deregister server
+		// Keep server thread alive
+		while (true) {}
 	}
 
 	/**
@@ -114,8 +110,7 @@ public class BusinessServer implements Runnable {
 				.to_name("business-" + business.getTicker());
 		ncRef.rebind(path, href);
 
-		// TODO: patrickc log the event
-		System.out.println("Business Server " + business.getTicker()
+		LoggerClient.log("Business Server " + business.getTicker()
 				+ " ready and waiting ...");
 
 	}

@@ -5,7 +5,6 @@ import java.io.Serializable;
 
 public class Customer implements Serializable {
 
-    // TODO remove customerReferenceNumber inlieu for java equals method
     private static int customerNumberCount = 0;
     private int customerReferenceNumber;
     private String name;

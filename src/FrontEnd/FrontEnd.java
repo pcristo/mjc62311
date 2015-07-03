@@ -1,0 +1,54 @@
+package FrontEnd;
+
+import corba.exchange_domain.iExchange;
+import corba.exchange_domain.iExchangeHelper;
+
+import corba.exchange_domain.iExchangePackage.*;
+import org.omg.CORBA.*;
+import org.omg.CosNaming.*;
+
+import common.util.Config;
+
+import java.util.Properties;
+
+public class FrontEnd implements Runnable {
+
+	public static Thread launch(){
+		FrontEnd client = new FrontEnd();
+		Thread thread = new Thread(() -> client.run());
+		thread.start();
+		return thread;
+	}
+
+
+	public void run() {
+		try {
+			corShareItem[] toSell = new corShareItem[]
+				{
+					new corShareItem("","GOOG",0,800,1000),
+					new corShareItem("","MSFT",0,700,230),
+					new corShareItem("","GOOG",0,800,430),
+					new corShareItem("","APPL",0,900,400),
+					new corShareItem("","YHOO",0,680,170),
+				};
+
+
+			// Set up ORB properties
+			Properties p = new Properties();
+			p.put("org.omg.CORBA.ORBInitialPort", Config.getInstance().getAttr("namingServicePort"));
+			p.put("org.omg.CORBA.ORBInitialHost", Config.getInstance().getAttr("namingServiceAddr"));
+
+			ORB orb = ORB.init(new String[0], p);
+			org.omg.CORBA.Object objRef = orb.resolve_initial_references("NameService");
+			NamingContextExt ncRef = NamingContextExtHelper.narrow(objRef);
+			iExchange exchange = (iExchange) iExchangeHelper.narrow(ncRef.resolve_str("exchange"));
+
+			exchange.clientOrder(toSell, new customer("Gay","","","","","",""));
+
+
+		} catch (Exception e) {
+			System.out.println("Test Client exception: " + e);
+			e.printStackTrace();
+		}
+	}
+}

@@ -3,22 +3,15 @@ package stockexchange.exchange;
 import common.share.Share;
 import common.share.ShareType;
 
-/**
- * Created by gay.hazan on 22/05/2015.
- */
 public class ShareItem extends Share {
 
     private int quantity;
     private float commission;
     private int soldShares;
 
-    //TODO: Include shareorder object in each shareItem for traceability
     private String  orderNum;
 
-
-    // -------------------------- CONSTRUCTOR ----------------------------------------
     /**
-     *
      * @param businessSymbol
      * @param shareType
      * @param unitPrice
@@ -30,12 +23,7 @@ public class ShareItem extends Share {
         this.orderNum = orderNum;
         this.quantity = quantity;
         this.commission = this.getUnitPrice() * 0.05f;
-
-
     }
-
-
-    // ---------------------------- SETTERS ---------------------------------------------
 
     /**
      *
@@ -63,9 +51,6 @@ public class ShareItem extends Share {
         this.soldShares = numberSold;
     }
 
-
-    // ----------------------------- GETTERS ---------------------------------------------
-
     /**
      * Get Quantity
      * @return
@@ -79,7 +64,6 @@ public class ShareItem extends Share {
      * @return String
      */
     public String getOrderNum() {
-
         return this.orderNum;
     }
 
@@ -90,17 +74,6 @@ public class ShareItem extends Share {
     public float getCommission() {
         return commission;
     }
-
-    /**
-     *
-     * @return
-     */
-    public int getSoldShares() {
-
-        return  this.soldShares;
-    }
-
-    // ----------------------------- PUBLIC METHODS ------------------------------------------
 
     /**
      * Increase the share quantity of current share
@@ -116,7 +89,6 @@ public class ShareItem extends Share {
      * @param reduceBy
      */
     public void reduceQuantity(int reduceBy) {
-
         this.quantity = this.quantity - reduceBy;
     }
 
@@ -137,14 +109,10 @@ public class ShareItem extends Share {
         shareDescription.append(this.getUnitPrice());
         shareDescription.append(" ");
         shareDescription.append(this.getQuantity());
-
-
         return shareDescription.toString();
     }
 
     public String toString(){
         return "Symbol: " + getBusinessSymbol() + " Comission: " +  getCommission() + " Qty:" + getQuantity();
     }
-
-
 }

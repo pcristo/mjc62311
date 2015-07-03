@@ -1,6 +1,5 @@
 package stockexchange.broker;
 
-//import distribution.RMI.Server;
 import common.Customer;
 import common.share.ShareType;
 import stockexchange.exchange.Exchange;
@@ -10,14 +9,6 @@ import stockexchange.exchange.ShareSalesStatusList;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-
-//import java.rmi.AccessException;
-//import java.rmi.NotBoundException;
-//import java.rmi.RemoteException;
-
-// TODO: create IDL for client interface
-// TODO: create a server class that launches a thread, creates this object, loops,
-//       similarly to business class.
 
 
 /**
@@ -29,50 +20,13 @@ public class Broker implements Serializable{
     // Require for serialization.  Ensures object deserialized and serialized are the same.
     private static final long serialVersionUID = 1467890432560789065L;
 
-    // TODO multiple exchanges
     protected static Exchange exchange;
 
-    /*
-     * Start up Broker server
-     *
-     * Requires Business Server running
-     *
-    public static void main(String[] args) {
-        /*
-            Broker acts as a server and also calls Exchange which connects to
-            Business server. Broker handles exceptions in creating Broker server and
-            Exchange not connecting to Business.
-        
-        try {
-            Broker broker = new Broker();
-            try {
-                // Start Broker server.
-                Integer port = Integer.parseInt(Config.getInstance().getAttr("brokerPort"));
-                String serviceName = "broker";
-                server.start(broker, serviceName, port);
-            } catch(RemoteException rme) {
-                LoggerClient.log("Remote Exception in Broker server: " + rme.getMessage());
-            }
-        // Exceptions for not being able to reach Business server through exchange.
-        } catch (AccessException ae) {
-            LoggerClient.log("Access Exception in creating Broker / Exchange.  " +
-                        "Ensure Business server is running :: " + ae.getMessage());
-        } catch (RemoteException rme) {
-            LoggerClient.log("Remote Exception in creating Broker / Exchange." +
-                    "Ensure Business server is running :: " + rme.getMessage());
-        } catch (NotBoundException nbe) {
-            LoggerClient.log("NotBound Exception in creating Broker / Exchange." +
-                    "Ensure Business server is running :: " + nbe.getMessage());
-        }
-        
-    }*/
 
     /**
      * Create broker class, point him to the exchange he trades on
-     * TODO use multiple exchanges
      */
     public Broker() {
-    	// TODO: Fetch the IOR from ORB
     	exchange = getExchange();
     }
 
@@ -88,15 +42,16 @@ public class Broker implements Serializable{
 
     /**
      * @return list of company tickers on the stock exchange
-     * TODO multiple exchanges
+     *
      */
     public ArrayList<String> getTickerListing() {
         return exchange.getListing();
     }
 
-    /*public String getBusinessTicker(String businessName) {
+    public String getBusinessTicker(String businessName) {
         return exchange.getBusinessTicker(businessName);
-    }*/
+    }
+
 
     /**
      * Sell Shares
@@ -123,45 +78,6 @@ public class Broker implements Serializable{
         }
     }
 
-    /**
-     * Broker sells shares
-     * Customer Buys shares
-     *
-     * @param shareItems
-     * @param customer
-     * @return
-     
-    public boolean sellShares(ArrayList<ShareItem> shareItems, Customer customer) {
-        ShareList customerShares = new ShareList(shareItems);
-        ShareSalesStatusList shareSalesStatusList = exchange.sellShares(customerShares,customer);
-        if (shareSalesStatusList != null)
-            return true;
-        return false;
-    }*/
-
-    /**
-     * Broker buys shares
-     * Customer sells shares
-     *
-     * @param tickers  arraylist that need to be bought
-     * @param type     type that the tickers belong to
-     * @param quantity that wants to be bought
-     * @param customer customer who made the request
-     * @return
-   
-    public boolean buyShares(ArrayList<String> tickers, ShareType type, int quantity, Customer customer) {
-        for(String ticker : tickers) {
-            validateClientHasShare(ticker, customer);
-        }
-        ShareList sharesToBuy = prepareTrade(tickers, type, quantity);
-        if (sharesToBuy != null) {
-            exchange.buyShares(sharesToBuy, customer);
-            return true;
-        } else {
-            return false;
-        }
-    }  */
-
 
     /**
      * Prepare the trade to go to the exchange
@@ -179,7 +95,6 @@ public class Broker implements Serializable{
                 // We don't trade anything unless all tickers are valid
                 return null;
             } else {
-
                 float price = 50;
                 String orderNumber = "";
                 sharesToAction.add(new ShareItem(orderNumber, ticker, type, price, quantity));
@@ -191,23 +106,6 @@ public class Broker implements Serializable{
         return sharesToSellObj;
     }
 
-    /**
-     * Make sure this customer owns the common.share they are trying to sell
-     *
-     * @param ticker
-     * @return
-     
-    private boolean validateClientHasShare(String ticker, Customer customer) {
-        List<ShareItem> customerShares = exchange.getShares(customer);
-        synchronized (customerShares) {
-            for (ShareItem share : customerShares) {
-                if (share.getBusinessSymbol() == ticker) {
-                    return true;
-                }
-            }
-            return false;
-        }
-    }*/
 
     /**
      * Ensure the ticker is a valid ticker listed on the exchange
@@ -216,10 +114,8 @@ public class Broker implements Serializable{
      * @return
      */
     private boolean validateTicker(String ticker) {
-        return true;
-    	// TODO: HORRIBLE THING, MUST FIX 
-    	// ArrayList<String> tickerListing = exchange.getListing();
-        // return tickerListing.contains(ticker);
+    	 ArrayList<String> tickerListing = exchange.getListing();
+         return tickerListing.contains(ticker);
     }
 
 

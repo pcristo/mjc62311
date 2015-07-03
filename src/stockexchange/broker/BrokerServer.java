@@ -1,7 +1,9 @@
 package stockexchange.broker;
 
-import java.util.Properties;
-
+import common.logger.LoggerClient;
+import common.util.Config;
+import corba.broker_domain.iBroker;
+import corba.broker_domain.iBrokerHelper;
 import org.omg.CORBA.ORB;
 import org.omg.CORBA.ORBPackage.InvalidName;
 import org.omg.CosNaming.NameComponent;
@@ -15,16 +17,13 @@ import org.omg.PortableServer.POAManagerPackage.AdapterInactive;
 import org.omg.PortableServer.POAPackage.ServantNotActive;
 import org.omg.PortableServer.POAPackage.WrongPolicy;
 
-import broker_domain.iBroker;
-import broker_domain.iBrokerHelper;
-import common.util.Config;
+import java.util.Properties;
 
 /**
  * This class creates a new instance of a broker, creates the ORB, registers
  * with the CORBA Naming Service, and runs the server in a background thread
  * 
  * @see http://www.javacoffeebreak.com/articles/javaidl/javaidl.html
- * @author patrick
  */
 public class BrokerServer implements Runnable {
 		private BrokerServant broker; 
@@ -103,7 +102,6 @@ public class BrokerServer implements Runnable {
 			NameComponent path[] = ncRef.to_name("broker");
 			ncRef.rebind(path, href);
 
-			// TODO: patrickc log the event
-			System.out.println("Broker Server ready and waiting...");
+			LoggerClient.log("Broker Server ready and waiting...");
 		}
 }

@@ -18,8 +18,6 @@ import java.util.List;
 
 /**
  * A class for businesses to process transactions/manage shares
- * 
- * @author patrick
  */
 public class Business implements Serializable {
 	private static final long serialVersionUID = 1L;

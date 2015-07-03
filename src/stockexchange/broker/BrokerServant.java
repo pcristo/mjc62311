@@ -1,16 +1,15 @@
 package stockexchange.broker;
 
+import common.Customer;
+import common.logger.LoggerClient;
+import common.share.ShareType;
+import corba.broker_domain.iBrokerPOA;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import common.Customer;
-import common.share.ShareType;
-import broker_domain.iBrokerPOA;
-
 /**
  * This class provides CORBA servant implementation for the broker class.
- * 
- * @author patrick
  */
 public class BrokerServant extends iBrokerPOA {
 	private Broker broker;
@@ -23,10 +22,9 @@ public class BrokerServant extends iBrokerPOA {
 		broker = new Broker();
 	}
 
-	/*
+	/**
 	 * IMPLEMENTATION OF THE BROKER STUB
 	 */
-
 	@Override
 	public boolean sellShares(String ticker, String shareType, int quantity, int custID) {
 		ArrayList<String> tickerList = new ArrayList<String>();
@@ -37,7 +35,7 @@ public class BrokerServant extends iBrokerPOA {
 			shareTypeEnum = ShareType.valueOf(shareType);
 		}
 		catch (Exception e) {
-			// TODO: log the error
+			LoggerClient.log("Error in broker servant: " + e.getMessage());
 			return false;
 		}
 		
