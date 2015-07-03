@@ -1,0 +1,13 @@
+1)	Have internet connection
+2)	Have java 8
+3)	Have ant
+4)	Have java and ant properly set up
+5)	build project.  in root of project:  ant compile_test
+6)	Run tests
+		cd test_out
+		add resources\jar\* to classpath
+		add dist\lib\* to classpath
+		run java org.junit.runner.JUnitCore TestSuite
+
+		ex:		
+		java -cp C:\Users\Ross\Dropbox\Distributed_Systems\project\resources\jar\*;C:\Users\Ross\Dropbox\Distributed_Systems\project\dist\lib\*; org.junit.runner.JUnitCore TestSuite
