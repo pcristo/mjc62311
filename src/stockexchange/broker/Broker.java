@@ -76,7 +76,7 @@ public class Broker implements Serializable{
     public Broker() {
     	// TODO: Fetch the IOR from ORB
     	
-    	// exchange = getExchange();
+    	exchange = Exchange.exchange;
     }
 
 
@@ -219,8 +219,10 @@ public class Broker implements Serializable{
      * @return
      */
     private boolean validateTicker(String ticker) {
-        ArrayList<String> tickerListing = exchange.getListing();
-        return tickerListing.contains(ticker);
+        return true;
+    	// TODO: HORRIBLE THING, MUST FIX 
+    	// ArrayList<String> tickerListing = exchange.getListing();
+        // return tickerListing.contains(ticker);
     }
 
 

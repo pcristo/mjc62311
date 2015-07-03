@@ -2,7 +2,7 @@
 
 **Team 3:**
 
-Gay Hazan(Lead)
+Gay Hazan (Lead)
 
 Patrick Cristofaro 
 

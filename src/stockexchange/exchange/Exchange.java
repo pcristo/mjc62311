@@ -8,14 +8,17 @@ import common.logger.LoggerClient;
 import common.share.ShareOrder;
 import common.share.ShareType;
 import common.util.Config;
+
 import java.rmi.NotBoundException;
 import java.util.*;
 
 import exchange_domain.*;
 import exchange_domain.iExchangePackage.corShareItem;
 import exchange_domain.iExchangePackage.customer;
+
 import org.omg.CORBA.*;
 import org.omg.CosNaming.*;
+
 import java.io.*;
 import java.io.DataInputStream;
 import java.util.Properties;
@@ -34,6 +37,7 @@ public class Exchange extends iExchangePOA {
     private static  final int RESTOCK_THRESHOLD = 500;
     private static  int orderInt = 1100;
     protected static ShareSalesStatusList shareStatusSaleList;
+	public static Exchange exchange;  // TODO Most disgusting solution ever
 
     private ORB orb;
 
@@ -56,7 +60,8 @@ public class Exchange extends iExchangePOA {
      * Create exchange object by preparing the local list of available shares
      */
     public Exchange() {
-
+    	Exchange.exchange = this; // TODO part of disgusting soln
+    	
         try {
 
             shareStatusSaleList = new ShareSalesStatusList();
@@ -180,6 +185,7 @@ public class Exchange extends iExchangePOA {
     public ShareSalesStatusList sellShares(ShareList shareItemList, Customer info) {
 
         ShareItem soldShare = null;
+        java.lang.Object soldShareLock = new java.lang.Object();
 
         for  (ShareItem s : shareItemList.getLstShareItems())
         {
@@ -253,7 +259,7 @@ public class Exchange extends iExchangePOA {
                 }
 
                 //TODO: Review this synchronization
-                synchronized (soldShare) {
+                synchronized (soldShareLock) {
 
                     shareStatusSaleList.addToSoldShares(s, info);
                 }

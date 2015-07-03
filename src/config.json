@@ -1,5 +1,5 @@
 {
-  "projectHome": "C:/Users/Gay/Documents/COMP6231/Project/mjc62311/",
+  "projectHome": "/home/patrick/git/mjc62311/",
 
   "jars": "resources/jar",
   "out": "out",
@@ -22,7 +22,7 @@
   "businessServerIP": "localhost",
 
   "namingServiceAddr": "localhost",
-  "namingServicePort": "900",
+  "namingServicePort": "9999",
 
   "YHOO": "yahoo_data.csv",
   "yahoo": "yahoo_data.csv",

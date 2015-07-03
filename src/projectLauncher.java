@@ -1,9 +1,7 @@
-import business.Business;
-import business.BusinessServant;
 import business.BusinessServer;
-import client.BrokerServiceClient;
 import common.logger.LoggerServer;
-import stockexchange.broker.Broker;
+import stockexchange.broker.BrokerServer;
+import stockexchange.exchange.ExchangeServer;
 
 import java.io.IOException;
 
@@ -29,10 +27,16 @@ public class projectLauncher {
 		logger.start();
 		pause("Launching common.logger and waiting ", WAIT_BETWEEN_LAUNCH_TIME);
 
+		Thread exchange = ExchangeServer.launch();
+		pause("Launching exchange and waiting ", WAIT_BETWEEN_LAUNCH_TIME);
+		
+		Thread broker = BrokerServer.launch();
+		pause("Launching broker and waiting ", WAIT_BETWEEN_LAUNCH_TIME);
+		
 		Thread[] businesses = { BusinessServer.launch("GOOG"),
 				BusinessServer.launch("APPL"), BusinessServer.launch("YHOO"),
 				BusinessServer.launch("MSFT") };
-		pause("Launching business and waiting ", WAIT_BETWEEN_LAUNCH_TIME);
+		pause("Launching businesses and waiting ", WAIT_BETWEEN_LAUNCH_TIME);
 
 
 		// if any arguments are sent, the do not wait for any key, just continue
@@ -45,6 +49,8 @@ public class projectLauncher {
 			for(Thread t : businesses)
 				t.interrupt();
 			logger.interrupt();
+			exchange.interrupt();
+			broker.interrupt();
 				
 			System.out.println("Okay, everyone is dead.");
 			System.exit(0);	
@@ -52,6 +58,7 @@ public class projectLauncher {
 	}
 
 	private static void pause(String msg, int ms) throws InterruptedException {		
+		System.out.println(msg);  // TODO: Log this
 		for (int t = ms; t > 0; t -= PAUSE_NOTIFICATION_TIME) {
 			Thread.sleep(PAUSE_NOTIFICATION_TIME);
 		}

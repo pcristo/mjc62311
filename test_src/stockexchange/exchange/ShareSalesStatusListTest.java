@@ -50,7 +50,8 @@ public class ShareSalesStatusListTest {
                 new ShareItem("test", "GOOG", ShareType.COMMON, (float) 1000, 100));
 
         assertNotNull(shareAvailable);
-        assertTrue(shareAvailable.getBusinessSymbol() == "GOOG");
+        System.out.println(shareAvailable.getBusinessSymbol());        
+        assertTrue(shareAvailable.getBusinessSymbol().equals("GOOG"));
         assertTrue(shareAvailable.getOrderNum() == "test");
         assertTrue(shareAvailable.getQuantity() == 100);
         assertTrue(shareAvailable.getShareType() == ShareType.COMMON);

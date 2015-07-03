@@ -40,8 +40,6 @@ public class BrokerServiceClient implements Runnable {
 
 
 			// Set up ORB properties
-			// Hi Gay! I had to add this to allow setting of port and IP
-			// address. see Config.json. -patrick
 			Properties p = new Properties();
 			p.put("org.omg.CORBA.ORBInitialPort", Config.getInstance().getAttr("namingServicePort"));
 			p.put("org.omg.CORBA.ORBInitialHost", Config.getInstance().getAttr("namingServiceAddr"));
