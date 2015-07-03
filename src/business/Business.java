@@ -43,6 +43,7 @@ public class Business implements Serializable {
 			BufferedReader bufferedReader = new BufferedReader(
 					new InputStreamReader(sourceURL.openStream()));
 
+
 			// reset the shares list
 			this.sharesList = new ArrayList<Share>();
 			

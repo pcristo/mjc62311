@@ -1,16 +1,12 @@
 import business.BusinessServer;
 import client.BrokerServiceClient;
-import common.logger.TimerLoggerClient;
 import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
-
 import stockexchange.exchange.Exchange;
 import stockexchange.exchange.ExchangeServer;
 
-import static junit.framework.TestCase.assertNull;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 public class IntegrationTest {
 
@@ -25,55 +21,35 @@ public class IntegrationTest {
 
     @Test
     public void TestLaunchFourBusinessServers() throws InterruptedException {
-        Thread thread;
-        try {
+        ExchangeServer.launch();
 
-            Exchange exchange = ExchangeServer.servant;
-            assertNull(exchange);
-            thread = new Thread() {
-                public void run() {
-                    try {
-                        // Make sure ORBD is running on 9999
-                        ExchangeServer.main(null);
-                        //          projectLauncher.main(null);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            };
-            thread.start();
-
-            Thread.sleep(5000);
+        Thread.sleep(5000);
 
 
-            Thread[] servers = { BusinessServer.launch("GOOG"),
+        Thread[] servers = { BusinessServer.launch("GOOG"),
                     BusinessServer.launch("APPL"), BusinessServer.launch("YHOO"),
                     BusinessServer.launch("MSFT") };
 
-            Thread.sleep(5000); // give the threads plenty of time to launch
+        Thread.sleep(5000); // give the threads plenty of time to launch
 
-            //Client Purchase Test
-            Thread client = BrokerServiceClient.launch();
-            client.sleep(5000);
-
-
-
-            // test passes if servers are still running
-            for (Thread s : servers) {
-                TestCase.assertTrue(s.isAlive());
-                s.interrupt();
-                System.out.println("Killed a business thread.");
-            }
+        //Client Purchase Test
+        Thread client = BrokerServiceClient.launch();
+        client.sleep(5000);
 
 
-            //assertNotNull(exchange.getBusinessIFace("GOOG"));
+        Exchange exchange = Exchange.exchange;
+        assertNotNull(exchange);
+        assertNotNull(exchange.getBusinessIFace("GOOG"));
 
-
-            //thread.interrupt();
-
-        } catch(Exception e) {
-            System.out.println("Exeption in Integration test: " + e.getMessage());
+        // test passes if servers are still running
+        for (Thread s : servers) {
+            TestCase.assertTrue(s.isAlive());
+            s.interrupt();
+            System.out.println("Killed a business thread.");
         }
+
+
+
     }
 
 }

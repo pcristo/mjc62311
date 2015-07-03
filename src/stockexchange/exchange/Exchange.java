@@ -1,28 +1,20 @@
 package stockexchange.exchange;
 
-import business.BusinessInterface;
 import business_domain.interface_business;
 import business_domain.interface_businessHelper;
 import common.Customer;
 import common.logger.LoggerClient;
-import common.share.ShareOrder;
 import common.share.ShareType;
 import common.util.Config;
+import exchange_domain.iExchangePOA;
+import exchange_domain.iExchangePackage.corShareItem;
+import exchange_domain.iExchangePackage.customer;
+import org.omg.CORBA.ORB;
+import org.omg.CosNaming.NamingContextExt;
+import org.omg.CosNaming.NamingContextExtHelper;
 
 import java.rmi.NotBoundException;
 import java.util.*;
-
-import exchange_domain.*;
-import exchange_domain.iExchangePackage.corShareItem;
-import exchange_domain.iExchangePackage.customer;
-
-import org.omg.CORBA.*;
-import org.omg.CosNaming.*;
-
-import java.io.*;
-import java.io.DataInputStream;
-import java.util.Properties;
-import java.util.logging.Logger;
 
 /** 
  * The exchange class acts as an intermediary between businesses and stock brokers. Brokers
@@ -49,7 +41,7 @@ public class Exchange extends iExchangePOA {
      * Business directory that maps stock symbols to remote interfaces
      */
     protected Map<String, interface_business> businessDirectory = new HashMap<String, interface_business>();
-    
+
     /**
      * Directory that maps stock symbols to stock prices
      */
@@ -81,10 +73,16 @@ public class Exchange extends iExchangePOA {
      */
     public String getBusiness(String businessName) {
 
-        String busInfo = "Business Ticker : " + this.getBusinessTicker(businessName) +  " Price : " + this.priceDirectory.get(businessName);
+        String ticker = getBusinessTicker(businessName);
 
-        return busInfo;
+        if(ticker == null || ticker.isEmpty() || priceDirectory.get(businessName) == null) {
+            return "";
+        } else {
+            return "Business Ticker : " + this.getBusinessTicker(businessName) + " Price : " + this.priceDirectory.get(businessName);
+        }
     }
+
+
 
 
     /**

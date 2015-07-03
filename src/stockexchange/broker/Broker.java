@@ -2,20 +2,18 @@ package stockexchange.broker;
 
 //import distribution.RMI.Server;
 import common.Customer;
-import common.logger.LoggerClient;
 import common.share.ShareType;
 import stockexchange.exchange.Exchange;
 import stockexchange.exchange.ShareItem;
 import stockexchange.exchange.ShareList;
 import stockexchange.exchange.ShareSalesStatusList;
-import common.util.Config;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+
 //import java.rmi.AccessException;
 //import java.rmi.NotBoundException;
 //import java.rmi.RemoteException;
-import java.util.ArrayList;
-import java.util.List;
 
 // TODO: create IDL for client interface
 // TODO: create a server class that launches a thread, creates this object, loops,
@@ -75,8 +73,7 @@ public class Broker implements Serializable{
      */
     public Broker() {
     	// TODO: Fetch the IOR from ORB
-    	
-    	exchange = Exchange.exchange;
+    	exchange = getExchange();
     }
 
 
@@ -84,10 +81,10 @@ public class Broker implements Serializable{
      * This is a separate method than constructor to enable
      * sub classes to override (see MockBroker)
      * @return Exchange object
-     
+    */
     protected Exchange getExchange() {
-        return new Exchange();
-    }*/
+        return Exchange.exchange;
+    }
 
     /**
      * @return list of company tickers on the stock exchange

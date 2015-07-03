@@ -7,6 +7,8 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
+import stockexchange.broker.BrokerTest;
+import stockexchange.exchange.ExchangeTest;
 import stockexchange.exchange.ShareSalesStatusListTest;
 
 @RunWith(Suite.class)
@@ -25,14 +27,13 @@ import stockexchange.exchange.ShareSalesStatusListTest;
 @Suite.SuiteClasses({
                     IntegrationTest.class,
 
-
                     LoggerTest.class,
                     BusinessTest.class,
-//                    BrokerTest.class,
+                    BrokerTest.class,
                     ConfigTest.class,
                     GoogleFinanceTest.class,
                     ShareSalesStatusListTest.class,
- //                   ExchangeTest.class
+                    ExchangeTest.class
               })
 
 public class TestSuite {
@@ -45,7 +46,6 @@ public class TestSuite {
                 try {
                     // Make sure ORBD is running on 9999
                     LoggerServer.main(null);
-          //          projectLauncher.main(null);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

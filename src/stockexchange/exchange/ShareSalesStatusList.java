@@ -1,7 +1,6 @@
 package stockexchange.exchange;
 
 import common.Customer;
-import common.share.ShareType;
 
 import java.util.*;
 

@@ -6,7 +6,6 @@ import mock.MockBroker;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
@@ -26,28 +25,20 @@ public class BrokerTest {
             add("GOOG");
             add("MSFT");
             add("YHOO");
+            add("AAPL");
         }};
         customer = new Customer("Ross", "Ross Street", "Ross Street 2", "Ross town", "Ross Province", "ROS SSMI", "Ross County");
-
     }
 
     @Test
-    public void getTickerListingTest() throws RemoteException {
-        // 3 businesses * 3
-          assertEquals(broker.getTickerListing().size(), 9);
+    public void getTickerListingTest() {
+        // 3 businesses
+        assertEquals(broker.getTickerListing().size(), 3);
     }
 
-
-
     @Test
-    public void sellSharesTest() throws RemoteException {
+    public void sellSharesTest()  {
         assertTrue(broker.sellShares(shares, ShareType.COMMON, 100, customer));
-    }
-
-    @Test
-    public void buySharesTest() throws RemoteException{
-        //    assertTrue(broker.buyShares(shares, ShareType.PREFERRED, 100, customer));
-
     }
 
 }

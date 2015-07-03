@@ -1,0 +1,77 @@
+<project name="StockBrokerProject" default="dist" basedir=".">
+    <description>
+        Build for PM2
+    </description>
+    <!-- set global properties for this build -->
+    <property name="src" location="src"/>
+    <property name="out" location="out"/>
+    <property name="dist" location="dist"/>
+
+    <property name="test_src" location="test_src"/>
+    <property name="test_out" location="test_out"/>
+
+    <property name="lib" location="resources/"/>
+
+
+    <property name="dist_lib" location="dist/lib"/>
+
+
+    <target name="init">
+        <!-- Create the time stamp -->
+        <tstamp/>
+        <!-- Create the build directory structure used by compile -->
+        <mkdir dir="${out}"/>
+        <copy file="${src}/config.json" tofile="${out}/config.json"/>
+        <mkdir dir="${test_out}"/>
+        <copy todir="${out}/files">
+            <fileset dir="${src}/files"/>
+        </copy>
+
+    </target>
+
+    <target name="compile_src" depends="init"
+            description="compile the source">
+        <!-- Compile the java code from ${src} into ${build} -->
+        <javac srcdir="${src}" destdir="${out}">
+            <classpath>
+                <fileset dir="${lib}">
+                    <include name="**/*.jar" />
+                </fileset>
+            </classpath>
+        </javac>
+    </target>
+
+
+
+    <target name="dist" depends="compile_src"
+            description="generate the distribution">
+        <!-- Create the distribution directory -->
+        <mkdir dir="${dist}/lib"/>
+
+        <!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
+        <jar jarfile="${dist}/lib/StockExchange-${DSTAMP}.jar" basedir="${out}"/>
+    </target>
+
+    <target name="compile_test" depends="dist"
+            description="compile the tests">
+        <javac srcdir="${test_src}" destdir="${test_out}">
+            <classpath>
+                <fileset dir="${dist_lib}">
+                    <include name="**/*.jar"/>
+                </fileset>
+                <fileset dir="${lib}">
+                    <include name="**/*.jar"/>
+                </fileset>
+            </classpath>
+        </javac>
+    </target>
+
+
+    <target name="clean"
+            description="clean up">
+        <!-- Delete the ${build} and ${dist} directory trees -->
+        <delete dir="${out}"/>
+        <delete dir="${dist}"/>
+        <delete dir="${test_out}"/>
+    </target>
+</project>

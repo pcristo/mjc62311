@@ -1,6 +1,5 @@
 package stockexchange.exchange;
 
-import business.BusinessServant;
 import common.Customer;
 import common.share.ShareType;
 import mock.MockExchange;
@@ -28,8 +27,8 @@ public class ExchangeTest {
 
     @Test
     public void testGetBusiness() throws Exception {
-        BusinessServant google = exchange.getMockBusiness("GOOG");
-        assertEquals(google.getTicker(), "GOOG");
+        String google = exchange.getBusiness("GOOG");
+        assertTrue(google.contains("GOOG"));
     }
 
 
@@ -68,7 +67,7 @@ public class ExchangeTest {
 
     @Test
     public void testGetBusinessTicker() throws Exception {
-        assertTrue(exchange.getBusinessTicker("google").equals("GOOG"));
+        assertTrue(exchange.getBusinessTicker("GOOG").equals("GOOG"));
     }
 
     @Test
@@ -92,12 +91,15 @@ public class ExchangeTest {
     public void testGetBusinessExistingCompany() throws Exception {
 
         String busInfo = exchange.getBusiness("GOOG");
-        assertTrue(busInfo.equals("GOOG 540.11"));
+        assertTrue(busInfo.contains("GOOG"));
+        assertTrue(busInfo.contains("10000"));
     }
 
     @Test
     public void testGetBusinessNotExistingCompany() throws Exception {
         String busInfo = exchange.getBusiness("XXXX");
+        System.out.println(busInfo);
         assertTrue(busInfo.isEmpty());
     }
+
 }
