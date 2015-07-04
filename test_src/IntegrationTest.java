@@ -3,7 +3,6 @@ import business.BusinessServer;
 import common.Customer;
 import common.share.ShareType;
 import corba.broker_domain.iBroker;
-import org.junit.Before;
 import org.junit.Test;
 import stockexchange.broker.BrokerServer;
 import stockexchange.exchange.*;
@@ -16,18 +15,35 @@ import static junit.framework.TestCase.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+
+/**
+ * All Integration tests are done here
+ * This is the only test class that requires the servers to be running
+ *
+ * These test consist of operations done by the exchange
+ * And operations done by the broker (The last test represents a complete purchase of stocks)
+ */
 public class IntegrationTest {
 
-    @Before
-    public void setUp()  {
-
-    }
-
+    /**
+     *
+     * @param exchange start exchange servver if true
+     * @param business start business servers if true
+     * @param broker start broker server if ture
+     * @return ArrayList of Threads that are running
+     */
     public ArrayList<Thread> startServers(boolean exchange, boolean business, boolean broker) {
         ArrayList<Thread> threads = new ArrayList<Thread>();
 
         if(exchange) {
             threads.add(ExchangeServer.launch());
+        }
+
+        // Wait for Exchange to start
+        try {
+            Thread.sleep(1000);
+        }catch(Exception e) {
+            System.out.println("Sleeping error in integration test");
         }
 
         if(business) {
@@ -48,6 +64,10 @@ public class IntegrationTest {
         return threads;
     }
 
+    /**
+     *
+     * @param threads ArrayList of threads currently running and to be stopped
+     */
     private void stopServers(ArrayList<Thread> threads) {
         for(Thread t : threads) {
             t.interrupt();
@@ -199,19 +219,41 @@ public class IntegrationTest {
 
     @Test
     public void distribuedBrokerSellSharesTest() throws Exception {
+        ArrayList<Thread> threads = startServers(true, true, true);
         iBroker broker = FrontEnd.getBroker();
 
         // First try make a sale without registering
+        assertFalse(broker.sellShares("GOOG", "COMMON", 100, 1));
 
+        // Register a customer
+        // Ignore all the other meta fields
+        int rossID = broker.registerCustomer("Ross", "", "", "", "", "");
 
+        assertTrue(broker.sellShares("GOOG", "COMMON", 100, rossID));
+
+        // Test with other stocks
+        assertTrue(broker.sellShares("MSFT", "COMMON", 100, rossID));
+        assertTrue(broker.sellShares("YHOO", "CONVERTIBLE", 100, rossID));
+
+        // Test that we're not blindly approving everything
+        assertFalse(broker.sellShares("BIBIDDYBOO", "COMMON", 100, rossID));
+
+        // Lets validate these purchases are made
+        // Currently we can only validate by reaching out to the exchange
+        Exchange exchange = Exchange.exchange;
+        // Exchange wants exactly Ross (identifeid by his ID)
+        // This could be fixed by override equals
+        Customer ross = new Customer("ross");
+        ross.setCustomerReferenceNumber(rossID);
+        // Now get the shares and validate its what we were expecting
+        List<ShareItem> shareItems = exchange.getShares(ross);
+        assertTrue(shareItems.get(0).getBusinessSymbol().contains("GOOG"));
+        assertTrue(shareItems.get(1).getBusinessSymbol().contains("MSFT"));
+        assertTrue(shareItems.get(2).getBusinessSymbol().contains("YHOO"));
+
+        stopServers(threads);
 
     }
-
-
-
-
-
-
 
 
 }
