@@ -127,7 +127,7 @@ public class IntegrationTest {
 
         assertNotNull(exchange.getBusinessIFace("GOOG"));
         assertNotNull(exchange.getBusinessIFace("YHOO"));
-        assertNotNull(exchange.getBusinessIFace("APPL"));
+        assertNotNull(exchange.getBusinessIFace("AAPL"));
         assertNotNull(exchange.getBusinessIFace("MSFT"));
 
         stopServers(threads);
