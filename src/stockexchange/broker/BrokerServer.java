@@ -18,12 +18,13 @@ import org.omg.PortableServer.POAPackage.ServantNotActive;
 import org.omg.PortableServer.POAPackage.WrongPolicy;
 
 import java.util.Properties;
+import java.util.logging.Logger;
 
 /**
  * This class creates a new instance of a broker, creates the ORB, registers
  * with the CORBA Naming Service, and runs the server in a background thread
  * 
- * @see http://www.javacoffeebreak.com/articles/javaidl/javaidl.html
+ * @see "http://www.javacoffeebreak.com/articles/javaidl/javaidl.html"
  */
 public class BrokerServer implements Runnable {
 		private BrokerServant broker; 
@@ -57,8 +58,8 @@ public class BrokerServer implements Runnable {
 			try {
 				InitORB();
 			} catch (Exception e) {
-				// TODO patrickc log this in the logger
-				System.err.println("Broker Server Error - " + e.getMessage());
+
+				LoggerClient.log("Broker Server Error - " + e.getMessage());
 				e.printStackTrace(System.out);
 				System.exit(0);
 			}

@@ -17,7 +17,6 @@ public class Customer implements Serializable {
     private static final long serialVersionUID = 1420672609912364060L;
 
 
-    // TODO customerReferenceNumber should be generated automatically
     public Customer(String name, String street1, String street2, String city, String province, String postalCode, String country) {
         this.customerNumberCount++;
         customerReferenceNumber = customerNumberCount;
@@ -115,7 +114,6 @@ public class Customer implements Serializable {
     }
 
     @Override
-    // TODO make comparison on more than just name
     public boolean equals(Object obj) {
         if(!(obj instanceof Customer)) {
             return false;

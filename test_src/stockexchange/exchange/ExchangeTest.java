@@ -40,7 +40,7 @@ public class ExchangeTest {
 
         exchange.sellShares(sharelist, new Customer("Ross")).PrintNewAvShares();
 
-        // TODO ALOT MORE OF THESE TESTS, ONES THAT FAIL, ONES THAT PASS ETC
+
     }
 
     @Test
@@ -56,7 +56,7 @@ public class ExchangeTest {
         exchange.sellShares(sharelist, customer);
         assertNotNull(exchange.getShares(customer));
         assertEquals(exchange.getShares(customer).get(0).getBusinessSymbol(), "GOOG");
-        // TODO ALOT MORE OF THESE TESTS
+
     }
 
     @Test
