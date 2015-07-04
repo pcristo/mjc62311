@@ -1,6 +1,7 @@
 package FrontEnd;
 
 import business.BusinessServer;
+import common.logger.LoggerClient;
 import common.logger.LoggerServer;
 import stockexchange.broker.BrokerServer;
 import stockexchange.exchange.ExchangeServer;
@@ -69,7 +70,7 @@ public class projectLauncher {
 	}
 
 	private static void pause(String msg, int ms) throws InterruptedException {		
-		System.out.println(msg);  // TODO: Log this
+		LoggerClient.log(msg);
 		for (int t = ms; t > 0; t -= PAUSE_NOTIFICATION_TIME) {
 			Thread.sleep(PAUSE_NOTIFICATION_TIME);
 		}
