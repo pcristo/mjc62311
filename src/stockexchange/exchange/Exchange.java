@@ -112,6 +112,7 @@ public class Exchange extends iExchangePOA {
     	if ((bi == null) || (priceDirectory.remove(symbol) == null)) {
             return false;
         }
+
         return true;
     }
     

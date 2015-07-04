@@ -1,9 +1,10 @@
 package stockexchange.exchange;
 
 import common.Customer;
-import common.logger.LoggerServer;
 import common.share.ShareType;
-import org.junit.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.util.List;
 
@@ -24,38 +25,10 @@ public class ShareSalesStatusListTest {
     }
 
     @Test
-    public void testGetAvailableShares() throws Exception {
-        assertTrue(shareSalesStatusList.getAvailableShares().isEmpty());
-    }
-
-    @Test
     public void testGetShares() throws Exception {
         assertNull(shareSalesStatusList.getShares(new Customer("Ross")));
         shareSalesStatusList.addToNewAvShares(new ShareItem("test", "GOOG", ShareType.COMMON, (float) 1000, 100));
         assertNull(shareSalesStatusList.getShares(new Customer("Ross")));
-    }
-
-    //TODO waiting on Guys reply on email regarding missing addToAvailableShares deletion
-   // @Test
-    public void testIsShareAvailable() throws Exception {
-        ShareItem shareAvailable = shareSalesStatusList.isShareAvailable(
-                new ShareItem("test", "GOOG", ShareType.COMMON, (float) 1000, 100));
-
-        assertNull(shareAvailable);
-
-        shareSalesStatusList.addToNewAvShares(new ShareItem("test", "GOOG", ShareType.COMMON, (float) 1000, 100));
-
-        assertTrue(shareSalesStatusList.getAvailableShares().size() != 0);
-
-        shareAvailable = shareSalesStatusList.isShareAvailable(
-                new ShareItem("test", "GOOG", ShareType.COMMON, (float) 1000, 100));
-
-        assertNotNull(shareAvailable);
-        System.out.println(shareAvailable.getBusinessSymbol());        
-        assertTrue(shareAvailable.getBusinessSymbol().equals("GOOG"));
-        assertTrue(shareAvailable.getOrderNum() == "test");
-        assertTrue(shareAvailable.getQuantity() == 100);
-        assertTrue(shareAvailable.getShareType() == ShareType.COMMON);
     }
 
     @Test
@@ -82,9 +55,5 @@ public class ShareSalesStatusListTest {
         assertEquals(shareItem.get(0).getBusinessSymbol(), "GOOG");
 
     }
-
-
-
-
 
 }

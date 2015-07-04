@@ -12,17 +12,15 @@ import java.util.Scanner;
 
 public class FrontEnd {
 
+	/** If you are running this...make sure all your server are a running
+	 * BrokerServer...ExchangeServer...BusinessServer
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		try {
 			//Set up ORB properties
-			Properties p = new Properties();
-			p.put("org.omg.CORBA.ORBInitialPort", Config.getInstance().getAttr("namingServicePort"));
-			p.put("org.omg.CORBA.ORBInitialHost", Config.getInstance().getAttr("namingServiceAddr"));
-			ORB orb = ORB.init(new String[0], p);
-			org.omg.CORBA.Object objRef = orb.resolve_initial_references("NameService");
-			NamingContextExt ncRef = NamingContextExtHelper.narrow(objRef);
-			iBroker broker = (iBroker) iBrokerHelper.narrow(ncRef.resolve_str("broker"));
 
+			iBroker broker = getBroker();
 			Scanner in = new Scanner(System.in);
 			int menuIn = 0;
 			while(menuIn != 9) {
@@ -60,6 +58,17 @@ public class FrontEnd {
 			System.out.println("FrontEnd Exception: " + e.getMessage());
 			e.printStackTrace();
 		}
+	}
+
+	public static iBroker getBroker() throws Exception {
+		Properties p = new Properties();
+		p.put("org.omg.CORBA.ORBInitialPort", Config.getInstance().getAttr("namingServicePort"));
+		p.put("org.omg.CORBA.ORBInitialHost", Config.getInstance().getAttr("namingServiceAddr"));
+		ORB orb = ORB.init(new String[0], p);
+		org.omg.CORBA.Object objRef = orb.resolve_initial_references("NameService");
+		NamingContextExt ncRef = NamingContextExtHelper.narrow(objRef);
+		iBroker broker = (iBroker) iBrokerHelper.narrow(ncRef.resolve_str("broker"));
+		return broker;
 	}
 
 }
