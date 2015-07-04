@@ -14,7 +14,7 @@
   "loggingDisabled": "false",
 
   "namingServiceAddr": "localhost",
-  "namingServicePort": "900",
+  "namingServicePort": "9999",
 
   "YHOO": "yahoo_data.csv",
   "MSFT": "microsoft_data.csv",
