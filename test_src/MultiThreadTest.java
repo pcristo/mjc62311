@@ -26,10 +26,10 @@ public class MultiThreadTest {
 	final static int NUMBER_OF_TEST_THREADS = 15;
 	final static int SLEEP_TIME_BETWEEN_TRIES = 0;
 	final static int NUMBER_OF_TRANSACTIONS_PER_THREAD = 90000;
-	iBroker broker;
+	static iBroker broker;
 	
 	@BeforeClass
-	public void setUp() throws Exception {
+	public static void setUp() throws Exception {
 		// start up everything
 		projectLauncher.main(new String[1]);
 		
