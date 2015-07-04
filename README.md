@@ -27,8 +27,21 @@ To correctly run the software package, the following packages are required:
   * JUnit 4   
   * OpenORB 1.4 JAR *(included)*  
   * JSON JAR *(included)*
-  
-### 1.3 - Configuring Eclipse
+  * ant (if using build.xml to compile)
+
+
+### 1.3 - About
+The application has a FrontEnd class which, when ran will locally start the servers and provide a FE menu to purchase
+shares.  This is a simple UI with no checks:
+ex options when running:
+Stock to purchase: (GOOG, AAPL, MSFT, YHOO)
+Stock Type: (COMMON, CONVERTIBLE, PREFERRED)
+
+The application is better to be run from the test sutie which will perform numerous operations about purchasing, selling shares.
+The test suite has an integration class which runs everything over Corba and is slow (due to constantly starting and stopping servers)
+All other test classes test locally without a Corba connection.
+
+### 1.4 - Configuring Eclipse
 When you open the project in Eclipse for the first time, it is a good idea to make sure the build paths are correct, that all imports are correct, and that the applications custom settings match your system.
 
 1. Right-click on the "Stock Exchange" project in Package Explorer and select Properties...
@@ -43,13 +56,14 @@ to add them. **Note:** You must have Oracle Java 8 and JUnit 4 installed on your
 The source code in Eclipse should now show no errors. You are ready to launch and test the software package.
 
 
-## 2 - Launch procedure
+## 2 - Launch procedure - Eclipse
 The following sections will describe how to launch and test the software package.
 
 ### 2.1 - Update local settings (Config.json)
 In the "src" folder you will find a file named Config.json. Open this file and update "projectHome" to point to the root folder of the Eclipse project. Be sure to end it with a slash symbol. For example:
 
 >"projectHome": "/home/anyuser/mjc62311/",
+> On a windows machine you can use still use the *nix style slash (/) : C:/Users/anyuser/mjsc62311/
 
 Save the file.
 
@@ -64,6 +78,25 @@ To run all the tests in one shot, simply launch "test_src/TestSuite.java". When 
 If you run tests individually, you will need to launch the servers manually by running "src/projectLauncher.java" first.
 
 ---
+
+## 3 Launch Procedure - Command Line
+
+### 3.1
+Update config.json (specifically the first line (project home) to point to you working directory)
+
+### 3.2
+Navigate to project root and run ant compile_test
+(This will compile the source, the tests and create a jar of the source in dist/lib)
+
+### 3.3
+To run test suite:
+    Navigate to test_out and run java org.junit.runner.JunitCore TestSuite
+    (You will need to update your classpath to include resources/jar/* and dist/lib/*
+
+To run front end:
+    Navigate to out and run java FrontEnd.FrontEnd
+    (You will need to update your classpath to include resources/jar/* and dist/lib/*
+
 ## Extra
 ### Javadoc
 Full Javadoc has been generated for your convenience and is located at [this link](http://users.encs.concordia.ca/~patrickc/).

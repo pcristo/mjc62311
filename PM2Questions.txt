@@ -1,0 +1,26 @@
+Question 1:
+
+What does 'narrow' mean in terms of CORBA?
+
+The narrow method is used to cast a CORBA object reference to its proper type. * 1
+
+For example:
+
+In the Exchange class we need to keep a registry of all the businesses that register with us. The register business method calls a getBusinessIface method that maps a business to its Corba object reference, but we can’t have it as a Corba object reference we need to be able to access the business’s methods.
+
+The following line of code uses the narrow() method from the interface_businessHelper (Auxiliary class) class to cast the Corba object reference to interface_business object, we can now use the iBusiness created object to access the methods from the business.
+
+interface_business iBusiness =
+(interface_business) interface_businessHelper.narrow(ncRef.resolve_str("business"+businessName.toUpperCase()));
+
+Question 2:
+
+UDP vs RMI/CORBA-- why use UDP for our logger instead of something else?
+
+The logger is used to record our StockExchanges transaction success or failures, we needed a lightweight, fast and simple communication protocol for this. 
+RMI and CORBA add a lot of overhead that is not necessary for the simple message passing function of the logger.
+
+
+References * :
+
+1. https://docs.oracle.com/javase/8/docs/technotes/guides/idl/tutorial/GSserver.html 

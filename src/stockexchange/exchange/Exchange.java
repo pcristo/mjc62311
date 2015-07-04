@@ -99,9 +99,7 @@ public class Exchange extends iExchangePOA {
         } catch (Exception e) {
             LoggerClient.log("Exchange exception in registerBusiness: " + e.getMessage());
         }
-
-        this.printCurrentShareInfo();
-        return false;
+	return false;
     }
     
     /**

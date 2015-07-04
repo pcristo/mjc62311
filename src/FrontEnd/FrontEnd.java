@@ -17,14 +17,29 @@ public class FrontEnd {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		// Start servers
+		Thread thread = new Thread() {
+			public void run() {
+				try {
+					projectLauncher.setInteractive(false);
+					projectLauncher.main(null);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		};
+		thread.start();
+
+
 		try {
-			//Set up ORB properties
+			// Wait until servers are up and running
+			Thread.sleep(5000);
 
 			iBroker broker = getBroker();
 			Scanner in = new Scanner(System.in);
 			int menuIn = 0;
 			while(menuIn != 9) {
-				System.out.println("~~~WELCOME~~~");
+				System.out.println("\n\n\n~~~WELCOME~~~");
 				System.out.println("1 - Buy shares");
 				System.out.println("9 - Quit");
 				menuIn = in.nextInt();
@@ -51,12 +66,16 @@ public class FrontEnd {
 					}
 					Thread.sleep(3000);
 				}
-				System.out.println("~~~GOOD BYE~~~");
 			}
+			System.out.println("~~~GOOD BYE~~~");
+			thread.interrupt();
+			System.exit(0);
 
 		} catch (Exception e) {
 			System.out.println("FrontEnd Exception: " + e.getMessage());
 			e.printStackTrace();
+		} finally {
+			thread.interrupt();
 		}
 	}
 

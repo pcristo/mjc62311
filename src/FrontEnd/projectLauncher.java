@@ -1,4 +1,7 @@
+package FrontEnd;
+
 import business.BusinessServer;
+import common.logger.LoggerClient;
 import common.logger.LoggerServer;
 import stockexchange.broker.BrokerServer;
 import stockexchange.exchange.ExchangeServer;
@@ -13,7 +16,10 @@ import java.io.IOException;
 public class projectLauncher {
 	final static int PAUSE_NOTIFICATION_TIME = 250;
 	final static int WAIT_BETWEEN_LAUNCH_TIME = 750;
-	
+
+	static boolean interactive = true;
+
+
 	/**
 	 * Will launch all the servers
 	 * @param args Send no arguments and the launcher will pause and wait for a key before returning
@@ -40,7 +46,8 @@ public class projectLauncher {
 
 
 		// if any arguments are sent, the do not wait for any key, just continue
-		if (args == null || args.length == 0) {
+		// only give this option if server is in interactive mode
+		if ((args == null || args.length == 0) && interactive) {
 			System.out.println("Press enter to kill everything...");
 			System.in.read();
 
@@ -57,8 +64,13 @@ public class projectLauncher {
 		}		
 	}
 
+
+	public static void setInteractive(boolean b) {
+		interactive = b;
+	}
+
 	private static void pause(String msg, int ms) throws InterruptedException {		
-		System.out.println(msg);  // TODO: Log this
+		LoggerClient.log(msg);
 		for (int t = ms; t > 0; t -= PAUSE_NOTIFICATION_TIME) {
 			Thread.sleep(PAUSE_NOTIFICATION_TIME);
 		}
