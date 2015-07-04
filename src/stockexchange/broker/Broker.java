@@ -117,6 +117,4 @@ public class Broker implements Serializable{
     	 ArrayList<String> tickerListing = exchange.getListing();
          return tickerListing.contains(ticker);
     }
-
-
 }

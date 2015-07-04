@@ -1,54 +1,65 @@
 package FrontEnd;
 
-import corba.exchange_domain.iExchange;
-import corba.exchange_domain.iExchangeHelper;
-
-import corba.exchange_domain.iExchangePackage.*;
-import org.omg.CORBA.*;
-import org.omg.CosNaming.*;
-
 import common.util.Config;
+import corba.broker_domain.iBroker;
+import corba.broker_domain.iBrokerHelper;
+import org.omg.CORBA.ORB;
+import org.omg.CosNaming.NamingContextExt;
+import org.omg.CosNaming.NamingContextExtHelper;
 
 import java.util.Properties;
+import java.util.Scanner;
 
-public class FrontEnd implements Runnable {
+public class FrontEnd {
 
-	public static Thread launch(){
-		FrontEnd client = new FrontEnd();
-		Thread thread = new Thread(() -> client.run());
-		thread.start();
-		return thread;
-	}
-
-
-	public void run() {
+	public static void main(String[] args) {
 		try {
-			corShareItem[] toSell = new corShareItem[]
-				{
-					new corShareItem("","GOOG",0,800,1000),
-					new corShareItem("","MSFT",0,700,230),
-					new corShareItem("","GOOG",0,800,430),
-					new corShareItem("","APPL",0,900,400),
-					new corShareItem("","YHOO",0,680,170),
-				};
-
-
-			// Set up ORB properties
+			//Set up ORB properties
 			Properties p = new Properties();
 			p.put("org.omg.CORBA.ORBInitialPort", Config.getInstance().getAttr("namingServicePort"));
 			p.put("org.omg.CORBA.ORBInitialHost", Config.getInstance().getAttr("namingServiceAddr"));
-
 			ORB orb = ORB.init(new String[0], p);
 			org.omg.CORBA.Object objRef = orb.resolve_initial_references("NameService");
 			NamingContextExt ncRef = NamingContextExtHelper.narrow(objRef);
-			iExchange exchange = (iExchange) iExchangeHelper.narrow(ncRef.resolve_str("exchange"));
+			iBroker broker = (iBroker) iBrokerHelper.narrow(ncRef.resolve_str("broker"));
 
-			exchange.clientOrder(toSell, new customer("Gay","","","","","",""));
-
+			Scanner in = new Scanner(System.in);
+			int menuIn = 0;
+			while(menuIn != 9) {
+				System.out.println("~~~WELCOME~~~");
+				System.out.println("1 - Buy shares");
+				System.out.println("9 - Quit");
+				menuIn = in.nextInt();
+				in.nextLine();
+				if(menuIn == 1) {
+					System.out.print("Enter customer name: ");
+					String name = in.nextLine();
+					System.out.print("Enter stock to purchase: ");
+					String ticker = in.nextLine();
+					System.out.print("Enter stock type: ");
+					String type = in.nextLine();
+					System.out.print("Enter quantity: ");
+					int qty = in.nextInt();
+					in.nextLine();
+					System.out.println("Contacting broker to make purchase...");
+					// Can fill in address info if you wanted
+					int customerID = broker.registerCustomer(name, "", "", "", "", "");
+					System.out.println("Broker contacted...customer registered...purchasing shares...");
+					boolean response = broker.sellShares(ticker, type, qty, customerID);
+					if(response) {
+						System.out.println("Confirmation shares purchased");
+					} else {
+						System.out.println("Unable to purchase shares...blame CORBA");
+					}
+					Thread.sleep(3000);
+				}
+				System.out.println("~~~GOOD BYE~~~");
+			}
 
 		} catch (Exception e) {
-			System.out.println("Test Client exception: " + e);
+			System.out.println("FrontEnd Exception: " + e.getMessage());
 			e.printStackTrace();
 		}
 	}
+
 }
