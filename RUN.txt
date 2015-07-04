@@ -1,13 +1,23 @@
+**
+How to run application at high level
+More information in documentation and README.md
+Be sure to check those out
+
+**
+
 1)	Have internet connection
 2)	Have java 8
 3)	Have ant
 4)	Have java and ant properly set up
-5)	build project.  in root of project:  ant compile_test
-6)	Run tests
-		cd test_out
-		add resources\jar\* to classpath
-		add dist\lib\* to classpath
-		run java org.junit.runner.JUnitCore TestSuite
-
-		ex:		
+5)	Update config.json projectHome to project root
+6)	build project.  in root of project:  ant compile_test
+7)	Run tests
+		a)  start orbd on port 9999 (defined in config.json) start orbd -ORBInitialPort 9999
+		b)  cd test_out
+		c)  add resources\jar\* to classpath
+		d)  add dist\lib\* to classpath
+		e)  run java org.junit.runner.JUnitCore TestSuite
+		
+		
+		ex on windows machine steps 7c-7e:		
 		java -cp C:\Users\Ross\Dropbox\Distributed_Systems\project\resources\jar\*;C:\Users\Ross\Dropbox\Distributed_Systems\project\dist\lib\*; org.junit.runner.JUnitCore TestSuite
