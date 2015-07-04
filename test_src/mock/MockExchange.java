@@ -23,7 +23,6 @@ public class MockExchange extends Exchange {
      * @throws NotBoundException
      */
     public MockExchange() {
- //       super();
         // Exchange is created...but there will be no business server registry businesses ... OH NO
         // SO we'll register them locally here
         registerBusiness("GOOG", 10000);

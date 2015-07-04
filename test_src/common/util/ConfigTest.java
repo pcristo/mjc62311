@@ -11,7 +11,7 @@ public class ConfigTest {
     public void configTest() {
         assertNotNull(Config.getInstance());
         String logServerIP = Config.getInstance().getAttr("logServerIP");
-        // TODO real test
+        assertNotNull(logServerIP);
     }
 
 

@@ -14,10 +14,7 @@ public class LoggerTest {
         assertTrue(response);
 
 
-
-
-
-
+        // Manual test - would need to check log file
         TimerLoggerClient timer = new TimerLoggerClient();
         timer.start();
         try {

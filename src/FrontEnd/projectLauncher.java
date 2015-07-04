@@ -15,7 +15,10 @@ import java.io.IOException;
 public class projectLauncher {
 	final static int PAUSE_NOTIFICATION_TIME = 250;
 	final static int WAIT_BETWEEN_LAUNCH_TIME = 750;
-	
+
+	static boolean interactive = true;
+
+
 	/**
 	 * Will launch all the servers
 	 * @param args Send no arguments and the launcher will pause and wait for a key before returning
@@ -42,7 +45,8 @@ public class projectLauncher {
 
 
 		// if any arguments are sent, the do not wait for any key, just continue
-		if (args == null || args.length == 0) {
+		// only give this option if server is in interactive mode
+		if ((args == null || args.length == 0) && interactive) {
 			System.out.println("Press enter to kill everything...");
 			System.in.read();
 
@@ -57,6 +61,11 @@ public class projectLauncher {
 			System.out.println("Okay, everyone is dead.");
 			System.exit(0);	
 		}		
+	}
+
+
+	public static void setInteractive(boolean b) {
+		interactive = b;
 	}
 
 	private static void pause(String msg, int ms) throws InterruptedException {		
