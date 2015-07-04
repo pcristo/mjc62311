@@ -41,7 +41,7 @@ public class IntegrationTest {
 
         // Wait for Exchange to start
         try {
-            Thread.sleep(1000);
+            Thread.sleep(2000);
         }catch(Exception e) {
             System.out.println("Sleeping error in integration test");
         }
