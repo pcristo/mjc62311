@@ -1,12 +1,9 @@
 package stockexchange.broker;
 
 import common.Customer;
-import common.logger.LoggerServer;
 import common.share.ShareType;
 import mock.MockBroker;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -28,7 +25,7 @@ public class BrokerTest {
             add("GOOG");
             add("MSFT");
             add("YHOO");
-            add("APPL");
+            add("AAPL");
         }};
         customer = new Customer("Ross", "Ross Street", "Ross Street 2", "Ross town", "Ross Province", "ROS SSMI", "Ross County");
     }

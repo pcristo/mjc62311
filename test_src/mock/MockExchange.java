@@ -27,7 +27,7 @@ public class MockExchange extends Exchange {
         // Exchange is created...but there will be no business server registry businesses ... OH NO
         // SO we'll register them locally here
         registerBusiness("GOOG", 10000);
-        registerBusiness("APPL", 10000);
+        registerBusiness("AAPL", 10000);
         registerBusiness("YHOO", 10000);
         registerBusiness("MSFT", 10000);
 

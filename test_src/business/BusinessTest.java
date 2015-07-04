@@ -19,7 +19,7 @@ public class BusinessTest {
 		new Business("GOOG");
 		new Business("MSFT");
 		new Business("YHOO");
-		new Business("APPL");
+		new Business("AAPL");
 	}
 
 	@Test

@@ -138,7 +138,9 @@ public class ShareSalesStatusList{
 
     @Override
     public String toString() {
-        return "Sold SHares: " + soldShares.toString();
+        return "Sold SHares: " + soldShares.toString() +
+                "\nNew Available Shares: " + newAvShares +
+                "\nOrdered Shares: " + orderedShares;
     }
 
 }
