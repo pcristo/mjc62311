@@ -1,5 +1,5 @@
 {
-  "projectHome": "/home/patrick/git/mjc62311/",
+  "projectHome": "C:/Users/Ross/Dropbox/Distributed_Systems/project/",
 
   "jars": "resources/jar",
   "out": "out",
@@ -8,13 +8,13 @@
   "security": "resources/settings/security.policy",
 
   "logServerIP" : "localhost",
-  "logServerPort": "19082",
+  "logServerPort": "19083",
   "logServerUsername": "root",
   "logServerPassword": "",
   "loggingDisabled": "false",
 
   "namingServiceAddr": "localhost",
-  "namingServicePort": "900",
+  "namingServicePort": "9999",
 
   "YHOO": "yahoo_data.csv",
   "MSFT": "microsoft_data.csv",

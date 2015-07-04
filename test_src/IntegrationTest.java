@@ -1,14 +1,9 @@
 import FrontEnd.FrontEnd;
 import business.BusinessServer;
 import common.Customer;
-import common.logger.LoggerServer;
 import common.share.ShareType;
 import corba.broker_domain.iBroker;
-
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-
 import stockexchange.broker.BrokerServer;
 import stockexchange.exchange.*;
 
@@ -28,15 +23,7 @@ import static org.junit.Assert.assertTrue;
  * And operations done by the broker (The last test represents a complete purchase of stocks)
  */
 public class IntegrationTest {
-	private static Thread logger;
-	
-	@BeforeClass
-	public static void setUp() throws InterruptedException {
-		// Start a logger server
-		logger = new Thread(()->LoggerServer.main(null));
-		logger.start();
-		Thread.sleep(1000);
-	}
+
 	
     /**
      *
