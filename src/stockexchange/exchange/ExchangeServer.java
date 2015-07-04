@@ -42,8 +42,7 @@ public class ExchangeServer implements Runnable {
 			NameComponent path[] = ncRef.to_name("exchange");
 			ncRef.rebind(path, href);
 
-			// TODO: patrickc log the event
-			System.out.println("Exchange Server ready and waiting...");
+			LoggerClient.log("Exchange Server ready and waiting....");
 
 			while (true) {
 				// loop forever keeping the server alive
