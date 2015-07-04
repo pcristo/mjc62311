@@ -45,14 +45,16 @@ public class LoggerThread implements Runnable {
      * Write message to log file
      * @param message
      */
-    public static synchronized void log(String message) throws IOException {
+    public static void log(String message) throws IOException {
         // Get log file location
         String projectHome = Config.getInstance().getAttr("projectHome");
         String relativeLogFile = Config.getInstance().getAttr("logServerFile");
         String fileLocation = projectHome + relativeLogFile;
-        PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(fileLocation, true)));
-        out.println(message);
-        out.close();
+        synchronized (LoggerThread.class) {
+            PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(fileLocation, true)));
+            out.println(message);
+            out.close();
+        }
     }
 
     /**
