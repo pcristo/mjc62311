@@ -1,5 +1,5 @@
 {
-  "projectHome": "C:/Users/Ross/Dropbox/Distributed_Systems/project/",
+  "projectHome": "/home/patrick/git/mjc62311/",
 
   "jars": "resources/jar",
   "out": "out",
@@ -14,7 +14,7 @@
   "loggingDisabled": "false",
 
   "namingServiceAddr": "localhost",
-  "namingServicePort": "9999",
+  "namingServicePort": "900",
 
   "YHOO": "yahoo_data.csv",
   "MSFT": "microsoft_data.csv",

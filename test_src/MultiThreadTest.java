@@ -26,10 +26,10 @@ public class MultiThreadTest {
 	final static int NUMBER_OF_TEST_THREADS = 15;
 	final static int SLEEP_TIME_BETWEEN_TRIES = 0;
 	final static int NUMBER_OF_TRANSACTIONS_PER_THREAD = 90000;
-	iBroker broker;
+	static iBroker broker;
 	
 	@BeforeClass
-	public void setUp() throws Exception {
+	public static void setUp() throws Exception {
 		// start up everything
 		projectLauncher.main(new String[1]);
 		
@@ -105,14 +105,14 @@ public class MultiThreadTest {
 		
 		List<ShareItem> lstShares = new ArrayList<ShareItem>();
 		// "good" orders:
-		lstShares.add(new ShareItem("", "MSFT", ShareType.COMMON, 301f, 100));			// should succeed
-		lstShares.add(new ShareItem("", "GOOG", ShareType.PREFERRED, 301f, 100));		// should succeed
-		lstShares.add(new ShareItem("", "AAPL", ShareType.COMMON, 301f,	100));			// should succeed
-		lstShares.add(new ShareItem("", "YHOO", ShareType.CONVERTIBLE, 301f, 100));		// should succeed
-		lstShares.add(new ShareItem("", "MSFT", ShareType.CONVERTIBLE, 301f, 50));		// test 50 shares issued
-		lstShares.add(new ShareItem("", "MSFT", ShareType.PREFERRED, 301f, 200));		// test 200 shares issued
+		lstShares.add(new ShareItem("", "MSFT", ShareType.COMMON, 1001f, 100));			// should succeed
+		lstShares.add(new ShareItem("", "GOOG", ShareType.PREFERRED, 1001f, 100));		// should succeed
+		lstShares.add(new ShareItem("", "AAPL", ShareType.COMMON, 1001f,	100));		// should succeed
+		lstShares.add(new ShareItem("", "YHOO", ShareType.CONVERTIBLE, 1001f, 100));	// should succeed
+		lstShares.add(new ShareItem("", "MSFT", ShareType.CONVERTIBLE, 1001f, 50));		// test 50 shares issued
+		lstShares.add(new ShareItem("", "MSFT", ShareType.PREFERRED, 1001f, 200));		// test 200 shares issued
 		// intentional problem orders
-		lstShares.add(new ShareItem("", "GOOG", ShareType.CONVERTIBLE, 23.32f, 100));	// should fail due to price
+		lstShares.add(new ShareItem("", "GOOG", ShareType.CONVERTIBLE, 2.32f, 100));	// should fail due to price
 		lstShares.add(new ShareItem("", "BADD", ShareType.COMMON, 543.67f, 100));		// bad symbol
 		
 		
