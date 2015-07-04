@@ -1,8 +1,8 @@
+import FrontEnd.projectLauncher;
 import corba.broker_domain.iBroker;
 import corba.broker_domain.iBrokerHelper;
 import common.logger.LoggerClient;
 
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.omg.CORBA.ORB;

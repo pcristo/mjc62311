@@ -32,7 +32,7 @@ public class IntegrationTest {
      * @param broker start broker server if true
      * @return ArrayList of Threads that are running
      */
-    public ArrayList<Thread> startServers(boolean exchange, boolean business, boolean broker) {
+    private ArrayList<Thread> startServers(boolean exchange, boolean business, boolean broker) {
         ArrayList<Thread> threads = new ArrayList<Thread>();
 
         if(exchange) {
