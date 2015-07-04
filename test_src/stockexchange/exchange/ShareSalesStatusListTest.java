@@ -1,10 +1,9 @@
 package stockexchange.exchange;
 
 import common.Customer;
+import common.logger.LoggerServer;
 import common.share.ShareType;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 
 import java.util.List;
 
@@ -79,10 +78,13 @@ public class ShareSalesStatusListTest {
         shareSalesStatusList.addToSoldShares(new ShareItem("test", "GOOG", ShareType.COMMON, (float) 1000, 100), customer);
 
         List<ShareItem> shareItem = shareSalesStatusList.getSoldShares().get(customer.getCustomerReferenceNumber());
-        assertEquals(shareItem.get(0).getQuantity(),100);
-        assertEquals(shareItem.get(0).getBusinessSymbol(),"GOOG");
+        assertEquals(shareItem.get(0).getQuantity(), 100);
+        assertEquals(shareItem.get(0).getBusinessSymbol(), "GOOG");
 
     }
+
+
+
 
 
 }

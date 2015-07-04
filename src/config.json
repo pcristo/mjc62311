@@ -11,10 +11,8 @@
   "logServerPort": "19082",
   "logServerUsername": "root",
   "logServerPassword": "",
-  "loggingDisabled": "true",
+  "loggingDisabled": "false",
 
-  "backup_logServerIP" : "localhost",
-  "backup_logServerPort": "19083",
 
   "namingServiceAddr": "localhost",
   "namingServicePort": "9999",

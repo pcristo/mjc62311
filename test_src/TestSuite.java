@@ -37,14 +37,14 @@ import stockexchange.exchange.ShareSalesStatusListTest;
               })
 
 public class TestSuite {
-    static Thread thread;
 
+
+    static Thread thread;
     @BeforeClass
     public static void setUpClass()  {
         thread = new Thread() {
             public void run() {
                 try {
-                    // Make sure ORBD is running on 9999
                     LoggerServer.main(null);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -61,6 +61,5 @@ public class TestSuite {
     @AfterClass
     public static void tearDownClass() {
         thread.interrupt();
-
     }
 }

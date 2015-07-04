@@ -1,17 +1,23 @@
 package common.logger;
 
-import org.junit.Before;
 import org.junit.Test;
+
+import static junit.framework.TestCase.assertTrue;
 
 public class LoggerTest {
 
-    @Before
-    public void setUp() {
-    }
+
 
     @Test
     public void logTest() {
-        LoggerClient.log("Test 65");
+        boolean response = LoggerClient.log("Test 65");
+        assertTrue(response);
+
+
+
+
+
+
         TimerLoggerClient timer = new TimerLoggerClient();
         timer.start();
         try {
@@ -19,7 +25,9 @@ public class LoggerTest {
         }catch(Exception e){
         }
         timer.end();
-
     }
+
+
+
 
 }

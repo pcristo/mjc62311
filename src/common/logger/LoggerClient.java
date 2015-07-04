@@ -3,6 +3,7 @@ package common.logger;
 import common.util.Config;
 
 import java.io.IOException;
+import java.io.InterruptedIOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
@@ -49,19 +50,23 @@ public class LoggerClient {
 
         int port = Integer.parseInt(c.getAttr("logServerPort"));
 
-        boolean logSuccess = sendMessage(msg, ip, port);
+        boolean logSuccess = sendMessage(msg, ip, port, 0);
 
-        String backup_ip = Config.getInstance().getAttr("backup_logServerIP");
-        String backup_port_config = Config.getInstance().getAttr("backup_logServerPort");
-
-        if(backup_ip != null && backup_port_config != null) {
-            Integer backup_port = Integer.parseInt(backup_port_config);
-
-            boolean backup_logSuccess = sendMessage(msg, backup_ip, backup_port);
-            return logSuccess && backup_logSuccess;
-        } else {
-            return logSuccess;
-        }
+        return logSuccess;
+        // If you wish to have redundancy
+        // Set up a backup logger server and enter the info in config.json and uncomment
+        // below.
+//        String backup_ip = Config.getInstance().getAttr("backup_logServerIP");
+//        String backup_port_config = Config.getInstance().getAttr("backup_logServerPort");
+//
+//        if(backup_ip != null && backup_port_config != null) {
+//            Integer backup_port = Integer.parseInt(backup_port_config);
+//
+//            boolean backup_logSuccess = sendMessage(msg, backup_ip, backup_port);
+//            return logSuccess && backup_logSuccess;
+//        } else {
+//            return logSuccess;
+//        }
     }
 
     /**
@@ -71,21 +76,31 @@ public class LoggerClient {
      * @param port int of the port to send message on
      * @return
      */
-    public static boolean sendMessage(String msg, String ip, int port) {  	
+    public static boolean sendMessage(String msg, String ip, int port, int attempts) {
+
     	try {
             DatagramSocket clientSocket = new DatagramSocket();
-            clientSocket.setSoTimeout(6000);
+            clientSocket.setSoTimeout(2500);
             byte[] sendData = new byte[1024];
             sendData = msg.getBytes();
 
             InetAddress host = InetAddress.getByName(ip);
-            DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length,  host , port);
+            DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, host, port);
             clientSocket.send(sendPacket);
 
             byte[] buffer2 = new byte[1024];
             DatagramPacket receivedPacket = new DatagramPacket(buffer2, sendData.length, host, port);
             clientSocket.receive(receivedPacket);
             clientSocket.close();
+        }catch (InterruptedIOException iioe) {
+            attempts++;
+            System.out.println("Remote connection exception - resending attempts number " + attempts + ":");
+            if(attempts > 3) {
+                System.out.println("Failed to send message multiple times...giving up");
+                return false;
+            } else {
+                return LoggerClient.sendMessage(msg, ip, port, attempts);
+            }
         } catch(UnknownHostException he){
             System.out.println("Host Exception in common.logger client: " + he.getMessage());
             return false;

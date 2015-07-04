@@ -3,7 +3,6 @@ package StockQuotes;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
 import stockQuotes.Company;
 import stockQuotes.Exchange;
 import stockQuotes.GoogleFinance;
@@ -30,4 +29,6 @@ public class GoogleFinanceTest {
     @After
     public void tearDown() throws Exception {
     }
+
+
 }

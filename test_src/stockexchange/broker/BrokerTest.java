@@ -1,9 +1,12 @@
 package stockexchange.broker;
 
 import common.Customer;
+import common.logger.LoggerServer;
 import common.share.ShareType;
 import mock.MockBroker;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -45,5 +48,9 @@ public class BrokerTest {
     public void getBusinessTickerTest() {
         assertTrue(broker.getBusinessTicker("GOOG").equals("GOOG"));
     }
+
+
+
+
 
 }

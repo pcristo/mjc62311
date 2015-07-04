@@ -1,11 +1,10 @@
 package stockexchange.exchange;
 
 import common.Customer;
+import common.logger.LoggerServer;
 import common.share.ShareType;
 import mock.MockExchange;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 
 import java.util.ArrayList;
 
@@ -101,5 +100,6 @@ public class ExchangeTest {
         System.out.println(busInfo);
         assertTrue(busInfo.isEmpty());
     }
+
 
 }

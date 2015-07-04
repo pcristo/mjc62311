@@ -10,8 +10,6 @@ import static org.junit.Assert.assertNotNull;
 
 public class IntegrationTest {
 
-    private Thread thread;
-
     @Before
     public void setUp()  {
 
@@ -51,5 +49,8 @@ public class IntegrationTest {
 
 
     }
+
+
+
 
 }
