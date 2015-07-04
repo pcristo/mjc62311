@@ -1,7 +1,7 @@
 **
 How to run application at high level
 More information in documentation and README.md
-Be sure to check those out
+Be sure to check those out FIRST!!!!
 
 **
 

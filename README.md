@@ -10,6 +10,8 @@ Ross Smith
 
 ---
 
+Want the best best of this file? View it on [GitHub](https://github.com/pcristo/mjc62311/tree/PM2b)! 
+
 ## 1 - Preparing your system
 This section will describe how to prepare your system to run the software.
 
@@ -31,15 +33,16 @@ To correctly run the software package, the following packages are required:
 
 
 ### 1.3 - About
-The application has a FrontEnd class which, when ran will locally start the servers and provide a FE menu to purchase
+The application has a FrontEnd class, which when ran will locally will start the servers and provide a menu to purchase
 shares.  This is a simple UI with no checks:
-ex options when running:
+
 Stock to purchase: (GOOG, AAPL, MSFT, YHOO)
+
 Stock Type: (COMMON, CONVERTIBLE, PREFERRED)
 
-The application is better to be run from the test sutie which will perform numerous operations about purchasing, selling shares.
+The application is better to be run from the test suite which will perform numerous operations regarding purchasing and selling shares.
 The test suite has an integration class which runs everything over Corba and is slow (due to constantly starting and stopping servers)
-All other test classes test locally without a Corba connection.
+All other test classes test locally without a CORBA connection.
 
 ### 1.4 - Configuring Eclipse
 When you open the project in Eclipse for the first time, it is a good idea to make sure the build paths are correct, that all imports are correct, and that the applications custom settings match your system.
@@ -63,48 +66,34 @@ The following sections will describe how to launch and test the software package
 In the "src" folder you will find a file named Config.json. Open this file and update "projectHome" to point to the root folder of the Eclipse project. Be sure to end it with a slash symbol. For example:
 
 >"projectHome": "/home/anyuser/mjc62311/",
-> On a windows machine you can use still use the *nix style slash (/) : C:/Users/anyuser/mjsc62311/
 
 Save the file.
 
 ### 2.2 - Launch the Naming Service
 Assuming the CORBA naming service is going to run locally, open a terminal window and launch the CORBA naming service on the port from the previous section. **Note:** Some configurations may require you to run this command as root.
 
-> $ tnameserv -ORBIntialPort 9999
+> $ tnameserv -ORBIntialPort 900
 
 ### 2.3 - Run JUnit Tests
-You are now ready to run the unit tests found under the /test_src folder in Eclipse. Complete descriptions of each test are available in the [Javadoc](http://users.encs.concordia.ca/~patrickc/).
+You are now ready to run the unit tests found under the /test_src folder in Eclipse. Additional test details are available in the [Javadoc](http://users.encs.concordia.ca/~patrickc/).
+
 To run all the tests in one shot, simply launch "test_src/TestSuite.java". When running the test suite, there is no need to manually set up all the servers as this will be done for you.
+
 If you run tests individually, you will need to launch the servers manually by running "src/projectLauncher.java" first.
 
+## 3 - Optional Launch Procedure - Command Line Option
+We have provided a way to compile and run the software package using Apache Ant. The following procedure requires that Ant be installed.
+
+1. Update config.json (specifically the first line (project home) to point to you working directory)
+2. Navigate to project root and run ant compile_test (This will compile the source, the tests and create a jar of the source in dist/lib)
+3. To run test suite: 3.1.  Navigate to test_out and run java org.junit.runner.JunitCore TestSuite (You will need to update your classpath to include resources/jar/* and dist/lib/*
+4. To run front end: Navigate to out and run java FrontEnd.FrontEnd (You will need to update your classpath to include resources/jar/* and dist/lib/*
+
 ---
-
-## 3 Launch Procedure - Command Line
-
-### 3.1
-Update config.json (specifically the first line (project home) to point to you working directory)
-
-### 3.2
-Navigate to project root and run ant compile_test
-(This will compile the source, the tests and create a jar of the source in dist/lib)
-
-### 3.3
-To run test suite:
-    Navigate to test_out and run java org.junit.runner.JunitCore TestSuite
-    (You will need to update your classpath to include resources/jar/* and dist/lib/*
-
-To run front end:
-    Navigate to out and run java FrontEnd.FrontEnd
-    (You will need to update your classpath to include resources/jar/* and dist/lib/*
 
 ## Extra
 ### Javadoc
 Full Javadoc has been generated for your convenience and is located at [this link](http://users.encs.concordia.ca/~patrickc/).
-
-### Logging
-Remote log file can be viewed [here](http://166.78.186.20/resources/log/displayLog.html). If you experience difficulty connecting to the logging server, you can disable all remote logging in the Config.json file by changing the following parameter:
-
-> "loggingDisabled": "true"
 
 ### Git Repository
 The git repository is open to the public and can be reviewed at [GitHub](https://github.com/pcristo/mjc62311/tree/PM2b). Branch *"PM2b"* is the submission for the second project milestone.
@@ -114,4 +103,25 @@ Further documenation is included with the source code
 
 > ./resources/documentation
 
+---
 
+### Demo Questions
+#### What is narrow()? What does it do?
+The narrow method is used to cast a CORBA object reference to its proper type.[1]
+
+For example:
+
+In the Exchange we need to keep a registry of all the businesses that register with us. The register business method calls a getBusinessIface method that maps a business to its Corba object reference, but we can’t have it as a Corba object reference we need to be able to access the business’s methods.
+
+The following line of code is uses the narrow() method from the interface_businessHelper class to casts the Corba object reference to interface_business object, we can now use the iBusiness created object to access the methods from the business.
+
+>interface_business iBusiness =
+> (interface_business) interface_businessHelper.narrow(ncRef.resolve_str("business"+businessName.toUpperCase()));
+
+#### Why use UDP for the logger? Why not RMI or CORBA?
+UDP is much lighter and easier to implement than RMI or CORBA. Since we are just passing messages, it doesn't really make sense to add all the overhead of remote methods or remote objects.
+
+
+References * :
+
+[1] https://docs.oracle.com/javase/8/docs/technotes/guides/idl/tutorial/GSserver.html 
