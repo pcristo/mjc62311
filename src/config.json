@@ -1,5 +1,5 @@
 {
-  "projectHome": "C://Users//Ross//Dropbox//Distributed_Systems//project/",
+  "projectHome": "/home/patrick/git/mjc62311/",
 
   "jars": "resources/jar",
   "out": "out",
@@ -13,14 +13,15 @@
   "logServerPassword": "",
   "loggingDisabled": "false",
 
-
   "namingServiceAddr": "localhost",
-  "namingServicePort": "9999",
+  "namingServicePort": "900",
 
   "YHOO": "yahoo_data.csv",
   "MSFT": "microsoft_data.csv",
   "GOOG": "google_data.csv",
   "AAPL": "apple_data.csv",
+  
+  "GoogleFinanceEnabled": "false",
 
   "macLogServerHome": "/Users/Gay/Documents/Concordia/COMP6231/PROJECT/mjc62311",
   "macSecurity": "/resources/settings/security.policy"

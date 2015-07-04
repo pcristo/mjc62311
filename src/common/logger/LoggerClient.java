@@ -35,18 +35,16 @@ public class LoggerClient {
      * @return boolean of successful message is logging
      */
     public static boolean log(String msg, String className) {
-        System.out.println(msg);
-        // Check to see if we have backup server ready to go.
+    	msg = className + " :: " + msg;
+    	System.out.println(msg);
 
     	// handle the case where logging has been disabled
     	if (Config.getInstance().getAttr("loggingDisabled").equals("true"))
     		return true;
     	
-        msg = className + " :: " + msg;
-
-        Config c = Config.getInstance();
+    	// look up the logger server
+    	Config c = Config.getInstance();
         String ip = c.getAttr("logServerIP");
-
 
         int port = Integer.parseInt(c.getAttr("logServerPort"));
 

@@ -3,6 +3,7 @@ import corba.broker_domain.iBrokerHelper;
 import common.logger.LoggerClient;
 
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.omg.CORBA.ORB;
 import org.omg.CosNaming.NameComponent;
@@ -22,12 +23,12 @@ import java.util.List;
 import java.util.Properties;
 
 public class MultiThreadTest {
-	final static int NUMBER_OF_TEST_THREADS = 5;
+	final static int NUMBER_OF_TEST_THREADS = 15;
 	final static int SLEEP_TIME_BETWEEN_TRIES = 0;
 	final static int NUMBER_OF_TRANSACTIONS_PER_THREAD = 90000;
 	iBroker broker;
 	
-	@Before
+	@BeforeClass
 	public void setUp() throws Exception {
 		// start up everything
 		projectLauncher.main(new String[1]);
@@ -104,16 +105,15 @@ public class MultiThreadTest {
 		
 		List<ShareItem> lstShares = new ArrayList<ShareItem>();
 		// "good" orders:
-		lstShares.add(new ShareItem("", "MSFT", ShareType.COMMON, 500.11f, 100));				// should succeed
-		lstShares.add(new ShareItem("", "GOOG", ShareType.COMMON, 840.11f, 100));				// should succeed
-		lstShares.add(new ShareItem("", "AAPL", ShareType.COMMON, 841.28f,	100));			// should succeed
-		lstShares.add(new ShareItem("", "YHOO", ShareType.COMMON, 600.22f, 100));			// should succeed
-		// problem orders:
-		//lstShares.add(new ShareItem("", "MSFT", ShareType.CONVERTIBLE, 5.32f, 50));			// test 50 shares issued
-		//lstShares.add(new ShareItem("", "MSFT", ShareType.PREFERRED, 49.42f, 200));			// test 200 shares issued
-		//lstShares.add(new ShareItem("", "GOOG", ShareType.CONVERTIBLE, 523.32f, 100));		// should fail due to price
-		//lstShares.add(new ShareItem("", "YHOX", ShareType.COMMON, 43.67f, 100));				// bad symbol
-		//lstShares.add(new ShareItem("", "YHOO", ShareType.COMMON, 47.42f, 100));				// invalid common.share type (symbol indicates convertible)
+		lstShares.add(new ShareItem("", "MSFT", ShareType.COMMON, 301f, 100));			// should succeed
+		lstShares.add(new ShareItem("", "GOOG", ShareType.PREFERRED, 301f, 100));		// should succeed
+		lstShares.add(new ShareItem("", "AAPL", ShareType.COMMON, 301f,	100));			// should succeed
+		lstShares.add(new ShareItem("", "YHOO", ShareType.CONVERTIBLE, 301f, 100));		// should succeed
+		lstShares.add(new ShareItem("", "MSFT", ShareType.CONVERTIBLE, 301f, 50));		// test 50 shares issued
+		lstShares.add(new ShareItem("", "MSFT", ShareType.PREFERRED, 301f, 200));		// test 200 shares issued
+		// intentional problem orders
+		lstShares.add(new ShareItem("", "GOOG", ShareType.CONVERTIBLE, 23.32f, 100));	// should fail due to price
+		lstShares.add(new ShareItem("", "BADD", ShareType.COMMON, 543.67f, 100));		// bad symbol
 		
 		
 		// Create a customer

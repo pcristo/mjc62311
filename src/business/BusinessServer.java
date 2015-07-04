@@ -63,10 +63,9 @@ public class BusinessServer implements Runnable {
 		try {
 			InitORB();
 			if (!RegisterExchange())
-				throw new Exception("Could not register with exchange");
+				throw new Exception("Could not register " + business.getTicker() + " with exchange");
 		} catch (Exception e) {
-			LoggerClient.log("Business Server Error - " + e.getMessage());
-			System.exit(0);
+			LoggerClient.log("Thread failed - " + e.getMessage());
 		}
 
 		// Keep server thread alive

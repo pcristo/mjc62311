@@ -61,20 +61,24 @@ public class Business implements Serializable {
 				// capture the company information, get price from Google web service
 				GoogleFinance tickers = new GoogleFinance();
 				Company company = new Company(column[0], new stockQuotes.Exchange(column[2]));
-				//String price = tickers.getStock(company);
+				
 				String price = "";
-
-				// extract the common.share information and create a common.share object
+				if (Config.getInstance().getAttr("GoogleFinanceEnabled").equals("true"))
+					price = tickers.getStock(company);	
+								
+				// either Google Finance failed or the user disabled it. Randomly create a price.
 				if(price.isEmpty()) {
-					// Somethings wrong with the api
-					// make up the price
-					LoggerClient.log("Google finance failing - making up price for " + column[0]);
-					price = "300";
+					// chooses a value between 100 and 300 dollars per share
+					price = String.format("%.2f", Math.random() * 200 + 100);
 				}
 				Share s = new Share(column[0], ShareType.valueOf(column[1]), Float.parseFloat(price));
 
 				// add the common.share to the list
 				this.sharesList.add(s);
+				
+				LoggerClient.log("  Price set: " + s.getBusinessSymbol() + 
+						"/" + s.getShareType().toString() + 				
+						" = " + s.getUnitPrice());
 			}
 
 			// Close the file

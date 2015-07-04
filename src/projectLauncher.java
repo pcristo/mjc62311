@@ -34,14 +34,14 @@ public class projectLauncher {
 		pause("Launching broker and waiting ", WAIT_BETWEEN_LAUNCH_TIME);
 		
 		Thread[] businesses = { BusinessServer.launch("GOOG"),
-				BusinessServer.launch("APPL"), BusinessServer.launch("YHOO"),
+				BusinessServer.launch("AAPL"), BusinessServer.launch("YHOO"),
 				BusinessServer.launch("MSFT") };
 		pause("Launching businesses and waiting ", WAIT_BETWEEN_LAUNCH_TIME);
 
 
 		// if any arguments are sent, the do not wait for any key, just continue
 		if (args == null || args.length == 0) {
-			System.out.println("Press enter to kill everything uncleanly :D");
+			System.out.println("Press enter to kill everything...");
 			System.in.read();
 
 			/*// Stop all running threads

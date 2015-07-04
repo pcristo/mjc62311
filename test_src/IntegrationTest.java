@@ -1,9 +1,14 @@
 import FrontEnd.FrontEnd;
 import business.BusinessServer;
 import common.Customer;
+import common.logger.LoggerServer;
 import common.share.ShareType;
 import corba.broker_domain.iBroker;
+
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
+
 import stockexchange.broker.BrokerServer;
 import stockexchange.exchange.*;
 
@@ -18,18 +23,26 @@ import static org.junit.Assert.assertTrue;
 
 /**
  * All Integration tests are done here
- * This is the only test class that requires the servers to be running
  *
  * These test consist of operations done by the exchange
  * And operations done by the broker (The last test represents a complete purchase of stocks)
  */
 public class IntegrationTest {
-
+	private static Thread logger;
+	
+	@BeforeClass
+	public static void setUp() throws InterruptedException {
+		// Start a logger server
+		logger = new Thread(()->LoggerServer.main(null));
+		logger.start();
+		Thread.sleep(1000);
+	}
+	
     /**
      *
-     * @param exchange start exchange servver if true
+     * @param exchange start exchange server if true
      * @param business start business servers if true
-     * @param broker start broker server if ture
+     * @param broker start broker server if true
      * @return ArrayList of Threads that are running
      */
     public ArrayList<Thread> startServers(boolean exchange, boolean business, boolean broker) {
