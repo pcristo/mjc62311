@@ -1,4 +1,4 @@
-package StockQuotes;
+package stockQuotes;
 
 import org.junit.After;
 import org.junit.Before;
