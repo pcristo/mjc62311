@@ -23,7 +23,7 @@ import java.util.*;
  * Please note that the exchange assumes that all share types within a business have the same
  * ticker symbol and price.
  */
-public class Exchange extends iExchangePOA {
+public class Exchange implements iExchange {
 
     private static  final int RESTOCK_THRESHOLD = 500;
     private static  int orderInt = 1100;
@@ -491,7 +491,6 @@ public class Exchange extends iExchangePOA {
 
         return  ordered;
     }
-
 
     public void printCurrentShareInfo() {
 
