@@ -1,0 +1,13 @@
+To deploy to TOM CAT use the below steps (this can and will be automated later)
+
+1)  Download and install tomcat -> make sure it can run
+2)  In the tomcat webapps directory create a new folder, call it project
+3)  Inside this project file create a WEB-INF directory
+4)  Inside the WEB-INF directory create the following directories
+        i)  classes
+        ii) lib
+5) Copy the contents of the resources/jar folder into lib
+6) Copy the contents of the out/ folder into classes
+7) Copy web.xml from the root directory into the root of WEB-INF
+8) Start / Restart TOM CAT
+9) Run testsuite

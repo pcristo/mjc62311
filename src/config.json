@@ -1,5 +1,5 @@
 {
-  "projectHome": "/home/patrick/git/mjc62311/",
+  "projectHome": "C:\\Users\\Ross\\Dropbox\\Distributed_Systems\\project\\",
 
   "jars": "resources/jar",
   "out": "out",
@@ -22,6 +22,8 @@
   "AAPL": "apple_data.csv",
   
   "GoogleFinanceEnabled": "false",
+
+  "BrokerRest": "http://localhost:8080/project/BrokerREST",
 
   "macLogServerHome": "/Users/Gay/Documents/Concordia/COMP6231/PROJECT/mjc62311",
   "macSecurity": "/resources/settings/security.policy"

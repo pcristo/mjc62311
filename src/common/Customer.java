@@ -16,6 +16,9 @@ public class Customer implements Serializable {
     private String country;
     private static final long serialVersionUID = 1420672609912364060L;
 
+    public Customer() {
+        // Need for json deserialization
+    }
 
     public Customer(String name, String street1, String street2, String city, String province, String postalCode, String country) {
         this.customerNumberCount++;

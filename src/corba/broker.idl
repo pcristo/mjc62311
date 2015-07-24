@@ -1,9 +1,0 @@
-module broker_domain
-{
-    interface iBroker
-    {
-        boolean sellShares(in string ticker, in string shareType, in long quantity, in long custID) ;
-        long registerCustomer(in string name, in string street, in string city, 
-        	in string province, in string postalCode, in string country);
-    };
-};

@@ -20,7 +20,8 @@ public class Broker implements Serializable{
     // Require for serialization.  Ensures object deserialized and serialized are the same.
     private static final long serialVersionUID = 1467890432560789065L;
 
-    protected static Exchange exchange;
+    // TO DO make this webservice
+    protected Exchange exchange;
 
 
     /**

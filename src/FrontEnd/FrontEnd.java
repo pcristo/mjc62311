@@ -1,13 +1,12 @@
 package FrontEnd;
 
+import WebServices.Rest;
+import common.Customer;
+import common.logger.LoggerClient;
 import common.util.Config;
-import corba.broker_domain.iBroker;
-import corba.broker_domain.iBrokerHelper;
-import org.omg.CORBA.ORB;
-import org.omg.CosNaming.NamingContextExt;
-import org.omg.CosNaming.NamingContextExtHelper;
+import org.codehaus.jackson.map.ObjectMapper;
 
-import java.util.Properties;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class FrontEnd {
@@ -35,7 +34,6 @@ public class FrontEnd {
 			// Wait until servers are up and running
 			Thread.sleep(5000);
 
-			iBroker broker = getBroker();
 			Scanner in = new Scanner(System.in);
 			int menuIn = 0;
 			while(menuIn != 9) {
@@ -47,6 +45,7 @@ public class FrontEnd {
 				if(menuIn == 1) {
 					System.out.print("Enter customer name: ");
 					String name = in.nextLine();
+					Customer customer = new Customer(name);
 					System.out.print("Enter stock to purchase: ");
 					String ticker = in.nextLine();
 					System.out.print("Enter stock type: ");
@@ -56,13 +55,11 @@ public class FrontEnd {
 					in.nextLine();
 					System.out.println("Contacting broker to make purchase...");
 					// Can fill in address info if you wanted
-					int customerID = broker.registerCustomer(name, "", "", "", "", "");
-					System.out.println("Broker contacted...customer registered...purchasing shares...");
-					boolean response = broker.sellShares(ticker, type, qty, customerID);
+					boolean response = sellShares(ticker, type, qty, customer);
 					if(response) {
 						System.out.println("Confirmation shares purchased");
 					} else {
-						System.out.println("Unable to purchase shares...blame CORBA");
+						System.out.println("Unable to purchase shares...blame DAS SERVER");
 					}
 					Thread.sleep(3000);
 				}
@@ -79,15 +76,45 @@ public class FrontEnd {
 		}
 	}
 
-	public static iBroker getBroker() throws Exception {
-		Properties p = new Properties();
-		p.put("org.omg.CORBA.ORBInitialPort", Config.getInstance().getAttr("namingServicePort"));
-		p.put("org.omg.CORBA.ORBInitialHost", Config.getInstance().getAttr("namingServiceAddr"));
-		ORB orb = ORB.init(new String[0], p);
-		org.omg.CORBA.Object objRef = orb.resolve_initial_references("NameService");
-		NamingContextExt ncRef = NamingContextExtHelper.narrow(objRef);
-		iBroker broker = (iBroker) iBrokerHelper.narrow(ncRef.resolve_str("broker"));
-		return broker;
+	/**
+	 *
+	 * @param ticker String symbol
+	 * @param type String type of stock
+	 * @param qty int amount
+	 * @param customer Customer object of buyer
+	 * @return true if purchase went through | false on conenction failure or no sale
+	 */
+	public static boolean sellShares(String ticker, String type, int qty, Customer customer) {
+		// Make RESTfull Call to Broker Rest
+		String url = Config.getInstance().getAttr("BrokerRest", true);
+
+		// Turn customer into JSON
+		String custJson = "";
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			custJson = mapper.writeValueAsString(customer);
+		} catch (Exception e) {
+			LoggerClient.log("FE excetion sending customer to rest");
+			return false;
+		}
+
+		// Build param map
+		HashMap<String, String> params = new HashMap<String, String>()
+		{{
+			put("ticker", ticker);
+			put("type", type);
+			put("qty", Integer.toString(qty));
+		}};
+		params.put("customer", custJson);
+
+		// Make post call
+		String result = Rest.getPost(url, params);
+		if(result != null) {
+			return true;
+		} else {
+			return false;
+		}
 	}
+
 
 }
