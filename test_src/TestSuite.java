@@ -27,6 +27,7 @@ import stockexchange.exchange.ShareSalesStatusListTest;
  *      Pass this class before committing code to github.
 **/
 @Suite.SuiteClasses({
+                    // To run integration test see TOMCAT_DEPLOY
                     IntegrationTest.class,
 
                     LoggerTest.class,
