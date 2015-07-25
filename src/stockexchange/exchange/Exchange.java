@@ -6,13 +6,13 @@ import common.Customer;
 import common.logger.LoggerClient;
 import common.share.ShareType;
 import common.util.Config;
-import corba.exchange_domain.iExchangePOA;
 import corba.exchange_domain.iExchangePackage.corShareItem;
 import corba.exchange_domain.iExchangePackage.customer;
 import org.omg.CORBA.ORB;
 import org.omg.CosNaming.NamingContextExt;
 import org.omg.CosNaming.NamingContextExtHelper;
 
+import javax.jws.WebService;
 import java.rmi.NotBoundException;
 import java.util.*;
 
@@ -23,6 +23,7 @@ import java.util.*;
  * Please note that the exchange assumes that all share types within a business have the same
  * ticker symbol and price.
  */
+@WebService(endpointInterface = "stockexchange.exchange.iExchange")
 public class Exchange implements iExchange {
 
     private static  final int RESTOCK_THRESHOLD = 500;
@@ -30,11 +31,6 @@ public class Exchange implements iExchange {
     protected static ShareSalesStatusList shareStatusSaleList;
 	public static Exchange exchange;
 
-    private ORB orb;
-
-    public void setORB(ORB orb_val) {
-        orb = orb_val;
-    }
 
     /**
      * Business directory that maps stock symbols to remote interfaces
