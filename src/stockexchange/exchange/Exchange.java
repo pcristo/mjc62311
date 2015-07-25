@@ -1,13 +1,9 @@
 package stockexchange.exchange;
 
-import corba.business_domain.interface_business;
-import corba.business_domain.interface_businessHelper;
 import common.Customer;
 import common.logger.LoggerClient;
 import common.share.ShareType;
 import common.util.Config;
-import corba.exchange_domain.iExchangePackage.corShareItem;
-import corba.exchange_domain.iExchangePackage.customer;
 import org.omg.CORBA.ORB;
 import org.omg.CosNaming.NamingContextExt;
 import org.omg.CosNaming.NamingContextExtHelper;
