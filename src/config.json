@@ -1,27 +1,26 @@
 {
-  "projectHome": "C:\\Users\\Ross\\Dropbox\\Distributed_Systems\\project\\",
+  "projectHome": "/home/patrick/git/mjc62311/",
 
   "jars": "resources/jar",
   "out": "out",
   "files": "files",
-  "logServerFile": "src/files/iteration_two.log",
+  "logServerFile": "src/files/iteration_three.log",
   "security": "resources/settings/security.policy",
 
   "logServerIP" : "localhost",
   "logServerPort": "19083",
   "logServerUsername": "root",
   "logServerPassword": "",
-  "loggingDisabled": "false",
+  "loggingDisabled": "true",
 
-  "namingServiceAddr": "localhost",
-  "namingServicePort": "900",
+  "BusinessEndpointPrefix": "http://localhost:18001/WS/",
 
   "YHOO": "yahoo_data.csv",
   "MSFT": "microsoft_data.csv",
   "GOOG": "google_data.csv",
   "AAPL": "apple_data.csv",
   
-  "GoogleFinanceEnabled": "false",
+  "GoogleFinanceEnabled": "true",
 
   "BrokerRest": "http://localhost:8080/project/BrokerREST",
 

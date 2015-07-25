@@ -68,18 +68,5 @@ public class BrokerREST extends HttpServlet {
 
     }
 
-
-    public static void main(String[] args) {
-        String json = "%7B%22customerReferenceNumber%22%3A1%2C%22name%22%3A%22ROSS%22%2C%22street1%22%3Anull%2C%22street2%22%3Anull%2C%22city%22%3Anull%2C%22province%22%3Anull%2C%22postalCode%22%3Anull%2C%22country%22%3Anull%7D";
-        try {
-            String jsonDecoded = URLDecoder.decode(json, "UTF-8");
-            System.out.println(jsonDecoded);
-            ObjectMapper mapper = new ObjectMapper();
-            Customer c = mapper.readValue(jsonDecoded, Customer.class);
-            System.out.println(c.getName());
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
-    }
 }
 

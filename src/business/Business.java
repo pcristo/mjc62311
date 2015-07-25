@@ -19,7 +19,7 @@ import java.util.List;
 /**
  * A class for businesses to process transactions/manage shares
  */
-public class Business implements Serializable {
+public class Business implements IBusiness, Serializable {
 	private static final long serialVersionUID = 1L;
 	private List<Share> sharesList = new ArrayList<Share>();
 	private List<OrderRecord> orderRecords = new ArrayList<OrderRecord>();
@@ -41,7 +41,6 @@ public class Business implements Serializable {
 			BufferedReader bufferedReader = new BufferedReader(
 					new InputStreamReader(sourceURL.openStream()));
 
-
 			// reset the shares list
 			this.sharesList = new ArrayList<Share>();
 			
@@ -49,16 +48,13 @@ public class Business implements Serializable {
 			String row;
 			String[] column;
 			while ((row = bufferedReader.readLine()) != null) {
-				// split the line
 				column = row.split(",");
 
-				// confirm there are at least 3 values in the array
 				if (column.length < 3) {
 					bufferedReader.close();
 					throw new IOException("The CSV file is not correctly formatted.");
 				}
 				
-				// capture the company information, get price from Google web service
 				GoogleFinance tickers = new GoogleFinance();
 				Company company = new Company(column[0], new stockQuotes.Exchange(column[2]));
 				
@@ -68,12 +64,10 @@ public class Business implements Serializable {
 								
 				// either Google Finance failed or the user disabled it. Randomly create a price.
 				if(price.isEmpty()) {
-					// chooses a value between 100 and 300 dollars per share
 					price = String.format("%.2f", Math.random() * 200 + 100);
 				}
 				Share s = new Share(column[0], ShareType.valueOf(column[1]), Float.parseFloat(price));
 
-				// add the common.share to the list
 				this.sharesList.add(s);
 				
 				LoggerClient.log("  Price set: " + s.getBusinessSymbol() + 
@@ -81,10 +75,8 @@ public class Business implements Serializable {
 						" = " + s.getUnitPrice());
 			}
 
-			// Close the file
 			bufferedReader.close();
 			
-			// log the activity
 			LoggerClient.log("Business " + identifier + " object created.");
 
 		} catch (IOException ioe) {

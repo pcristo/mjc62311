@@ -1,16 +1,15 @@
 import FrontEnd.FrontEnd;
 import WebServices.Rest;
+import business.BusinessWSPublisher;
 import common.Customer;
 import common.util.Config;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.Test;
-
 import java.util.HashMap;
 
-import static junit.framework.TestCase.assertNotNull;
-import static junit.framework.TestCase.assertNull;
-import static junit.framework.TestCase.assertTrue;
+import static junit.framework.TestCase.*;
 import static org.junit.Assert.assertEquals;
+
 
 /**
  * All Integration tests are done here
@@ -22,6 +21,20 @@ import static org.junit.Assert.assertEquals;
  * SEE INDIVIDUAL METHODS
  */
 public class IntegrationTest {
+	
+    private void startServers(boolean exchange, boolean business, boolean broker) {
+        if(business) {
+            BusinessWSPublisher.main(null);
+        }
+    }
+
+    /**
+     *
+     * @param threads ArrayList of threads currently running and to be stopped
+     */
+    private void stopServers() {
+        BusinessWSPublisher.unload();
+    }
 
     @Test
     public void testBrokerRest() throws Exception{
@@ -58,8 +71,6 @@ public class IntegrationTest {
         boolean result = FrontEnd.sellShares("GOOG", "COMMON", 500, new Customer("John"));
         assertTrue(result);
     }
-
-
 
 
 }

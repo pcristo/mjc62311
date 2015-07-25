@@ -1,18 +1,31 @@
 package stockexchange.exchange;
+import javax.jws.WebParam;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
+import javax.jws.soap.SOAPBinding;
 
 /**
  * Created by Gay on 7/20/2015.
  */
 @WebService
+@SOAPBinding(style = SOAPBinding.Style.RPC)
 public interface iExchange {
 
     // update share price
     @WebMethod
-    boolean updateSharePrice(String symbol, float price);
+    boolean updateSharePrice(
+            @WebParam(name = "item") String symbol,
+            @WebParam(name = "quantity") float price
+    );
+
     @WebMethod
-    boolean registerBusiness(String symbol, float price);
+    boolean registerBusiness(
+            @WebParam (name = "symbol")String symbol,
+            @WebParam (name = "price") float price
+    );
+
     @WebMethod
-    boolean unregister(String symbol);
+    boolean unregister(
+            @WebParam (name = "symbol") String symbol
+    );
 }

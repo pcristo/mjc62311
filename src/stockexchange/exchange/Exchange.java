@@ -1,28 +1,25 @@
 package stockexchange.exchange;
 
-import corba.business_domain.interface_business;
-import corba.business_domain.interface_businessHelper;
 import common.Customer;
 import common.logger.LoggerClient;
 import common.share.ShareType;
 import common.util.Config;
-import corba.exchange_domain.iExchangePOA;
-import corba.exchange_domain.iExchangePackage.corShareItem;
-import corba.exchange_domain.iExchangePackage.customer;
 import org.omg.CORBA.ORB;
 import org.omg.CosNaming.NamingContextExt;
 import org.omg.CosNaming.NamingContextExtHelper;
 
+import javax.jws.WebService;
 import java.rmi.NotBoundException;
 import java.util.*;
 
-/** 
+/**
  * The exchange class acts as an intermediary between businesses and stock brokers. Brokers
  * make requests to purchase stock from the exchange, which then either sells existing shares
  * to the broker or requests new shares be issued from the business.
  * Please note that the exchange assumes that all share types within a business have the same
  * ticker symbol and price.
  */
+@WebService(endpointInterface = "stockexchange.exchange.iExchange")
 public class Exchange implements iExchange {
 
     private static  final int RESTOCK_THRESHOLD = 500;
@@ -30,11 +27,6 @@ public class Exchange implements iExchange {
     protected static ShareSalesStatusList shareStatusSaleList;
 	public static Exchange exchange;
 
-    private ORB orb;
-
-    public void setORB(ORB orb_val) {
-        orb = orb_val;
-    }
 
     /**
      * Business directory that maps stock symbols to remote interfaces
@@ -90,7 +82,7 @@ public class Exchange implements iExchange {
         try{
             synchronized(businessDirectory) {
             	businessDirectory.put(symbol, getBusinessIFace(symbol)); }
-            
+
             synchronized(priceDirectory) {
             	priceDirectory.put(symbol, price); }
 
@@ -101,7 +93,7 @@ public class Exchange implements iExchange {
         }
 	return false;
     }
-    
+
     /**
      * Delists a business from the exchange
      * @param symbol to delist
@@ -121,7 +113,7 @@ public class Exchange implements iExchange {
 
     	return true;
     }
-    
+
     /**
      *  Returns a business interface for making calls to the remote business server.
      * @param businessName
@@ -226,7 +218,7 @@ public class Exchange implements iExchange {
 							if (sItem.getQuantity() == 0) {
 								lstOrders.add(sItem.getOrderNum());
 							}
-						}					
+						}
 
 					// Pay all orders if needed
 					if (lstOrders.size() > 0) {
@@ -293,7 +285,7 @@ public class Exchange implements iExchange {
      */
     protected void restock() {
     	// we must lock the shareStatusSaleList, because if any entry is changed while
-    	// we are inside the foreach loop, a concurrency exception is thrown. 
+    	// we are inside the foreach loop, a concurrency exception is thrown.
 		synchronized (shareStatusSaleList) {
 
 			for (Map.Entry<String, List<ShareItem>> entry : shareStatusSaleList.newAvShares
@@ -328,7 +320,7 @@ public class Exchange implements iExchange {
 				}
 				entry.getValue().addAll(addToList);
 			}
-		
+
 		}
 	}
 
@@ -340,12 +332,12 @@ public class Exchange implements iExchange {
     protected boolean payBusiness(List<String> lstOrders) {
     	boolean paid = false;
     	for(String orderNumber : lstOrders ){
-    		
+
     		// between the moment we start checking if an order is paid, and the moment we actually
     		// pay it, we must lock out access to the shareStatusSaleList to avoid another thread
     		// trying to pay the same entry.
     		synchronized(shareStatusSaleList) {
-    			
+
     			ShareItem shareToBePaid = shareStatusSaleList.orderedShares.get(orderNumber);
     			// if the business is not registered, there is no interface, and null is returned
     			interface_business bi = businessDirectory.get(shareToBePaid.getBusinessSymbol());
@@ -419,7 +411,7 @@ public class Exchange implements iExchange {
     	// sent an empty list? then there are no shares!
     	if (lstShareItem == null)
     		return 0;
-    	
+
     	int totQuantity = 0;
 
         //Retrieve Business Shares in Available list
@@ -480,8 +472,8 @@ public class Exchange implements iExchange {
 
                 synchronized(shareStatusSaleList) {
                 	shareStatusSaleList.addToNewAvShares(newShares);
-                    shareStatusSaleList.addToOrderedShares(newShares);	
-                }                
+                    shareStatusSaleList.addToOrderedShares(newShares);
+                }
 
                 LoggerClient.log("Successfully added " + quantity + " shares of " + iBusiness.getTicker());
             }
