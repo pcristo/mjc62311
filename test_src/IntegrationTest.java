@@ -1,9 +1,12 @@
 import FrontEnd.FrontEnd;
 import business.BusinessServer;
+import business.BusinessWSPublisher;
 import common.Customer;
 import common.share.ShareType;
 import corba.broker_domain.iBroker;
+
 import org.junit.Test;
+
 import stockexchange.broker.BrokerServer;
 import stockexchange.exchange.*;
 
@@ -47,10 +50,7 @@ public class IntegrationTest {
         }
 
         if(business) {
-            threads.add(BusinessServer.launch("GOOG"));
-            threads.add(BusinessServer.launch("AAPL"));
-            threads.add(BusinessServer.launch("YHOO"));
-            threads.add(BusinessServer.launch("MSFT"));
+            BusinessWSPublisher.main(null);
         }
 
         if(broker){
@@ -77,6 +77,8 @@ public class IntegrationTest {
         } catch(Exception e) {
             System.out.println("Integration Exception: " + e.getMessage());
         }
+        
+        BusinessWSPublisher.unload();
     }
 
     @Test

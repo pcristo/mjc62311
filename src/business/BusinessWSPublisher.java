@@ -1,6 +1,7 @@
 package business;
 
 import java.util.Hashtable;
+import java.util.List;
 
 import javax.xml.ws.Endpoint;
 
@@ -14,10 +15,15 @@ import common.util.Config;
  * by the stock symbol. For example, http://mywebsite.net/WS/YHOO
  */
 public class BusinessWSPublisher {
-
-	public static void main(String[] args) {
-		
-		Hashtable<String, BusinessWSImpl> businessDirectory = new Hashtable<String, BusinessWSImpl>();
+	private static Hashtable<String, BusinessWSImpl> businessDirectory;
+	private static List<Endpoint> endpoints;
+	
+	
+	/*
+	 * Creates webservice connection points for four businesses
+	 */
+	public static void main(String[] args) {		
+		businessDirectory = new Hashtable<String, BusinessWSImpl>();
 		
 		businessDirectory.put("YHOO", new BusinessWSImpl("YHOO"));
 		businessDirectory.put("MSFT", new BusinessWSImpl("MSFT"));
@@ -37,6 +43,21 @@ public class BusinessWSPublisher {
 			catch (Exception ex) {
 				LoggerClient.log("\tFailed to start webservice at: " + address);
 			}			
+		}
+	}
+	
+	/*
+	 * Closes the connections for all business webservices	
+	 */
+	public synchronized static void unload() {
+		for(Endpoint e : endpoints) {
+			try {
+				endpoints.remove(e);
+				e.stop();
+			}
+			catch (Exception ex) {
+				LoggerClient.log("Failed to stop an endpoint.");
+			}
 		}
 	}
 }
