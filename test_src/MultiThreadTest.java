@@ -1,6 +1,5 @@
+/*
 import FrontEnd.projectLauncher;
-import corba.broker_domain.iBroker;
-import corba.broker_domain.iBrokerHelper;
 import common.logger.LoggerClient;
 
 import org.junit.BeforeClass;
@@ -50,7 +49,7 @@ public class MultiThreadTest {
 
 		org.omg.CORBA.Object objectReference = namingContext.resolve(nc_array);
 
-		broker = iBrokerHelper.narrow(objectReference);
+		//broker = iBrokerHelper.narrow(objectReference);
 	}
 
 	@Test
@@ -162,13 +161,16 @@ public class MultiThreadTest {
 		
 		return returnString.trim();
 	}
-	/**
+	*/
+/**
 	 * Logs a message to both the console and the logging server
 	 * @param msg
-	 */
+	 *//*
+
 	private void log(String msg) {
 		// System.out.println(msg);
 		LoggerClient.log(msg, this.getClass().getName());
 	}
 	
 }
+*/

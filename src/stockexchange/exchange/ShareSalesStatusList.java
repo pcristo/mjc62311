@@ -2,12 +2,13 @@ package stockexchange.exchange;
 
 import common.Customer;
 
+import java.io.Serializable;
 import java.util.*;
 
 
-public class ShareSalesStatusList{
+public class ShareSalesStatusList implements Serializable {
 
-
+    private static final long serialVersionUID = 1L;
     private volatile Map<Integer,List<ShareItem>> soldShares;
     protected volatile Map<String, ShareItem> orderedShares;
     protected volatile Map<String, List<ShareItem>> newAvShares;
@@ -48,9 +49,7 @@ public class ShareSalesStatusList{
                     custShares.add(shareItem);
                 }
             }
-
         }
-
     }
 
     /**

@@ -2,10 +2,7 @@ package stockexchange.broker;
 
 import common.Customer;
 import common.share.ShareType;
-import stockexchange.exchange.Exchange;
-import stockexchange.exchange.ShareItem;
-import stockexchange.exchange.ShareList;
-import stockexchange.exchange.ShareSalesStatusList;
+import stockexchange.exchange.*;
 
 import java.io.Serializable;
 import java.util.ArrayList;

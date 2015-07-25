@@ -1,13 +1,12 @@
-import FrontEnd.FrontEnd;
-import business.BusinessServer;
+import stockexchange.exchange.ShareList;
+import stockexchange.exchange.ShareSalesStatusList;
 import business.BusinessWSPublisher;
 import common.Customer;
 import common.share.ShareType;
-import corba.broker_domain.iBroker;
+
 
 import org.junit.Test;
 
-import stockexchange.broker.BrokerServer;
 import stockexchange.exchange.*;
 
 import java.util.ArrayList;
@@ -38,9 +37,9 @@ public class IntegrationTest {
     private ArrayList<Thread> startServers(boolean exchange, boolean business, boolean broker) {
         ArrayList<Thread> threads = new ArrayList<Thread>();
 
-        if(exchange) {
+       /* if(exchange) {
             threads.add(ExchangeServer.launch());
-        }
+        }*/
 
         // Wait for Exchange to start
         try {
@@ -53,9 +52,9 @@ public class IntegrationTest {
             BusinessWSPublisher.main(null);
         }
 
-        if(broker){
+       /* if(broker){
             threads.add(BrokerServer.launch());
-        }
+        }*/
         try {
             Thread.sleep(5000);
         } catch(Exception e) {
@@ -219,7 +218,7 @@ public class IntegrationTest {
     }
 
 
-    @Test
+    /*@Test
     public void distribuedBrokerSellSharesTest() throws Exception {
         ArrayList<Thread> threads = startServers(true, true, true);
         iBroker broker = FrontEnd.getBroker();
@@ -255,7 +254,7 @@ public class IntegrationTest {
 
         stopServers(threads);
 
-    }
+    }*/
 
 
 }

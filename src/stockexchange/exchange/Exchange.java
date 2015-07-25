@@ -1,14 +1,15 @@
 package stockexchange.exchange;
 
+import business.WSClient.BusinessWSImplService;
+import business.WSClient.IBusiness;
+import business.WSClient.ShareOrder;
+
 import common.Customer;
 import common.logger.LoggerClient;
 import common.share.ShareType;
-import common.util.Config;
-import org.omg.CORBA.ORB;
-import org.omg.CosNaming.NamingContextExt;
-import org.omg.CosNaming.NamingContextExtHelper;
 
-import javax.jws.WebService;
+
+import java.io.Serializable;
 import java.rmi.NotBoundException;
 import java.util.*;
 
@@ -19,9 +20,10 @@ import java.util.*;
  * Please note that the exchange assumes that all share types within a business have the same
  * ticker symbol and price.
  */
-@WebService(endpointInterface = "stockexchange.exchange.iExchange")
-public class Exchange implements iExchange {
 
+public class Exchange implements IExchange, Serializable {
+
+	private static final long serialVersionUID = 1L;
     private static  final int RESTOCK_THRESHOLD = 500;
     private static  int orderInt = 1100;
     protected static ShareSalesStatusList shareStatusSaleList;
@@ -31,7 +33,7 @@ public class Exchange implements iExchange {
     /**
      * Business directory that maps stock symbols to remote interfaces
      */
-    protected Map<String, interface_business> businessDirectory = new HashMap<String, interface_business>();
+    protected Map<String, IBusiness> businessDirectory = new HashMap<String, IBusiness>();
 
     /**
      * Directory that maps stock symbols to stock prices
@@ -102,7 +104,7 @@ public class Exchange implements iExchange {
     public boolean unregister(String symbol) {
     	// try to remove the stock from the business and price registers. If the symbol
     	// is not found, return false
-    	interface_business bi;
+    	IBusiness bi;
     	synchronized(businessDirectory) {
     		bi = businessDirectory.remove(symbol);
     	}
@@ -119,21 +121,11 @@ public class Exchange implements iExchange {
      * @param businessName
      * @return
      */
-    public interface_business getBusinessIFace(String businessName){
+    public IBusiness getBusinessIFace(String businessName){
         try {
-            // Set up ORB properties
-            Properties p = new Properties();
-            p.put("org.omg.CORBA.ORBInitialPort",
-                    Config.getInstance().getAttr("namingServicePort"));
-            p.put("org.omg.CORBA.ORBInitialHost",
-                    Config.getInstance().getAttr("namingServiceAddr"));
 
-            ORB orb = ORB.init(new String[0],p);
-            org.omg.CORBA.Object objRef = orb
-                    .resolve_initial_references("NameService");
-            NamingContextExt ncRef = NamingContextExtHelper.narrow(objRef);
-            interface_business iBusiness = (interface_business) interface_businessHelper.narrow(ncRef
-                    .resolve_str("business-"+businessName.toUpperCase()));
+			BusinessWSImplService businessService = new BusinessWSImplService();
+			IBusiness iBusiness = businessService.getBusinessWSImplPort();
 
             return iBusiness;
         }
@@ -271,7 +263,7 @@ public class Exchange implements iExchange {
      */
     public String getBusinessTicker(String businessName) {
         //Is business registerd
-        interface_business iBusiness = this.businessDirectory.get(businessName);
+        IBusiness iBusiness = this.businessDirectory.get(businessName);
 
         if (iBusiness != null) {
             return iBusiness.getTicker();
@@ -340,7 +332,7 @@ public class Exchange implements iExchange {
     			
     			ShareItem shareToBePaid = shareStatusSaleList.orderedShares.get(orderNumber);
     			// if the business is not registered, there is no interface, and null is returned
-    			interface_business bi = businessDirectory.get(shareToBePaid.getBusinessSymbol());
+    			IBusiness bi = businessDirectory.get(shareToBePaid.getBusinessSymbol());
     			if (bi != null) {
     				try {
     					paid = bi.recievePayment(shareToBePaid.getOrderNum(),
@@ -368,16 +360,25 @@ public class Exchange implements iExchange {
 	protected ShareItem issueSharesRequest(ShareItem sItem) {
 		Boolean sharesIssued = false;
 
-		interface_business bi = businessDirectory.get(sItem.getBusinessSymbol());
+		IBusiness bi = businessDirectory.get(sItem.getBusinessSymbol());
 		if (bi == null) return null;
 
         String orderNum = generateOrderNumber();
 
 		synchronized (orderNum) {
 			try {
-				sharesIssued = bi.issueShares(orderNum,
-						"br01", sItem.getBusinessSymbol(), 0,
-						sItem.getUnitPrice(), RESTOCK_THRESHOLD, sItem.getUnitPrice());
+
+				ShareOrder orderShare = new ShareOrder();
+				orderShare.setOrderNum(orderNum);
+				orderShare.setBrokerRef("br01");
+				orderShare.setBusinessSymbol(sItem.getBusinessSymbol());
+				orderShare.setShareType(business.WSClient.ShareType.COMMON);
+				orderShare.setUnitPrice(sItem.getUnitPrice());
+				orderShare.setQuantity(RESTOCK_THRESHOLD);
+				orderShare.setUnitPriceOrder(sItem.getUnitPrice());
+
+				sharesIssued = bi.issueShares(orderShare);
+
 			} catch (Exception e) {
 				System.out.println(" \n " + e.getMessage());
 			}
@@ -458,14 +459,24 @@ public class Exchange implements iExchange {
      * @param quantity
      * @return true if order was successful or false if not
      */
-    protected boolean orderShares(interface_business iBusiness, String symbol, float price,  int quantity) {
+    protected boolean orderShares(IBusiness iBusiness, String symbol, float price,  int quantity) {
 
         boolean ordered = false;
 
         try {
 
             String orderNumber = generateOrderNumber();
-            ordered =  iBusiness.issueShares(orderNumber, "br01", symbol, 0, price, quantity, price);
+
+			ShareOrder orderShare = new ShareOrder();
+			orderShare.setOrderNum(orderNumber);
+			orderShare.setBrokerRef("br01");
+			orderShare.setBusinessSymbol(symbol);
+			orderShare.setShareType(business.WSClient.ShareType.COMMON);
+			orderShare.setUnitPrice(price);
+			orderShare.setQuantity(quantity);
+			orderShare.setUnitPriceOrder(price);
+
+            ordered =  iBusiness.issueShares(orderShare);
 
             if (ordered) {
                 ShareItem newShares = new ShareItem(orderNumber,symbol,ShareType.COMMON,price, quantity);
@@ -528,18 +539,4 @@ public class Exchange implements iExchange {
     	}
     }
 
-    public void clientOrder (corShareItem[] corShares, customer corCustomer) {
-
-        // Translate to ShareItem list
-        ArrayList<ShareItem> lstCustShares = new ArrayList<ShareItem>();
-
-        Customer newCust = new Customer(corCustomer.name,corCustomer.street1,corCustomer.street2,corCustomer.city,
-                                        corCustomer.province,corCustomer.postalCode,corCustomer.country);
-
-        for (corShareItem sItem : corShares) {
-            lstCustShares.add(new ShareItem(sItem.orderNumString, sItem.businessSymbol,ShareType.COMMON, sItem.unitPrice, sItem.quantity));
-        }
-
-        this.sellShares(new ShareList(lstCustShares),newCust);
-    }
 }

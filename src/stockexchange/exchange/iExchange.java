@@ -1,4 +1,7 @@
 package stockexchange.exchange;
+import common.Customer;
+
+
 import javax.jws.WebParam;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
@@ -9,7 +12,7 @@ import javax.jws.soap.SOAPBinding;
  */
 @WebService
 @SOAPBinding(style = SOAPBinding.Style.RPC)
-public interface iExchange {
+public interface IExchange {
 
     // update share price
     @WebMethod
@@ -27,5 +30,11 @@ public interface iExchange {
     @WebMethod
     boolean unregister(
             @WebParam (name = "symbol") String symbol
+    );
+
+    @WebMethod
+    ShareSalesStatusList sellShares(
+            @WebParam(name = "shareItemList") ShareList shareItemList,
+            @WebParam(name = "info") Customer info
     );
 }

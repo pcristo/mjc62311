@@ -1,7 +1,7 @@
 package stockexchange.exchange;
 
+import stockexchange.exchange.ShareList;
 import common.Customer;
-import common.logger.LoggerServer;
 import common.share.ShareType;
 import mock.MockExchange;
 import org.junit.*;
