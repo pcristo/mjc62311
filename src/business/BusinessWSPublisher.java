@@ -1,0 +1,42 @@
+package business;
+
+import java.util.Hashtable;
+
+import javax.xml.ws.Endpoint;
+
+import common.logger.LoggerClient;
+import common.util.Config;
+
+
+/*
+ * Launch the main() of this class to publish four businesses to the web at 
+ * address specified by BusinessEndpointPrefix in the config.json file, followed 
+ * by the stock symbol. For example, http://mywebsite.net/WS/YHOO
+ */
+public class BusinessWSPublisher {
+
+	public static void main(String[] args) {
+		
+		Hashtable<String, BusinessWSImpl> businessDirectory = new Hashtable<String, BusinessWSImpl>();
+		
+		businessDirectory.put("YHOO", new BusinessWSImpl("YHOO"));
+		businessDirectory.put("MSFT", new BusinessWSImpl("MSFT"));
+		businessDirectory.put("AAPL", new BusinessWSImpl("AAPL"));
+		businessDirectory.put("GOOG", new BusinessWSImpl("GOOG"));
+		
+		String endpointPrefix = Config.getInstance().getAttr("BusinessEndpointPrefix");
+		
+		LoggerClient.log("Starting Business webservices...");	
+		
+		for(String k : businessDirectory.keySet()) {
+			String address = endpointPrefix + k;
+			try {
+				Endpoint.publish(endpointPrefix + k, businessDirectory.get(k));
+				LoggerClient.log("\tWebservice started at: " + endpointPrefix + k);	
+			}
+			catch (Exception ex) {
+				LoggerClient.log("\tFailed to start webservice at: " + address);
+			}			
+		}
+	}
+}
