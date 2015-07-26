@@ -6,6 +6,7 @@ import common.util.Config;
 import stockexchange.exchange.ExchangeWSImpl;
 
 import javax.xml.ws.Endpoint;
+
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
@@ -31,10 +32,14 @@ public class BusinessWSPublisher {
 	
 	/**
 	 * Starts all web services listed in the business directory
+	 * @throws Exception 
 	 */
-	public static void StartAllWebservices() {
+	public static void StartAllWebservices() throws Exception {
 		String endpointPrefix = Config.getInstance().getAttr("BusinessEndpointPrefix");
 		LoggerClient.log("Starting Business webservices...");	
+		
+		if (businessDirectory.size() == 0)
+			throw new Exception("No businesses in the directory. Did you call createBuisness()?");
 		
 		for(String k : businessDirectory.keySet()) {
 			String address = endpointPrefix + k;
@@ -53,9 +58,13 @@ public class BusinessWSPublisher {
 	
 	/**
 	 * Registers all businesses in the directory with an exchange
+	 * @throws Exception 
 	 */
-	public static void RegisterAllWithExchange() {
+	public static void RegisterAllWithExchange() throws Exception {
 		ExchangeWSImpl exchange = new ExchangeWSImpl();
+		
+		if (businessDirectory.size() == 0)
+			throw new Exception("No businesses in the directory. Did you call createBuisness()?");
 		
 		for(String stock : businessDirectory.keySet()) {
 			LoggerClient.log("Registering with exchange...");	

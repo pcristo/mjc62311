@@ -18,20 +18,22 @@ public class projectLauncher {
 
 	static boolean interactive = true;
 
-
 	/**
 	 * Will launch all the servers
 	 * @param args Send no arguments and the launcher will pause and wait for a key before returning
-	 * @throws InterruptedException
-	 * @throws IOException
+	 * @throws Exception 
 	 */
-	public static void main(String[] args) throws InterruptedException,	IOException {
+	public static void main(String[] args) throws Exception {
 		
 		// Launch threads
 		Thread logger = new Thread(()->LoggerServer.main(null));
 		logger.start();
 		pause("Launching common.logger and waiting ", WAIT_BETWEEN_LAUNCH_TIME);
 		ExchangeWSPublisher.main(null);
+		BusinessWSPublisher.createBusiness("GOOG");
+		BusinessWSPublisher.createBusiness("YHOO");
+		BusinessWSPublisher.createBusiness("AAPL");
+		BusinessWSPublisher.createBusiness("MSFT");
 		BusinessWSPublisher.StartAllWebservices();
 		BusinessWSPublisher.RegisterAllWithExchange();
 

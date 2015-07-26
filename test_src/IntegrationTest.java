@@ -6,10 +6,12 @@ import WebServices.Rest;
 import business.BusinessWSPublisher;
 import common.Customer;
 import common.util.Config;
+
 import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
 import stockexchange.exchange.ExchangeWSPublisher;
 
 import java.util.HashMap;
@@ -31,7 +33,7 @@ public class IntegrationTest {
 
 
     @Before
-    public void setUp(){
+    public void setUp() throws Exception{
         startServers();
     }
 
@@ -41,10 +43,15 @@ public class IntegrationTest {
     }
     /**
      * Start servers
+     * @throws Exception 
      */
-    private void startServers() {
-
+    private void startServers() throws Exception {
         ExchangeWSPublisher.main(null);
+        
+		BusinessWSPublisher.createBusiness("GOOG");
+		BusinessWSPublisher.createBusiness("YHOO");
+		BusinessWSPublisher.createBusiness("AAPL");
+		BusinessWSPublisher.createBusiness("MSFT");
         BusinessWSPublisher.StartAllWebservices();
         BusinessWSPublisher.RegisterAllWithExchange();
     }
