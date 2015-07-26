@@ -13,7 +13,7 @@ import java.io.Serializable;
 import java.rmi.NotBoundException;
 import java.util.*;
 
-/** 
+/**
  * The exchange class acts as an intermediary between businesses and stock brokers. Brokers
  * make requests to purchase stock from the exchange, which then either sells existing shares
  * to the broker or requests new shares be issued from the business.
@@ -84,7 +84,7 @@ public class Exchange implements IExchange, Serializable {
         try{
             synchronized(businessDirectory) {
             	businessDirectory.put(symbol, getBusinessIFace(symbol)); }
-            
+
             synchronized(priceDirectory) {
             	priceDirectory.put(symbol, price); }
 
@@ -95,7 +95,7 @@ public class Exchange implements IExchange, Serializable {
         }
 	return false;
     }
-    
+
     /**
      * Delists a business from the exchange
      * @param symbol to delist
@@ -115,7 +115,7 @@ public class Exchange implements IExchange, Serializable {
 
     	return true;
     }
-    
+
     /**
      *  Returns a business interface for making calls to the remote business server.
      * @param businessName
@@ -210,7 +210,7 @@ public class Exchange implements IExchange, Serializable {
 							if (sItem.getQuantity() == 0) {
 								lstOrders.add(sItem.getOrderNum());
 							}
-						}					
+						}
 
 					// Pay all orders if needed
 					if (lstOrders.size() > 0) {
@@ -277,7 +277,7 @@ public class Exchange implements IExchange, Serializable {
      */
     protected void restock() {
     	// we must lock the shareStatusSaleList, because if any entry is changed while
-    	// we are inside the foreach loop, a concurrency exception is thrown. 
+    	// we are inside the foreach loop, a concurrency exception is thrown.
 		synchronized (shareStatusSaleList) {
 
 			for (Map.Entry<String, List<ShareItem>> entry : shareStatusSaleList.newAvShares
@@ -312,7 +312,7 @@ public class Exchange implements IExchange, Serializable {
 				}
 				entry.getValue().addAll(addToList);
 			}
-		
+
 		}
 	}
 
@@ -324,12 +324,12 @@ public class Exchange implements IExchange, Serializable {
     protected boolean payBusiness(List<String> lstOrders) {
     	boolean paid = false;
     	for(String orderNumber : lstOrders ){
-    		
+
     		// between the moment we start checking if an order is paid, and the moment we actually
     		// pay it, we must lock out access to the shareStatusSaleList to avoid another thread
     		// trying to pay the same entry.
     		synchronized(shareStatusSaleList) {
-    			
+
     			ShareItem shareToBePaid = shareStatusSaleList.orderedShares.get(orderNumber);
     			// if the business is not registered, there is no interface, and null is returned
     			IBusiness bi = businessDirectory.get(shareToBePaid.getBusinessSymbol());
@@ -412,7 +412,7 @@ public class Exchange implements IExchange, Serializable {
     	// sent an empty list? then there are no shares!
     	if (lstShareItem == null)
     		return 0;
-    	
+
     	int totQuantity = 0;
 
         //Retrieve Business Shares in Available list
@@ -483,8 +483,8 @@ public class Exchange implements IExchange, Serializable {
 
                 synchronized(shareStatusSaleList) {
                 	shareStatusSaleList.addToNewAvShares(newShares);
-                    shareStatusSaleList.addToOrderedShares(newShares);	
-                }                
+                    shareStatusSaleList.addToOrderedShares(newShares);
+                }
 
                 LoggerClient.log("Successfully added " + quantity + " shares of " + iBusiness.getTicker());
             }
