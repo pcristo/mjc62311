@@ -2,6 +2,7 @@ package business;
 
 import javax.jws.WebService;
 
+
 /*
  * This class is an implementation of Business to include webservice endpoints
  */

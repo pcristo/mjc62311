@@ -123,7 +123,6 @@ public class Exchange implements IExchange, Serializable {
      */
     public IBusiness getBusinessIFace(String businessName){
         try {
-
 			BusinessWSImplService businessService = new BusinessWSImplService(businessName);
 			IBusiness iBusiness = businessService.getBusinessWSImplPort();
 

@@ -31,11 +31,17 @@ public class MockExchange extends Exchange {
 
     }
 
-   /* @Override
+    @Override
     public IBusiness getBusinessIFace(String businessName){
-        IBusiness bi = (interface_business) new BusinessServant(businessName);
-        return bi;
-    }*/
+        MockBusiness b = new MockBusiness(businessName);
+        try {
+            IBusiness bi = (IBusiness) b;
+            return bi;
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        return (IBusiness) b;
+    }
 
 
 }

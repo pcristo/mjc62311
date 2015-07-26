@@ -16,6 +16,7 @@ public class MockBroker extends Broker {
 
     public MockBroker() throws RemoteException, NotBoundException {
        exchange = getExchange();
+        exchange.getListing();
     }
 
     @Override
