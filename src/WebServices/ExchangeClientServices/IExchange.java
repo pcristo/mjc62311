@@ -26,6 +26,22 @@ public interface IExchange {
 
     /**
      * 
+     * @param symbol
+     * @param price
+     * @return
+     *     returns boolean
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://exchange.stockexchange/IExchange/registerBusinessRequest", output = "http://exchange.stockexchange/IExchange/registerBusinessResponse")
+    public boolean registerBusiness(
+            @WebParam(name = "symbol", partName = "symbol")
+            String symbol,
+            @WebParam(name = "price", partName = "price")
+            float price);
+
+    /**
+     * 
      * @param item
      * @param quantity
      * @return
@@ -35,26 +51,10 @@ public interface IExchange {
     @WebResult(partName = "return")
     @Action(input = "http://exchange.stockexchange/IExchange/updateSharePriceRequest", output = "http://exchange.stockexchange/IExchange/updateSharePriceResponse")
     public boolean updateSharePrice(
-        @WebParam(name = "item", partName = "item")
-        String item,
-        @WebParam(name = "quantity", partName = "quantity")
-        float quantity);
-
-    /**
-     * 
-     * @param shareItemList
-     * @param info
-     * @return
-     *     returns ShareSalesStatusList
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://exchange.stockexchange/IExchange/sellSharesRequest", output = "http://exchange.stockexchange/IExchange/sellSharesResponse")
-    public ShareSalesStatusList sellShares(
-        @WebParam(name = "shareItemList", partName = "shareItemList")
-        ShareList shareItemList,
-        @WebParam(name = "info", partName = "info")
-        Customer info);
+            @WebParam(name = "item", partName = "item")
+            String item,
+            @WebParam(name = "quantity", partName = "quantity")
+            float quantity);
 
     /**
      * 
@@ -66,23 +66,23 @@ public interface IExchange {
     @WebResult(partName = "return")
     @Action(input = "http://exchange.stockexchange/IExchange/unregisterRequest", output = "http://exchange.stockexchange/IExchange/unregisterResponse")
     public boolean unregister(
-        @WebParam(name = "symbol", partName = "symbol")
-        String symbol);
+            @WebParam(name = "symbol", partName = "symbol")
+            String symbol);
 
     /**
      * 
-     * @param symbol
-     * @param price
+     * @param share
+     * @param info
      * @return
      *     returns boolean
      */
     @WebMethod
     @WebResult(partName = "return")
-    @Action(input = "http://exchange.stockexchange/IExchange/registerBusinessRequest", output = "http://exchange.stockexchange/IExchange/registerBusinessResponse")
-    public boolean registerBusiness(
-        @WebParam(name = "symbol", partName = "symbol")
-        String symbol,
-        @WebParam(name = "price", partName = "price")
-        float price);
+    @Action(input = "http://exchange.stockexchange/IExchange/sellShareServiceRequest", output = "http://exchange.stockexchange/IExchange/sellShareServiceResponse")
+    public boolean sellShareService(
+            @WebParam(name = "share", partName = "share")
+            ShareItem share,
+            @WebParam(name = "info", partName = "info")
+            Customer info);
 
 }

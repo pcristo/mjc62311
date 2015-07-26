@@ -30,24 +30,24 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ShareSalesStatusList }
-     * 
+     * Create an instance of {@link Share }
+     *
      */
-    public ShareSalesStatusList createShareSalesStatusList() {
-        return new ShareSalesStatusList();
+    public Share createShare() {
+        return new Share();
     }
 
     /**
-     * Create an instance of {@link ShareList }
-     * 
+     * Create an instance of {@link ShareItem }
+     *
      */
-    public ShareList createShareList() {
-        return new ShareList();
+    public ShareItem createShareItem() {
+        return new ShareItem();
     }
 
     /**
      * Create an instance of {@link Customer }
-     * 
+     *
      */
     public Customer createCustomer() {
         return new Customer();

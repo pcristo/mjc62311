@@ -26,7 +26,9 @@ import stockexchange.exchange.ShareSalesStatusListTest;
 **/
 @Suite.SuiteClasses({
                     // To run integration test see TOMCAT_DEPLOY
-//                    IntegrationTest.class,
+                    IntegrationTest.class,
+//                    BusinessWSTest.class,
+
 
                     LoggerTest.class,
                     BusinessTest.class,

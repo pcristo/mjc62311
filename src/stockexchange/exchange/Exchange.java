@@ -28,6 +28,7 @@ public class Exchange implements IExchange, Serializable {
     private static  int orderInt = 1100;
     protected static ShareSalesStatusList shareStatusSaleList;
 	public static Exchange exchange;
+	private static Object issueSharesRequestLock = new Object();
 
 
     /**
@@ -49,6 +50,7 @@ public class Exchange implements IExchange, Serializable {
     	Exchange.exchange = this;
         try {
             shareStatusSaleList = new ShareSalesStatusList();
+			//addShareToTest();
         }
         catch(Exception e) {
             LoggerClient.log("Exception in exchange: " + e.getMessage());
@@ -151,7 +153,7 @@ public class Exchange implements IExchange, Serializable {
 			int toComplete = requestedShares;
 
 			// Is business registered in Exchange
-			if (this.priceDirectory.get(s.getBusinessSymbol()) != null) {
+			//if (this.priceDirectory.get(s.getBusinessSymbol()) != null) {
 
 				// Business Shares Listing
 				List<ShareItem> lstShares = shareStatusSaleList.newAvShares.get(s.getBusinessSymbol());
@@ -225,9 +227,9 @@ public class Exchange implements IExchange, Serializable {
 
 			// Restock Share Lists
 			this.restock();
-        }
+        //}
 
-        return  shareStatusSaleList;
+        return  this.shareStatusSaleList;
     }
 
     /**
@@ -364,7 +366,11 @@ public class Exchange implements IExchange, Serializable {
 
         String orderNum = generateOrderNumber();
 
-		synchronized (orderNum) {
+        /* Note: Do not synchronize on local variables (like orderNum). Different threads will 
+         * have different instances of those objects, so the lock would be irrelevant. The best 
+         * way is to just use a static class-level variable. patrickc 2015/07/26
+         */
+		synchronized (issueSharesRequestLock) {
 			try {
 
 				ShareOrder orderShare = new ShareOrder();
@@ -537,5 +543,37 @@ public class Exchange implements IExchange, Serializable {
     		}
     	}
     }
+
+	/**
+	 * Used to connect to sellShares to service
+	 * @param share
+	 * @param info
+	 * @return
+	 */
+	public boolean sellShareService(ShareItem share, Customer info){
+
+		ArrayList<ShareItem> lstCustShares = new ArrayList<ShareItem>();
+
+		/*Customer newCust = new Customer(info.getName(),info.getStreet1(),info.getStreet2(),info.getCity(),
+				info.getProvince(),info.getPostalCode(),info.getCountry());*/
+
+		lstCustShares.add(share);
+
+		ShareSalesStatusList shareList = sellShares(new ShareList(lstCustShares), info);
+		int size =  shareList.getShares(info).size();
+
+		// Customer has to have shares now
+		if(size <= 0 ){
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	private void addShareToTest() {
+
+		ShareItem newShares = new ShareItem("1","GOOG",ShareType.COMMON,500.00f, 1000);
+		shareStatusSaleList.addToNewAvShares(newShares);
+	}
 
 }

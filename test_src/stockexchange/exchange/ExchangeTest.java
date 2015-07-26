@@ -1,10 +1,11 @@
 package stockexchange.exchange;
 
-import stockexchange.exchange.ShareList;
 import common.Customer;
 import common.share.ShareType;
 import mock.MockExchange;
-import org.junit.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.util.ArrayList;
 
@@ -39,8 +40,6 @@ public class ExchangeTest {
         });
 
         exchange.sellShares(sharelist, new Customer("Ross")).PrintNewAvShares();
-
-
     }
 
     @Test

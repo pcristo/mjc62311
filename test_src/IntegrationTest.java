@@ -1,13 +1,16 @@
-import stockexchange.exchange.ShareList;
-
+import WebServices.ExchangeClientServices.ExchangeWSImplService;
+import WebServices.ExchangeClientServices.IExchange;
+import WebServices.ExchangeClientServices.ShareItem;
+import WebServices.Rest;
 import business.BusinessWSPublisher;
 import common.Customer;
-import common.share.ShareType;
 import common.util.Config;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.Test;
+import stockexchange.exchange.ExchangeWSPublisher;
+
 import java.util.HashMap;
-import WebServices.Rest;
+
 import static junit.framework.TestCase.*;
 import static org.junit.Assert.assertEquals;
 
@@ -22,23 +25,27 @@ import static org.junit.Assert.assertEquals;
  * SEE INDIVIDUAL METHODS
  */
 public class IntegrationTest {
-	
-    private void startServers(boolean exchange, boolean business, boolean broker) {
-        if(business) {
-          BusinessWSPublisher.StartAllWebservices();
-        }
+
+    /**
+     * Start servers
+     */
+    private void startServers() {
+
+        ExchangeWSPublisher.main(null);
+        BusinessWSPublisher.StartAllWebservices();
+        BusinessWSPublisher.RegisterAllWithExchange();
     }
 
     /**
-     *
-     * @param ArrayList of threads currently running and to be stopped
+     * Stop the servers
      */
     private void stopServers() {
+        ExchangeWSPublisher.unload();
         BusinessWSPublisher.unload();
     }
 
     @Test
-    public void testBrokerRest() throws Exception{
+    public void testBrokerRest() throws Exception {
         // Make a bad rest call
         String url = "http://example.com/";
         String data = Rest.getPost(url, new HashMap<String, String>());
@@ -67,11 +74,21 @@ public class IntegrationTest {
 
     @Test
     public void testSellShares() {
-        // We can only test status - will almost always pass
-        // TODO write more when exchange is connected
-        //boolean result = FrontEnd.sellShares("GOOG", "COMMON", 500, new Customer("John"));
-        //assertTrue(result);
-    }
+        startServers();
 
+        ShareItem toBuy = new ShareItem();
+        toBuy.setBusinessSymbol("GOOG");
+        toBuy.setQuantity(100);
+        toBuy.setShareType(WebServices.ExchangeClientServices.ShareType.COMMON);
+        toBuy.setUnitPrice(500.00f);
+
+        WebServices.ExchangeClientServices.Customer newCust = new WebServices.ExchangeClientServices.Customer();
+        newCust.setName("Gay");
+
+        ExchangeWSImplService service = new ExchangeWSImplService();
+        IExchange iExchange = service.getExchangeWSImplPort();
+
+        assertTrue(iExchange.sellShareService(toBuy, newCust));
+    }
 
 }

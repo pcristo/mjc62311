@@ -43,6 +43,7 @@ import javax.xml.bind.annotation.XmlType;
     "street1",
     "street2"
 })
+
 public class Customer {
 
     protected String city;
@@ -53,6 +54,27 @@ public class Customer {
     protected String province;
     protected String street1;
     protected String street2;
+
+
+    /**
+     * Convert common customer to web services equivalent
+     * @param c
+     */
+    public Customer(common.Customer c) {
+        city = c.getCity();
+        country = c.getCountry();
+        customerReferenceNumber = c.getCustomerReferenceNumber();
+        name = c.getName();
+        postalCode = c.getPostalCode();
+        province = c.getProvince();
+        street1 = c.getStreet1();
+        street2 = c.getStreet2();
+    }
+
+    /**
+     * Default constructor
+     */
+    public Customer() {}
 
     /**
      * Gets the value of the city property.

@@ -11,6 +11,9 @@ public class ShareItem extends Share {
 
     private String  orderNum;
 
+    public ShareItem() {}
+
+
     /**
      * @param businessSymbol
      * @param shareType
