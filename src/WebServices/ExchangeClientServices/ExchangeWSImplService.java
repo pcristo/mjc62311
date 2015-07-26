@@ -1,14 +1,10 @@
 
 package WebServices.ExchangeClientServices;
 
+import javax.xml.namespace.QName;
+import javax.xml.ws.*;
 import java.net.MalformedURLException;
 import java.net.URL;
-import javax.xml.namespace.QName;
-import javax.xml.ws.Service;
-import javax.xml.ws.WebEndpoint;
-import javax.xml.ws.WebServiceClient;
-import javax.xml.ws.WebServiceException;
-import javax.xml.ws.WebServiceFeature;
 
 
 /**
@@ -17,7 +13,7 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.2
  * 
  */
-@WebServiceClient(name = "ExchangeWSImplService", targetNamespace = "http://exchange.stockexchange/", wsdlLocation = "http://localhost:8888/WS/Exchange?wsdl")
+@WebServiceClient(name = "ExchangeWSImplService", targetNamespace = "http://exchange.stockexchange/", wsdlLocation = "http://localhost:8888/WS/TSX?wsdl")
 public class ExchangeWSImplService
     extends Service
 {
@@ -30,7 +26,7 @@ public class ExchangeWSImplService
         URL url = null;
         WebServiceException e = null;
         try {
-            url = new URL("http://localhost:8888/WS/Exchange?wsdl");
+            url = new URL("http://localhost:8888/WS/TSX?wsdl");
         } catch (MalformedURLException ex) {
             e = new WebServiceException(ex);
         }
@@ -75,7 +71,7 @@ public class ExchangeWSImplService
     /**
      * 
      * @param features
-     *     A list of {@link javax.xml.ws.WebServiceFeature} to configure on the proxy.  Supported features not in the <code>features</code> parameter will have their default values.
+     *     A list of {@link WebServiceFeature} to configure on the proxy.  Supported features not in the <code>features</code> parameter will have their default values.
      * @return
      *     returns IExchange
      */

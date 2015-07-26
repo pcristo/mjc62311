@@ -1,3 +1,6 @@
+import WebServices.ExchangeClientServices.ExchangeWSImplService;
+import WebServices.ExchangeClientServices.IExchange;
+import WebServices.ExchangeClientServices.ShareItem;
 import stockexchange.exchange.ShareList;
 
 import business.BusinessWSPublisher;
@@ -70,10 +73,22 @@ public class IntegrationTest {
 
     @Test
     public void testSellShares() {
-        // We can only test status - will almost always pass
-        // TODO write more when exchange is connected
-        //boolean result = FrontEnd.sellShares("GOOG", "COMMON", 500, new Customer("John"));
-        //assertTrue(result);
+
+        ShareItem toBuy = new ShareItem();
+        toBuy.setBusinessSymbol("GOOG");
+        toBuy.setQuantity(100);
+        toBuy.setShareType(WebServices.ExchangeClientServices.ShareType.COMMON);
+        toBuy.setUnitPrice(500.00f);
+
+
+        WebServices.ExchangeClientServices.Customer newCust = new WebServices.ExchangeClientServices.Customer();
+        newCust.setName("Gay");
+
+
+        ExchangeWSImplService service = new ExchangeWSImplService();
+        IExchange iExchange = service.getExchangeWSImplPort();
+
+        iExchange.sellShareService(toBuy,newCust);
     }
 
 

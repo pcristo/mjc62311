@@ -33,8 +33,8 @@ public interface IExchange {
     );
 
     @WebMethod
-    ShareSalesStatusList sellShares(
-            @WebParam(name = "shareItemList") ShareList shareItemList,
+    boolean sellShareService(
+            @WebParam(name = "share") ShareItem shareItemList,
             @WebParam(name = "info") Customer info
     );
 }
