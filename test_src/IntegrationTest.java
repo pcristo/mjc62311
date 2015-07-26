@@ -27,9 +27,6 @@ public class IntegrationTest {
         if(business) {
           BusinessWSPublisher.StartAllWebservices();
         }
-       /* if(broker){
-            threads.add(BrokerServer.launch());
-        }*/
     }
 
     /**
