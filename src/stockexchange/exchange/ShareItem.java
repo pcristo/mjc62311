@@ -19,10 +19,10 @@ public class ShareItem extends Share {
      */
     public ShareItem(String orderNum,String businessSymbol, ShareType shareType, float unitPrice, int quantity) {
 
-        super(businessSymbol,shareType,unitPrice);
-        this.orderNum = orderNum;
-        this.quantity = quantity;
-        this.commission = this.getUnitPrice() * 0.05f;
+        super(businessSymbol, shareType, unitPrice);
+        setOrderNum(orderNum);
+        setQuantity(quantity);
+        setCommission(0.05f);
     }
 
     /**
@@ -51,6 +51,10 @@ public class ShareItem extends Share {
         this.soldShares = numberSold;
     }
 
+    public void setCommission(float comPerc) {
+
+       this.commission =  this.getUnitPrice() * comPerc;
+    }
     /**
      * Get Quantity
      * @return
