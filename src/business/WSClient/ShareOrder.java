@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "shareOrder", propOrder = {
+@XmlType(name = "shareOrderws", propOrder = {
     "brokerRef",
     "orderNum",
     "quantity",

@@ -107,7 +107,6 @@ public class Business implements IBusiness, Serializable {
 	 * @param aSO
 	 *            A ShareOrder to process
 	 * @return true if successful, false if failed
-	 * @ 
 	 */
 	public boolean issueShares(ShareOrder aSO)  {
 		// fetch the common.share that is relevant to this order
