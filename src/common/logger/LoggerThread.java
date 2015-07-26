@@ -17,7 +17,8 @@ public class LoggerThread implements Runnable {
     private Socket socket;
 
     private String msg;
-
+    private static Object fileLock = new Object();
+    
 
     public LoggerThread(String msg) {
         this.msg = msg;
@@ -50,7 +51,7 @@ public class LoggerThread implements Runnable {
         String projectHome = Config.getInstance().getAttr("projectHome");
         String relativeLogFile = Config.getInstance().getAttr("logServerFile");
         String fileLocation = projectHome + relativeLogFile;
-        synchronized (LoggerThread.class) {
+        synchronized (fileLock) {
             PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(fileLocation, true)));
             out.println(message);
             out.close();

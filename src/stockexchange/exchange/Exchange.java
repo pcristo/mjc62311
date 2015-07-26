@@ -28,6 +28,7 @@ public class Exchange implements IExchange, Serializable {
     private static  int orderInt = 1100;
     protected static ShareSalesStatusList shareStatusSaleList;
 	public static Exchange exchange;
+	private static Object issueSharesRequestLock = new Object();
 
 
     /**
@@ -366,7 +367,11 @@ public class Exchange implements IExchange, Serializable {
 
         String orderNum = generateOrderNumber();
 
-		synchronized (orderNum) {
+        /* Note: Do not synchronize on local variables (like orderNum). Different threads will 
+         * have different instances of those objects, so the lock would be irrelevant. The best 
+         * way is to just use a static class-level variable. patrickc 2015/07/26
+         */
+		synchronized (issueSharesRequestLock) {
 			try {
 
 				ShareOrder orderShare = new ShareOrder();
