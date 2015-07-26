@@ -3,7 +3,8 @@ package business;
 import common.logger.LoggerClient;
 import common.share.ShareType;
 import common.util.Config;
-import stockexchange.exchange.ExchangeWSImpl;
+import WebServices.ExchangeClientServices.ExchangeWSImplService;
+import WebServices.ExchangeClientServices.IExchange;
 
 import javax.xml.ws.Endpoint;
 
@@ -61,7 +62,8 @@ public class BusinessWSPublisher {
 	 * @throws Exception 
 	 */
 	public static void RegisterAllWithExchange() throws Exception {
-		ExchangeWSImpl exchange = new ExchangeWSImpl();
+		ExchangeWSImplService exchangews = new ExchangeWSImplService();
+		IExchange exchange = exchangews.getExchangeWSImplPort();		
 		
 		if (businessDirectory.size() == 0)
 			throw new Exception("No businesses in the directory. Did you call createBuisness()?");
@@ -86,7 +88,8 @@ public class BusinessWSPublisher {
 	 * Closes the connections for all business web services	
 	 */
 	public synchronized static void unload() {
-		ExchangeWSImpl exchange = new ExchangeWSImpl();
+		ExchangeWSImplService exchangews = new ExchangeWSImplService();
+		IExchange exchange = exchangews.getExchangeWSImplPort();	
 				
 		for(String stock : businessDirectory.keySet()) {
 			try {
