@@ -1,3 +1,4 @@
+import FrontEnd.FrontEnd;
 import WebServices.ExchangeClientServices.ExchangeWSImplService;
 import WebServices.ExchangeClientServices.IExchange;
 import WebServices.ExchangeClientServices.ShareItem;
@@ -6,6 +7,8 @@ import business.BusinessWSPublisher;
 import common.Customer;
 import common.util.Config;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import stockexchange.exchange.ExchangeWSPublisher;
 
@@ -26,6 +29,16 @@ import static org.junit.Assert.assertEquals;
  */
 public class IntegrationTest {
 
+
+    @Before
+    public void setUp(){
+        startServers();
+    }
+
+    @After
+    public void tearDown() {
+        stopServers();
+    }
     /**
      * Start servers
      */
@@ -46,6 +59,7 @@ public class IntegrationTest {
 
     @Test
     public void testBrokerRest() throws Exception {
+
         // Make a bad rest call
         String url = "http://example.com/";
         String data = Rest.getPost(url, new HashMap<String, String>());
@@ -72,10 +86,17 @@ public class IntegrationTest {
 
     }
 
-    @Test
-    public void testSellShares() {
-        startServers();
 
+
+    @Test
+    public void testFESellShares() {
+        boolean result = FrontEnd.sellShares("GOOG", "COMMON", 500, new Customer("Ross"));
+        assertTrue(result);
+    }
+
+
+    @Test
+    public void testExchangeSellShares() {
         ShareItem toBuy = new ShareItem();
         toBuy.setBusinessSymbol("GOOG");
         toBuy.setQuantity(100);

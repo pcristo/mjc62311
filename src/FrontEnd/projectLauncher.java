@@ -1,7 +1,9 @@
 package FrontEnd;
 
+import business.BusinessWSPublisher;
 import common.logger.LoggerClient;
 import common.logger.LoggerServer;
+import stockexchange.exchange.ExchangeWSPublisher;
 
 import java.io.IOException;
 
@@ -29,17 +31,9 @@ public class projectLauncher {
 		Thread logger = new Thread(()->LoggerServer.main(null));
 		logger.start();
 		pause("Launching common.logger and waiting ", WAIT_BETWEEN_LAUNCH_TIME);
-
-//		Thread exchange = ExchangeServer.launch();
-//		pause("Launching exchange and waiting ", WAIT_BETWEEN_LAUNCH_TIME);
-//
-//		Thread broker = BrokerServer.launch();
-//		pause("Launching broker and waiting ", WAIT_BETWEEN_LAUNCH_TIME);
-//
-//		Thread[] businesses = { BusinessServer.launch("GOOG"),
-//				BusinessServer.launch("AAPL"), BusinessServer.launch("YHOO"),
-//				BusinessServer.launch("MSFT") };
-//		pause("Launching businesses and waiting ", WAIT_BETWEEN_LAUNCH_TIME);
+		ExchangeWSPublisher.main(null);
+		BusinessWSPublisher.StartAllWebservices();
+		BusinessWSPublisher.RegisterAllWithExchange();
 
 
 		// if any arguments are sent, the do not wait for any key, just continue
@@ -50,11 +44,9 @@ public class projectLauncher {
 
 			/*// Stop all running threads
 			broker.interrupt();*/
-//			for(Thread t : businesses)
-//				t.interrupt();
 			logger.interrupt();
-//			exchange.interrupt();
-//			broker.interrupt();
+			ExchangeWSPublisher.unload();
+			BusinessWSPublisher.unload();
 				
 			System.out.println("Okay, everyone is dead.");
 			System.exit(0);	

@@ -1,7 +1,6 @@
 package stockexchange.exchange;
 
 import common.logger.LoggerClient;
-import common.util.Config;
 
 import javax.xml.ws.Endpoint;
 import java.util.ArrayList;
@@ -20,6 +19,7 @@ public class ExchangeWSPublisher {
     public static void main(String[] args) {
 
         endpoints = new ArrayList<String>();
+        publishedEndpoints = new ArrayList<>();
 
         endpoints.add("http://localhost:8888/WS/TSX");
         endpoints.add("http://localhost:8888/WS/NASDAQ");
@@ -28,7 +28,8 @@ public class ExchangeWSPublisher {
 
         for(String endpoint : endpoints) {
             try {
-                Endpoint.publish(endpoint, new ExchangeWSImpl());
+                publishedEndpoints.add(Endpoint.publish(endpoint, new ExchangeWSImpl()));
+
                 LoggerClient.log("\tWebservice started at: " + endpoint);
             } catch (Exception ex) {
                 LoggerClient.log("\tFailed to start webservice at: " + endpoint + ex);
@@ -38,7 +39,7 @@ public class ExchangeWSPublisher {
     }
 
     /*
-     * Closes the connections for all business webservices
+     * Closes the connections for all exchange webservices
      */
     public synchronized static void unload() {
         for(Endpoint e : publishedEndpoints) {

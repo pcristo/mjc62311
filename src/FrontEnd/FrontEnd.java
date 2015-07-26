@@ -5,6 +5,8 @@ import common.Customer;
 import common.logger.LoggerClient;
 import common.util.Config;
 import org.codehaus.jackson.map.ObjectMapper;
+import stockQuotes.Company;
+import stockQuotes.GoogleFinance;
 
 import java.util.HashMap;
 import java.util.Scanner;
@@ -38,6 +40,8 @@ public class FrontEnd {
 			int menuIn = 0;
 			while(menuIn != 9) {
 				System.out.println("\n\n\n~~~WELCOME~~~");
+				printListing();
+				System.out.println("---------------");
 				System.out.println("1 - Buy shares");
 				System.out.println("9 - Quit");
 				menuIn = in.nextInt();
@@ -114,6 +118,24 @@ public class FrontEnd {
 		} else {
 			return false;
 		}
+	}
+
+	/**
+	 * Display current prices
+	 */
+	public static void printListing() {
+		// Hard code this for now
+		// Get prices
+		GoogleFinance gf = new GoogleFinance();
+		String aaplPrice = gf.getStock(new Company("AAPL", new stockQuotes.Exchange("NASDAQ")));
+		String googPrice = gf.getStock(new Company("GOOG", new stockQuotes.Exchange("NASDAQ")));
+		String yhooPrice = gf.getStock(new Company("MSFT", new stockQuotes.Exchange("NASDAQ")));
+		String msftPrice = gf.getStock(new Company("YHOO", new stockQuotes.Exchange("NASDAQ")));
+
+		System.out.println("[GOOG: " + googPrice + "]");
+		System.out.println("[AAPL: " + aaplPrice + "]");
+		System.out.println("[YHOO: " + yhooPrice + "]");
+		System.out.println("[MSFT: " + msftPrice + "]");
 	}
 
 

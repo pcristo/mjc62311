@@ -3,8 +3,13 @@ package stockexchange.broker;
 
 // Import required java libraries
 
+import WebServices.ExchangeClientServices.ExchangeWSImplService;
+import WebServices.ExchangeClientServices.IExchange;
+import WebServices.ExchangeClientServices.ShareItem;
 import common.Customer;
 import org.codehaus.jackson.map.ObjectMapper;
+import stockQuotes.Company;
+import stockQuotes.GoogleFinance;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -39,7 +44,7 @@ public class BrokerREST extends HttpServlet {
         // Set header
         response.setContentType("text/html");
         // Start response build
-        String success = "true";
+        Boolean success = true;
 
         // Get parameters
         String ticker = request.getParameter("ticker");
@@ -48,7 +53,7 @@ public class BrokerREST extends HttpServlet {
         String custJson = URLDecoder.decode(request.getParameter("customer"), "UTF-8");
 
         PrintWriter out = response.getWriter();
-        Customer customer;
+        Customer customer = null;
         String data = null;
         // Try rebuild customer object
         try {
@@ -56,15 +61,37 @@ public class BrokerREST extends HttpServlet {
             customer = mapper.readValue(custJson, Customer.class);
             data = customer.getName();
         } catch(Exception e) {
-            success = "false";
+            success = false;
         }
 
         if(ticker == null || type == null || qty == null) {
-            success = "false";
+            success = false;
         }
 
+        // Pass on data to exchange
+        // TODO routing
+
+
+        if(success) {
+            ShareItem toBuy = new ShareItem();
+            toBuy.setBusinessSymbol(ticker);
+            toBuy.setQuantity(Integer.parseInt(qty));
+            WebServices.ExchangeClientServices.ShareType shareType =
+                    WebServices.ExchangeClientServices.ShareType.fromValue(type);
+
+            String price = new GoogleFinance().getStock(new Company(ticker, new stockQuotes.Exchange("NASDAQ")));
+
+            toBuy.setUnitPrice(Float.parseFloat(price));
+
+            WebServices.ExchangeClientServices.Customer newCust =
+                    new WebServices.ExchangeClientServices.Customer(customer);
+
+            ExchangeWSImplService service = new ExchangeWSImplService();
+            IExchange iExchange = service.getExchangeWSImplPort();
+            success = iExchange.sellShareService(toBuy, newCust);
+        }
         // Return response
-        out.println("{'success':'"+success+"', 'data': '"+ data+"'}");
+        out.println("{'success':'"+success.toString() +"', 'data': '"+ data+"'}");
 
     }
 
