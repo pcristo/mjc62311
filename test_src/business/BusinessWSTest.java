@@ -27,7 +27,9 @@ public class BusinessWSTest {
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		BusinessWSPublisher.load();
+		BusinessWSPublisher.createBusiness(stock);
+		BusinessWSPublisher.StartAllWebservices();
+		BusinessWSPublisher.RegisterAllWithExchange();
 	}
 
 	@AfterClass

@@ -1,10 +1,14 @@
 package business;
 
+import business.WSClient.BusinessWSImplService;
 import common.logger.LoggerClient;
+import common.share.ShareType;
 import common.util.Config;
 
 import javax.xml.ws.Endpoint;
 import javax.xml.ws.WebServiceFeature;
+
+import stockexchange.exchange.ExchangeWSImpl;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -17,23 +21,24 @@ import java.util.List;
  * by the stock symbol. For example, http://mywebsite.net/WS/YHOO
  */
 public class BusinessWSPublisher {
-	private static Hashtable<String, BusinessWSImpl> businessDirectory;
+	private static Hashtable<String, BusinessWSImpl> businessDirectory = new Hashtable<String, BusinessWSImpl>();
 	private static List<Endpoint> endpoints = new ArrayList<Endpoint>();
 	
+	/**
+	 * Adds a business to the server's directory of businesses. Once the list 
+	 * is fully populated, call StartAllWebservices() followed by RegisterAllWithExchange() 
+	 * to establish the business and accept orders.
+	 * @param stockSymbol
+	 */
+	public static void createBusiness(String stockSymbol) {
+		businessDirectory.put(stockSymbol, new BusinessWSImpl(stockSymbol));
+	}
 	
 	/**
-	 * Creates webservice connection points for four businesses
+	 * Starts all web services listed in the business directory
 	 */
-	public static void main(String[] args) {		
-		businessDirectory = new Hashtable<String, BusinessWSImpl>();
-		
-		businessDirectory.put("YHOO", new BusinessWSImpl("YHOO"));
-		businessDirectory.put("MSFT", new BusinessWSImpl("MSFT"));
-		businessDirectory.put("AAPL", new BusinessWSImpl("AAPL"));
-		businessDirectory.put("GOOG", new BusinessWSImpl("GOOG"));
-		
+	public static void StartAllWebservices() {
 		String endpointPrefix = Config.getInstance().getAttr("BusinessEndpointPrefix");
-		
 		LoggerClient.log("Starting Business webservices...");	
 		
 		for(String k : businessDirectory.keySet()) {
@@ -52,16 +57,44 @@ public class BusinessWSPublisher {
 	}
 	
 	/**
-	 * Sets up webservices for all businesses
+	 * Registers all businesses in the directory with an exchange
 	 */
-	public static void load() {
-		main(null);
+	public static void RegisterAllWithExchange() {
+		ExchangeWSImpl exchange = new ExchangeWSImpl();
+		
+		for(String stock : businessDirectory.keySet()) {
+			LoggerClient.log("Registering with exchange...");	
+			
+			float price = businessDirectory.get(stock).getShareInfo(ShareType.COMMON).getUnitPrice();
+					
+			try {
+				exchange.registerBusiness(stock, price);
+			}
+			catch (Exception ex) {
+				LoggerClient.log("\tFailed to register " + stock + " with exchange.\n\t" + 
+						ex.getMessage());
+			}
+			LoggerClient.log("Registered " + stock + " with exchange at " + price);
+		}		
 	}
 	
 	/**
-	 * Closes the connections for all business webservices	
+	 * Closes the connections for all business web services	
 	 */
 	public synchronized static void unload() {
+		ExchangeWSImpl exchange = new ExchangeWSImpl();
+				
+		for(String stock : businessDirectory.keySet()) {
+			try {
+				exchange.unregister(stock);
+				LoggerClient.log("Unregistered a stock.");
+			}
+			catch (Exception ex) {
+				LoggerClient.log("Failed to unregister a stock: " + ex.getMessage());
+			}
+			
+		}
+		
 		for(Endpoint e : endpoints) {
 			try {
 				e.stop();
