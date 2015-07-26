@@ -32,6 +32,9 @@ public class ShareOrder extends Share implements Serializable  {
 		setUnitPriceOrder(unitPriceOrder);		
 	}
 	
+	public ShareOrder() {		
+	}
+	
 	public String getOrderNum() {
 		return orderNum;
 	}
@@ -62,5 +65,26 @@ public class ShareOrder extends Share implements Serializable  {
 
 	public void setUnitPriceOrder(float unitPrice) {
 		this.unitPriceOrder = unitPrice;
+	}
+
+	/**
+	 * Cast this object to a WSClient.ShareOrder object 
+	 * @return
+	 */
+	public business.WSClient.ShareOrder toClientWS() {
+		business.WSClient.ShareOrder aSO = new business.WSClient.ShareOrder();
+		
+		aSO.setBrokerRef(this.getBrokerRef());
+		aSO.setBusinessSymbol(this.getBusinessSymbol());
+		aSO.setOrderNum(this.getOrderNum());
+		aSO.setQuantity(this.getQuantity());
+		aSO.setUnitPrice(this.getUnitPrice());
+		aSO.setUnitPriceOrder(this.getUnitPriceOrder());
+		
+		business.WSClient.ShareType ST = business.WSClient.ShareType.fromValue(this.getShareType().toString());
+		
+		aSO.setShareType(ST);	
+		
+		return aSO;
 	}	
 }

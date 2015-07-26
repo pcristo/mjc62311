@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlType;
  * </pre>
  * 
  */
-@XmlType(name = "shareType")
+@XmlType(name = "shareTypews")
 @XmlEnum
 public enum ShareType {
 
@@ -36,5 +36,4 @@ public enum ShareType {
     public static ShareType fromValue(String v) {
         return valueOf(v);
     }
-
 }
