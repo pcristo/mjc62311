@@ -25,7 +25,7 @@ public class IntegrationTest {
 	
     private void startServers(boolean exchange, boolean business, boolean broker) {
         if(business) {
-            BusinessWSPublisher.main(null);
+          BusinessWSPublisher.StartAllWebservices();
         }
        /* if(broker){
             threads.add(BrokerServer.launch());
@@ -34,7 +34,7 @@ public class IntegrationTest {
 
     /**
      *
-     * @param threads ArrayList of threads currently running and to be stopped
+     * @param ArrayList of threads currently running and to be stopped
      */
     private void stopServers() {
         BusinessWSPublisher.unload();

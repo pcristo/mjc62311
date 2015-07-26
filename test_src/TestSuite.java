@@ -2,12 +2,10 @@ import business.BusinessTest;
 import common.logger.LoggerServer;
 import common.logger.LoggerTest;
 import common.util.ConfigTest;
-
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
-
 import stockQuotes.GoogleFinanceTest;
 import stockexchange.broker.BrokerTest;
 import stockexchange.exchange.ExchangeTest;
