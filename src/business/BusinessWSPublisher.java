@@ -1,13 +1,10 @@
 package business;
 
-import business.WSClient.BusinessWSImplService;
 import common.logger.LoggerClient;
 import common.share.ShareType;
 import common.util.Config;
 
 import javax.xml.ws.Endpoint;
-import javax.xml.ws.WebServiceFeature;
-
 import stockexchange.exchange.ExchangeWSImpl;
 
 import java.util.ArrayList;
@@ -15,10 +12,9 @@ import java.util.Hashtable;
 import java.util.List;
 
 
-/*
- * Launch the main() of this class to publish four businesses to the web at 
- * address specified by BusinessEndpointPrefix in the config.json file, followed 
- * by the stock symbol. For example, http://mywebsite.net/WS/YHOO
+/**
+ * Convenience class that allows businesses to be launched easily and without 
+ * replicating code. 
  */
 public class BusinessWSPublisher {
 	private static Hashtable<String, BusinessWSImpl> businessDirectory = new Hashtable<String, BusinessWSImpl>();
