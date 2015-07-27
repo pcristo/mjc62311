@@ -62,7 +62,7 @@ public class BusinessWSPublisher {
 	 * @throws Exception 
 	 */
 	public static void RegisterAllWithExchange() throws Exception {
-		ExchangeWSImplService exchangews = new ExchangeWSImplService();
+		ExchangeWSImplService exchangews = new ExchangeWSImplService("TSX");
 		IExchange exchange = exchangews.getExchangeWSImplPort();		
 		
 		if (businessDirectory.size() == 0)
@@ -87,8 +87,8 @@ public class BusinessWSPublisher {
 	/**
 	 * Closes the connections for all business web services	
 	 */
-	public synchronized static void unload() {
-		ExchangeWSImplService exchangews = new ExchangeWSImplService();
+	public synchronized static void unload() throws Exception{
+		ExchangeWSImplService exchangews = new ExchangeWSImplService("TSX");
 		IExchange exchange = exchangews.getExchangeWSImplPort();	
 				
 		for(String stock : businessDirectory.keySet()) {

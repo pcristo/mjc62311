@@ -13,49 +13,19 @@ import java.net.URL;
  * Generated source version: 2.2
  * 
  */
-@WebServiceClient(name = "ExchangeWSImplService", targetNamespace = "http://exchange.stockexchange/", wsdlLocation = "http://localhost:8888/WS/TSX?wsdl")
-public class ExchangeWSImplService
-    extends Service
+@WebServiceClient(name = "", targetNamespace = "", wsdlLocation = "")
+public class ExchangeWSImplService extends Service
 {
 
-    private final static URL EXCHANGEWSIMPLSERVICE_WSDL_LOCATION;
-    private final static WebServiceException EXCHANGEWSIMPLSERVICE_EXCEPTION;
-    private final static QName EXCHANGEWSIMPLSERVICE_QNAME = new QName("http://exchange.stockexchange/", "ExchangeWSImplService");
-
-    static {
-        URL url = null;
-        WebServiceException e = null;
-        try {
-            url = new URL("http://localhost:8888/WS/TSX?wsdl");
-        } catch (MalformedURLException ex) {
-            e = new WebServiceException(ex);
-        }
-        EXCHANGEWSIMPLSERVICE_WSDL_LOCATION = url;
-        EXCHANGEWSIMPLSERVICE_EXCEPTION = e;
-    }
-
-    public ExchangeWSImplService() {
-        super(__getWsdlLocation(), EXCHANGEWSIMPLSERVICE_QNAME);
-    }
-
-    public ExchangeWSImplService(WebServiceFeature... features) {
-        super(__getWsdlLocation(), EXCHANGEWSIMPLSERVICE_QNAME, features);
-    }
-
-    public ExchangeWSImplService(URL wsdlLocation) {
-        super(wsdlLocation, EXCHANGEWSIMPLSERVICE_QNAME);
-    }
-
-    public ExchangeWSImplService(URL wsdlLocation, WebServiceFeature... features) {
-        super(wsdlLocation, EXCHANGEWSIMPLSERVICE_QNAME, features);
-    }
-
-    public ExchangeWSImplService(URL wsdlLocation, QName serviceName) {
-        super(wsdlLocation, serviceName);
-    }
-
-    public ExchangeWSImplService(URL wsdlLocation, QName serviceName, WebServiceFeature... features) {
-        super(wsdlLocation, serviceName, features);
+    /**
+     * This is the only constructor supported for the Business implementation. You must specify a stock
+     * symbol when creating your interface object.
+     * @param exchangeName
+     * @throws MalformedURLException
+     */
+    public ExchangeWSImplService(String exchangeName) throws MalformedURLException {
+        super(new URL("http://localhost:8888/WS/" + exchangeName + "?wsdl"),
+                new QName("http://business/", "BusinessWSImplService"));
     }
 
     /**
@@ -79,12 +49,4 @@ public class ExchangeWSImplService
     public IExchange getExchangeWSImplPort(WebServiceFeature... features) {
         return super.getPort(new QName("http://exchange.stockexchange/", "ExchangeWSImplPort"), IExchange.class, features);
     }
-
-    private static URL __getWsdlLocation() {
-        if (EXCHANGEWSIMPLSERVICE_EXCEPTION!= null) {
-            throw EXCHANGEWSIMPLSERVICE_EXCEPTION;
-        }
-        return EXCHANGEWSIMPLSERVICE_WSDL_LOCATION;
-    }
-
 }

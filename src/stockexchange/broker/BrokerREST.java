@@ -87,7 +87,7 @@ public class BrokerREST extends HttpServlet {
             WebServices.ExchangeClientServices.Customer newCust =
                     new WebServices.ExchangeClientServices.Customer(customer);
 
-            ExchangeWSImplService service = new ExchangeWSImplService();
+            ExchangeWSImplService service = new ExchangeWSImplService("TSX");
             IExchange iExchange = service.getExchangeWSImplPort();
             success = iExchange.sellShareService(toBuy, newCust);
         }

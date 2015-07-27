@@ -105,7 +105,7 @@ public class IntegrationTest {
 
 
     @Test
-    public void testExchangeSellShares() {
+    public void testExchangeSellShares() throws Exception {
         ShareItem toBuy = new ShareItem();
         toBuy.setBusinessSymbol("GOOG");
         toBuy.setQuantity(100);
@@ -115,7 +115,7 @@ public class IntegrationTest {
         WebServices.ExchangeClientServices.Customer newCust = new WebServices.ExchangeClientServices.Customer();
         newCust.setName("Gay");
 
-        ExchangeWSImplService service = new ExchangeWSImplService();
+        ExchangeWSImplService service = new ExchangeWSImplService("TSX");
         IExchange iExchange = service.getExchangeWSImplPort();
 
         assertTrue(iExchange.sellShareService(toBuy, newCust));
