@@ -54,8 +54,7 @@ public class LoggerServer {
 
 
     public static void main(String args[]) {
-
-        LoggerServer loggerServer = new LoggerServer();
+    	new LoggerServer();
     }
 
 }

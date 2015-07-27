@@ -12,10 +12,9 @@ import java.rmi.RemoteException;
  * server part
  */
 public class MockExchange extends Exchange {
+	private static final long serialVersionUID = 1L;
 
-
-
-    /**
+	/**
      * Create Exchange object, initializes three businesses
      *
      * @throws RemoteException

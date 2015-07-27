@@ -21,7 +21,7 @@ public class Customer implements Serializable {
     }
 
     public Customer(String name, String street1, String street2, String city, String province, String postalCode, String country) {
-        this.customerNumberCount++;
+        Customer.customerNumberCount++;
         customerReferenceNumber = customerNumberCount;
         this.name = name;
         this.street1 = street1;

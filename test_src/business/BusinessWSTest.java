@@ -5,14 +5,11 @@ import static org.junit.Assert.*;
 import java.net.MalformedURLException;
 import java.time.LocalDateTime;
 
-import javax.jws.WebMethod;
-
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import common.logger.LoggerClient;
 import common.share.ShareOrder;
 import common.share.ShareType;
 import business.WSClient.BusinessWSImplService;

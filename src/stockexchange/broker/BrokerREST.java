@@ -22,8 +22,8 @@ import java.net.URLDecoder;
 // Servlet class for a restfull broker
 public class BrokerREST extends HttpServlet {
 
-
-    Broker broker = new Broker();
+	private static final long serialVersionUID = 1L;
+	Broker broker = new Broker();
 
     @Override
     protected void doGet(HttpServletRequest request,
@@ -76,8 +76,9 @@ public class BrokerREST extends HttpServlet {
             ShareItem toBuy = new ShareItem();
             toBuy.setBusinessSymbol(ticker);
             toBuy.setQuantity(Integer.parseInt(qty));
-            WebServices.ExchangeClientServices.ShareType shareType =
-                    WebServices.ExchangeClientServices.ShareType.fromValue(type);
+            // Variable is not used, so commented out.
+            //WebServices.ExchangeClientServices.ShareType shareType =
+            //        WebServices.ExchangeClientServices.ShareType.fromValue(type);
 
             String price = new GoogleFinance().getStock(new Company(ticker, new stockQuotes.Exchange("NASDAQ")));
 

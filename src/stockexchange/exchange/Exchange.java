@@ -3,11 +3,9 @@ package stockexchange.exchange;
 import business.WSClient.BusinessWSImplService;
 import business.WSClient.IBusiness;
 import business.WSClient.ShareOrder;
-
 import common.Customer;
 import common.logger.LoggerClient;
 import common.share.ShareType;
-
 
 import java.io.Serializable;
 import java.rmi.NotBoundException;
@@ -229,7 +227,7 @@ public class Exchange implements IExchange, Serializable {
 			this.restock();
         //}
 
-        return  this.shareStatusSaleList;
+        return  Exchange.shareStatusSaleList;
     }
 
     /**
@@ -570,6 +568,7 @@ public class Exchange implements IExchange, Serializable {
 		}
 	}
 
+	@SuppressWarnings("unused")
 	private void addShareToTest() {
 
 		ShareItem newShares = new ShareItem("1","GOOG",ShareType.COMMON,500.00f, 1000);

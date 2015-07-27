@@ -5,8 +5,6 @@ import common.logger.LoggerClient;
 import common.logger.LoggerServer;
 import stockexchange.exchange.ExchangeWSPublisher;
 
-import java.io.IOException;
-
 /**
  * Run this class either in debug or regular mode to set up all your servers. Works on
  * all platforms.

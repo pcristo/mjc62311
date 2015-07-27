@@ -35,7 +35,8 @@ public class ExchangeTest {
     @Test
     public void testSellShares() throws Exception {
         ShareList sharelist = new ShareList(new ArrayList<ShareItem>() {
-            {add(new ShareItem("", "GOOG", ShareType.COMMON, 1000, 500));}
+			private static final long serialVersionUID = 1L;
+			{add(new ShareItem("", "GOOG", ShareType.COMMON, 1000, 500));}
             {add(new ShareItem("","GOOG", ShareType.COMMON, 800,200));}
         });
 
@@ -49,7 +50,9 @@ public class ExchangeTest {
 
         Customer customer = new Customer("Ross");
 
-        ShareList sharelist = new ShareList(new ArrayList<ShareItem>() {{
+        ShareList sharelist = new ShareList(new ArrayList<ShareItem>() {
+			private static final long serialVersionUID = 1L;
+		{
             add(new ShareItem("5", "GOOG", ShareType.COMMON, 1000, 100));
         }});
         exchange.sellShares(sharelist, customer);

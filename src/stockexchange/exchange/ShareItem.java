@@ -4,11 +4,9 @@ import common.share.Share;
 import common.share.ShareType;
 
 public class ShareItem extends Share {
-
-    private int quantity;
+	private static final long serialVersionUID = 1L;
+	private int quantity;
     private float commission;
-    private int soldShares;
-
     private String  orderNum;
 
     public ShareItem() {}
@@ -50,8 +48,6 @@ public class ShareItem extends Share {
      * @param numberSold
      */
     public void setSoldShares(int numberSold) {
-
-        this.soldShares = numberSold;
     }
 
     public void setCommission(float comPerc) {

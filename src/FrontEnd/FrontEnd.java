@@ -69,6 +69,7 @@ public class FrontEnd {
 				}
 			}
 			System.out.println("~~~GOOD BYE~~~");
+			in.close();
 			thread.interrupt();
 			System.exit(0);
 
@@ -104,7 +105,8 @@ public class FrontEnd {
 
 		// Build param map
 		HashMap<String, String> params = new HashMap<String, String>()
-		{{
+		{	private static final long serialVersionUID = 1L;
+		{
 			put("ticker", ticker);
 			put("type", type);
 			put("qty", Integer.toString(qty));

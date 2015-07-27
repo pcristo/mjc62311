@@ -63,7 +63,9 @@ public class ShareSalesStatusList implements Serializable {
         ShareItem newShare = new ShareItem(aShare.getOrderNum(),aShare.getBusinessSymbol(), aShare.getShareType(),aShare.getUnitPrice(),aShare.getQuantity());
 
         if (lstShares == null) {
-            lstShares = new ArrayList<ShareItem>(){{add(newShare);}};
+            lstShares = new ArrayList<ShareItem>(){
+				private static final long serialVersionUID = 1L;
+			{add(newShare);}};
             this.newAvShares.put(aShare.getBusinessSymbol(),lstShares);
 
         } else {

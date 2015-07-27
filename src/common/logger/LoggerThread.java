@@ -3,7 +3,6 @@ package common.logger;
 import common.util.Config;
 
 import java.io.*;
-import java.net.Socket;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -13,8 +12,9 @@ import java.util.Date;
  */
 public class LoggerThread implements Runnable {
 
-    private BufferedReader fromClient;
-    private Socket socket;
+	//Removed parameters are not used:
+    //private BufferedReader fromClient;
+    //private Socket socket;
 
     private String msg;
     private static Object fileLock = new Object();

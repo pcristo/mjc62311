@@ -80,7 +80,9 @@ public class IntegrationTest {
         // Now make valid request with all the params
         String name = "Ross";
         Customer ross = new Customer(name);
-        data = Rest.getPost(url, new HashMap<String, String>() {{
+        data = Rest.getPost(url, new HashMap<String, String>() {
+			private static final long serialVersionUID = 1L;
+		{
             put("ticker", "GOOG");
             put("type", "COMMON");
             put("qty", "34");
