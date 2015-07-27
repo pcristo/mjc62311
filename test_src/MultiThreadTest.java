@@ -1,14 +1,9 @@
-import FrontEnd.projectLauncher;
-import WebServices.ExchangeClientServices.ExchangeWSImplService;
-import WebServices.ExchangeClientServices.IExchange;
 import business.BusinessWSPublisher;
+import common.Customer;
 import common.logger.LoggerClient;
-
+import common.share.ShareType;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
-import common.share.ShareType;
-import common.util.Config;
 import stockexchange.broker.Broker;
 import stockexchange.exchange.ExchangeWSPublisher;
 import stockexchange.exchange.ShareItem;
@@ -17,7 +12,6 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
 public class MultiThreadTest {
 	final static int NUMBER_OF_TEST_THREADS = 15;
@@ -80,7 +74,8 @@ public class MultiThreadTest {
 
 	private void DummyClient(String customer) {
 		Broker broker = new Broker();
-		
+
+		Customer c = new Customer(customer);
 		log("Starting dummy client " + customer);
 
 		List<ShareItem> lstShares = new ArrayList<ShareItem>();
@@ -96,20 +91,21 @@ public class MultiThreadTest {
 		lstShares.add(new ShareItem("", "BADD", ShareType.COMMON, 543.67f, 100));		// bad symbol
 
 
-		// Create a customer
-		int customerNumber = broker.registerCustomer("", "", "", "", "", "");
-		log("Broker service found for test customer " + customer + " with ID " + customerNumber);
-
 		for (int i = 0; i < NUMBER_OF_TRANSACTIONS_PER_THREAD; i++) {
 			int shareIndex = (int) Math.floor(Math.random()
 					* lstShares.size());
 
 			// Make a transaction
 
-			if (!broker.sellShares(lstShares.get(shareIndex)
-					.getBusinessSymbol(), lstShares.get(shareIndex)
-					.getShareType().toString(), lstShares.get(shareIndex)
-					.getQuantity(), customerNumber)) {
+//			if (!broker.sellShares(lstShares.get(shareIndex)
+//					.getBusinessSymbol(), lstShares.get(shareIndex)
+//					.getShareType().toString(), lstShares.get(shareIndex)
+//					.getQuantity(), customerNumber)) {
+
+				ArrayList<String> tickers = new ArrayList<>();
+				ShareItem item = lstShares.get(shareIndex);
+				tickers.add(item.getBusinessSymbol());
+				if(broker.sellShares(tickers, item.getShareType(), item.getQuantity(), c)) {
 				log("Client " + customer + " failed to purchase "
 						+ lstShares.get(shareIndex).getQuantity() + " "
 						+ lstShares.get(shareIndex).getShareType()
