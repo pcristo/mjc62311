@@ -36,7 +36,7 @@ public class BusinessWSPublisher {
 	 * @throws Exception 
 	 */
 	public static void StartAllWebservices() throws Exception {
-		String endpointPrefix = Config.getInstance().getAttr("BusinessEndpointPrefix");
+		String endpointPrefix = Config.getInstance().getAttr("BusinessEndpointPrefix", true);
 		LoggerClient.log("Starting Business webservices...");	
 		
 		if (businessDirectory.size() == 0)

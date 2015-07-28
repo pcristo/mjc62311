@@ -33,7 +33,7 @@ public class IntegrationTest {
 
 
     @Before
-    public void setUp() throws Exception{
+    public void setUp() throws Exception {
         startServers();
     }
 
@@ -47,7 +47,8 @@ public class IntegrationTest {
      */
     private void startServers() throws Exception {
         ExchangeWSPublisher.main(null);
-        
+
+
 		BusinessWSPublisher.createBusiness("GOOG");
 		BusinessWSPublisher.createBusiness("YHOO");
 		BusinessWSPublisher.createBusiness("AAPL");

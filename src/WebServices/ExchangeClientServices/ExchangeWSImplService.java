@@ -25,7 +25,7 @@ public class ExchangeWSImplService extends Service
      */
     public ExchangeWSImplService(String exchangeName) throws MalformedURLException {
         super(new URL("http://localhost:8888/WS/" + exchangeName + "?wsdl"),
-                new QName("http://business/", "BusinessWSImplService"));
+                new QName("http://exchange.stockexchange/", "ExchangeWSImplService"));
     }
 
     /**
