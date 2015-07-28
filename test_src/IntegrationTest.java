@@ -38,7 +38,7 @@ public class IntegrationTest {
     }
 
     @After
-    public void tearDown() {
+    public void tearDown() throws Exception {
         stopServers();
     }
     /**
@@ -58,8 +58,9 @@ public class IntegrationTest {
 
     /**
      * Stop the servers
+     * @throws Exception 
      */
-    private void stopServers() {
+    private void stopServers() throws Exception {
         ExchangeWSPublisher.unload();
         BusinessWSPublisher.unload();
     }
