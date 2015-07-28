@@ -2,14 +2,18 @@ import business.BusinessWSPublisher;
 import common.Customer;
 import common.logger.LoggerClient;
 import common.share.ShareType;
+
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
 import stockexchange.broker.Broker;
 import stockexchange.exchange.ExchangeWSPublisher;
 import stockexchange.exchange.ShareItem;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +32,16 @@ public class MultiThreadTest {
 		BusinessWSPublisher.createBusiness("MSFT");
         BusinessWSPublisher.StartAllWebservices();
         BusinessWSPublisher.RegisterAllWithExchange();      
+        
+        System.out.println("Started: " + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS"));
+	}
+	
+	@AfterClass
+	public static void tearDown() throws Exception {
+        System.out.println("Ended: " + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS"));
+        
+		ExchangeWSPublisher.unload();
+		BusinessWSPublisher.unload();
 	}
 
 	@Test
