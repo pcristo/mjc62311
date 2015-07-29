@@ -8,7 +8,7 @@
 
     <servlet-mapping>
         <servlet-name>BrokerREST</servlet-name>
-        <url-pattern>/BrokerREST</url-pattern>
+        <url-pattern>/buyShares</url-pattern>
     </servlet-mapping>
 
 

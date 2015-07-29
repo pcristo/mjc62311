@@ -78,7 +78,8 @@ Save the file.
 2. From the project source files, copy the contents of the './resources/jar' folder into lib
 3. Copy the contents of the './out/' folder into classes
 4. Copy web.xml from the root directory into WEB-INF
-5. Restart Tomcat
+5. If wanting to view servlet debug, set "restDebugFile" in config.json to an output file
+6. Restart Tomcat
 
 
 ### 2.3 - Run JUnit Tests
