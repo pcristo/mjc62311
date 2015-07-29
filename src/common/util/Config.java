@@ -65,6 +65,8 @@ public class Config {
             if(raw) {
                 return attribute;
             } else {
+            	if (attribute.startsWith("http"))
+            		return attribute;
                 return attribute.replace("/", File.separator);
             }
         } catch(org.json.JSONException joe) {

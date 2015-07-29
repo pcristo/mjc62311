@@ -61,14 +61,15 @@ public class BusinessWSPublisher {
 	 * @throws Exception 
 	 */
 	public static void RegisterAllWithExchange() throws Exception {
-		ExchangeWSImplService exchangews = new ExchangeWSImplService("TSX");
-		IExchange exchange = exchangews.getExchangeWSImplPort();		
-		
 		if (businessDirectory.size() == 0)
 			throw new Exception("No businesses in the directory. Did you call createBuisness()?");
 		
 		for(String stock : businessDirectory.keySet()) {
-			LoggerClient.log("Registering with exchange...");	
+			String exchangeName = Config.getInstance().getAttr(stock + "sx");
+			ExchangeWSImplService exchangews = new ExchangeWSImplService(exchangeName);
+			IExchange exchange = exchangews.getExchangeWSImplPort();		
+			
+			LoggerClient.log("Registering " + stock + " with exchange " + exchangeName + "...");	
 			
 			float price = businessDirectory.get(stock).getShareInfo(ShareType.COMMON).getUnitPrice();
 					
@@ -110,5 +111,8 @@ public class BusinessWSPublisher {
 				LoggerClient.log("Failed to stop a webservice.");
 			}
 		}
+		
+		businessDirectory.clear();
+		endpoints.clear();
 	}
 }

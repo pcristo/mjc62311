@@ -14,7 +14,11 @@
   "loggingDisabled": "true",
 
   "BusinessEndpointPrefix": "http://localhost:18001/WS/",
-
+  "YHOOsx": "NASDAQ",
+  "MSFTsx": "NASDAQ",
+  "GOOGsx": "TSX",
+  "AAPLsx": "TSX",
+  
   "YHOO": "yahoo_data.csv",
   "MSFT": "microsoft_data.csv",
   "GOOG": "google_data.csv",

@@ -52,7 +52,8 @@ public class ExchangeWSPublisher {
                 LoggerClient.log("Failed to stop an endpoint.");
             }
         }
+        
+        endpoints.clear();
+        publishedEndpoints.clear();
     }
-
-
 }
