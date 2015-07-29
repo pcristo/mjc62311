@@ -26,7 +26,7 @@
   
   "GoogleFinanceEnabled": "true",
 
-  "BrokerRest": "http://localhost:8080/project/BrokerREST",
+  "BrokerRest": "http://localhost:8080/project/buyShares",
 
   "restDebugFile": "C:/Users/Ross/Dropbox/Distributed_Systems/project/out/DEBUG BROKER REST.txt",
 
