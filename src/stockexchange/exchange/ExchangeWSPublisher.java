@@ -44,6 +44,7 @@ public class ExchangeWSPublisher {
     public synchronized static void unload() {
         for(Endpoint e : publishedEndpoints) {
             try {
+                System.out.println("Stopping " + e.toString());
                 endpoints.remove(e);
                 e.stop();
             }

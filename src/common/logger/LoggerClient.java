@@ -15,6 +15,11 @@ import java.net.UnknownHostException;
  */
 public class LoggerClient {
 
+    static boolean printToScreen = true;
+    public static void setPrintToScreen(boolean b) {
+        printToScreen = b;
+    }
+
     /**
      * Classname is prefixed to the message being sent to the logging server
      * Log the message to the log server
@@ -36,8 +41,9 @@ public class LoggerClient {
      */
     public static boolean log(String msg, String className) {
     	msg = className + " :: " + msg;
-    	System.out.println(msg);
-
+        if(printToScreen) {
+            System.out.println(msg);
+        }
     	// handle the case where logging has been disabled
     	if (Config.getInstance().getAttr("loggingDisabled").equals("true"))
     		return true;

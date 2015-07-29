@@ -36,6 +36,8 @@ public class FrontEnd {
 			// Wait until servers are up and running
 			Thread.sleep(5000);
 
+			LoggerClient.setPrintToScreen(false);
+
 			Scanner in = new Scanner(System.in);
 			int menuIn = 0;
 			while(menuIn != 9) {
@@ -71,6 +73,7 @@ public class FrontEnd {
 			System.out.println("~~~GOOD BYE~~~");
 			in.close();
 			thread.interrupt();
+			LoggerClient.setPrintToScreen(true);
 			System.exit(0);
 
 		} catch (Exception e) {
@@ -134,10 +137,18 @@ public class FrontEnd {
 		String yhooPrice = gf.getStock(new Company("MSFT", new stockQuotes.Exchange("NASDAQ")));
 		String msftPrice = gf.getStock(new Company("YHOO", new stockQuotes.Exchange("NASDAQ")));
 
-		System.out.println("[GOOG: " + googPrice + "]");
-		System.out.println("[AAPL: " + aaplPrice + "]");
-		System.out.println("[YHOO: " + yhooPrice + "]");
-		System.out.println("[MSFT: " + msftPrice + "]");
+		if (aaplPrice != null && googPrice != null
+				&& yhooPrice != null && msftPrice != null
+				&& !aaplPrice.isEmpty() && !googPrice.isEmpty()
+				&& !yhooPrice.isEmpty() && !msftPrice.isEmpty()) {
+
+			System.out.println("[GOOG: " + googPrice + "]");
+			System.out.println("[AAPL: " + aaplPrice + "]");
+			System.out.println("[YHOO: " + yhooPrice + "]");
+			System.out.println("[MSFT: " + msftPrice + "]");
+		} else {
+			System.out.println("Sorry -- Google Finance is denying you concurrent access to stocks.");
+		}
 	}
 
 

@@ -1,13 +1,12 @@
 package business;
 
+import WebServices.ExchangeClientServices.ExchangeWSImplService;
+import WebServices.ExchangeClientServices.IExchange;
 import common.logger.LoggerClient;
 import common.share.ShareType;
 import common.util.Config;
-import WebServices.ExchangeClientServices.ExchangeWSImplService;
-import WebServices.ExchangeClientServices.IExchange;
 
 import javax.xml.ws.Endpoint;
-
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
@@ -101,7 +100,7 @@ public class BusinessWSPublisher {
 			}
 			
 		}
-		
+
 		for(Endpoint e : endpoints) {
 			try {
 				e.stop();

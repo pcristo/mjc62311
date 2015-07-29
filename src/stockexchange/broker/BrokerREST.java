@@ -68,8 +68,6 @@ public class BrokerREST extends HttpServlet {
             success = false;
         }
 
-        // Pass on data to exchange
-        // TODO routing
 
 
         if(success) {
@@ -81,15 +79,30 @@ public class BrokerREST extends HttpServlet {
             //        WebServices.ExchangeClientServices.ShareType.fromValue(type);
 
             String price = new GoogleFinance().getStock(new Company(ticker, new stockQuotes.Exchange("NASDAQ")));
-
+            if(price == null || price.isEmpty()) {
+                price = "500f";
+            }
             toBuy.setUnitPrice(Float.parseFloat(price));
+
+
 
             WebServices.ExchangeClientServices.Customer newCust =
                     new WebServices.ExchangeClientServices.Customer(customer);
 
-            ExchangeWSImplService service = new ExchangeWSImplService("TSX");
-            IExchange iExchange = service.getExchangeWSImplPort();
-            success = iExchange.sellShareService(toBuy, newCust);
+            // Routing
+            ExchangeWSImplService service = null;
+            if(ticker.equals("AAPL") || ticker.equals("GOOG")) {
+                service = new ExchangeWSImplService("TSX");
+            } else if(ticker.equals("MSFT") || ticker.equals("YHOO")) {
+                service = new ExchangeWSImplService("NASDAQ");
+            } else {
+                success = false;
+            }
+
+            if(success) {
+                IExchange iExchange = service.getExchangeWSImplPort();
+                success = iExchange.sellShareService(toBuy, newCust);
+            }
         }
         // Return response
         out.println("{'success':'"+success.toString() +"', 'data': '"+ data+"'}");
