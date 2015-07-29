@@ -101,6 +101,10 @@ public class IntegrationTest {
     public void testFESellShares() {
         boolean result = FrontEnd.sellShares("GOOG", "COMMON", 500, new Customer("Ross"));
         assertTrue(result);
+
+
+        result = FrontEnd.sellShares("YHOO", "COMMON", 500, new Customer("Ross"));
+        assertTrue(result);
     }
 
 

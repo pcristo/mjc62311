@@ -28,6 +28,8 @@
 
   "BrokerRest": "http://localhost:8080/project/BrokerREST",
 
+  "restDebugFile": "C:/Users/Ross/Dropbox/Distributed_Systems/project/out/DEBUG BROKER REST.txt",
+
   "macLogServerHome": "/Users/Gay/Documents/Concordia/COMP6231/PROJECT/mjc62311",
   "macSecurity": "/resources/settings/security.policy"
 }
