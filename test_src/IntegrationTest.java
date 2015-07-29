@@ -6,12 +6,10 @@ import WebServices.Rest;
 import business.BusinessWSPublisher;
 import common.Customer;
 import common.util.Config;
-
 import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
 import stockexchange.exchange.ExchangeWSPublisher;
 
 import java.util.HashMap;
@@ -31,6 +29,7 @@ import static org.junit.Assert.assertEquals;
  */
 public class IntegrationTest {
 
+    Thread thread;
 
     @Before
     public void setUp() throws Exception {
@@ -46,7 +45,21 @@ public class IntegrationTest {
      * @throws Exception 
      */
     private void startServers() throws Exception {
-        ExchangeWSPublisher.main(null);
+        thread = new Thread() {
+            public void run() {
+                try {
+                    ExchangeWSPublisher.main(null);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        thread.start();
+        try {
+            Thread.sleep(1000);
+        } catch(Exception e){
+            e.printStackTrace();
+        }
         BusinessWSPublisher.createBusiness("GOOG");
 		BusinessWSPublisher.createBusiness("YHOO");
 		BusinessWSPublisher.createBusiness("AAPL");
@@ -60,8 +73,10 @@ public class IntegrationTest {
      * @throws Exception 
      */
     private void stopServers() throws Exception {
-        ExchangeWSPublisher.unload();
+       // ExchangeWSPublisher.unload();
         BusinessWSPublisher.unload();
+
+        thread.interrupt();
     }
 
     @Test
