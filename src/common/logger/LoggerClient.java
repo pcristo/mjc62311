@@ -45,9 +45,9 @@ public class LoggerClient {
             System.out.println(msg);
         }
     	// handle the case where logging has been disabled
-    	if (Config.getInstance().getAttr("loggingDisabled").equals("true"))
-    		return true;
-    	
+    	if (Config.getInstance().getAttr("loggingDisabled").equals("true")) {
+            return true;
+        }
     	// look up the logger server
     	Config c = Config.getInstance();
         String ip = c.getAttr("logServerIP");
@@ -81,7 +81,6 @@ public class LoggerClient {
      * @return
      */
     public static boolean sendMessage(String msg, String ip, int port, int attempts) {
-
     	try {
             DatagramSocket clientSocket = new DatagramSocket();
             clientSocket.setSoTimeout(2500);

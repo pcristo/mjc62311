@@ -11,7 +11,7 @@
   "logServerPort": "19083",
   "logServerUsername": "root",
   "logServerPassword": "",
-  "loggingDisabled": "true",
+  "loggingDisabled": "false",
 
   "BusinessEndpointPrefix": "http://localhost:18001/WS/",
   "YHOOsx": "NASDAQ",
