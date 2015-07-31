@@ -107,7 +107,7 @@ public class IntegrationTest {
         assertNotNull(data);
         // BrokerRest returns customers name in data
         assertEquals(name, data);
-
+        
     }
 
 

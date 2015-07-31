@@ -1,0 +1,1854 @@
+commit e6c118cc938685093b0bae40b166343ba74ed282
+Author: Ross <rbrsmith@gmail.com>
+Date:   Wed Jul 29 19:43:06 2015 -0400
+
+    Turned logging back on for deliverable
+
+commit 8a2ead5fcfd118ef948d220e8f4a5f0cb145f243
+Author: Ross <rbrsmith@gmail.com>
+Date:   Wed Jul 29 19:32:39 2015 -0400
+
+    Moved WSPublisher to a seperate thread, this solved the issue of it failing during test suite after i remove unload call from stop server...so issue is with unload call if anyone wants to debug further, right now this runs
+
+commit f3dc48dc9a1d40c25b74d90a72419789926afca4
+Author: Ross <rbrsmith@gmail.com>
+Date:   Wed Jul 29 19:14:26 2015 -0400
+
+    See previous commit
+
+commit c9639df3664b57168be937a42c7eae9baee57312
+Author: Ross <rbrsmith@gmail.com>
+Date:   Wed Jul 29 19:13:37 2015 -0400
+
+    Changes restFul service path so it matcches rest principles, updated README
+
+commit bc5023d15fd34deb13becb22ab6f5562c5486ba2
+Author: Ross <rbrsmith@gmail.com>
+Date:   Tue Jul 28 21:24:39 2015 -0400
+
+    Added extra file for restful debug
+
+commit ec60647cf18be4311a49a853190d092727b5dcc5
+Author: Patrick <patrick@cristofaro.net>
+Date:   Tue Jul 28 20:38:37 2015 -0400
+
+    Multi exchange to business
+
+commit 208f67665cf414976354f0089b3d44f16d5acaef
+Author: Ross <rbrsmith@gmail.com>
+Date:   Tue Jul 28 20:33:01 2015 -0400
+
+    More Changes
+
+commit 6cc6e775ef3aff0777ce1c503f11303105049ec6
+Author: Ross <rbrsmith@gmail.com>
+Date:   Tue Jul 28 19:53:00 2015 -0400
+
+    Some CHAnges
+
+commit 3c9605a327ce5bf23b00823d9f11b1a32e3f1223
+Author: Patrick <patrick@cristofaro.net>
+Date:   Tue Jul 28 13:06:20 2015 -0400
+
+    Completed documentation
+    added timer to multithreadtest
+
+commit fe34642d72eed922a7100db28a8350e2d5ffc113
+Author: patrick <patrick@SchoolBox-Ubuntu>
+Date:   Mon Jul 27 22:12:05 2015 -0400
+
+    UML for documentation
+
+commit 03e26b2b98ef01a54eb2e2921bcce74623bdfc86
+Author: Ross <rbrsmith@gmail.com>
+Date:   Mon Jul 27 18:26:40 2015 -0400
+
+    Fixed changed broker calls...
+
+commit d896e877ae9edccd3e0b08d41ca5203b8b570955
+Author: Gay Hazan <gay.hazan@gmail.com>
+Date:   Mon Jul 27 13:37:11 2015 -0400
+
+    Exchange Service Implementation now takes a String to specify an exchange : TSX , NASDAQ
+
+commit 66c1593feb8a0dcf425a13796c04168c36ef6b1e
+Author: Patrick <patrick@cristofaro.net>
+Date:   Mon Jul 27 09:51:26 2015 -0400
+
+    More doc updates
+
+commit 08242a559183bc68b8a6b1b854058e4208e8469e
+Author: patrick <patrick@SchoolBox-Ubuntu>
+Date:   Mon Jul 27 08:25:43 2015 -0400
+
+    Doc update
+
+commit 19d024664a64644c759e0f703c7463e4358cb374
+Author: patrick <patrick@SchoolBox-Ubuntu>
+Date:   Sun Jul 26 20:05:55 2015 -0400
+
+    Remove all warnings (Improvement).
+    Trying to fix the multithread test.
+
+commit f4d99de44e8a01f164e60d4131c42d612dc2eae2
+Author: patrick <patrick@SchoolBox-Ubuntu>
+Date:   Sun Jul 26 18:00:36 2015 -0400
+
+    Update README.md and update BusinessWSPublisher to use correct Exchange
+    service
+
+commit 43c5bb3a82a50c7602f939cdcd3ccba93660a3dd
+Author: patrick <patrick@SchoolBox-Ubuntu>
+Date:   Sun Jul 26 16:47:53 2015 -0400
+
+    Register businesses before starting business servers in projectLauncher
+    and IntegrationTest.
+
+commit 8532276f6026cfa29cac6ce3da9bd706139642f0
+Author: Ross <rbrsmith@gmail.com>
+Date:   Sun Jul 26 15:22:33 2015 -0400
+
+    Updated project luancher, fixed small issue in exhcange publisher, set up front end to display prices, set up brokerREST to call exchange sell shares
+
+commit 6d797f298c16d89d2c565eaf024586a7bc0f96a7
+Merge: 54af1cb be89fa2
+Author: Ross <rbrsmith@gmail.com>
+Date:   Sun Jul 26 13:46:52 2015 -0400
+
+    fix merge, fix test suite
+
+commit 54af1cbfe369259d8f79cf0103d5ff121bdaf158
+Author: Ross <rbrsmith@gmail.com>
+Date:   Sun Jul 26 13:22:48 2015 -0400
+
+    update
+
+commit be89fa202279f2e26e44447b9b30345fc0f31666
+Merge: 0440c1d e401e7e
+Author: Gay Hazan <gay.hazan@gmail.com>
+Date:   Sun Jul 26 13:22:11 2015 -0400
+
+    Merge branch 'PM3' of https://github.com/pcristo/mjc62311 into PM3
+
+commit 0440c1d2ae43414b18c7ef976f5b05fea522990b
+Author: Gay Hazan <gay.hazan@gmail.com>
+Date:   Sun Jul 26 13:20:21 2015 -0400
+
+    Successful SellShares
+
+commit e401e7e2d79a5ca0070b25d43adebfe528fc72bf
+Author: patrick <patrick@SchoolBox-Ubuntu>
+Date:   Sun Jul 26 13:03:00 2015 -0400
+
+    Fix synchronization in Exchange.issueSharesRequest (Improvement)
+
+commit c0209c5ec4e191a268e3be6d2c98f22d2bb22a2a
+Merge: bffdd87 81385eb
+Author: patrick <patrick@SchoolBox-Ubuntu>
+Date:   Sun Jul 26 12:50:25 2015 -0400
+
+    Merge remote-tracking branch 'origin/PM3' into PM3
+
+commit 3aa9074c45833d3787c23206fec5e5f65a417bc2
+Author: Ross <rbrsmith@gmail.com>
+Date:   Sun Jul 26 12:49:49 2015 -0400
+
+    Added mock business to get (non-integration) tests running again
+
+commit bffdd87881d4cdc144c271310a23a47967ad9ae0
+Author: pcristofaro <patrick@cristofaro.net>
+Date:   Sun Jul 26 12:49:39 2015 -0400
+
+    Synchronize logger on file operation instead of whole class
+    (Improvement)
+
+commit 81385eb79cde85a7baff69657dbea20ce42f188c
+Author: Ross <rbrsmith@gmail.com>
+Date:   Sun Jul 26 12:10:39 2015 -0400
+
+    Fixed missing main method in Business publisher
+
+commit e8a74fc2e86b320482541fbd2693e5754a930689
+Author: pcristofaro <patrick@cristofaro.net>
+Date:   Sun Jul 26 11:35:45 2015 -0400
+
+    Rename iExchange to IExchange (Linux is case sensitive and won't compile
+    otherwise)
+    Implement Business-to-Exchange registration through web services
+    Update test case
+
+commit fa52d2f268219d5791429e85ab70fca1481dcf58
+Author: Gay Hazan <gay.hazan@gmail.com>
+Date:   Sun Jul 26 00:22:52 2015 -0400
+
+    Fixed IML file + errors
+
+commit 4a58a261ee933dac2a4b450c2868b5a489c90cc1
+Merge: 47a6e46 bb6916d
+Author: Gay Hazan <gay.hazan@gmail.com>
+Date:   Sat Jul 25 23:48:39 2015 -0400
+
+    Merge branch 'PM3' of https://github.com/pcristo/mjc62311 into PM3
+
+commit 47a6e461116584b8e9c3bcbf06c4ac4596638f8e
+Merge: 41d736d 54e3544
+Author: Gay Hazan <gay.hazan@gmail.com>
+Date:   Sat Jul 25 23:48:25 2015 -0400
+
+    Merge branch 'PM3' of https://github.com/pcristo/mjc62311 into PM3
+    
+    Conflicts:
+    	project.iml
+    	test_src/IntegrationTest.java
+    	test_src/MultiThreadTest.java
+
+commit bb6916deeb4c87dba715dd1fbca345bc490ebc32
+Author: pcristofaro <patrick@cristofaro.net>
+Date:   Sat Jul 25 23:40:42 2015 -0400
+
+    Complete webservice for Business.
+    Add JUnits for BusinessWS
+
+commit 41d736d141bd731deced169c39af49377d9f3b0f
+Author: Gay Hazan <gay.hazan@gmail.com>
+Date:   Sat Jul 25 19:43:32 2015 -0400
+
+    Exchange Implementation of SOAP
+
+commit 54e3544bd7fe7ae26e66e0076b04aebd37cc22da
+Merge: 0284e9e 7680025
+Author: Ross <rbrsmith@gmail.com>
+Date:   Sat Jul 25 16:21:37 2015 -0400
+
+    merge:
+
+commit 0284e9e4dbe6c4bbfba6928ce60f16e4b468af16
+Author: Ross <rbrsmith@gmail.com>
+Date:   Sat Jul 25 16:02:37 2015 -0400
+
+    merge
+
+commit 768002593e0eebb95b7ba86e0553b46da7410147
+Author: pcristofaro <patrick@cristofaro.net>
+Date:   Sat Jul 25 14:34:55 2015 -0400
+
+    Update integration tests for Business
+
+commit 704e7fd9b17d249b915c27f6fe5cea136cd760c1
+Author: pcristofaro <patrick@cristofaro.net>
+Date:   Sat Jul 25 14:16:57 2015 -0400
+
+    remove CORBA
+
+commit 4e31d016b63e9340e5c67cdf61e4ca18d54f2be3
+Merge: ed0edae 24a3af6
+Author: patrick <patrick@SchoolBox-Ubuntu>
+Date:   Sat Jul 25 14:10:48 2015 -0400
+
+    Merge remote-tracking branch 'origin/PM3' into PM3
+
+commit ed0edae667c101ee143f5572cc98c8a312502659
+Author: patrick <patrickc@encs.concordia.ca>
+Date:   Sat Jul 25 14:10:38 2015 -0400
+
+    Business WS implementation (SOAP)
+    Client generation
+
+commit 24a3af653f12cb537da2a181db85079f4d6a187d
+Author: Gay Hazan <gay.hazan@gmail.com>
+Date:   Sat Jul 25 12:31:08 2015 -0400
+
+    Implementation of Exchange Server
+    
+    Still need to implement Client
+
+commit adc00bdf13fe10e41f9419134237cb96ff612da4
+Author: Ross <rbrsmith@gmail.com>
+Date:   Thu Jul 23 22:54:22 2015 -0400
+
+    Start of webservices, build tomcat deploy instructions, basis for FE to Broker communication
+
+commit a26c2d509e45c087e18678432b5eb30539ea0113
+Author: Gay Hazan <gay.hazan@gmail.com>
+Date:   Mon Jul 20 21:54:40 2015 -0400
+
+    IExchange File
+
+commit 51aa936a12169a2214fa359f48b08d0bf56c4b77
+Author: Gay Hazan <gay.hazan@gmail.com>
+Date:   Mon Jul 20 21:50:42 2015 -0400
+
+    Start Exchange SOAP Service
+    
+    Add SOAP service to:
+    updateSharePrice(String symbol, float price);
+    registerBusiness(String symbol, float price);
+    unregister(String symbol);
+    }
+
+commit 9a513245a8af670e32051adc250e1dd80891640c
+Author: Ross <rbrsmith@gmail.com>
+Date:   Mon Jul 20 20:32:34 2015 -0400
+
+    Start of broker rest web service.  Just setting up methods and printing param test
+
+commit 4456c2296a8771be9c19a14c2d06ecd9fbdc2609
+Author: Patrick <patrick@cristofaro.net>
+Date:   Wed Jul 15 21:30:57 2015 -0400
+
+    begin PM3
+
+commit 248be2c223d5e4d66b2a44c8665c7fe89a2af734
+Author: pcristofaro <patrick@cristofaro.net>
+Date:   Sat Jul 4 12:02:36 2015 -0400
+
+    ~~~~ FINAL PM2 COMMIT ~~~~
+
+commit 86811bf237694f2967dc8dcf23a684c85c160567
+Author: ghazan <gay.hazan@gmail.com>
+Date:   Sat Jul 4 11:40:23 2015 -0400
+
+    Change Default Service port to 9999
+
+commit bccb47f2cceedd478c5abfe832174dedd5054cda
+Merge: c321fb2 a957fca
+Author: patrick <patrick@SchoolBox-Ubuntu>
+Date:   Sat Jul 4 11:28:06 2015 -0400
+
+    Merge remote-tracking branch 'origin/PM2b' into PM2b
+
+commit c321fb20da0c063484c6e4481371f271eb9f0d20
+Author: patrick <patrick@SchoolBox-Ubuntu>
+Date:   Sat Jul 4 11:27:44 2015 -0400
+
+    Multithreadtest fix
+
+commit a957fcad7e9c2e91a22d6f74b2ffc4674d29b32c
+Author: ghazan <gay.hazan@gmail.com>
+Date:   Sat Jul 4 11:10:16 2015 -0400
+
+    Remove unecessary print call
+
+commit 4f5c487ef484219d510b44fd64facc8f26301a78
+Author: Ross <rbrsmith@gmail.com>
+Date:   Sat Jul 4 15:35:50 2015 -0400
+
+    small update to run.txt
+
+commit efe892a3aabe5d422f9b05d450f2883c1a35ad58
+Merge: 9d51188 62e1c92
+Author: Ross <rbrsmith@gmail.com>
+Date:   Sat Jul 4 15:34:37 2015 -0400
+
+    Update to read me
+
+commit 9d51188553722e03be7100bc75b86852e3b0fc6b
+Author: Ross <rbrsmith@gmail.com>
+Date:   Sat Jul 4 15:14:00 2015 -0400
+
+    merge
+
+commit c5c1c6e147f9268624cc57215dfab26ef02aa566
+Merge: 322a5a7 0bc0442
+Author: Ross <rbrsmith@gmail.com>
+Date:   Sat Jul 4 13:33:52 2015 -0400
+
+    Merge branch 'PM2b' of https://github.com/pcristo/mjc62311 into PM2b
+
+commit 322a5a7e3e9fec4b17f98269977fb4edf7270909
+Author: Ross <rbrsmith@gmail.com>
+Date:   Sat Jul 4 13:33:48 2015 -0400
+
+    minor changes to tests
+
+commit 62e1c92e50007b20fca13f09f7563e1f01988743
+Author: ghazan <gay.hazan@gmail.com>
+Date:   Sat Jul 4 10:10:51 2015 -0400
+
+    PM2Questions
+
+commit aec9a6baf51680c575de92e8984c5950e83ffd8e
+Author: ghazan <gay.hazan@gmail.com>
+Date:   Sat Jul 4 09:56:22 2015 -0400
+
+    Remove SAI corba and TODO
+
+commit 4fcfb4fe257a0d73a5ed051341d06b2549619247
+Author: ghazan <gay.hazan@gmail.com>
+Date:   Sat Jul 4 09:21:04 2015 -0400
+
+    TODO in Exchange Server
+    
+    Remove a TODO in ExchangeServer , changes a System.out to a Logger event.
+
+commit c1c23c3e2c5265988e8dcad3c6a7f7f555b6028b
+Author: ghazan <gay.hazan@gmail.com>
+Date:   Sat Jul 4 08:49:29 2015 -0400
+
+    Changes Setup Method to Static
+    
+    Also made iBroker static
+
+commit 0bc04427960df1686c809cab7fe42c7b165922a7
+Author: ghazan <gay.hazan@gmail.com>
+Date:   Sat Jul 4 08:23:15 2015 -0400
+
+    Typo in Integration Test
+    
+     Method distributedExchange AAPL instead of APPL
+
+commit 7785c275b09245fe6609421861d638b31375a8c9
+Author: Ross <rbrsmith@gmail.com>
+Date:   Sat Jul 4 07:08:50 2015 -0400
+
+    INcreased time waiting for threads to start
+
+commit 891614a0ab795c8935e32a084791e7c62b0278cd
+Author: Ross <rbrsmith@gmail.com>
+Date:   Sat Jul 4 07:01:46 2015 -0400
+
+    Remove integration logger thread start up... this is handled by the testSuite.  Changed port in config BACK to 9999 (below 1024 is reserved)
+
+commit c7a589bc1703aba42624312a75ee60e0ff8cc330
+Author: pcristofaro <patrick@cristofaro.net>
+Date:   Sat Jul 4 00:39:37 2015 -0400
+
+    Random stock values. Synchronization fixed. MultiThreadTest. Some minor
+    bug fixes and tweaks.
+
+commit f7f5601a2eaf18c85e46e62c080051509c0dc2e0
+Author: Ross <rbrsmith@gmail.com>
+Date:   Sat Jul 4 03:15:16 2015 -0400
+
+    More integration tests and bug fixes
+
+commit b6d3c6ae14e2868d3e346133da5425f472e3f5d0
+Author: Ross <rbrsmith@gmail.com>
+Date:   Sat Jul 4 02:23:33 2015 -0400
+
+    Fixed error with APPL vs AAPL (AAPL is correct) - more integration testing
+
+commit 0b58efa3ffdc18620c5b89636b887f8fe13a4d5c
+Author: Ross <rbrsmith@gmail.com>
+Date:   Sat Jul 4 00:21:37 2015 -0400
+
+    Began more integration tests - updated build to delete everything before compiling - updated business to make up price...will change before production
+
+commit 1e7ca16e4c18ad8ed1d6b6faa25a665b540a2fb5
+Author: Ross <rbrsmith@gmail.com>
+Date:   Fri Jul 3 21:51:03 2015 -0400
+
+    Created simple front end menu item to create a customer and purchase shares...simple and quick, can be added onto later.  Will need to identify this in the documentation
+
+commit d2edbe76670e1fffc676b49d4452de9f4cc6866b
+Author: Ross <rbrsmith@gmail.com>
+Date:   Fri Jul 3 20:58:57 2015 -0400
+
+    Finer grain synconization on loggerThread
+
+commit f98f9dac0ecbd2fc0789f8653780d2b31508cc21
+Author: Ross <rbrsmith@gmail.com>
+Date:   Fri Jul 3 20:25:43 2015 -0400
+
+    Added multiple messages if logger fails...turned logger back on - removed backup logger for now -- keep backup logger code so we can show it works if needed
+
+commit 24a9546434ff728ab3b14742f72d9e9d2a8ced03
+Author: Ross <rbrsmith@gmail.com>
+Date:   Fri Jul 3 19:04:14 2015 -0400
+
+    Initial clean up
+
+commit fccfe0834c9c03aeff38970b5ad1d918128b51c7
+Author: Ross <rbrsmith@gmail.com>
+Date:   Fri Jul 3 16:48:10 2015 -0400
+
+    Basic how to run guide
+
+commit e2fa0fb7fe13b9269353424c186f74ee242e3cbf
+Author: Ross <rbrsmith@gmail.com>
+Date:   Fri Jul 3 15:57:11 2015 -0400
+
+    Using apache ant to compile project, run compile_tests in ant to build project.  Run the test suite by adding the resources/jar and dist/lib to classpath then run org.junit.runner.JUnitCore testSuite in the test_out dir to run from command line
+
+commit fe99e89da2625129e266bcb8d3b6890f0dedcdba
+Author: pcristofaro <patrick@cristofaro.net>
+Date:   Thu Jul 2 23:37:35 2015 -0400
+
+    tweaks
+
+commit bfe8ddebb8c17d84e6cc9fa4d5f6544acb52494c
+Author: pcristo <patrickc@encs.concordia.ca>
+Date:   Thu Jul 2 20:07:17 2015 -0400
+
+    Hail Mary... It looked like it ran
+
+commit 6426ff44dbb93210f1b5e9bb55df640ad4522bc5
+Author: Gay Hazan <gay.hazan@ladydavis.ca>
+Date:   Thu Jul 2 15:36:29 2015 -0400
+
+    Little Fixes
+
+commit 6b169972240e9664efae6a3cce66f9987b77b9b0
+Author: Gay Hazan <gay.hazan@ladydavis.ca>
+Date:   Thu Jul 2 15:16:13 2015 -0400
+
+    Fixed Some issues with RMI Removal
+    
+    Integration tests are running
+
+commit 41452f96fb42aab02d8aa6541d8ed66e3a192494
+Author: pcristo <patrickc@encs.concordia.ca>
+Date:   Thu Jul 2 13:06:30 2015 -0400
+
+    Resolved conflicts from previous commit
+
+commit e57fc3652b67c0d4d2b82cd6f0abf8a59bd622ee
+Merge: 6f86b02 32b8d84
+Author: pcristo <patrickc@encs.concordia.ca>
+Date:   Thu Jul 2 12:54:57 2015 -0400
+
+    Merge remote-tracking branch 'origin/PM2b' into PM2b
+    
+    Conflicts:
+    	src/stockexchange/broker/Broker.java
+    	src/stockexchange/exchange/Exchange.java
+
+commit 6f86b025541629b0695a3233e48fbb2a8d442a4a
+Author: pcristo <patrickc@encs.concordia.ca>
+Date:   Thu Jul 2 12:36:57 2015 -0400
+
+    Delete/comment out a whole lot of irrelevant code.
+
+commit 6936ec93c6dcd0ff953ed872bef09148e2adbc07
+Author: pcristo <patrickc@encs.concordia.ca>
+Date:   Thu Jul 2 07:50:43 2015 -0400
+
+    Remove RMI from Broker
+
+commit 32b8d84d43136da2f4dd24ace12d0041e735edb9
+Author: ghazan <gay.hazan@gmail.com>
+Date:   Thu Jul 2 01:08:37 2015 -0400
+
+    Added Share Purchase via corba Test Client to Integration Test
+
+commit 0863b137a10992bc1b776ee177b2408928f2f174
+Author: ghazan <gay.hazan@gmail.com>
+Date:   Wed Jul 1 17:27:39 2015 -0400
+
+    More Jira Tasks Finished and worked on EchangeTest
+
+commit 98e4411ce969769ca8ceb3b1babd24ecf2948e09
+Author: ghazan <gay.hazan@gmail.com>
+Date:   Wed Jul 1 15:49:13 2015 -0400
+
+    Fnished a few Jira tasks (SB-56, SB-21) Fixed MockExchange so that
+
+commit ac67fc4cf9525cf7ae6c165013fe63d863340b72
+Author: pcristo <patrick@cristofaro.net>
+Date:   Wed Jul 1 16:54:02 2015 -0400
+
+    Delete Iteration 1.odt
+
+commit c395a26b739fe67bb7755d6954ceb267da785f02
+Author: pcristo <patrick@cristofaro.net>
+Date:   Wed Jul 1 16:53:58 2015 -0400
+
+    Delete Iteration 1.pdf
+
+commit 119c7858649ed49224f1ce1a2060ab682f6b0077
+Author: pcristo <patrick@cristofaro.net>
+Date:   Wed Jul 1 16:42:21 2015 -0400
+
+    Delete helpfulCommands
+    
+    don't need
+
+commit 6de78e7e090596de4b11ace4c2580b22f8da46cc
+Author: pcristofaro <patrick@cristofaro.net>
+Date:   Wed Jul 1 16:31:37 2015 -0400
+
+    more updates to readme
+
+commit 4d843df63f3079c8312d4ed574b035e4096773a7
+Author: pcristofaro <patrick@cristofaro.net>
+Date:   Wed Jul 1 16:21:10 2015 -0400
+
+    update readme
+
+commit 6c6320c198fc1dcae69e43e671a61e5506cac52d
+Author: Ross <rbrsmith@gmail.com>
+Date:   Wed Jul 1 03:44:50 2015 -0400
+
+    I hate corba.  Worked on test suite and test cases, massive issue with exchange and the mock exchange, gave up and will work on it in the weekend.  test suite will still run with out it though
+
+commit c4c3141f668d1ecdf6ffa838c0e6229c4931a661
+Merge: b25f8de ca48117
+Author: Ross <rbrsmith@gmail.com>
+Date:   Wed Jul 1 02:29:50 2015 -0400
+
+    Merge branch 'PM2b' of https://github.com/pcristo/mjc62311 into PM2b
+
+commit b25f8ded2a0ccc142a9510ce12ecc25cbf8b5eb0
+Merge: a60ef0d 88388b6
+Author: Ross <rbrsmith@gmail.com>
+Date:   Wed Jul 1 02:29:44 2015 -0400
+
+    merge
+
+commit a60ef0d1a7878fd7b846bbd8b92c31b3742f6f35
+Author: Ross <rbrsmith@gmail.com>
+Date:   Wed Jul 1 02:00:42 2015 -0400
+
+    merge
+
+commit 181aa7bcee09d2526a5fb8343463c7c1e7e1b01b
+Merge: 71554c7 a00002d
+Author: Ross <rbrsmith@gmail.com>
+Date:   Wed Jul 1 02:00:22 2015 -0400
+
+    merge
+
+commit 71554c7f9e1fd08899ac574ef39de66105d8f222
+Author: Ross <rbrsmith@gmail.com>
+Date:   Wed Jul 1 01:46:02 2015 -0400
+
+    merge
+
+commit ca481170deb4b82295a53ccc35fe31bff139950b
+Merge: 4fa21cc 88388b6
+Author: pcristo <patrickc@encs.concordia.ca>
+Date:   Tue Jun 30 21:02:30 2015 -0400
+
+    Merge remote-tracking branch 'origin/PM2b' into PM2b
+
+commit 4fa21cccfb7aaba9bff51951b780bfedf0b2baaa
+Author: pcristo <patrickc@encs.concordia.ca>
+Date:   Tue Jun 30 21:00:53 2015 -0400
+
+    Clean up imports
+
+commit 88388b649bf4db0331bc55b5b3b66929b3853e72
+Author: Gay Hazan <gay.hazan@gmail.com>
+Date:   Tue Jun 30 20:56:26 2015 -0400
+
+    Register Business Logic - IBusiness
+
+commit a00002db2ecea023a8e04a0b61e19af19a4c7f29
+Author: pcristo <patrickc@encs.concordia.ca>
+Date:   Tue Jun 30 20:40:19 2015 -0400
+
+    Fixes the Business model
+
+commit 3189fb4ae171b6d7cfdbbf14c97b2e6f347e1ead
+Author: Gay Hazan <gay.hazan@gmail.com>
+Date:   Tue Jun 30 20:12:47 2015 -0400
+
+    New IDL Implementation
+
+commit 06ce9f16eec715fe0b30de51935cae03980d4eda
+Author: pcristo <patrickc@encs.concordia.ca>
+Date:   Tue Jun 30 00:18:08 2015 -0400
+
+    Testing on Business class. Add fields for CORBA NS address and port to
+    Config.json
+
+commit ef8fc2c5b97b967303b74b34970708ad037caa43
+Author: pcristo <patrickc@encs.concordia.ca>
+Date:   Mon Jun 29 23:38:33 2015 -0400
+
+    merge
+
+commit 8b416ec862b1e4ba84077afda9b9bef1aff65061
+Author: Gay Hazan <gay.hazan@gmail.com>
+Date:   Mon Jun 29 21:44:51 2015 -0400
+
+    Updated IDL Exchange
+
+commit 21a72360ad6308274e39b2a53ce797c76092903d
+Author: pcristo <patrickc@encs.concordia.ca>
+Date:   Mon Jun 29 21:41:22 2015 -0400
+
+    continuing
+
+commit 1774cc68319fca2a264fbaf66aceefcf287d59f9
+Merge: 7327527 a80a00c
+Author: pcristo <patrickc@encs.concordia.ca>
+Date:   Mon Jun 29 21:27:55 2015 -0400
+
+    Merge remote-tracking branch 'origin/PM2b' into PM2b
+
+commit 73275279851d55fc885e35b96510b2e3d93bf87a
+Author: pcristo <patrickc@encs.concordia.ca>
+Date:   Mon Jun 29 21:27:41 2015 -0400
+
+    register to exchange (partial implementation)
+
+commit a80a00ca77a6ff466aa3a1d98c11361a15308963
+Author: Gay Hazan <gay.hazan@gmail.com>
+Date:   Mon Jun 29 21:25:58 2015 -0400
+
+    Exchange Corba - Gay
+    
+    implementing Corba
+
+commit 3cdbae71b10669973284074759f72efb879ebf1f
+Author: pcristo <patrickc@encs.concordia.ca>
+Date:   Mon Jun 29 20:57:47 2015 -0400
+
+    CORBA implementation of Business class
+
+commit ff4a7d06d535ac81e4253110cc0e5469a8955d79
+Author: pcristo <patrickc@encs.concordia.ca>
+Date:   Thu Jun 25 22:31:15 2015 -0400
+
+    Update Business class. Add JUnit tests for four concurrent business
+    threads. Updates to config.json (new fields)
+
+commit 18db6d60e3822c4a27c086d89c4f2a6e47bd5c74
+Author: ghazan <gay.hazan@gmail.com>
+Date:   Wed Jun 24 23:12:12 2015 -0400
+
+    UpdateSharePrice && GetBusiness + Tests
+    
+    - We need to review the getBusiness method.
+
+commit 03c270337dd945dc8be659858a8116f82f9f82e9
+Author: ghazan <gay.hazan@gmail.com>
+Date:   Wed Jun 24 20:46:54 2015 -0400
+
+    Share orders not limited to Amount of shares
+    
+    - Modified the MochExchange for testing
+    - Added Extra stocks to SellShares test
+
+commit fdbfcd7b38f60f7db47c48d2ba9e737f4bb4c97c
+Author: ghazan <gay.hazan@gmail.com>
+Date:   Mon Jun 22 21:45:11 2015 -0400
+
+    Modifying Sold Share Lists / Available Share List/ Ordered List
+    
+    Modifying the logic to allow purchases of more than 100 shares at a
+    time.
+
+commit c58c85e2d48c27e12ef3c9e7e258984928aeba19
+Author: pcristo <patrickc@encs.concordia.ca>
+Date:   Mon Jun 22 21:22:21 2015 -0400
+
+    Refactor exchange class for PM2. Lots of Javadoc added.
+
+commit 1aa0920764a3754d6aacdfd5c99431009c669ed9
+Author: pcristo <patrickc@encs.concordia.ca>
+Date:   Sun Jun 21 23:10:52 2015 -0400
+
+    JUnit updates for Business class
+
+commit c12d22bb129dd2bb8052fe98c185801d1d31db75
+Author: pcristofaro <patrick@cristofaro.net>
+Date:   Sun Jun 21 21:37:41 2015 -0400
+
+    Connect business to google finance
+
+commit 3bbabfeb96c635434a9b74de549bc3ad938b1009
+Author: saisun1008 <saisun1008@gmail.com>
+Date:   Thu Jun 18 19:43:48 2015 -0400
+
+    CORBA IDL and server code
+
+commit 43b9103c1f0e228ee5e9d0a9d7a2fdb074cdbf2d
+Author: Ross Smith <rbrsmith@gmail.com>
+Date:   Wed Jun 17 15:07:05 2015 -0400
+
+    Finished test class set up, please see notes in TEST SUITE.java
+
+commit 4c761f513cd3f60d9ea22861236bda824bdf6438
+Author: Ross Smith <rbrsmith@gmail.com>
+Date:   Wed Jun 17 09:48:39 2015 -0400
+
+    added more tests to test suite
+
+commit 2ea3a91c5a4b53731b1039a37fa570d27dd52196
+Author: Ross Smith <rbrsmith@gmail.com>
+Date:   Wed Jun 17 09:37:39 2015 -0400
+
+    Tests for exchange
+
+commit 96fb58b1045615ae6afe123d096b185a3919d556
+Author: Ross Smith <rbrsmith@gmail.com>
+Date:   Tue Jun 16 14:03:17 2015 -0400
+
+    Still trying to make sure .idea stays out of git
+
+commit 2380f11f78d4777fdb0ffcacc800f185491b4740
+Author: Ross Smith <rbrsmith@gmail.com>
+Date:   Tue Jun 16 14:00:42 2015 -0400
+
+    Further test cases written, major bug fixed in customer class
+
+commit 75f941bf40cc4383cae07f9d47a6b2d71503aff1
+Author: Ross Smith <rbrsmith@gmail.com>
+Date:   Tue Jun 16 08:30:35 2015 -0400
+
+    added more to business tests
+
+commit ccb399a84e804ee9ed8943e6434409aa71b0a648
+Merge: 65edce1 a00e409
+Author: Ross Smith <rbrsmith@gmail.com>
+Date:   Tue Jun 16 07:07:15 2015 -0400
+
+    merge
+
+commit 65edce15c9b07e1cb85368b23aacf1c4bb9cc035
+Author: Ross Smith <rbrsmith@gmail.com>
+Date:   Tue Jun 16 07:00:15 2015 -0400
+
+    merge
+
+commit a00e4098277322f793e33cf0cf7b25fcff60e007
+Author: Ross <rbrsmith@gmail.com>
+Date:   Sat Jun 13 13:32:35 2015 -0400
+
+    merge
+
+commit 0d3d21300cb721643ae0ca84c58de999c93b5c6c
+Author: Ross <rbrsmith@gmail.com>
+Date:   Sat Jun 13 13:28:25 2015 -0400
+
+    Final fix on changing a dir to lower case
+
+commit d588a83632e0297962d1d6b8c7535d59fa770828
+Author: Ross <rbrsmith@gmail.com>
+Date:   Sat Jun 13 12:52:50 2015 -0400
+
+    Clean up of repository:
+
+commit 8bbb72e91cb662d14c8e33d4321d109e6a96bcfb
+Author: Ross <rbrsmith@gmail.com>
+Date:   Sat Jun 13 12:51:34 2015 -0400
+
+    Update gitignore
+
+commit 6d41e05e4cb34d3b8eab71c4476685d8604640bf
+Author: Ross <rbrsmith@gmail.com>
+Date:   Sat Jun 13 12:48:50 2015 -0400
+
+    Small clean ups
+
+commit fa13c817d692567cc64b5ff3e7c43f41484ac690
+Author: Ross <rbrsmith@gmail.com>
+Date:   Sat Jun 13 12:09:25 2015 -0400
+
+    Clean up of packages
+
+commit c35eab4c2c7bd43faeaeadd143cfbd25a273a863
+Author: Ross <rbrsmith@gmail.com>
+Date:   Sat Jun 13 11:42:39 2015 -0400
+
+    Updated projectLauncher to run lambda
+
+commit ec0d9dac677faea1cc189e09fdc08e5dc811a6cc
+Merge: 03bde68 c42b1c3
+Author: Ross <rbrsmith@gmail.com>
+Date:   Sat Jun 13 11:19:27 2015 -0400
+
+    Moved RMI server into own class
+
+commit 03bde687dfb953a39d450e0dd84e72dba55b7e84
+Author: Ross <rbrsmith@gmail.com>
+Date:   Sat Jun 13 10:37:19 2015 -0400
+
+    merge
+
+commit c42b1c3dc52ab71f1be0ce6be5aad9bad4f3ba22
+Author: Gay Hazan <gay.hazan@gmail.com>
+Date:   Thu Jun 11 20:57:36 2015 -0400
+
+    Clean Up
+
+commit a9b573d4661849c8ef50bbd649f409ecc9e32ece
+Author: Gay Hazan <gay.hazan@gmail.com>
+Date:   Thu Jun 11 20:47:12 2015 -0400
+
+    Last pass before submission
+
+commit 3e3dc6149e7c20d6eb4ec1ca45c2e0a20026ce4d
+Merge: fedc8f2 865c217
+Author: Ross <rbrsmith@gmail.com>
+Date:   Tue Jun 9 20:57:34 2015 -0400
+
+    Final push, fixing sockets
+
+commit fedc8f2ce54b87ec1453bc9a2100a2d64f3a75ee
+Author: Ross <rbrsmith@gmail.com>
+Date:   Tue Jun 9 17:40:35 2015 -0400
+
+    merging
+
+commit 865c2179d61beec29a20f4ae6a1f32dc41972bcd
+Author: saisun1008 <saisun1008@gmail.com>
+Date:   Mon Jun 8 23:17:04 2015 -0400
+
+    update documentation
+
+commit 1363689d89443d15128b1f0bc7cfa5be38da289a
+Author: Ross Smith <rbrsmith@gmail.com>
+Date:   Mon Jun 8 15:23:53 2015 -0400
+
+    Updated simultionBatch, added a lot of sync to shareSalesList, sped up Config
+
+commit 22196f144bf547ec50753247b793ea5bac3c331a
+Author: Gay Hazan <gay.hazan@gmail.com>
+Date:   Mon Jun 8 00:35:44 2015 -0400
+
+    Added Syncronization to PrintShares secondary list
+
+commit 2b37ed7a48eb904ed7316447138fcea7b152d2ee
+Author: ghazan <gay.hazan@gmail.com>
+Date:   Sun Jun 7 23:33:37 2015 -0400
+
+    Added a NULL check in Broker Sell Shares
+
+commit f48c7ef153a14b9fd387d1e32a5023f7804001fd
+Merge: 03b4354 7f70dfa
+Author: patrick <patrick@SchoolBox-Ubuntu>
+Date:   Sun Jun 7 22:16:25 2015 -0400
+
+    Merge remote-tracking branch 'origin/PM1' into PM1
+
+commit 03b4354e939fbd91125e2dfe2267ee69b25f5475
+Author: patrick <patrick@SchoolBox-Ubuntu>
+Date:   Sun Jun 7 22:16:22 2015 -0400
+
+    logs
+
+commit 7f70dfaa42d10843c6a4b69e3f3df9133a30a015
+Merge: 2798bf9 3f61b9e
+Author: ghazan <gay.hazan@gmail.com>
+Date:   Sun Jun 7 22:08:27 2015 -0400
+
+    Merge remote-tracking branch 'origin/PM1' into PM1
+    
+    Conflicts:
+    	test_src/business/BusinessTest.java
+
+commit 2798bf983f8e66d8a40cd10fba2d656f8e4b1aa6
+Author: ghazan <gay.hazan@gmail.com>
+Date:   Sun Jun 7 22:05:56 2015 -0400
+
+    Modifed logic for accessing sold shares
+
+commit 3f61b9e981634db31161719cc088c89c5c3391dd
+Author: pcristo <patrickc@encs.concordia.ca>
+Date:   Sun Jun 7 22:03:20 2015 -0400
+
+    Improved exception reporting in MultiThreadTest
+
+commit e06c84484b92191caca6d63818cc77c96503ddda
+Author: patrick <patrick@SchoolBox-Ubuntu>
+Date:   Sun Jun 7 21:42:30 2015 -0400
+
+    Better logging for debug purposes with MultiThreadTest
+
+commit 89382f8c8d0c5d45de3848c2aee2aa7c5f48fa6c
+Author: pcristo <patrickc@encs.concordia.ca>
+Date:   Sun Jun 7 21:17:57 2015 -0400
+
+    Further updates to multithreadtest
+
+commit afbd3da184db4db3a5bb3b7e8203d9341942b627
+Author: pcristo <patrickc@encs.concordia.ca>
+Date:   Sun Jun 7 21:04:46 2015 -0400
+
+    Working multithread test
+
+commit 0bd9aff91ff0131375f4b2b45ad3e0b99f40a253
+Author: pcristo <patrickc@encs.concordia.ca>
+Date:   Sun Jun 7 20:05:21 2015 -0400
+
+    Further business logging improvements
+
+commit 350ebf511bc577246831f4624447398e8ef4d9a2
+Author: pcristo <patrick@cristofaro.net>
+Date:   Sun Jun 7 19:57:28 2015 -0400
+
+    Update .gitignore
+    
+    Remove /src/ from gitignore which I stupidly added
+
+commit 1b63cfcbf5ec852ccf49d1b9c0c04edc1f267e4b
+Author: unknown <saisun1008@gmail.com>
+Date:   Sun Jun 7 19:50:36 2015 -0400
+
+    fix unit tests
+
+commit 0dcde3cdb2b3eaed00bdd62e72169a0fd920d55e
+Author: unknown <saisun1008@gmail.com>
+Date:   Sun Jun 7 19:43:14 2015 -0400
+
+    add break for switch cases
+
+commit 05f175c63466b82098215f9dc90ab1b37174d932
+Author: unknown <saisun1008@gmail.com>
+Date:   Sun Jun 7 19:41:09 2015 -0400
+
+    fix switch block
+
+commit 2b193d6b164b72bc5350363ac1cacb352818e349
+Author: pcristo <patrick@cristofaro.net>
+Date:   Sun Jun 7 19:05:16 2015 -0400
+
+    Update Business.java
+
+commit cc0c1a0e86fe01eda4562fe0d46812e748abe90f
+Author: pcristo <patrick@cristofaro.net>
+Date:   Sun Jun 7 18:54:45 2015 -0400
+
+    Update Business.java
+
+commit e06fecd755b8e249b5f1d4c81f1d93982d199118
+Author: pcristo <patrick@cristofaro.net>
+Date:   Sun Jun 7 18:54:23 2015 -0400
+
+    Update projectLauncher.java
+
+commit beaa3c9c5603703a1ec6932d34647e35e80ae945
+Merge: cb04869 b8f9ad0
+Author: ghazan <gay.hazan@gmail.com>
+Date:   Sun Jun 7 18:41:41 2015 -0400
+
+    Merge remote-tracking branch 'origin/PM1' into PM1
+    
+    Conflicts:
+    	.idea/workspace.xml
+
+commit cb048699b28a69d5177326dda9d85c69c29811ed
+Author: ghazan <gay.hazan@gmail.com>
+Date:   Sun Jun 7 18:35:05 2015 -0400
+
+    Workspace
+
+commit 1d8e1dbba839e7e6d0549d8e9b2d10a987c2bc42
+Author: ghazan <gay.hazan@gmail.com>
+Date:   Sun Jun 7 18:34:13 2015 -0400
+
+    Added new implementation of sellShares to broker
+
+commit b8f9ad070bb94b4266f3559fb050c04824100b5e
+Merge: c2f1f77 b05a686
+Author: Ross <rbrsmith@gmail.com>
+Date:   Sun Jun 7 18:28:24 2015 -0400
+
+    Merge
+
+commit c2f1f77f7cbb4f4d1cf6139cc39aa8f8a3b43827
+Author: Ross <rbrsmith@gmail.com>
+Date:   Sun Jun 7 18:26:08 2015 -0400
+
+    simulation
+
+commit 55ad64162bf274a1809c76cb5a41f89889d3daa7
+Author: Ross <rbrsmith@gmail.com>
+Date:   Sun Jun 7 18:24:48 2015 -0400
+
+    Simulation testing
+
+commit b05a6860a28f1024a6f443a4ec21d631b52ee463
+Merge: ff422d4 15b2722
+Author: pcristo <patrickc@encs.concordia.ca>
+Date:   Sun Jun 7 18:03:57 2015 -0400
+
+    Merge remote-tracking branch 'origin/PM1' into PM1
+
+commit ff422d468e4bf35f4c29dd48a0e86e3c6be0bba3
+Author: pcristo <patrickc@encs.concordia.ca>
+Date:   Sun Jun 7 18:03:11 2015 -0400
+
+    Added features to multithreaded test
+
+commit 9d00c6ce5bad27dbcf5eb28babe48004b24ed04d
+Author: pcristo <patrickc@encs.concordia.ca>
+Date:   Sun Jun 7 17:48:49 2015 -0400
+
+    Build up of multi-threaded test
+
+commit 15b2722c2cd8960e21cf1b597f2ee31d2e84d2f7
+Author: Gay Hazan <gay.hazan@gmail.com>
+Date:   Sun Jun 7 17:27:58 2015 -0400
+
+    Payment Bug
+
+commit 9baea3b38b666a88db1c73b23f26dcfecde77dce
+Author: pcristo <patrickc@encs.concordia.ca>
+Date:   Sun Jun 7 14:00:35 2015 -0400
+
+    Improved data validation for business
+
+commit 1ea37a589818268a0ec392d6c0e53a0e97e44af1
+Author: pcristo <patrickc@encs.concordia.ca>
+Date:   Sun Jun 7 13:11:31 2015 -0400
+
+    Add sychronization to the order record operations
+
+commit 64f021e8e7c6ac127593ceb14a4e8899a51d0157
+Author: pcristo <patrickc@encs.concordia.ca>
+Date:   Sun Jun 7 13:06:21 2015 -0400
+
+    Remove XML record keeping
+
+commit 909261df18423da5c9c4a1913e70d7423dd904d2
+Author: Gay Hazan <gay.hazan@gmail.com>
+Date:   Sun Jun 7 12:52:57 2015 -0400
+
+    Fixed Restock method
+
+commit 8f7423c79cb1f6031e7cbf52b9704f320a411926
+Author: unknown <saisun1008@gmail.com>
+Date:   Sun Jun 7 12:50:48 2015 -0400
+
+    add one more test case for client
+
+commit 05fb0a88640f80444ecae789abc60e4ba8b23fbc
+Author: unknown <saisun1008@gmail.com>
+Date:   Sun Jun 7 12:37:32 2015 -0400
+
+    add client JUnit test and mocks
+
+commit d0311020f2a7df1a525871c2ede615a400e0496d
+Author: Ross <rbrsmith@gmail.com>
+Date:   Sun Jun 7 12:35:26 2015 -0400
+
+    Update to testing:
+
+commit 55435a7504b9c25c0fff7a1540753729b8bb1307
+Merge: 157bb5d b3ee425
+Author: Ross <rbrsmith@gmail.com>
+Date:   Sun Jun 7 12:35:01 2015 -0400
+
+    Merge branch 'PM1' of https://github.com/pcristo/mjc62311 into PM1
+
+commit 157bb5d231f48a3c45b0272980165ac9333b7381
+Merge: 20b1a73 fd52448
+Author: Ross <rbrsmith@gmail.com>
+Date:   Sun Jun 7 12:34:32 2015 -0400
+
+    Exchange changes
+
+commit b3ee425f4e028f75ce1da26f93975b728afffb01
+Merge: 6a35da1 fd52448
+Author: pcristo <patrickc@encs.concordia.ca>
+Date:   Sun Jun 7 12:31:58 2015 -0400
+
+    Merge remote-tracking branch 'origin/PM1' into PM1
+
+commit 6a35da1e359cf3cbc7abebdf47147a16f6643f11
+Author: pcristo <patrickc@encs.concordia.ca>
+Date:   Sun Jun 7 12:31:36 2015 -0400
+
+    Adding projectLauncher
+
+commit 20b1a7315f1802585183974e7b0d646addb4b36a
+Author: Ross <rbrsmith@gmail.com>
+Date:   Sun Jun 7 11:57:41 2015 -0400
+
+    Integration
+
+commit eaf0eaf6a0bce6521ba7d571cf225f1d8f68929c
+Author: Ross <rbrsmith@gmail.com>
+Date:   Sun Jun 7 11:57:10 2015 -0400
+
+    Integration testing
+
+commit 4385ff246d88a975ce4e19c2fcf04ae8243299dd
+Merge: ee89d6e 1875a58
+Author: Ross <rbrsmith@gmail.com>
+Date:   Sun Jun 7 11:55:03 2015 -0400
+
+    merge
+
+commit fd52448b64c029ad8f596282ecf90d9cd34aa25d
+Author: Gay Hazan <gay.hazan@gmail.com>
+Date:   Sun Jun 7 11:51:52 2015 -0400
+
+    Bug Fixes in Exchange
+
+commit b1c2b13089e8ec0b6be6a27337a6895830350e3b
+Author: pcristo <patrickc@encs.concordia.ca>
+Date:   Sun Jun 7 11:13:25 2015 -0400
+
+    Fixes to business class, update config.json to fix invalid parameters
+
+commit ee89d6e6f95f39550985cf2d1c7221ac04948c3e
+Author: Ross <rbrsmith@gmail.com>
+Date:   Sun Jun 7 09:53:59 2015 -0400
+
+    workspace xml, must fix this
+
+commit 1875a5821443a39eae585ada4832facceec931bf
+Author: unknown <saisun1008@gmail.com>
+Date:   Sat Jun 6 21:15:46 2015 -0400
+
+    fix client string to enum convertion
+
+commit 732022180a6bee6b74f9ac2b86c5751e57209805
+Author: ghazan <gay.hazan@gmail.com>
+Date:   Sat Jun 6 18:56:14 2015 -0400
+
+    Added Receive Payment Logic
+
+commit e966adbc98a9fc3d7eb562057cd608e7a469c207
+Merge: 2675fa3 e7548c8
+Author: Ross <rbrsmith@gmail.com>
+Date:   Fri Jun 5 22:42:44 2015 -0400
+
+    Merge branch 'PM1' of https://github.com/pcristo/mjc62311 into PM1
+
+commit 2675fa3a53bc96e314efb774750dcd3a16fde33a
+Merge: 4304984 abe45f9
+Author: Ross <rbrsmith@gmail.com>
+Date:   Fri Jun 5 22:40:45 2015 -0400
+
+    Made config.json cleaner, first line is only needed to clean up.  Made Config class use os slashes.  Finishes powershell script for local servers.  Increased timeout for logger client.
+
+commit e7548c82dc694bfa6444603012ec522a06922995
+Author: unknown <saisun1008@gmail.com>
+Date:   Fri Jun 5 22:20:59 2015 -0400
+
+    add documentation
+
+commit 43049842bfeef0a9d30322857f7075e323c6f3b5
+Author: Ross <rbrsmith@gmail.com>
+Date:   Fri Jun 5 16:09:11 2015 -0400
+
+    more merging
+
+commit abe45f9b3bb9e6baa2015d31710bce69b8f48710
+Author: Ross Smith <rbrsmith@gmail.com>
+Date:   Fri Jun 5 16:02:52 2015 -0400
+
+    Made changs to loadMacSecurity.  Made broker serilizable.  SE items on config and logger
+
+commit 83599bf40afa835a99326f7f9bb9626c54bb5585
+Author: Ross Smith <rbrsmith@gmail.com>
+Date:   Fri Jun 5 15:37:25 2015 -0400
+
+    Added recieve message from log server on success.  Added back up logging server which is opitonal
+
+commit cf909b455cd408320fee98f0783c0c363469013a
+Merge: 97a9c4c dcfc85b
+Author: pcristo <patrickc@encs.concordia.ca>
+Date:   Thu Jun 4 21:34:22 2015 -0400
+
+    Merge remote-tracking branch 'origin/PM1' into PM1
+
+commit 97a9c4c393596f9b3405b63a76020f21dd850381
+Author: pcristo <patrickc@encs.concordia.ca>
+Date:   Thu Jun 4 21:33:48 2015 -0400
+
+    Add synchonization to business class
+
+commit dcfc85b66992b4edf99d8a87102baec1f0d541e3
+Author: ghazan <gay.hazan@gmail.com>
+Date:   Thu Jun 4 21:25:22 2015 -0400
+
+    Update SellShares and add Synchronize
+
+commit df0f57601dabcc9a309417b07a486b5b78b0504a
+Author: pcristo <patrickc@encs.concordia.ca>
+Date:   Thu Jun 4 07:37:46 2015 -0400
+
+    added logging to business class
+
+commit 0f6342c3532edbdf6de4007178773f08c417daca
+Author: ghazan <gay.hazan@gmail.com>
+Date:   Wed Jun 3 21:58:01 2015 -0400
+
+    Config.json
+    
+    Config.json modified windows logserhome address
+
+commit 15ed31d89f71f9cb242c643365a50c413cbe5ad3
+Author: ghazan <gay.hazan@gmail.com>
+Date:   Wed Jun 3 21:54:14 2015 -0400
+
+    Bug Fix : Security Policy Load via JSON
+    
+    Added MAC setting and MAC load in the config.son and config class
+
+commit 42e384d6eb0c3126f2a80122cdf8f90843491145
+Author: ghazan <gay.hazan@gmail.com>
+Date:   Wed Jun 3 21:19:45 2015 -0400
+
+    Serialization
+    
+    Share
+    ShareOrder
+
+commit be0d952e0d6811dd2ab90d6b8890b33476c0bbf0
+Author: Ross <rbrsmith@gmail.com>
+Date:   Wed Jun 3 13:44:55 2015 -0400
+
+    Update config.json
+
+commit ff2aac08c57efb246a8d1c10d4d52040aea69df7
+Author: Ross <rbrsmith@gmail.com>
+Date:   Tue Jun 2 22:27:52 2015 -0400
+
+    Fix invalid json
+
+commit 3cb5dee1b9853fc28f25b3410f1f5ab5a230d1b0
+Merge: e2bd4c2 89dc14f
+Author: Ross <rbrsmith@gmail.com>
+Date:   Tue Jun 2 22:26:56 2015 -0400
+
+    Merge branch 'PM1' of https://github.com/pcristo/mjc62311 into PM1
+
+commit e2bd4c27e58472c73e0d9c226510a09e25ff50fd
+Author: Ross <rbrsmith@gmail.com>
+Date:   Tue Jun 2 22:26:36 2015 -0400
+
+    Minor changes
+
+commit 89dc14f9a9bf2bb14b676fb78cf333d30219b2c9
+Author: pcristo <patrickc@encs.concordia.ca>
+Date:   Tue Jun 2 20:51:18 2015 -0400
+
+    move location of business record to /files/
+
+commit c9dcf21758a666db5bb4e03e258a1508a716c6af
+Author: Ross <rbrsmith@gmail.com>
+Date:   Tue Jun 2 20:33:18 2015 -0400
+
+    Update README.md
+
+commit 8575e2604c29c6e538f6a44d5a1fb95337ec7943
+Merge: cfb6e62 0dc1453
+Author: Ross <rbrsmith@gmail.com>
+Date:   Tue Jun 2 20:31:24 2015 -0400
+
+    merging
+
+commit cfb6e62b0289bf47ddf5d1a8c7fea7d1e582fbbf
+Author: Ross <rbrsmith@gmail.com>
+Date:   Tue Jun 2 20:30:35 2015 -0400
+
+    Set up remote server at ip 166.78.186.20/resources/log/displayLog.html
+
+commit 0dc14539634c8a317cc3e4443f0448715b7141a0
+Author: pcristo <patrickc@encs.concordia.ca>
+Date:   Tue Jun 2 20:26:32 2015 -0400
+
+    minor updates
+
+commit 95a0b2cd02960347b7f80e5210bb319a33388cdf
+Author: Gay Hazan <gay.hazan@gmail.com>
+Date:   Tue Jun 2 20:08:15 2015 -0400
+
+    Change to Exchange Class Restock
+    
+    Fixed switch.
+
+commit dc8ecdcbda548ecf787729d82f63b65f1564dc1a
+Author: Ross Smith <rbrsmith@gmail.com>
+Date:   Tue Jun 2 14:53:30 2015 -0400
+
+    Better printing on log file
+
+commit 10566219c1c925a8475e3ce5a44b28d2854f4fdb
+Author: Ross Smith <rbrsmith@gmail.com>
+Date:   Tue Jun 2 14:19:39 2015 -0400
+
+    Added ui for clearing log file
+
+commit c40dbe07ab917c45d42f7472706eb686fdd7500a
+Author: Ross Smith <rbrsmith@gmail.com>
+Date:   Tue Jun 2 14:06:38 2015 -0400
+
+    Fixed bug in UDP logger package
+
+commit 0d071d9bbf2d713dc4a0f3f7681b18e7d803972d
+Author: Ross Smith <rbrsmith@gmail.com>
+Date:   Tue Jun 2 11:57:45 2015 -0400
+
+    Moved logger from TCP to UDP
+
+commit 64594254b7303233517ebf3786862cdf07df21bc
+Author: Ross Smith <rbrsmith@gmail.com>
+Date:   Tue Jun 2 10:17:40 2015 -0400
+
+    Added live web log
+
+commit 26ccf6ad2bb323baa343651262cc61dc7f5e35ae
+Author: Ross Smith <rbrsmith@gmail.com>
+Date:   Tue Jun 2 09:29:32 2015 -0400
+
+    Added TimerLoggerClient, use by calling new TimerLoggerClient, then start and end methods to log performance.  Removed system out message in place for logger messages.  Updated testsuite to include requirement to start logger server.  Resolved conflict of broker and logger using same port
+
+commit 549d052c3b59a6ef233df6bca24e0c153e57b826
+Author: Ross Smith <rbrsmith@gmail.com>
+Date:   Thu May 28 11:55:24 2015 -0400
+
+    Added test suite
+
+commit abeeb8f4e156e2404caf3de6683599e7275f5fad
+Author: Ross Smith <rbrsmith@gmail.com>
+Date:   Thu May 28 11:49:19 2015 -0400
+
+    Forgot step in test instructions
+
+commit ab820c3624f234f168e9219c8c7d5c3c120437ea
+Author: Ross Smith <rbrsmith@gmail.com>
+Date:   Thu May 28 11:48:41 2015 -0400
+
+    RMI improvements, cleaned up and extracted.  Realised exchange was not talking to business.  Exchange now creates three business object listening on different ports.  Business binds on ports 9095+, Exchange searches those ports for the business
+
+commit fb46abc715a31e571f0e575d6836acfa829485ed
+Author: pcristo <patrickc@encs.concordia.ca>
+Date:   Wed May 27 22:40:58 2015 -0400
+
+    Fixed XML serialisation issue in Business class
+
+commit d833fd1fdd38d9bdca7c58ba91e481bd4bff5787
+Author: pcristo <patrickc@encs.concordia.ca>
+Date:   Wed May 27 22:12:29 2015 -0400
+
+    JUnits for Business. Change StockType to an enum, update all references
+    accordingly.
+
+commit cd2198122a5f226383822c5aaeb69266c50cc018
+Author: Ross <rbrsmith@gmail.com>
+Date:   Wed May 27 18:17:14 2015 -0400
+
+    Forgot to commit test code for business done on tuesdays lab
+
+commit c140db4fb883cd691d7ead446ef964932b89aaa8
+Author: Ross <rbrsmith@gmail.com>
+Date:   Tue May 26 21:59:10 2015 -0400
+
+    Modified business to use simpler rmis, added tickers
+
+commit ebae5652f69dfba4df01d7a1dfb83117655599b9
+Merge: dc09a6f 66ca1ff
+Author: Ross <rbrsmith@gmail.com>
+Date:   Tue May 26 19:35:33 2015 -0400
+
+    Added security policy
+
+commit dc09a6fcfbd42b87ed0af658146a6802ed74fe08
+Author: Ross <rbrsmith@gmail.com>
+Date:   Tue May 26 18:21:18 2015 -0400
+
+    merge
+
+commit 978ebddcb65755f591a5bde9df62f672af42bd55
+Author: Ross <rbrsmith@gmail.com>
+Date:   Tue May 26 18:20:45 2015 -0400
+
+    merge
+
+commit 66ca1ff3d7e12d5fb3f328c655c157548ba75ff7
+Author: pcristo <patrickc@encs.concordia.ca>
+Date:   Tue May 26 18:02:07 2015 -0400
+
+    create share package and move share classes to it
+
+commit c4be777485be75f22beb97942fff4359da0482e0
+Author: Gay Hazan <gay.hazan@ladydavis.ca>
+Date:   Tue May 26 16:13:02 2015 -0400
+
+    Exchange class implementing RMI
+    
+    Trying to communicate via RMI to Business
+
+commit 54abde45e5f33a5c2681bd0ab8e98524d70920df
+Author: Gay Hazan <gay.hazan@ladydavis.ca>
+Date:   Tue May 26 12:11:48 2015 -0400
+
+    Documentation and Notes
+
+commit 663cc5ca561aae8e4bf92870a83f9fc5dd269733
+Author: ghazan <gay.hazan@gmail.com>
+Date:   Tue May 26 10:09:30 2015 -0400
+
+    Rename exchange.java to Exchange.java
+
+commit 237ee13a92a8aee273a493ef14682db6b6156cdc
+Author: Gay Hazan <gay.hazan@ladydavis.ca>
+Date:   Tue May 26 10:06:31 2015 -0400
+
+    Exchange Class
+    
+    Fixed naming Error in exchange class
+
+commit 42dd84fe5b44022bb2f4b45530912f7d7b01b638
+Merge: e73165c c588424
+Author: ghazan <gay.hazan@gmail.com>
+Date:   Mon May 25 22:48:47 2015 -0400
+
+    Merge remote-tracking branch 'origin/PM1' into PM1
+    
+    Conflicts:
+    	src/stockexchange/broker/Broker.java
+    	src/stockexchange/broker/BrokerInterface.java
+
+commit e73165c147b44ed3c2c25cec480cc4976e9d60f8
+Author: ghazan <gay.hazan@gmail.com>
+Date:   Mon May 25 22:39:57 2015 -0400
+
+    Change to ShareSaleStatusList
+
+commit 0d536aa5bbfeb6daa6358a7a670d28653acb92f6
+Author: ghazan <gay.hazan@gmail.com>
+Date:   Mon May 25 22:39:27 2015 -0400
+
+    Stock Exchange
+    
+    - Create an Exchange class
+    - Separated the ShareSaleStatusList and Exchnange to make
+    implementation more clear.
+    - Made the changes necessary in Broker to reflect new structure.
+
+commit c588424d126e292c42aecfbdcf05b5be9cf4578b
+Author: unknown <saisun1008@gmail.com>
+Date:   Mon May 25 22:34:16 2015 -0400
+
+    more client code, working with exchange services
+
+commit 462d27b571378841839cd018a93622f61c573ac0
+Author: Ross <rbrsmith@gmail.com>
+Date:   Mon May 25 19:39:13 2015 -0400
+
+    Changed file loading of csv dynamically:
+
+commit e9884a5069ea8b7b8ef7f839740956597ce435f4
+Author: Ross <rbrsmith@gmail.com>
+Date:   Mon May 25 18:14:21 2015 -0400
+
+    Updated .gitignore and added files directory
+
+commit 3e0bc3490cff625ebfc1104e88b1cf0461a316cb
+Merge: 496d8e1 769d632
+Author: Ross <rbrsmith@gmail.com>
+Date:   Mon May 25 18:05:56 2015 -0400
+
+    Merged. Added missing fields i needed into exchange
+
+commit 496d8e166b98d7a9a8fefa949790deaaa35798aa
+Author: Ross <rbrsmith@gmail.com>
+Date:   Mon May 25 17:24:50 2015 -0400
+
+    Remove HelloWorld
+
+commit 1075125e81f00841f2deb83e79ad71a7145af4b9
+Author: Ross <rbrsmith@gmail.com>
+Date:   Mon May 25 17:24:11 2015 -0400
+
+    Preliminary work on broker class.  Set up broker to be able to take customer string ticker requests and convert them to sharesLists for the exchange.  Add broker package and move customer around.  Added TODO's as needed
+
+commit 769d632b4f0b742bf41a4435f47abd66092c18a1
+Merge: 1c0a707 d5759ac
+Author: Gay Hazan <gay.hazan@ladydavis.ca>
+Date:   Mon May 25 16:33:11 2015 -0400
+
+    Merge remote-tracking branch 'origin/PM1' into PM1
+    
+    Conflicts:
+    	.idea/misc.xml
+    	src/stockexchange/Broker.java
+
+commit 1c0a707b51690145e0879a6a38e5d4f839096502
+Author: Gay Hazan <gay.hazan@ladydavis.ca>
+Date:   Mon May 25 16:31:26 2015 -0400
+
+    ShareStatusList and CSV files
+    
+    - Added business Registry
+    - Removed the space between the fields in the company CSV file.
+    - Added restock logic
+    - Modified sold shares list
+    - Add Test File to StockExchange
+
+commit 02713deb9a5ed141ca971e7b3e86bb3c2b97ab50
+Merge: 760051c d5759ac
+Author: Ross <rbrsmith@gmail.com>
+Date:   Mon May 25 16:18:23 2015 -0400
+
+    Merge branch 'PM1' of https://github.com/pcristo/mjc62311 into PM1
+
+commit 760051c5266131b5eb26512c296abec499dd68aa
+Author: Ross <rbrsmith@gmail.com>
+Date:   Mon May 25 16:18:11 2015 -0400
+
+    Changes to broker
+
+commit d5759acba9a037b7c02597ab5c072815a328dc11
+Author: unknown <ecqiguo@CA00120551.ericsson.se>
+Date:   Mon May 25 13:39:33 2015 -0400
+
+    add broker client
+
+commit dc12bcc6da40aa89995fd7ae44434556a0dcaa32
+Author: unknown <ecqiguo@CA00120551.ericsson.se>
+Date:   Mon May 25 13:39:33 2015 -0400
+
+    add broker client
+
+commit eb1b8c6af86364bd5e9e2f816cff8f33cb9faf7f
+Author: pcristo <patrick@cristofaro.net>
+Date:   Sun May 24 21:55:30 2015 -0400
+
+    Update .classpath
+
+commit 65c3c09631a416404acf80563fa07603da36c126
+Author: pcristo <patrickc@encs.concordia.ca>
+Date:   Sun May 24 21:48:09 2015 -0400
+
+    Completed the Business class.
+
+commit 0ce94db5f0a3c856ad5d03c59946ee1d7c87507a
+Merge: 2eabafb 6fd2607
+Author: pcristo <patrickc@encs.concordia.ca>
+Date:   Sun May 24 20:29:46 2015 -0400
+
+    Merge remote-tracking branch 'origin/PM1' into PM1
+
+commit 2eabafb33116fd70b762b09511c4d5fca19ab308
+Author: pcristo <patrickc@encs.concordia.ca>
+Date:   Sun May 24 20:28:58 2015 -0400
+
+    change some method access from private to public
+
+commit 6fd260738f9abf873b9b3d454ff84169fb177b92
+Author: Ross <rbrsmith@gmail.com>
+Date:   Sun May 24 12:48:46 2015 -0400
+
+    Updated logger to use local reference to iteration_one file, just update path delimeters in config.json
+
+commit 3ff7d8a0926dba8fdce313bda0a17ac4ae27d957
+Author: Ross <rbrsmith@gmail.com>
+Date:   Sun May 24 09:17:03 2015 -0400
+
+    Updated gitignore based on recommendations from SO on how to handle intelliJ projects
+
+commit 202332ef32b8e4c100a1eadb6b9b92d5d244ba25
+Author: Ross <rbrsmith@gmail.com>
+Date:   Sun May 24 09:00:42 2015 -0400
+
+    Forgot to update reference in bootstrap script for plink
+
+commit 25535cce4357e7a2327ed663adbd60a94231c97e
+Merge: 10cd701 44f932a
+Author: Ross <rbrsmith@gmail.com>
+Date:   Sun May 24 08:49:06 2015 -0400
+
+    Merge branch 'PM0' of https://github.com/pcristo/mjc62311 into PM1
+    
+    Conflicts:
+    	.idea/workspace.xml
+
+commit 10cd701c7c95cd875293a6ad0ca324ffe2ac8863
+Author: Ross <rbrsmith@gmail.com>
+Date:   Sun May 24 08:39:39 2015 -0400
+
+    Further changes to logger, log server start up message, displayLog php file, bootstrap now connects to remote linux server
+
+commit 44f932aec8d0ed68a81d540bd8a65eb4b2603a8f
+Author: ghazan <gay.hazan@gmail.com>
+Date:   Sat May 23 22:31:00 2015 -0400
+
+    Stock Service Functionality
+    
+    Added functionality to SellShares
+    Added a Broker class to serve as client for now.
+
+commit 09b5897c7363ace581ba2ef877d56f0f3a4d9fec
+Author: unknown <saisun1008@gmail.com>
+Date:   Sat May 23 17:47:07 2015 -0400
+
+    connect business server with business logic
+
+commit 82e58c6ee5ff0a624c4ec61804bfc03cb5299849
+Author: unknown <saisun1008@gmail.com>
+Date:   Sat May 23 17:47:07 2015 -0400
+
+    connect business server with business logic
+
+commit 7c12bc639f756de08edfc8ec2e5f314711a1435f
+Author: unknown <saisun1008@gmail.com>
+Date:   Sat May 23 17:07:06 2015 -0400
+
+    move files to proper package
+
+commit 57772d68e448cb9bc62f70b471a270d1df6481c8
+Author: unknown <saisun1008@gmail.com>
+Date:   Sat May 23 16:04:53 2015 -0400
+
+    a simple rmi client
+
+commit 698f4a8e69f58aa925b236d6a0835d6d7410c7c9
+Author: unknown <saisun1008@gmail.com>
+Date:   Sat May 23 15:48:57 2015 -0400
+
+    service rmi interface and initial implementation, plus security policy file \n when running the implementation class, make sure -Djava.security.manager -Djava.security.policy=settings/secutiry.policy is specified as VM option in the run config
+
+commit f7a6206f36054231089795b15ecb6d6c4529180c
+Author: Ross <rbrsmith@gmail.com>
+Date:   Sat May 23 01:17:33 2015 -0400
+
+    Improved bootstrap script to beable to start servers on linux, TODO decouple settings from bootstrap
+
+commit d37ff31d30c2b4d74fb74e147422455dbefe4b58
+Author: Ross <rbrsmith@gmail.com>
+Date:   Fri May 22 23:04:27 2015 -0400
+
+    Validated distributed property of logger class, deployed to server (ip in config.json) added small php script to view log file (162.209.98.223/distributedSystems/displayLog.php
+
+commit 8005bca9ecadf81910fe666d1a3af0e24bf232db
+Author: pcristo <patrickc@encs.concordia.ca>
+Date:   Fri May 22 22:30:12 2015 -0400
+
+    Implementation of the order record and related methods
+
+commit fe212c90d07483d18e47b2bac037444164d5d790
+Author: Ross <rbrsmith@gmail.com>
+Date:   Fri May 22 21:43:51 2015 -0400
+
+    Updated bootstrap and config to collect all jars in resource folder
+
+commit a64b3144685d8ca5851253391b865726bbe99f20
+Author: pcristo <patrickc@encs.concordia.ca>
+Date:   Fri May 22 21:21:27 2015 -0400
+
+    Continued implementation of Business.java
+
+commit 1c39eee7579a05188d0b367ccbfab8c117f7dca6
+Merge: fd12f6a 9f3e126
+Author: Ross <rbrsmith@gmail.com>
+Date:   Fri May 22 20:00:37 2015 -0400
+
+    Added documentation, moved config around
+
+commit fd12f6a3965c632748f91d683f1f27a6a428e027
+Author: Ross <rbrsmith@gmail.com>
+Date:   Fri May 22 19:03:48 2015 -0400
+
+    Merging
+
+commit 9f3e1260e15beeded8809a4b8da83ab561f03aef
+Author: Gay Hazan <gay.hazan@ladydavis.ca>
+Date:   Fri May 22 11:50:55 2015 -0400
+
+    Stock Exchange
+    
+    Implement class structure of Stock Exchange.
+    ShareStatusList missing some implementation and parameters
+
+commit f75716ed1309f42ebc19cfb2c68ceee17d34b68e
+Author: Ross <rbrsmith@gmail.com>
+Date:   Fri May 22 09:31:49 2015 -0400
+
+    Adding config file...again
+
+commit d8ce879c80a7133f737676abfc3a8ba36e594cc8
+Author: Ross <rbrsmith@gmail.com>
+Date:   Fri May 22 09:31:35 2015 -0400
+
+    Adding config file...again
+
+commit d13ac55d3da7c0a0bbba6ee8ef6989de24fa5dc6
+Author: pcristo <patrickc@encs.concordia.ca>
+Date:   Thu May 21 22:27:04 2015 -0400
+
+    Continuing work on business.java
+
+commit 858ec8bd1f6a7188fd63d7f8287120168c9623e2
+Merge: ffddad8 c6e7126
+Author: pcristo <patrickc@encs.concordia.ca>
+Date:   Thu May 21 21:42:05 2015 -0400
+
+    Merge remote-tracking branch 'origin/PM1' into PM1
+
+commit ffddad81fa64188b626c40bdc47a5bdf354abbf1
+Author: pcristo <patrickc@encs.concordia.ca>
+Date:   Thu May 21 21:41:13 2015 -0400
+
+    Partial implementation of Business package.
+    Rename StockQuotes package and class to follow naming convention.
+    Update .gitignore
+
+commit c6e712605ea20bb5ad6808c4801532c0c9b8ca13
+Author: Ross <rbrsmith@gmail.com>
+Date:   Thu May 21 21:36:44 2015 -0400
+
+    Create README.md
+
+commit bc1a4397950b5b44b704daab834c5c792d3fbf52
+Author: Ross <rbrsmith@gmail.com>
+Date:   Thu May 21 21:30:12 2015 -0400
+
+    Added idea files so intelliJ can import settings
+
+commit f9fec845d508a8ebf6d48b8bb48512138740e7a9
+Author: Ross <rbrsmith@gmail.com>
+Date:   Thu May 21 21:28:31 2015 -0400
+
+    deletions
+
+commit a13cf22ec582bf70d495568596d7759904c60e5a
+Author: Ross <rbrsmith@gmail.com>
+Date:   Thu May 21 07:17:23 2015 -0400
+
+    Added git ignore rule for output files
+
+commit 75b993a1c026afedcc614accd8aa0a2efe5f5d5b
+Author: Ross <rbrsmith@gmail.com>
+Date:   Thu May 21 07:15:23 2015 -0400
+
+    Added beginning of logger client and logger server.  Added config.json for all our configurations and bootstrap.ps1 to launch application in Windows,  TODO move all settings to config, better comments and junits, shell script version of bootstrap
+
+commit 72d64da2a26bf9a67a6306b179692a3f859835d9
+Author: Ross <rbrsmith@gmail.com>
+Date:   Tue May 19 20:40:31 2015 -0400
+
+    Added package for stock quotes and added google stock quote to get stock price from google finance
+
+commit a592b9417bb954859e18c3e57d7f4a3a1752afd5
+Author: Ross <rbrsmith@gmail.com>
+Date:   Sat May 16 15:02:54 2015 -0400
+
+    Eclipse files
+
+commit 804f1a234a86d09c74cef690972ddfa1a8ed5412
+Author: Ross <rbrsmith@gmail.com>
+Date:   Sat May 16 15:02:11 2015 -0400
+
+    Set up basic ItelliJ structure for project (src, out, test_src, test_out) Also added classpath and project files for eclipse.  Added sample HelloWorld package to validate output files and tests run.
+
+commit 8a53446eee681f05c33bc03b60fd64f11dd22512
+Merge: 79afb84 102df84
+Author: Ross <rbrsmith@gmail.com>
+Date:   Sat May 16 14:47:16 2015 -0400
+
+    Merge branch 'master' of https://github.com/pcristo/mjc62311
+
+commit 102df84f9082a93ee1b8b9034a0c403cf2fa98f3
+Author: Gay Hazan <Gay.Hazan@ladydavis.ca>
+Date:   Fri May 15 15:49:48 2015 -0400
+
+    File with Team name and team member first and last name
+
+commit 46dab0bd06ad4284064ea3c41e93531145642236
+Author: Ross Smith <rbrsmith@gmail.com>
+Date:   Fri May 15 07:43:13 2015 -0400
+
+    Added .gitignore to test permissions
+
+commit 79afb8427b7cc86bb2abc20d442c31b5d215337d
+Author: Ross <rbrsmith@gmail.com>
+Date:   Thu May 14 22:13:56 2015 -0400
+
+    Created empty .gitignore
+
+commit 1013a1dc55409d61ca6b74c52ad3b631241ae043
+Author: pcristo <patrick@cristofaro.net>
+Date:   Thu May 14 21:40:12 2015 -0400
+
+    Initial commit

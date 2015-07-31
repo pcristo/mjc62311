@@ -1,10 +1,10 @@
 {
-  "projectHome": "C:/Users/Ross/Dropbox/Distributed_Systems/project/",
+  "projectHome": "/home/patrick/git/mjc62311/",
 
   "jars": "resources/jar",
   "out": "out",
   "files": "files",
-  "logServerFile": "src/files/iteration_three.log",
+  "logServerFile": "out/iteration_three.log",
   "security": "resources/settings/security.policy",
 
   "logServerIP" : "localhost",
@@ -28,7 +28,7 @@
 
   "BrokerRest": "http://localhost:8080/project/buyShares",
 
-  "restDebugFile": "C:/Users/Ross/Dropbox/Distributed_Systems/project/out/DEBUG BROKER REST.txt",
+  "restDebugFile": "/home/patrick/git/mjc62311/out/DEBUG_BROKER_REST.log",
 
   "macLogServerHome": "/Users/Gay/Documents/Concordia/COMP6231/PROJECT/mjc62311",
   "macSecurity": "/resources/settings/security.policy"

@@ -1,8 +1,12 @@
+import WebServices.Rest;
 import business.BusinessWSPublisher;
 import common.Customer;
 import common.logger.LoggerClient;
+import common.logger.LoggerServer;
 import common.share.ShareType;
+import common.util.Config;
 
+import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -11,20 +15,34 @@ import stockexchange.broker.Broker;
 import stockexchange.exchange.ExchangeWSPublisher;
 import stockexchange.exchange.ShareItem;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class MultiThreadTest {
 	final static int NUMBER_OF_TEST_THREADS = 15;
 	final static int SLEEP_TIME_BETWEEN_TRIES = 0;
 	final static int NUMBER_OF_TRANSACTIONS_PER_THREAD = 90000;
+	private static Thread loggerThread;
 
 	@BeforeClass
 	public static void setUp() throws Exception {
-        ExchangeWSPublisher.main(null);
+		loggerThread = new Thread() {
+            public void run() {
+                try {
+                    LoggerServer.main(null);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        loggerThread.start();
+		
+		ExchangeWSPublisher.main(null);
         
 		BusinessWSPublisher.createBusiness("GOOG");
 		BusinessWSPublisher.createBusiness("YHOO");
@@ -42,6 +60,8 @@ public class MultiThreadTest {
         
 		ExchangeWSPublisher.unload();
 		BusinessWSPublisher.unload();
+		
+		loggerThread.interrupt();
 	}
 
 	@Test
@@ -52,7 +72,11 @@ public class MultiThreadTest {
 			clientThread[i] = new Thread(new Runnable() {
 				@Override
 				public void run() {
-					DummyClient(RandomString(6));
+					try {
+						DummyClient(RandomString(6));
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
 				}
 			});
 
@@ -86,11 +110,11 @@ public class MultiThreadTest {
 
 	}
 
-	private void DummyClient(String customer) {
-		Broker broker = new Broker();
-
+	private void DummyClient(String customer) throws IOException {
 		Customer c = new Customer(customer);
 		log("Starting dummy client " + customer);
+		
+		String url = Config.getInstance().getAttr("BrokerRest");
 
 		List<ShareItem> lstShares = new ArrayList<ShareItem>();
 		// "good" orders:
@@ -108,24 +132,27 @@ public class MultiThreadTest {
 		for (int i = 0; i < NUMBER_OF_TRANSACTIONS_PER_THREAD; i++) {
 			int shareIndex = (int) Math.floor(Math.random()
 					* lstShares.size());
-
-			// Make a transaction
-
-//			if (!broker.sellShares(lstShares.get(shareIndex)
-//					.getBusinessSymbol(), lstShares.get(shareIndex)
-//					.getShareType().toString(), lstShares.get(shareIndex)
-//					.getQuantity(), customerNumber)) {
-
-				ArrayList<String> tickers = new ArrayList<>();
-				ShareItem item = lstShares.get(shareIndex);
-				tickers.add(item.getBusinessSymbol());
-				if(broker.sellShares(tickers, item.getShareType(), item.getQuantity(), c)) {
+			ArrayList<String> tickers = new ArrayList<>();
+			ShareItem item = lstShares.get(shareIndex);
+			tickers.add(item.getBusinessSymbol());
+			
+			String result =	Rest.getPost(url, new HashMap<String, String>() {
+				private static final long serialVersionUID = 1L;
+				{
+		            put("ticker", item.getBusinessSymbol());
+		            put("type", item.getShareType().toString());
+		            put("qty", String.valueOf(item.getQuantity()));
+		            put("customer", new ObjectMapper().writeValueAsString(c));
+		        }});
+			
+			if (result == null) {
 				log("Client " + customer + " failed to purchase "
 						+ lstShares.get(shareIndex).getQuantity() + " "
 						+ lstShares.get(shareIndex).getShareType()
 						+ " shares of "
 						+ lstShares.get(shareIndex).getBusinessSymbol()
-						+ " on thread " + Thread.currentThread().getId());
+						+ " on thread " + Thread.currentThread().getId()
+						+ ". URL: " + url);
 			} else {
 				log("Client " + customer + " SUCCESSFULLY purchased "
 						+ lstShares.get(shareIndex).getQuantity() + " "
@@ -158,7 +185,6 @@ public class MultiThreadTest {
 	 * @param msg
 	 */
 	private void log(String msg) {
-		// System.out.println(msg);
 		LoggerClient.log(msg, this.getClass().getName());
 	}
 

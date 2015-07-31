@@ -12,6 +12,8 @@ Ross Smith
 
 Want the best best of this file? View it on [GitHub](https://github.com/pcristo/mjc62311/tree/PM2b)! 
 
+**NOTE!** The documentation file has been updated from the version submitted during the demo. The only important change is to Illustration 1.
+
 ## 1 - Preparing your system
 This section will describe how to prepare your system to run the software.
 
@@ -21,7 +23,7 @@ for the purposes of this document it is assumed your system meets these requirem
 
   * Linux-based desktop operating system
   * Eclipse Luna installed
-  * Tomcat server installed
+  * Tomcat server installed (Version 7 recommended)
 
 ### 1.2 - Dependencies
 To correctly run the software package, the following packages are required:
@@ -30,7 +32,7 @@ To correctly run the software package, the following packages are required:
   * JUnit 4   
   * JSON, Camel, Hamcrest and Jackson JARS *(included)*
   * ant (if using build.xml to compile)
-  * Tomcat server
+  * Tomcat server (Version 7 recommended)
 
 ### 1.3 - About
 The application has a FrontEnd class, which when ran will locally will start the servers (except for the REST server 
@@ -103,6 +105,9 @@ Full Javadoc has been generated for your convenience and is located at [this lin
 
 ### Git Repository
 The git repository is open to the public and can be reviewed at [GitHub](https://github.com/pcristo/mjc62311/tree/PM2b). Branch *"PM2b"* is the submission for the second project milestone.
+
+### Change Log
+Please see the file [changelog.txt](https://github.com/pcristo/mjc62311/blob/PM3/changelog.txt).
 
 ### Design Documentation
 Further documenation is included with the source code
