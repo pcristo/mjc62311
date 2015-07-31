@@ -10,7 +10,7 @@ Ross Smith
 
 ---
 
-Want the best best of this file? View it on [GitHub](https://github.com/pcristo/mjc62311/tree/PM2b)! 
+Want the best best of this file? View it on [GitHub](https://github.com/pcristo/mjc62311/tree/PM3)! 
 
 **NOTE!** The documentation file has been updated from the version submitted during the demo. The only important change is to Illustration 1.
 
@@ -80,7 +80,10 @@ Save the file.
 2. From the project source files, copy the contents of the './resources/jar' folder into lib
 3. Copy the contents of the './out/' folder into classes
 4. Copy web.xml from the root directory into WEB-INF
-5. If wanting to view servlet debug, set "restDebugFile" in config.json to an output file
+5. If wanting to view servlet debug, set "restDebugFile" in config.json to an output file **IMPORTANT:** Make sure the file exists and has permissions 777, or any calls to the RESTful service will fail!!
+
+		chmod 777 /home/someFolder/DEBUG_BROKER_REST.log
+
 6. Restart Tomcat
 
 
