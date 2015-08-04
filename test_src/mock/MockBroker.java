@@ -13,9 +13,11 @@ import java.rmi.RemoteException;
  * no RMI is used or created
  */
 public class MockBroker extends Broker {
+	private static final long serialVersionUID = 1L;
 
-    public MockBroker() throws RemoteException, NotBoundException {
+	public MockBroker() throws RemoteException, NotBoundException {
        exchange = getExchange();
+        exchange.getListing();
     }
 
     @Override

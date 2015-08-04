@@ -21,7 +21,10 @@ public class BrokerTest {
     @Before
     public void setUp() throws Exception {
         broker = new MockBroker();
-        shares = new ArrayList<String>(){{
+        shares = new ArrayList<String>(){
+			private static final long serialVersionUID = 1L;
+
+		{
             add("GOOG");
             add("MSFT");
             add("YHOO");

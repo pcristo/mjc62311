@@ -1,5 +1,6 @@
 package stockexchange.exchange;
 
+import stockexchange.exchange.ShareSalesStatusList;
 import common.Customer;
 import common.share.ShareType;
 import org.junit.After;

@@ -1,5 +1,5 @@
-import StockQuotes.GoogleFinanceTest;
 import business.BusinessTest;
+import business.BusinessWSTest;
 import common.logger.LoggerServer;
 import common.logger.LoggerTest;
 import common.util.ConfigTest;
@@ -7,6 +7,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
+import stockQuotes.GoogleFinanceTest;
 import stockexchange.broker.BrokerTest;
 import stockexchange.exchange.ExchangeTest;
 import stockexchange.exchange.ShareSalesStatusListTest;
@@ -25,7 +26,10 @@ import stockexchange.exchange.ShareSalesStatusListTest;
  *      Pass this class before committing code to github.
 **/
 @Suite.SuiteClasses({
+                    // To run integration test see TOMCAT_DEPLOY
                     IntegrationTest.class,
+                    BusinessWSTest.class,
+
 
                     LoggerTest.class,
                     BusinessTest.class,

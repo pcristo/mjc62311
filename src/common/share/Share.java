@@ -17,6 +17,9 @@ public class Share implements Serializable {
 		setShareType(shareType);
 		setUnitPrice(unitPrice);
 	}
+	
+	public Share() {		
+	}
 
 	public String getBusinessSymbol() {
 		return businessSymbol;

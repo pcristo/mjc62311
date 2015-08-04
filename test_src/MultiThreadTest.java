@@ -1,57 +1,67 @@
-import FrontEnd.projectLauncher;
-import corba.broker_domain.iBroker;
-import corba.broker_domain.iBrokerHelper;
+import WebServices.Rest;
+import business.BusinessWSPublisher;
+import common.Customer;
 import common.logger.LoggerClient;
-
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.omg.CORBA.ORB;
-import org.omg.CosNaming.NameComponent;
-import org.omg.CosNaming.NamingContext;
-import org.omg.CosNaming.NamingContextHelper;
-
+import common.logger.LoggerServer;
 import common.share.ShareType;
 import common.util.Config;
+
+import org.codehaus.jackson.map.ObjectMapper;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+import org.junit.Test;
+
+import stockexchange.broker.Broker;
+import stockexchange.exchange.ExchangeWSPublisher;
 import stockexchange.exchange.ShareItem;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.rmi.NotBoundException;
-import java.rmi.RemoteException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Properties;
 
 public class MultiThreadTest {
 	final static int NUMBER_OF_TEST_THREADS = 15;
 	final static int SLEEP_TIME_BETWEEN_TRIES = 0;
 	final static int NUMBER_OF_TRANSACTIONS_PER_THREAD = 90000;
-	static iBroker broker;
-	
+	private static Thread loggerThread;
+
 	@BeforeClass
 	public static void setUp() throws Exception {
-		// start up everything
-		projectLauncher.main(new String[1]);
+		loggerThread = new Thread() {
+            public void run() {
+                try {
+                    LoggerServer.main(null);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        loggerThread.start();
 		
-		// connect to the broker
-		// Set up ORB properties
-		Properties p = new Properties();
-        p.put("org.omg.CORBA.ORBInitialPort", Config.getInstance().getAttr("namingServicePort"));
-        p.put("org.omg.CORBA.ORBInitialHost", Config.getInstance().getAttr("namingServiceAddr"));
+		ExchangeWSPublisher.main(null);
         
-        // Get the exchange object
-		ORB orb = ORB.init(new String[0], p);
-
-		org.omg.CORBA.Object object = orb
-				.resolve_initial_references("NameService");
-
-		NamingContext namingContext = NamingContextHelper.narrow(object);
-
-		NameComponent nc_array[] = { new NameComponent("broker", "") };
-
-		org.omg.CORBA.Object objectReference = namingContext.resolve(nc_array);
-
-		broker = iBrokerHelper.narrow(objectReference);
+		BusinessWSPublisher.createBusiness("GOOG");
+		BusinessWSPublisher.createBusiness("YHOO");
+		BusinessWSPublisher.createBusiness("AAPL");
+		BusinessWSPublisher.createBusiness("MSFT");
+        BusinessWSPublisher.StartAllWebservices();
+        BusinessWSPublisher.RegisterAllWithExchange();      
+        
+        System.out.println("Started: " + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS"));
+	}
+	
+	@AfterClass
+	public static void tearDown() throws Exception {
+        System.out.println("Ended: " + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS"));
+        
+		ExchangeWSPublisher.unload();
+		BusinessWSPublisher.unload();
+		
+		loggerThread.interrupt();
 	}
 
 	@Test
@@ -64,7 +74,7 @@ public class MultiThreadTest {
 				public void run() {
 					try {
 						DummyClient(RandomString(6));
-					} catch (RemoteException | NotBoundException e) {
+					} catch (IOException e) {
 						e.printStackTrace();
 					}
 				}
@@ -80,29 +90,32 @@ public class MultiThreadTest {
 							PrintWriter pw = new PrintWriter(sw);
 							ex.printStackTrace(pw);
 							sw.toString(); // stack trace as a string
-							
+
 							log("***** Uncaught exception - Trace: " + sw.toString());
 						}
 					});
-		} 
-		
+		}
+
 		// start all the threads
-		for (int i = 0; i < NUMBER_OF_TEST_THREADS; i++) { 
+		for (int i = 0; i < NUMBER_OF_TEST_THREADS; i++) {
 			clientThread[i].start();
 			log("Client " + i + " starting to spam");
-		}			
-		
+		}
+
 		// wait till all threads are finished
 		for (int i = 0; i < NUMBER_OF_TEST_THREADS; i++) {
 			clientThread[i].join();
 			log("Client " + i + " finished spamming");
 		}
-			
+
 	}
 
-	private void DummyClient(String customer) throws RemoteException, NotBoundException {
+	private void DummyClient(String customer) throws IOException {
+		Customer c = new Customer(customer);
 		log("Starting dummy client " + customer);
 		
+		String url = Config.getInstance().getAttr("BrokerRest");
+
 		List<ShareItem> lstShares = new ArrayList<ShareItem>();
 		// "good" orders:
 		lstShares.add(new ShareItem("", "MSFT", ShareType.COMMON, 1001f, 100));			// should succeed
@@ -114,28 +127,32 @@ public class MultiThreadTest {
 		// intentional problem orders
 		lstShares.add(new ShareItem("", "GOOG", ShareType.CONVERTIBLE, 2.32f, 100));	// should fail due to price
 		lstShares.add(new ShareItem("", "BADD", ShareType.COMMON, 543.67f, 100));		// bad symbol
-		
-		
-		// Create a customer
-		int customerNumber = broker.registerCustomer("", "", "", "", "", "");
-		log("Broker service found for test customer " + customer + " with ID " + customerNumber);
+
 
 		for (int i = 0; i < NUMBER_OF_TRANSACTIONS_PER_THREAD; i++) {
 			int shareIndex = (int) Math.floor(Math.random()
 					* lstShares.size());
-
-			// Make a transaction
-					
-			if (!broker.sellShares(lstShares.get(shareIndex)
-					.getBusinessSymbol(), lstShares.get(shareIndex)
-					.getShareType().toString(), lstShares.get(shareIndex)
-					.getQuantity(), customerNumber)) {
+			ArrayList<String> tickers = new ArrayList<>();
+			ShareItem item = lstShares.get(shareIndex);
+			tickers.add(item.getBusinessSymbol());
+			
+			String result =	Rest.getPost(url, new HashMap<String, String>() {
+				private static final long serialVersionUID = 1L;
+				{
+		            put("ticker", item.getBusinessSymbol());
+		            put("type", item.getShareType().toString());
+		            put("qty", String.valueOf(item.getQuantity()));
+		            put("customer", new ObjectMapper().writeValueAsString(c));
+		        }});
+			
+			if (result == null) {
 				log("Client " + customer + " failed to purchase "
 						+ lstShares.get(shareIndex).getQuantity() + " "
 						+ lstShares.get(shareIndex).getShareType()
 						+ " shares of "
 						+ lstShares.get(shareIndex).getBusinessSymbol()
-						+ " on thread " + Thread.currentThread().getId());
+						+ " on thread " + Thread.currentThread().getId()
+						+ ". URL: " + url);
 			} else {
 				log("Client " + customer + " SUCCESSFULLY purchased "
 						+ lstShares.get(shareIndex).getQuantity() + " "
@@ -152,7 +169,7 @@ public class MultiThreadTest {
 			}
 		}
 	}
-	
+
 	private String RandomString(int size) {
 		String returnString = "";
 
@@ -160,7 +177,7 @@ public class MultiThreadTest {
 			char character = (char) (Math.floor(Math.random() * 26) + 97);
 			returnString += character;
 		}
-		
+
 		return returnString.trim();
 	}
 	/**
@@ -168,8 +185,7 @@ public class MultiThreadTest {
 	 * @param msg
 	 */
 	private void log(String msg) {
-		// System.out.println(msg);
 		LoggerClient.log(msg, this.getClass().getName());
 	}
-	
+
 }

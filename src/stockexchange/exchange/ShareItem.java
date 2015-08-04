@@ -4,12 +4,13 @@ import common.share.Share;
 import common.share.ShareType;
 
 public class ShareItem extends Share {
-
-    private int quantity;
+	private static final long serialVersionUID = 1L;
+	private int quantity;
     private float commission;
-    private int soldShares;
-
     private String  orderNum;
+
+    public ShareItem() {}
+
 
     /**
      * @param businessSymbol
@@ -19,10 +20,10 @@ public class ShareItem extends Share {
      */
     public ShareItem(String orderNum,String businessSymbol, ShareType shareType, float unitPrice, int quantity) {
 
-        super(businessSymbol,shareType,unitPrice);
-        this.orderNum = orderNum;
-        this.quantity = quantity;
-        this.commission = this.getUnitPrice() * 0.05f;
+        super(businessSymbol, shareType, unitPrice);
+        setOrderNum(orderNum);
+        setQuantity(quantity);
+        setCommission(0.05f);
     }
 
     /**
@@ -47,10 +48,12 @@ public class ShareItem extends Share {
      * @param numberSold
      */
     public void setSoldShares(int numberSold) {
-
-        this.soldShares = numberSold;
     }
 
+    public void setCommission(float comPerc) {
+
+       this.commission =  this.getUnitPrice() * comPerc;
+    }
     /**
      * Get Quantity
      * @return

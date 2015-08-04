@@ -4,7 +4,7 @@
   "jars": "resources/jar",
   "out": "out",
   "files": "files",
-  "logServerFile": "src/files/iteration_two.log",
+  "logServerFile": "out/iteration_three.log",
   "security": "resources/settings/security.policy",
 
   "logServerIP" : "localhost",
@@ -13,15 +13,22 @@
   "logServerPassword": "",
   "loggingDisabled": "false",
 
-  "namingServiceAddr": "localhost",
-  "namingServicePort": "900",
-
+  "BusinessEndpointPrefix": "http://localhost:18001/WS/",
+  "YHOOsx": "NASDAQ",
+  "MSFTsx": "NASDAQ",
+  "GOOGsx": "TSX",
+  "AAPLsx": "TSX",
+  
   "YHOO": "yahoo_data.csv",
   "MSFT": "microsoft_data.csv",
   "GOOG": "google_data.csv",
   "AAPL": "apple_data.csv",
   
-  "GoogleFinanceEnabled": "false",
+  "GoogleFinanceEnabled": "true",
+
+  "BrokerRest": "http://localhost:8080/project/buyShares",
+
+  "restDebugFile": "/home/patrick/git/mjc62311/out/DEBUG_BROKER_REST.log",
 
   "macLogServerHome": "/Users/Gay/Documents/Concordia/COMP6231/PROJECT/mjc62311",
   "macSecurity": "/resources/settings/security.policy"

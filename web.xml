@@ -1,0 +1,15 @@
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee" version="2.4"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http:/java.sun.com/dtd/web-app_2_3.dtd">
+    <servlet>
+        <servlet-name>BrokerREST</servlet-name>
+        <servlet-class>stockexchange.broker.BrokerREST</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>BrokerREST</servlet-name>
+        <url-pattern>/buyShares</url-pattern>
+    </servlet-mapping>
+
+
+</web-app>

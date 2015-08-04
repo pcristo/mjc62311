@@ -1,12 +1,9 @@
 package FrontEnd;
 
-import business.BusinessServer;
+import business.BusinessWSPublisher;
 import common.logger.LoggerClient;
 import common.logger.LoggerServer;
-import stockexchange.broker.BrokerServer;
-import stockexchange.exchange.ExchangeServer;
-
-import java.io.IOException;
+import stockexchange.exchange.ExchangeWSPublisher;
 
 /**
  * Run this class either in debug or regular mode to set up all your servers. Works on
@@ -19,30 +16,24 @@ public class projectLauncher {
 
 	static boolean interactive = true;
 
-
 	/**
 	 * Will launch all the servers
 	 * @param args Send no arguments and the launcher will pause and wait for a key before returning
-	 * @throws InterruptedException
-	 * @throws IOException
+	 * @throws Exception 
 	 */
-	public static void main(String[] args) throws InterruptedException,	IOException {
+	public static void main(String[] args) throws Exception {
 		
 		// Launch threads
 		Thread logger = new Thread(()->LoggerServer.main(null));
 		logger.start();
 		pause("Launching common.logger and waiting ", WAIT_BETWEEN_LAUNCH_TIME);
-
-		Thread exchange = ExchangeServer.launch();
-		pause("Launching exchange and waiting ", WAIT_BETWEEN_LAUNCH_TIME);
-		
-		Thread broker = BrokerServer.launch();
-		pause("Launching broker and waiting ", WAIT_BETWEEN_LAUNCH_TIME);
-		
-		Thread[] businesses = { BusinessServer.launch("GOOG"),
-				BusinessServer.launch("AAPL"), BusinessServer.launch("YHOO"),
-				BusinessServer.launch("MSFT") };
-		pause("Launching businesses and waiting ", WAIT_BETWEEN_LAUNCH_TIME);
+		ExchangeWSPublisher.main(null);
+		BusinessWSPublisher.createBusiness("GOOG");
+		BusinessWSPublisher.createBusiness("YHOO");
+		BusinessWSPublisher.createBusiness("AAPL");
+		BusinessWSPublisher.createBusiness("MSFT");
+		BusinessWSPublisher.StartAllWebservices();
+		BusinessWSPublisher.RegisterAllWithExchange();
 
 
 		// if any arguments are sent, the do not wait for any key, just continue
@@ -53,11 +44,9 @@ public class projectLauncher {
 
 			/*// Stop all running threads
 			broker.interrupt();*/
-			for(Thread t : businesses)
-				t.interrupt();
 			logger.interrupt();
-			exchange.interrupt();
-			broker.interrupt();
+			ExchangeWSPublisher.unload();
+			BusinessWSPublisher.unload();
 				
 			System.out.println("Okay, everyone is dead.");
 			System.exit(0);	

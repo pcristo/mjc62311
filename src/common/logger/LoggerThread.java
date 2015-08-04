@@ -3,7 +3,6 @@ package common.logger;
 import common.util.Config;
 
 import java.io.*;
-import java.net.Socket;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -13,11 +12,13 @@ import java.util.Date;
  */
 public class LoggerThread implements Runnable {
 
-    private BufferedReader fromClient;
-    private Socket socket;
+	//Removed parameters are not used:
+    //private BufferedReader fromClient;
+    //private Socket socket;
 
     private String msg;
-
+    private static Object fileLock = new Object();
+    
 
     public LoggerThread(String msg) {
         this.msg = msg;
@@ -50,7 +51,7 @@ public class LoggerThread implements Runnable {
         String projectHome = Config.getInstance().getAttr("projectHome");
         String relativeLogFile = Config.getInstance().getAttr("logServerFile");
         String fileLocation = projectHome + relativeLogFile;
-        synchronized (LoggerThread.class) {
+        synchronized (fileLock) {
             PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(fileLocation, true)));
             out.println(message);
             out.close();

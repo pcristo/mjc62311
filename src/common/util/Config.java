@@ -56,17 +56,33 @@ public class Config {
     /**
      *
      * @param attr String name of item in config.json we are trying to retreive
+     * @param raw boolean if we should put slashes to *nix style
      * @return String of json object or null if attribute doesn't exist.
      */
-    public String getAttr(String attr) {
+    public String getAttr(String attr, boolean raw) {
         try {
             String attribute = configJson.getString(attr);
-            return attribute.replace("/", File.separator);
+            if(raw) {
+                return attribute;
+            } else {
+            	if (attribute.startsWith("http"))
+            		return attribute;
+                return attribute.replace("/", File.separator);
+            }
         } catch(org.json.JSONException joe) {
             System.out.println("Json Exception in config: attr = " + attr);
             System.out.println(joe.getMessage());
             return null;
         }
+    }
+
+    /**
+     *
+     * @param attr attribute wishing to obtain
+     * @return
+     */
+    public String getAttr(String attr) {
+        return getAttr(attr, false);
     }
 
     public String loadMacSecurityPolicy() {

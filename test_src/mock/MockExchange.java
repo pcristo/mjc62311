@@ -1,7 +1,6 @@
 package mock;
 
-import business.BusinessServant;
-import corba.business_domain.interface_business;
+import business.WSClient.IBusiness;
 import stockexchange.exchange.Exchange;
 
 import java.rmi.NotBoundException;
@@ -13,10 +12,9 @@ import java.rmi.RemoteException;
  * server part
  */
 public class MockExchange extends Exchange {
+	private static final long serialVersionUID = 1L;
 
-
-
-    /**
+	/**
      * Create Exchange object, initializes three businesses
      *
      * @throws RemoteException
@@ -33,9 +31,15 @@ public class MockExchange extends Exchange {
     }
 
     @Override
-    public interface_business getBusinessIFace(String businessName){
-        interface_business bi = (interface_business) new BusinessServant(businessName);
-        return bi;
+    public IBusiness getBusinessIFace(String businessName){
+        MockBusiness b = new MockBusiness(businessName);
+        try {
+            IBusiness bi = (IBusiness) b;
+            return bi;
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        return (IBusiness) b;
     }
 
 

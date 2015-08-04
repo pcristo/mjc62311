@@ -2,10 +2,7 @@ package stockexchange.broker;
 
 import common.Customer;
 import common.share.ShareType;
-import stockexchange.exchange.Exchange;
-import stockexchange.exchange.ShareItem;
-import stockexchange.exchange.ShareList;
-import stockexchange.exchange.ShareSalesStatusList;
+import stockexchange.exchange.*;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -20,7 +17,8 @@ public class Broker implements Serializable{
     // Require for serialization.  Ensures object deserialized and serialized are the same.
     private static final long serialVersionUID = 1467890432560789065L;
 
-    protected static Exchange exchange;
+    // TO DO make this webservice
+    protected Exchange exchange;
 
 
     /**
