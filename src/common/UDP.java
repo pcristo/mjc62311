@@ -8,16 +8,25 @@ import java.net.UnknownHostException;
 import java.util.function.Consumer;
 
 public class UDP<T> {
-
+	private int port;
+	
+	public UDP() {
+		this.port = 9876;
+	}
+	
+	public UDP(int port) {
+		this.port = port;
+	}	
+	
     public boolean startServer(Consumer<T> callable) {
         DatagramSocket serverSocket = null;
         ByteArrayInputStream bis;
         ObjectInput in = null;
         try{
-            serverSocket = new DatagramSocket(9876);
+            serverSocket = new DatagramSocket(port);
             byte[] data;
             byte[] receiveData = new byte[1024];
-            while (true) {
+            while (true) { //TODO: we need a way to teardown the servers
                 DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
                 serverSocket.receive(receivePacket);
 
@@ -26,30 +35,32 @@ public class UDP<T> {
 
                 bis = new ByteArrayInputStream(data);
                 in = new ObjectInputStream(bis);
-                T o = (T) in.readObject();
+				T o = (T) in.readObject();
                 new Thread(() -> {
                     callable.accept(o);
                 }).start();
 
-
                 serverSocket.send(receivePacket);
-
             }
         } catch(IOException ioe) {
             System.out.println("IO Exception in host: " + ioe.getMessage());
         } catch(ClassNotFoundException cne){
             cne.printStackTrace();
-        } finally {
+        } catch(ClassCastException cce) {
+        	cce.printStackTrace();
+        }
+        		finally {
             serverSocket.close();
         }
 
         return true;
     }
 
-    public boolean send(T t) {
-
-        String ip = "localhost";
-        int port = 9876;
+    public boolean send(T t){
+    	return send(t, "localhost", 9876);
+    }
+    
+    public boolean send(T t, String ip, int port) {
         int attempts = 0;
 
         ByteArrayOutputStream bos;
@@ -84,10 +95,10 @@ public class UDP<T> {
                 return send(t);
             }
         } catch(UnknownHostException he){
-            System.out.println("Host Exception in common.logger client: " + he.getMessage());
+            System.out.println("Host Exception in UDP: " + he.getMessage());
             return false;
         } catch (IOException ioe) {
-            System.out.println("IO Exception in common.logger client: " + ioe.getMessage());
+            System.out.println("IO Exception in UDP: " + ioe.getMessage());
             return false;
         } finally {
             //      clientSocket.close();

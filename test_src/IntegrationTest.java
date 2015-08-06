@@ -1,15 +1,17 @@
-import FrontEnd.FrontEnd;
 import WebServices.ExchangeClientServices.ExchangeWSImplService;
 import WebServices.ExchangeClientServices.IExchange;
 import WebServices.ExchangeClientServices.ShareItem;
 import WebServices.Rest;
 import business.BusinessWSPublisher;
+import clientFrontEnd.frontEnd;
 import common.Customer;
 import common.util.Config;
+
 import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
 import stockexchange.exchange.ExchangeWSPublisher;
 
 import java.util.HashMap;
@@ -114,11 +116,11 @@ public class IntegrationTest {
 
     @Test
     public void testFESellShares() {
-        boolean result = FrontEnd.sellShares("GOOG", "COMMON", 500, new Customer("Ross"));
+        boolean result = frontEnd.sellShares("GOOG", "COMMON", 500, new Customer("Ross"));
         assertTrue(result);
 
 
-        result = FrontEnd.sellShares("YHOO", "COMMON", 500, new Customer("Ross"));
+        result = frontEnd.sellShares("YHOO", "COMMON", 500, new Customer("Ross"));
         assertTrue(result);
     }
 

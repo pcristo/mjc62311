@@ -47,12 +47,7 @@ public class UDPTest {
         // Send to server
         client.send(ross);
     }
-
-
-
-
-
-
+    
     @Before
     public void setUP() {
         udp = new UDP<Customer>();
@@ -68,11 +63,7 @@ public class UDPTest {
         udp = null;
         logger.interrupt();
     }
-
-
-
-
-
+    
     @Test
     public void sendTest() {
 

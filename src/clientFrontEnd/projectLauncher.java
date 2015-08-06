@@ -1,4 +1,4 @@
-package FrontEnd;
+package clientFrontEnd;
 
 import business.BusinessWSPublisher;
 import common.logger.LoggerClient;

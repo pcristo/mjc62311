@@ -1,4 +1,4 @@
-package FrontEnd;
+package clientFrontEnd;
 
 import WebServices.Rest;
 import common.Customer;
@@ -11,7 +11,7 @@ import stockQuotes.GoogleFinance;
 import java.util.HashMap;
 import java.util.Scanner;
 
-public class FrontEnd {
+public class frontEnd {
 
 	/** If you are running this...make sure all your server are a running
 	 * BrokerServer...ExchangeServer...BusinessServer
