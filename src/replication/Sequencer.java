@@ -1,16 +1,17 @@
-package replication.sequencer;
+package replication;
 
 import java.util.List;
 
 import common.UdpServer;
 import common.util.Config;
+import replication.messageObjects.*;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-public class sequencer extends UdpServer {
+public class Sequencer extends UdpServer {
 	private List<Integer> replicaManagers;
 	private long sequence = 0;
 
-	public sequencer() {
+	public Sequencer() {
 		this.launch(Integer.parseInt(Config.getInstance().getAttr("SequencerPort")));
 	}
 	
@@ -19,11 +20,21 @@ public class sequencer extends UdpServer {
 	 */
 	@Override
 	protected void incomingMessageHandler(Object o) {
-		if (o instanceof String) {
-			// TODO: .... what type of objects will I accept and what do they do?
+		if (o instanceof OrderMessage) {
+			// TODO: Handle a new order
 		}
 		
-		throw new NotImplementedException();
+		if (o instanceof OrderResponseMessage) {
+			// TODO: Handle order responses
+		}
+		
+		if (o instanceof RegisterRmMessage) {
+			// TODO: Register an RM
+		}
+		
+		if (o instanceof UnregisterRmMessage) {
+			// TODO: Unregister an RM
+		}
 	}
 	
 	/**
