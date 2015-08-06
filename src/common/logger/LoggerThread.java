@@ -2,10 +2,10 @@ package common.logger;
 
 import common.util.Config;
 
-import java.io.*;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 /**
  * Thread that actually handles writing to the log file
@@ -31,12 +31,13 @@ public class LoggerThread implements Runnable {
      */
     public void run() {
         try {
-            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-            Date date = new Date();
-
-            String finalMsg = dateFormat.format(date) + ": " + msg;
-            log(finalMsg);
-
+//            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+//
+//            Date date = new Date();
+//
+//            String finalMsg = dateFormat.format(date) + ": " + msg;
+//            log(finalMsg);
+                log(msg);
         } catch(IOException ioe){
             System.out.println("IO Exception in common.logger thread: " + ioe.getMessage());
         }

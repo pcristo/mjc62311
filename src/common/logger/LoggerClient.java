@@ -81,6 +81,7 @@ public class LoggerClient {
      * @return
      */
     public static boolean sendMessage(String msg, String ip, int port, int attempts) {
+
     	try {
             DatagramSocket clientSocket = new DatagramSocket();
             clientSocket.setSoTimeout(2500);
