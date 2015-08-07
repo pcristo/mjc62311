@@ -12,7 +12,7 @@ public class RegisterRmMessage implements Serializable {
 		this.replicaPort = replicaPort;
 		this.replicaAddress = "localhost";
 	}
-	
+
 	public long getReplicaID() {
 		return this.replicaID;
 	}

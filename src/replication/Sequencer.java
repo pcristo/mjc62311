@@ -19,21 +19,22 @@ public class Sequencer extends UdpServer {
 	 * Method to handle messages received by the UDP server
 	 */
 	@Override
-	protected void incomingMessageHandler(Object o) {
-		if (o instanceof OrderMessage) {
+	protected void incomingMessageHandler(MessageEnvelope me) {
+		switch (me.getType()) {
+		case OrderMessage:
 			// TODO: Handle a new order
-		}
-		
-		if (o instanceof OrderResponseMessage) {
+			break;
+		case OrderResponseMessage:
 			// TODO: Handle order responses
-		}
-		
-		if (o instanceof RegisterRmMessage) {
+			break;
+		case RegisterRmMessage:
 			// TODO: Register an RM
-		}
-		
-		if (o instanceof UnregisterRmMessage) {
+			break;
+		case UnregisterRmMessage:
 			// TODO: Unregister an RM
+			break;
+		default:
+			break; 
 		}
 	}
 	

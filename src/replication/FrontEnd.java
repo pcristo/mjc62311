@@ -5,6 +5,7 @@ import java.util.Map;
 
 import common.UdpServer;
 import common.share.ShareOrder;
+import common.util.Config;
 import replication.messageObjects.*;
 
 public class FrontEnd extends UdpServer {
@@ -12,11 +13,19 @@ public class FrontEnd extends UdpServer {
 	private Map<Long, Thread> unconfirmedRequests;
 	private Map<Long, Thread> waitingRequests;
 	
+	/**
+	 * Create a front end and launch the server right away
+	 */
+	public FrontEnd() {
+		this.launch(Integer.parseInt(Config.getInstance().getAttr("FrontEndPort")));
+	}
+	
 	@Override
-	protected void incomingMessageHandler(Object o) {
-		// TODO Auto-generated method stub
+	protected void incomingMessageHandler(MessageEnvelope me) {
+		System.out.println("Message received");
 		
-		if (o instanceof ShareOrder) {
+		switch (me.getType()) {
+		case OrderMessage:
 			// client send a share order -- but does this need to be Java RMI/CORBA/WS?
 			
 			// send the request to sequencer
@@ -25,14 +34,14 @@ public class FrontEnd extends UdpServer {
 			// store sequence and Thread.currentThread() in a hashmap 
 			// wait until notified or interrupted
 			// send a response to the client
-		}
-		
-		if (o instanceof SequencerResponseMessage) {
+			System.out.println("ShareOrder");
+			break;
+		case SequencerResponseMessage:
 			// update the local table to include the sequence number
 			// remove the item from the unconfirmed list
-		}
-		
-		if (o instanceof OrderResponseMessage) {
+			System.out.println("SequencerResponseMessage");
+			break;
+		case OrderResponseMessage:
 			// what to do when responses are received
 			
 			// workflow:
@@ -46,6 +55,18 @@ public class FrontEnd extends UdpServer {
 			//      reset the failure counters of the matching servers and 
 			//			increment the number of failures for the non-matching RM
 			//      if an RM has (threshold) failures, notify the sequencer
+			System.out.println("OrderResponseMessage");
+			break;
+		case RegisterRmMessage:
+			// TODO: Register an RM
+			System.out.println("RegisterRmMessage");
+			break;
+		case UnregisterRmMessage:
+			// TODO: Unregister an RM
+			System.out.println("UnregisterRmMessage");
+			break;
+		default:
+			break;
 		}
 	}	
 }

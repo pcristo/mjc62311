@@ -23,7 +23,8 @@ public class UDP<T> {
         ByteArrayInputStream bis;
         ObjectInput in = null;
         try{
-            serverSocket = new DatagramSocket(port);
+            System.out.println("binding port " + port);
+        	serverSocket = new DatagramSocket(port);
             byte[] data;
             byte[] receiveData = new byte[1024];
             while (true) { //TODO: we need a way to teardown the servers
@@ -50,6 +51,7 @@ public class UDP<T> {
         	cce.printStackTrace();
         }
         		finally {
+        			System.out.println("unbinding port " + port);
             serverSocket.close();
         }
 
@@ -61,7 +63,7 @@ public class UDP<T> {
     }
     
     public boolean send(T t, String ip, int port) {
-        int attempts = 0;
+        int attempts = 0;  // TODO: You cannot recursively use this function and then reset attempts to 0
 
         ByteArrayOutputStream bos;
         ObjectOutput out = null;
@@ -88,6 +90,7 @@ public class UDP<T> {
         }catch (InterruptedIOException iioe) {
             attempts++;
             System.out.println("Remote connection exception - resending attempts number " + attempts + ":");
+            System.out.println(iioe.getMessage());
             if(attempts > 3) {
                 System.out.println("Failed to send message multiple times...giving up");
                 return false;

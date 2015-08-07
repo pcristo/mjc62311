@@ -13,9 +13,8 @@
   "logServerPassword": "",
   "loggingDisabled": "false",
 
-  "frontEndClientSidePort" : "20150"
-  "frontEndSequencerSidePort" : "20151"
-  "SequencerPort" : "20152"
+  "FrontEndPort" : "20150",
+  "SequencerPort" : "20152",
 
   "BusinessEndpointPrefix": "http://localhost:18001/WS/",
   "YHOOsx": "NASDAQ",
