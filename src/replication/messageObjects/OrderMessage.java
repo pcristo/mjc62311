@@ -23,6 +23,10 @@ public class OrderMessage implements Serializable {
 		return this.sequenceID;
 	}
 	
+	public void setSequenceID(long id) {
+		this.sequenceID = id;
+	}
+	
 	public ShareOrder getShareOrder() {
 		return this.aSO;
 	}

@@ -40,6 +40,17 @@ public abstract class UdpServer {
 		return server.send(m, ip, port);
 	}
 
+	/**
+	 * Sends an object to a remote UDP server
+	 * @param m
+	 * @param ip
+	 * @param port
+	 * @return
+	 */
+	public boolean send(MessageEnvelope m, String ip, String port) {
+		return send(m, ip, Integer.parseInt(port));
+	}
+	
 	private void incomingMessageConverter(Object o) {
 		try {
 			incomingMessageHandler((MessageEnvelope) o);
