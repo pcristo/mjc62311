@@ -1,5 +1,6 @@
 package replication;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -8,10 +9,30 @@ import common.share.ShareOrder;
 import common.util.Config;
 import replication.messageObjects.*;
 
+/**
+ * Front end to the reliable replicated system
+ * @author Patrick
+ */
 public class FrontEnd extends UdpServer {
-	private List<Integer> replicaManagerPorts;			// we assume all localhost, so no need to store addresses as well
-	private Map<Long, Thread> unconfirmedRequests;
-	private Map<Long, Thread> waitingRequests;
+	/**
+	 * Maps request IDs to waiting client threads. The Request ID represents 
+	 * the number sent to the sequencer while waiting for the sequencer to 
+	 * return the sequence number. Once received, the entry should be removed 
+	 * from this map and migrated to the waitingRequests map.
+	 */
+	private HashMap<Long, Thread> unconfirmedRequests;
+	/**
+	 * Maps sequence numbers to waiting client threads.
+	 */
+	private HashMap<Long, Thread> waitingRequests;	
+	/**
+	 * Tracks the results sent by RMs and notifies if an RM is bad
+	 */
+	private VotingTable votingTable = new VotingTable();
+	/**
+	 * The temporary ID assigned to orders when sending them to the sequencer
+	 */
+	private long requestID = 0;	
 	
 	/**
 	 * Create a front end and launch the server right away
@@ -42,31 +63,35 @@ public class FrontEnd extends UdpServer {
 			System.out.println("SequencerResponseMessage");
 			break;
 		case OrderResponseMessage:
-			// what to do when responses are received
-			
-			// workflow:
-			//    a message is received
-			//    check which sequence number it is for
-			//    store the result
-			//    check if we have at least RM/2 + 1 results that match
-			//      if so, notify the waiting thread
-			//    check if we have results from all RMs
-			//      if so, check that they all match
-			//      reset the failure counters of the matching servers and 
-			//			increment the number of failures for the non-matching RM
-			//      if an RM has (threshold) failures, notify the sequencer
-			System.out.println("OrderResponseMessage");
+			processOrderResponseMessage(me.getOrderResponseMessage());
 			break;
 		case RegisterRmMessage:
-			// TODO: Register an RM
-			System.out.println("RegisterRmMessage");
+			votingTable.registerRM(me.getRegisterRmMessage().getReplicaID());
 			break;
 		case UnregisterRmMessage:
-			// TODO: Unregister an RM
-			System.out.println("UnregisterRmMessage");
+			votingTable.unregisterRM(me.getUnregisterRmMessage().getReplicaID());
 			break;
 		default:
 			break;
 		}
+	}
+
+	private void processOrderResponseMessage(
+			OrderResponseMessage oRM) {
+		
+		long orderSequence = oRM.getSequence();
+		
+		// create a voting table object
+		
+		
+		//    store the result
+		//    check if we have at least RM/2 + 1 results that match
+		//      if so, notify the waiting thread
+		//    check if we have results from all RMs
+		//      if so, check that they all match
+		//      reset the failure counters of the matching servers and 
+		//			increment the number of failures for the non-matching RM
+		//      if an RM has (threshold) failures, notify the sequencer
+		
 	}	
 }
