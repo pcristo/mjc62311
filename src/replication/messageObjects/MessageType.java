@@ -5,5 +5,6 @@ public enum MessageType {
 	OrderResponseMessage,
 	RegisterRmMessage,
 	SequencerResponseMessage,
-	UnregisterRmMessage
+	UnregisterRmMessage,
+	FailedRmMessage
 }

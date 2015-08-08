@@ -13,6 +13,7 @@
   "logServerPassword": "",
   "loggingDisabled": "false",
 
+  "ReplicaFailureThreshold" : "3",
   "FrontEndPort" : "20150",
   "SequencerPort" : "20152",
 

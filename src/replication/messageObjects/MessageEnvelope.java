@@ -12,6 +12,7 @@ public class MessageEnvelope implements Serializable {
 	private RegisterRmMessage registerRmMessage;
 	private SequencerResponseMessage sequencerResponseMessage;
 	private UnregisterRmMessage unregisterRmMessage;
+	private FailedRmMessage failedRmMessage;
 	
 	public MessageEnvelope(OrderMessage o) {
 		orderMessage = o;
@@ -48,6 +49,12 @@ public class MessageEnvelope implements Serializable {
 		return unregisterRmMessage;
 	}
 	
+	public MessageEnvelope(FailedRmMessage o) {
+		failedRmMessage = o;
+	}
+	public FailedRmMessage getFailedRmMessage() {
+		return failedRmMessage;
+	}
 	
 	public MessageType getType() {
 		if (orderMessage != null) return MessageType.OrderMessage;
@@ -55,7 +62,12 @@ public class MessageEnvelope implements Serializable {
 		if (registerRmMessage != null) return MessageType.RegisterRmMessage;
 		if (sequencerResponseMessage != null) return MessageType.SequencerResponseMessage;
 		if (unregisterRmMessage != null) return MessageType.UnregisterRmMessage;
+		if (failedRmMessage != null) return MessageType.FailedRmMessage;
 		return null;
 	}
-	
+
+	@Override
+	public String toString() {
+		return this.getType().toString();
+	}
 }

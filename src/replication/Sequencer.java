@@ -46,6 +46,12 @@ public class Sequencer extends UdpServer {
 		case UnregisterRmMessage:
 			unregisterRM(me.getUnregisterRmMessage().getReplicaID());
 			break;
+		case FailedRmMessage:
+			sequence++;
+			FailedRmMessage frm = me.getFailedRmMessage();
+			frm.setSequenceId(sequence);
+			multicastToRMs(frm);
+			break;			
 		default:
 			break; 
 		}
@@ -72,11 +78,23 @@ public class Sequencer extends UdpServer {
 	}
 	
 	/**
-	 * Multicasts a message to all Replication Managers
+	 * Multicasts an order message to all Replication Managers
 	 * @param o The message to broadcast
 	 */
 	private void multicastToRMs(OrderMessage om) {
 		MessageEnvelope me = new MessageEnvelope(om);
+		
+		for (Long rmID : replicaManagers.keySet()) {
+			this.send(me, "localhost", replicaManagers.get(rmID));
+		}	
+	}	
+	
+	/**
+	 * Multicasts a failed RM message to all Replication Managers
+	 * @param o The message to broadcast
+	 */
+	private void multicastToRMs(FailedRmMessage frm) {
+		MessageEnvelope me = new MessageEnvelope(frm);
 		
 		for (Long rmID : replicaManagers.keySet()) {
 			this.send(me, "localhost", replicaManagers.get(rmID));
