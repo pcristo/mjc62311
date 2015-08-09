@@ -10,7 +10,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class Sequencer extends UdpServer {
 	private HashMap<Long, Integer> replicaManagers;
-	private long sequence = 0;
+	private static Long sequence = (long) 0;
 
 	public Sequencer() {
 		this.launch(Integer.parseInt(Config.getInstance().getAttr("SequencerPort")));
@@ -24,16 +24,19 @@ public class Sequencer extends UdpServer {
 		switch (me.getType()) {
 		case OrderMessage:
 			OrderMessage om = me.getOrderMessage();
+			SequencerResponseMessage srs;
 			long originalID = om.getSequenceID();
-			sequence++;
+			
+			synchronized(sequence) {
+				sequence++;
+				om.setSequenceID(sequence);
+				srs = new SequencerResponseMessage(originalID, sequence);
+			}
 
 			// send a reply to the front end providing the correct sequence #
-			SequencerResponseMessage srs = 
-					new SequencerResponseMessage(originalID, sequence);
 			replyToFrontEnd(srs);
 			
 			// send the order to all registered RMs
-			om.setSequenceID(sequence);
 			multicastToRMs(om);
 			break;
 		case OrderResponseMessage:
@@ -46,10 +49,14 @@ public class Sequencer extends UdpServer {
 		case UnregisterRmMessage:
 			unregisterRM(me.getUnregisterRmMessage().getReplicaID());
 			break;
-		case FailedRmMessage:
-			sequence++;
+		case FailedRmMessage:	
 			FailedRmMessage frm = me.getFailedRmMessage();
-			frm.setSequenceId(sequence);
+			
+			synchronized(sequence) {
+				sequence++;
+				frm.setSequenceId(sequence);
+			}
+			
 			multicastToRMs(frm);
 			break;			
 		default:

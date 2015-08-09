@@ -1,7 +1,8 @@
 package replication.messageObjects;
 
 /**
- * Represents the response to an order from a replica
+ * Represents the response to an order from a replica. Message flow: 
+ * RMs -> Sequencer -> FrontEnd
  * @author Patrick
  */
 public class OrderResponseMessage {

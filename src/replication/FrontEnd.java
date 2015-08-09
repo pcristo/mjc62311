@@ -2,9 +2,8 @@ package replication;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
+import common.Customer;
 import common.UdpServer;
 import common.share.ShareOrder;
 import common.util.Config;
@@ -34,24 +33,42 @@ public class FrontEnd extends UdpServer {
 	/**
 	 * The temporary ID assigned to orders when sending them to the sequencer
 	 */
-	private long tagIdCounter = 0;
+	private static Long tagIdCounter = (long) 0;
 
 	/**
 	 * Create a front end and launch the server right away
 	 */
 	public FrontEnd() {
-		this.launch(Integer.parseInt(Config.getInstance().getAttr(
-				"FrontEndPort")));
+		this.launch(Integer.parseInt(Config.getInstance().getAttr("FrontEndPort")));
 	}
 
+	public boolean sendOrderAndWaitForReply(ShareOrder so, Customer cust) {
+		OrderMessage om;
+		synchronized(tagIdCounter) {
+			tagIdCounter++;
+			om = new OrderMessage(tagIdCounter, so, cust);
+			unconfirmedRequests.put(tagIdCounter, Thread.currentThread());
+		}
+		MessageEnvelope me = new MessageEnvelope(om);
+		
+		this.send(me, "localhost", Config.getInstance().getAttr("SequencerPort"));
+		
+		try {
+			Thread.currentThread().wait();
+		} catch (InterruptedException e) {
+			// thread interrupted means the call failed.
+			return false;
+		}
+		
+		// thread continues means the call succeeded
+		return true;		
+	}
+	
 	@Override
 	protected void incomingMessageHandler(MessageEnvelope me) {
 		System.out.println("Message received: " + me.toString());
 
 		switch (me.getType()) {
-		case OrderMessage:
-			// TODO: incoming orders from clients
-			break;
 		case SequencerResponseMessage:
 			processSequencerResponseMessage(me.getSequencerResponseMessage());
 			break;

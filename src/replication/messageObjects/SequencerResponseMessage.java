@@ -4,9 +4,9 @@ import java.io.Serializable;
 
 /**
  * This message should be sent by the sequencer in response to an
- * order from the Front End. It provides the Front End with the correct
+ * order from the FrontEnd. It provides the Front End with the correct
  * sequence ID, so that the Front End can later identify the response
- * from the RMs
+ * from the RMs. Message flow: Sequencer -> FrontEnd
  * @author Patrick
  */
 public class SequencerResponseMessage implements Serializable {

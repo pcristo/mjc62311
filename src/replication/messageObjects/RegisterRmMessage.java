@@ -2,6 +2,12 @@ package replication.messageObjects;
 
 import java.io.Serializable;
 
+/**
+ * Informs the sequencer and FrontEnd that a new RM has 
+ * been created and wishes to receive multicast messages and 
+ * vote on requests.
+ * Message flow: RM -> Sequencer -> FrontEnd
+ */
 public class RegisterRmMessage implements Serializable {
 	private long replicaID;
 	private int replicaPort;

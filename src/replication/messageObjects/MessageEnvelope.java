@@ -3,7 +3,7 @@ package replication.messageObjects;
 import java.io.Serializable;
 
 /**
- * Encapsulates a messageObject in order to send it over UDP *
+ * Encapsulates a messageObject in order to send it over UDP 
  */
 public class MessageEnvelope implements Serializable {
 	private static final long serialVersionUID = 1L;
