@@ -1,11 +1,14 @@
 package replication.messageObjects;
 
+import java.io.Serializable;
+
 /**
  * Represents the response to an order from a replica. Message flow: 
  * RMs -> Sequencer -> FrontEnd
  * @author Patrick
  */
-public class OrderResponseMessage {
+public class OrderResponseMessage implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private long sequence;
 	private long replicaID;
 	private boolean result;
