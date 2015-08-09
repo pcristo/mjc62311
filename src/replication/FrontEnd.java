@@ -133,7 +133,10 @@ public class FrontEnd extends UdpServer {
 		ArrayList<Long> failedRMs = votingTable.identifyProblemRMs(threshold);
 			
 		for (Long failedRm : failedRMs) {
-			// TODO: continue implementation here
+			FailedRmMessage fRM = new FailedRmMessage(failedRm);
+			MessageEnvelope me = new MessageEnvelope(fRM);
+			
+			this.send(me, "localhost", Config.getInstance().getAttr("SequencerPort"));
 		}
 	}
 }
