@@ -21,11 +21,11 @@ public class FrontEnd extends UdpServer {
 	 * the sequence number. Once received, the entry should be removed from this
 	 * map and migrated to the waitingRequests map.
 	 */
-	private HashMap<Long, Thread> unconfirmedRequests;
+	private static HashMap<Long, Thread> unconfirmedRequests = new HashMap<>();
 	/**
 	 * Maps sequence numbers to waiting client threads.
 	 */
-	private HashMap<Long, Thread> waitingRequests = new HashMap<>();
+	private static HashMap<Long, Thread> waitingRequests = new HashMap<>();
 	/**
 	 * Tracks the results sent by RMs and notifies if an RM is bad
 	 */
@@ -39,7 +39,6 @@ public class FrontEnd extends UdpServer {
 	 * Create a front end and launch the server right away
 	 */
 	public FrontEnd() {
-		unconfirmedRequests = new HashMap<>();
 		this.launch(Integer.parseInt(Config.getInstance().getAttr("FrontEndPort")));
 	}
 
@@ -51,15 +50,19 @@ public class FrontEnd extends UdpServer {
 			unconfirmedRequests.put(tagIdCounter, Thread.currentThread());
 		}
 		MessageEnvelope me = new MessageEnvelope(om);
-		
+
+		// TODO use proper UDP here
 		this.send(me, "localhost", Config.getInstance().getAttr("SequencerPort"));
 		
-	//	try {
-	//		Thread.currentThread().wait();
-	//	} catch (InterruptedException e) {
-			// thread interrupted means the call failed.
-	//		return false;
-	//	}
+		try {
+			synchronized (Thread.currentThread()) {
+				Thread.currentThread().wait();
+			}
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		//	 thread interrupted means the call failed.
+			return false;
+		}
 		
 		// thread continues means the call succeeded
 		return true;		
@@ -97,8 +100,8 @@ public class FrontEnd extends UdpServer {
 	private void processSequencerResponseMessage(SequencerResponseMessage sRM) {
 		Long sequenceID = sRM.getSequence();
 		Long tagID = sRM.getTag();
-
 		Thread thread = unconfirmedRequests.get(tagID);
+
 		waitingRequests.put(sequenceID, thread);
 		unconfirmedRequests.remove(tagID);
 	}
@@ -124,7 +127,6 @@ public class FrontEnd extends UdpServer {
 			return;
 
 		Thread threadToNotify = waitingRequests.get(sequenceID);
-
 		if (result) {
 			// a true result means the purchase was successful, we
 			// use notify to have the client thread continue execution

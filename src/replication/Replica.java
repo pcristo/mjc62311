@@ -1,9 +1,7 @@
 package replication;
 
-import common.Customer;
+import common.UDP;
 import common.UdpServer;
-import common.share.ShareOrder;
-import common.share.ShareType;
 import common.util.Config;
 import replication.messageObjects.MessageEnvelope;
 import replication.messageObjects.OrderMessage;
@@ -30,7 +28,7 @@ public class Replica extends UdpServer{
 
         holdBack = new TreeMap<Long, OrderMessage>();
         synchronized (uniqueID){
-            this.replicaId = uniqueID++;
+            this.replicaId = ++uniqueID;
         }
 
     }
@@ -53,12 +51,15 @@ public class Replica extends UdpServer{
         //Validate message queue vs current queue
         synchronized (curSequence) {
 
-            if (orderMessage.getSequenceID() == curSequence + 1) {
+//            if (orderMessage.getSequenceID() == curSequence + 1) {
+                if(true) {
 
                 //Process request and sent message to front end
                 this.ToDeliver(orderMessage);
                 curSequence = orderMessage.getSequenceID();
-                this.send(prepareMessage(true), "localhost", Config.getInstance().getAttr("FrontEndPort"));
+
+                UDP<MessageEnvelope> client = new UDP<>();
+                client.send(prepareMessage(true), "localhost", Integer.parseInt(Config.getInstance().getAttr("FrontEndPort")));
 
                 //Process Messages in HolbackQueue
 

@@ -10,7 +10,8 @@ import java.util.function.Consumer;
 public class ReplicaManager {
 
     public static void main(String[] args) {
-       // Replica replica = new Replica(-1);
+
+        Replica replica = new Replica();
 
         MessageEnvelope message = new MessageEnvelope(new RegisterRmMessage(80085, 9997));
         UDP<MessageEnvelope> client = new UDP<>();
@@ -18,7 +19,8 @@ public class ReplicaManager {
 
         UDP<MessageEnvelope> server = new UDP<>(9997);
         Consumer<MessageEnvelope> callback = (MessageEnvelope me) -> {
-            // to do replica
+            System.out.println(me.getOrderMessage().getCustomer().getName());
+            replica.ToReceive(me);
         };
         server.startServer(callback);
 

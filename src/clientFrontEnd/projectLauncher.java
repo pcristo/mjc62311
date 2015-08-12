@@ -3,6 +3,9 @@ package clientFrontEnd;
 import business.BusinessWSPublisher;
 import common.logger.LoggerClient;
 import common.logger.LoggerServer;
+import replication.FrontEnd;
+import replication.ReplicaManager;
+import replication.Sequencer;
 import stockexchange.exchange.ExchangeWSPublisher;
 
 /**
@@ -27,13 +30,23 @@ public class projectLauncher {
 		Thread logger = new Thread(()->LoggerServer.main(null));
 		logger.start();
 		pause("Launching common.logger and waiting ", WAIT_BETWEEN_LAUNCH_TIME);
-		ExchangeWSPublisher.main(null);
-		BusinessWSPublisher.createBusiness("GOOG");
-		BusinessWSPublisher.createBusiness("YHOO");
-		BusinessWSPublisher.createBusiness("AAPL");
-		BusinessWSPublisher.createBusiness("MSFT");
-		BusinessWSPublisher.StartAllWebservices();
-		BusinessWSPublisher.RegisterAllWithExchange();
+
+		Thread frontEnd = new Thread(()-> FrontEnd.main(null));
+		pause("Launching common.logger and waiting ", WAIT_BETWEEN_LAUNCH_TIME);
+		Thread seq = new Thread(() -> Sequencer.main(null));
+		pause("Launching common.logger and waiting ", WAIT_BETWEEN_LAUNCH_TIME);
+		Thread rm = new Thread(() -> ReplicaManager.main(null));
+		pause("Launching common.logger and waiting ", WAIT_BETWEEN_LAUNCH_TIME);
+		System.out.println("Started logger, frontend, seq, rm");
+
+
+//		ExchangeWSPublisher.main(null);
+//		BusinessWSPublisher.createBusiness("GOOG");
+//		BusinessWSPublisher.createBusiness("YHOO");
+//		BusinessWSPublisher.createBusiness("AAPL");
+//		BusinessWSPublisher.createBusiness("MSFT");
+//		BusinessWSPublisher.StartAllWebservices();
+//		BusinessWSPublisher.RegisterAllWithExchange();
 
 
 		// if any arguments are sent, the do not wait for any key, just continue
@@ -45,6 +58,9 @@ public class projectLauncher {
 			/*// Stop all running threads
 			broker.interrupt();*/
 			logger.interrupt();
+			frontEnd.interrupt();
+			seq.interrupt();
+			rm.interrupt();
 			ExchangeWSPublisher.unload();
 			BusinessWSPublisher.unload();
 				
