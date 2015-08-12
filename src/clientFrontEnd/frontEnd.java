@@ -1,4 +1,4 @@
-package FrontEnd;
+package clientFrontEnd;
 
 import WebServices.Rest;
 import common.Customer;
@@ -11,7 +11,7 @@ import stockQuotes.GoogleFinance;
 import java.util.HashMap;
 import java.util.Scanner;
 
-public class FrontEnd {
+public class frontEnd {
 
 	/** If you are running this...make sure all your server are a running
 	 * BrokerServer...ExchangeServer...BusinessServer
@@ -106,6 +106,15 @@ public class FrontEnd {
 			return false;
 		}
 
+
+
+		String stockPrice = new GoogleFinance().getStock(new Company(ticker, new stockQuotes.Exchange("NASDAQ")));
+		if(stockPrice == null || stockPrice.isEmpty()) {
+			stockPrice = "50";
+		}
+
+
+
 		// Build param map
 		HashMap<String, String> params = new HashMap<String, String>()
 		{	private static final long serialVersionUID = 1L;
@@ -114,6 +123,7 @@ public class FrontEnd {
 			put("type", type);
 			put("qty", Integer.toString(qty));
 		}};
+		params.put("price", stockPrice);
 		params.put("customer", custJson);
 
 		// Make post call

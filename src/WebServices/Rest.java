@@ -43,8 +43,9 @@ public class Rest {
             int i = 1;
             for(Map.Entry<String, String> entry: params.entrySet()) {
                 urlParameters += entry.getKey() + "=" + entry.getValue();
-                if( i != params.size()) {
+                if( i < params.size()) {
                     urlParameters += "&";
+                    i += 1;
                 } else {
                     i += 1;
                 }
@@ -52,9 +53,11 @@ public class Rest {
             wr.writeBytes(urlParameters);
             wr.flush();
             wr.close();
-
+            System.out.println(url);
+            System.out.println(urlParameters);
             // Get response
             int responseCode = con.getResponseCode();
+            System.out.println(responseCode);
             if(responseCode != 200) {
                 return null;
             }
@@ -69,7 +72,6 @@ public class Rest {
                 response.append(inputLine + "\n");
             }
             in.close();
-
             try {
                 JSONObject res = new JSONObject(response.toString());
                 boolean success = res.getBoolean("success");

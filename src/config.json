@@ -8,10 +8,14 @@
   "security": "resources/settings/security.policy",
 
   "logServerIP" : "localhost",
-  "logServerPort": "19083",
+  "logServerPort": "19000",
   "logServerUsername": "root",
   "logServerPassword": "",
   "loggingDisabled": "false",
+
+  "ReplicaFailureThreshold" : "3",
+  "FrontEndPort" : "20180",
+  "SequencerPort" : "20152",
 
   "BusinessEndpointPrefix": "http://localhost:18001/WS/",
   "YHOOsx": "NASDAQ",
@@ -28,7 +32,7 @@
 
   "BrokerRest": "http://localhost:8080/project/buyShares",
 
-  "restDebugFile": "/home/patrick/git/mjc62311/out/DEBUG_BROKER_REST.log",
+  "restDebugFile": "C:/Users/Ross/Dropbox/Distributed_Systems/project/out/DEBUG_BROKER_REST.log",
 
   "macLogServerHome": "/Users/Gay/Documents/Concordia/COMP6231/PROJECT/mjc62311",
   "macSecurity": "/resources/settings/security.policy"
