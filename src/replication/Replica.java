@@ -53,17 +53,15 @@ public class Replica extends UdpServer{
         //Validate message queue vs current queue
         synchronized (curSequence) {
 
-//            if (orderMessage.getSequenceID() == curSequence + 1) {
-                if(true) {
+            if (orderMessage.getSequenceID() == curSequence + 1) {
 
                 //Process request and sent message to front end
                 this.ToDeliver(orderMessage);
                 curSequence = orderMessage.getSequenceID();
 
-                UDP<MessageEnvelope> client = new UDP<>();
-//                client.send(prepareMessage(true), "localhost", Integer.parseInt(Config.getInstance().getAttr("FrontEndPort")));
-                    MessageEnvelope me = prepareMessage(true);
-                    client.send(me, "localhost", returnPort);
+                UDP<OrderResponseMessage> client = new UDP<>();
+                OrderResponseMessage or = prepareMessage(true);
+                client.send(or, "localhost", returnPort);
 
                 //Process Messages in HolbackQueue
 
@@ -102,16 +100,13 @@ public class Replica extends UdpServer{
      * @param success
      * @return
      */
-    private MessageEnvelope prepareMessage(boolean success){
+    private OrderResponseMessage prepareMessage(boolean success){
 
         synchronized (curSequence) {
-            System.out.println(curSequence);
-            System.out.println(replicaId);
             OrderResponseMessage response = new OrderResponseMessage(curSequence,replicaId,success);
-            System.out.println(response);
-            MessageEnvelope messageEnvelope = new MessageEnvelope(response);
-
-            return messageEnvelope;
+            //MessageEnvelope messageEnvelope = new MessageEnvelope(response);
+            return response;
+            //return messageEnvelope;
         }
     }
 

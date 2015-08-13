@@ -53,11 +53,8 @@ public class Rest {
             wr.writeBytes(urlParameters);
             wr.flush();
             wr.close();
-            System.out.println(url);
-            System.out.println(urlParameters);
             // Get response
             int responseCode = con.getResponseCode();
-            System.out.println(responseCode);
             if(responseCode != 200) {
                 return null;
             }

@@ -51,13 +51,13 @@ public class FrontEnd extends UdpServer {
 
 	public boolean sendOrderAndWaitForReply(ShareOrder so, Customer cust) {
 		OrderMessage om;
+		int port = 7865;
 		synchronized(tagIdCounter) {
 			tagIdCounter++;
-			om = new OrderMessage(tagIdCounter, so, cust, 8008);
+			om = new OrderMessage(tagIdCounter, so, cust, port);
 			unconfirmedRequests.put(tagIdCounter, Thread.currentThread());
 		}
 
-		int port = 8008;
 		MessageEnvelope me = new MessageEnvelope(om);
 		LoggerClient.log("Sending message envelope to sequencer");
 
@@ -68,7 +68,7 @@ public class FrontEnd extends UdpServer {
 		ByteArrayInputStream bis;
 		ObjectInput in = null;
 		try{
-			LoggerClient.log("Starting server on " + port);
+			LoggerClient.log("Starting front end server on " + port);
 			serverSocket = new DatagramSocket(port);
 
 			System.out.println("binding port " + port);
@@ -83,35 +83,47 @@ public class FrontEnd extends UdpServer {
 
 				bis = new ByteArrayInputStream(data);
 				in = new ObjectInputStream(bis);
-				Object obj = in.readObject();
-				MessageEnvelope msgEvn = (MessageEnvelope) obj;
-				LoggerClient.log("RECEIVED PACKAGE: " + msgEvn.getType());
-				OrderResponseMessage oRM = me.getOrderResponseMessage();
-				if(oRM == null) {
-					LoggerClient.log("ORM is NULL");
-				}
+				OrderResponseMessage oRM = (OrderResponseMessage) in.readObject();
+				LoggerClient.log("Front End server received package");
 				Long sequenceID = oRM.getSequence();
 
 				LoggerClient.log("SequenceID: " + sequenceID);
 				votingTable.castVote(sequenceID, oRM.getReplicaID(), oRM.getResult());
 
 				Boolean result = votingTable.checkResults(sequenceID);
+				LoggerClient.log("Voting response result: " + result);
 
-
+				serverSocket.send(receivePacket);
 				serverSocket.close();
 				return result;
 			}
 		} catch(IOException ioe) {
 			LoggerClient.log("IOE exception in FE: " + ioe.getStackTrace());
 			ioe.printStackTrace();
+			if(serverSocket != null){
+				serverSocket.close();
+			}
 			return false;
 		} catch(ClassNotFoundException cne){
 			LoggerClient.log("CNE exception in FE");
 			cne.printStackTrace();
+			if(serverSocket != null){
+				serverSocket.close();
+			}
 			return false;
 		} catch(ClassCastException cce) {
 			LoggerClient.log("CCE exception in FE");
 			cce.printStackTrace();
+			if(serverSocket != null){
+				serverSocket.close();
+			}
+			return false;
+		} catch(NullPointerException npe) {
+			LoggerClient.log("Null pointer in FE");
+			npe.printStackTrace();
+			if(serverSocket != null){
+				serverSocket.close();
+			}
 			return false;
 		}
 	}

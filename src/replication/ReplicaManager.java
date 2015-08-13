@@ -19,7 +19,6 @@ public class ReplicaManager {
 
         UDP<MessageEnvelope> server = new UDP<>(9997);
         Consumer<MessageEnvelope> callback = (MessageEnvelope me) -> {
-            System.out.println(me.getOrderMessage().getCustomer().getName());
             replica.ToReceive(me);
         };
         server.startServer(callback);

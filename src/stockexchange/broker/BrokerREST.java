@@ -80,9 +80,9 @@ public class BrokerREST extends HttpServlet {
         if(success) {
             if(sendOrderToFrontEnd(toBuy, customer)) {
                 data = customer.getName();
-                out.println("{'success':'" + success.toString() + "', 'data': '" + data + "'}");
+                out.println("{'success':'true', 'data': '" + data + "'}");
             } else {
-                out.println("{'success':'" + success.toString() + "'");
+                out.println("{'success':'false'}");
             }
         } else {
             out.println("{'success':'"+success.toString()+"'");

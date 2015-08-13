@@ -3,10 +3,12 @@ package clientFrontEnd;
 import business.BusinessWSPublisher;
 import common.logger.LoggerClient;
 import common.logger.LoggerServer;
-import replication.FrontEnd;
 import replication.ReplicaManager;
 import replication.Sequencer;
 import stockexchange.exchange.ExchangeWSPublisher;
+
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 /**
  * Run this class either in debug or regular mode to set up all your servers. Works on
@@ -31,12 +33,31 @@ public class projectLauncher {
 		logger.start();
 		pause("Launching common.logger and waiting ", WAIT_BETWEEN_LAUNCH_TIME);
 
-		Thread frontEnd = new Thread(()-> FrontEnd.main(null));
-		pause("Launching common.logger and waiting ", WAIT_BETWEEN_LAUNCH_TIME);
+
+
+		String url = "http://localhost:8080/project/buyShares";
+
+		URL obj = new URL(url);
+		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+
+		// optional default is GET
+		con.setRequestMethod("GET");
+
+
+		int responseCode = con.getResponseCode();
+		if(responseCode != 200) {
+			LoggerClient.log("Could not start front end for this request - request will hang");
+		}
+		con.disconnect();
+
+		pause("Launching Front end for this request ", WAIT_BETWEEN_LAUNCH_TIME);
+
 		Thread seq = new Thread(() -> Sequencer.main(null));
-		pause("Launching common.logger and waiting ", WAIT_BETWEEN_LAUNCH_TIME);
+		seq.start();
+		pause("Launching Sequencer and waiting ", WAIT_BETWEEN_LAUNCH_TIME);
 		Thread rm = new Thread(() -> ReplicaManager.main(null));
-		pause("Launching common.logger and waiting ", WAIT_BETWEEN_LAUNCH_TIME);
+		rm.start();
+		pause("Launching Replica Manager and waiting ", WAIT_BETWEEN_LAUNCH_TIME);
 		System.out.println("Started logger, frontend, seq, rm");
 
 
@@ -58,7 +79,6 @@ public class projectLauncher {
 			/*// Stop all running threads
 			broker.interrupt();*/
 			logger.interrupt();
-			frontEnd.interrupt();
 			seq.interrupt();
 			rm.interrupt();
 			ExchangeWSPublisher.unload();
