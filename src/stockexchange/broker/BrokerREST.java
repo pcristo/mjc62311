@@ -3,28 +3,17 @@ package stockexchange.broker;
 
 // Import required java libraries
 
-import WebServices.ExchangeClientServices.ExchangeWSImplService;
-import WebServices.ExchangeClientServices.IExchange;
-import WebServices.ExchangeClientServices.ShareItem;
 import common.Customer;
-import common.UdpServer;
+import common.logger.LoggerClient;
 import common.share.ShareOrder;
 import common.share.ShareType;
-import common.util.Config;
-
 import org.codehaus.jackson.map.ObjectMapper;
-
 import replication.FrontEnd;
-import replication.messageObjects.MessageEnvelope;
-import replication.messageObjects.OrderMessage;
-import stockQuotes.Company;
-import stockQuotes.GoogleFinance;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URLDecoder;
@@ -40,8 +29,12 @@ public class BrokerREST extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
     {
-        // DO SOMETHING GETTY
-        // TODO implement
+        LoggerClient.log("doGet Called");
+
+        // Set header
+        response.setContentType("text/html");
+        PrintWriter out = response.getWriter();
+        out.println("Creating FrontEnd");
     }
 
 

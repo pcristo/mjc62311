@@ -1,9 +1,9 @@
 package replication.messageObjects;
 
-import java.io.Serializable;
-
 import common.Customer;
 import common.share.ShareOrder;
+
+import java.io.Serializable;
 
 /**
  * A message containing order information, including an ID. 
@@ -14,6 +14,7 @@ public class OrderMessage implements Serializable {
 	private long sequenceID;
 	private ShareOrder aSO;
 	private Customer customer;
+	private int returnPort;
 	
 	/**
 	 * Constructor
@@ -24,6 +25,17 @@ public class OrderMessage implements Serializable {
 		this.sequenceID = seq;
 		this.aSO = order;
 		this.customer = customer;
+	}
+
+	public OrderMessage(long seq, ShareOrder order, Customer customer, int port) {
+		this.sequenceID = seq;
+		this.aSO = order;
+		this.customer = customer;
+		returnPort = port;
+	}
+
+	public int getReturnPort() {
+		return returnPort;
 	}
 
 	public long getSequenceID() {

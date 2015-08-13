@@ -2,7 +2,7 @@ package replication;
 
 import common.UDP;
 import common.UdpServer;
-import common.util.Config;
+import common.logger.LoggerClient;
 import replication.messageObjects.MessageEnvelope;
 import replication.messageObjects.OrderMessage;
 import replication.messageObjects.OrderResponseMessage;
@@ -47,6 +47,8 @@ public class Replica extends UdpServer{
 
         //Retrieve Order Message for envelope
         OrderMessage orderMessage = messageEnvelope.getOrderMessage();
+        int returnPort = orderMessage.getReturnPort();
+        LoggerClient.log("Replica FE return port is : " + returnPort);
 
         //Validate message queue vs current queue
         synchronized (curSequence) {
@@ -59,7 +61,9 @@ public class Replica extends UdpServer{
                 curSequence = orderMessage.getSequenceID();
 
                 UDP<MessageEnvelope> client = new UDP<>();
-                client.send(prepareMessage(true), "localhost", Integer.parseInt(Config.getInstance().getAttr("FrontEndPort")));
+//                client.send(prepareMessage(true), "localhost", Integer.parseInt(Config.getInstance().getAttr("FrontEndPort")));
+                    MessageEnvelope me = prepareMessage(true);
+                    client.send(me, "localhost", returnPort);
 
                 //Process Messages in HolbackQueue
 
@@ -101,7 +105,10 @@ public class Replica extends UdpServer{
     private MessageEnvelope prepareMessage(boolean success){
 
         synchronized (curSequence) {
+            System.out.println(curSequence);
+            System.out.println(replicaId);
             OrderResponseMessage response = new OrderResponseMessage(curSequence,replicaId,success);
+            System.out.println(response);
             MessageEnvelope messageEnvelope = new MessageEnvelope(response);
 
             return messageEnvelope;

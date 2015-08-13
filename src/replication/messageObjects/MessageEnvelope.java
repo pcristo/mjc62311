@@ -13,7 +13,9 @@ public class MessageEnvelope implements Serializable {
 	private SequencerResponseMessage sequencerResponseMessage;
 	private UnregisterRmMessage unregisterRmMessage;
 	private FailedRmMessage failedRmMessage;
-	
+
+
+
 	public MessageEnvelope(OrderMessage o) {
 		orderMessage = o;
 	}
