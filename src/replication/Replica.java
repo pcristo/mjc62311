@@ -1,12 +1,17 @@
 package replication;
 
+import WebServices.ExchangeClientServices.ExchangeWSImplService;
+import WebServices.ExchangeClientServices.IExchange;
+import WebServices.ExchangeClientServices.ShareItem;
+import WebServices.ExchangeClientServices.ShareType;
+import common.Customer;
 import common.UDP;
 import common.UdpServer;
 import common.logger.LoggerClient;
+import common.share.ShareOrder;
 import replication.messageObjects.MessageEnvelope;
 import replication.messageObjects.OrderMessage;
 import replication.messageObjects.OrderResponseMessage;
-
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -21,6 +26,7 @@ public class Replica extends UdpServer{
     private int replicaId;
 
 
+
     /**
      * Replica Constructor
      */
@@ -31,7 +37,12 @@ public class Replica extends UdpServer{
             this.replicaId = ++uniqueID;
         }
 
+
+
+
     }
+
+
 
     public Map<Long,OrderMessage> getHoldBack(){
 
@@ -47,7 +58,9 @@ public class Replica extends UdpServer{
 
         //Retrieve Order Message for envelope
         OrderMessage orderMessage = messageEnvelope.getOrderMessage();
+
         int returnPort = orderMessage.getReturnPort();
+
         LoggerClient.log("Replica FE return port is : " + returnPort);
 
         //Validate message queue vs current queue
@@ -56,16 +69,20 @@ public class Replica extends UdpServer{
             if (orderMessage.getSequenceID() == curSequence + 1) {
 
                 //Process request and sent message to front end
-                this.ToDeliver(orderMessage);
-                curSequence = orderMessage.getSequenceID();
+                try {
+                    if (this.ToDeliver(orderMessage)) {
 
-                UDP<OrderResponseMessage> client = new UDP<>();
-                OrderResponseMessage or = prepareMessage(true);
-                client.send(or, "localhost", returnPort);
+                        curSequence = orderMessage.getSequenceID();
+                        sendConfirmation(true, returnPort);
 
-                //Process Messages in HolbackQueue
+                        //Process Messages in HolbackQueue
+                        processHoldback();
 
+                    }
+                } catch (Exception e) {
 
+                    LoggerClient.log("Error in message delivery : " + e.getMessage());
+                }
             } else {
                 //Add to Hold Back and wait
                 this.addToHoldBack(orderMessage);
@@ -81,6 +98,30 @@ public class Replica extends UdpServer{
     private boolean sendBuyRequest(OrderMessage orderMessage) {
 
         return false;
+    }
+
+    private void processHoldback() {
+
+        for(Map.Entry<Long, OrderMessage> entry : holdBack.entrySet()) {
+            Long key = entry.getKey();
+            OrderMessage om = entry.getValue();
+
+            synchronized (this.curSequence){
+
+                if (om.getSequenceID() == this.curSequence) {
+
+                    try {
+                        if (this.ToDeliver(om)) {
+                            curSequence = om.getSequenceID();
+                            sendConfirmation(true, om.getReturnPort());
+                        }
+
+                    } catch (Exception e) {
+                        LoggerClient.log("Error in HoldBack queue message delivery : " + e.getMessage());
+                    }
+                }
+            }
+        }
     }
 
     /**
@@ -100,13 +141,12 @@ public class Replica extends UdpServer{
      * @param success
      * @return
      */
-    private OrderResponseMessage prepareMessage(boolean success){
+    private void sendConfirmation(boolean success, int returnPort){
 
         synchronized (curSequence) {
             OrderResponseMessage response = new OrderResponseMessage(curSequence,replicaId,success);
-            //MessageEnvelope messageEnvelope = new MessageEnvelope(response);
-            return response;
-            //return messageEnvelope;
+            UDP<OrderResponseMessage> client = new UDP<>();
+            client.send(response, "localhost", returnPort);
         }
     }
 
@@ -114,9 +154,29 @@ public class Replica extends UdpServer{
      *
      * @param orderMessage
      */
-    private void ToDeliver(OrderMessage orderMessage){
+    private boolean ToDeliver (OrderMessage orderMessage) throws Exception{
 
         //TODO: Send Order request to Exchange Server
+        ExchangeWSImplService exchangews = new ExchangeWSImplService("TSX");
+        IExchange exchange = exchangews.getExchangeWSImplPort();
+
+        ShareOrder sOrder = orderMessage.getShareOrder();
+        Customer customer = orderMessage.getCustomer();
+
+        ShareItem sItem = new ShareItem();
+        sItem.setOrderNum(sOrder.getOrderNum());
+        sItem.setBusinessSymbol(sOrder.getBusinessSymbol());
+        sItem.setShareType(ShareType.COMMON);
+        sItem.setQuantity(sOrder.getQuantity());
+        sItem.setUnitPrice(sOrder.getUnitPrice());
+
+        WebServices.ExchangeClientServices.Customer orderCust = new WebServices.ExchangeClientServices.Customer();
+        orderCust.setName(customer.getName());
+
+        System.out.println("REPLICA TO DELIVER");
+
+        return exchange.sellShareService(sItem, orderCust);
+
     }
 
 

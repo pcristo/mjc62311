@@ -160,7 +160,7 @@ public class Exchange implements IExchange, Serializable {
 				if (this.getShareQuantity(lstShares, s.getShareType()) >= s.getQuantity()) {
 
 					for (ShareItem sItem : lstShares) {
-
+						System.out.println("IN EXCHANGE SELLING SHARES");
 						// Populate new Sold Share
 						if (soldShare == null) {
 
@@ -197,7 +197,7 @@ public class Exchange implements IExchange, Serializable {
 							}
 						}
 					}
-				}
+				//}
 
 				// Pay the companies once shares are at 0 in the newAvailable
 				// Shares
@@ -225,7 +225,7 @@ public class Exchange implements IExchange, Serializable {
 
 			// Restock Share Lists
 			this.restock();
-        //}
+        }
 
         return  Exchange.shareStatusSaleList;
     }
@@ -558,21 +558,16 @@ public class Exchange implements IExchange, Serializable {
 		lstCustShares.add(share);
 
 		ShareSalesStatusList shareList = sellShares(new ShareList(lstCustShares), info);
-		int size =  shareList.getShares(info).size();
+
+		return false;
+
+		//int size =  shareList.getShares(info).size();
 
 		// Customer has to have shares now
-		if(size <= 0 ){
-			return false;
-		} else {
-			return true;
-		}
+		//if(size <= 0 ){
+		//	return false;
+		//} else {
+		//	return true;
+		//}
 	}
-
-	@SuppressWarnings("unused")
-	private void addShareToTest() {
-
-		ShareItem newShares = new ShareItem("1","GOOG",ShareType.COMMON,500.00f, 1000);
-		shareStatusSaleList.addToNewAvShares(newShares);
-	}
-
 }

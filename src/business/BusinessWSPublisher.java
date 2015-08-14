@@ -66,7 +66,7 @@ public class BusinessWSPublisher {
 		
 		for(String stock : businessDirectory.keySet()) {
 			String exchangeName = Config.getInstance().getAttr(stock + "sx");
-			ExchangeWSImplService exchangews = new ExchangeWSImplService(exchangeName);
+			ExchangeWSImplService exchangews = new ExchangeWSImplService("TSX");
 			IExchange exchange = exchangews.getExchangeWSImplPort();		
 			
 			LoggerClient.log("Registering " + stock + " with exchange " + exchangeName + "...");	
@@ -114,5 +114,15 @@ public class BusinessWSPublisher {
 		
 		businessDirectory.clear();
 		endpoints.clear();
+	}
+
+	public static void main(String[] args) {
+
+		try {
+			BusinessWSPublisher.createBusiness("GOOG");
+			BusinessWSPublisher.StartAllWebservices();
+		} catch (Exception e) {
+			LoggerClient.log("Business Service Error " + e.getMessage());
+		}
 	}
 }
