@@ -71,11 +71,27 @@ public class Sequencer extends UdpServer {
 	 * Registers a Replication Manager 
 	 */
 	private void registerRM(Long ID, Integer port) {
+		// Check if port is not already in use
+		for(int p : replicaManagers.values()) {
+			if (p == port) {
+				LoggerClient.log("Unable to register RM, port in use");
+				return;
+			}
+		}
+
 		replicaManagers.put(ID, port);
 
 		LoggerClient.log("RM registered on port " + port + " at id " + ID.toString());
 
-	//	MessageEnvelope me = new MessageEnvelope(new RegisterRmMessage(ID, port));
+		MessageEnvelope me = new MessageEnvelope(new PortMessage(replicaManagers));
+
+		synchronized (replicaManagers) {
+			for (int p : replicaManagers.values()) {
+				LoggerClient.log("Updating " + p + " on tracked RMs");
+				send(me, "localhost", p);
+			}
+		}
+		//	MessageEnvelope me = new MessageEnvelope(new RegisterRmMessage(ID, port));
 	//	forwardToFrontEnd(me);
 	}
 	
@@ -83,9 +99,17 @@ public class Sequencer extends UdpServer {
 	 * Unregisters a Replication Manager
 	 */
 	private void unregisterRM(Long ID) {
-		replicaManagers.remove(ID);
-		LoggerClient.log("Unregistered RM at id " + ID.toString());
-		
+		synchronized (replicaManagers) {
+			if(replicaManagers.get(ID) != null) {
+				replicaManagers.remove(ID);
+				LoggerClient.log("Unregistered RM at id " + ID.toString());
+			} else{
+				LoggerClient.log("Unable to remove RM at id " + ID.toString() + " it didn't exist, probably already removed");
+			}
+		}
+
+
+
 //		MessageEnvelope me = new MessageEnvelope(new UnregisterRmMessage(ID));
 //		forwardToFrontEnd(me);
 	}

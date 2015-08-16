@@ -118,6 +118,7 @@ public class Replica extends UdpServer{
                     sendConfirmation(false, returnPort);
                 }
             } else {
+                LoggerClient.log("Adding message to hold back queue");
                 //Add to Hold Back and wait
                 this.addToHoldBack(orderMessage);
             }

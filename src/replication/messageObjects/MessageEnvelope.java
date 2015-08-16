@@ -13,7 +13,8 @@ public class MessageEnvelope implements Serializable {
 	private SequencerResponseMessage sequencerResponseMessage;
 	private UnregisterRmMessage unregisterRmMessage;
 	private FailedRmMessage failedRmMessage;
-
+	private PortMessage portMessage;
+	private HeartbeatMessage heartbeatMessage;
 
 
 	public MessageEnvelope(OrderMessage o) {
@@ -28,6 +29,22 @@ public class MessageEnvelope implements Serializable {
 	}
 	public OrderResponseMessage getOrderResponseMessage() {
 		return orderResponseMessage;
+	}
+
+	public MessageEnvelope(HeartbeatMessage o) {
+		this.heartbeatMessage = o;
+	}
+
+	public HeartbeatMessage getHeartbeatMessage() {
+		return heartbeatMessage;
+	}
+
+	public MessageEnvelope(PortMessage o){
+		this.portMessage = o;
+	}
+
+	public PortMessage getPortMessage() {
+		return portMessage;
 	}
 	
 	public MessageEnvelope(RegisterRmMessage o) {
@@ -65,6 +82,8 @@ public class MessageEnvelope implements Serializable {
 		if (sequencerResponseMessage != null) return MessageType.SequencerResponseMessage;
 		if (unregisterRmMessage != null) return MessageType.UnregisterRmMessage;
 		if (failedRmMessage != null) return MessageType.FailedRmMessage;
+		if (portMessage != null) return MessageType.PortNessage;
+		if (heartbeatMessage != null) return MessageType.HeartbeatMessage;
 		return null;
 	}
 

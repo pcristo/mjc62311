@@ -11,5 +11,7 @@ public enum MessageType {
 	RegisterRmMessage,
 	SequencerResponseMessage,
 	UnregisterRmMessage,
-	FailedRmMessage
+	FailedRmMessage,
+	PortNessage,
+	HeartbeatMessage
 }
