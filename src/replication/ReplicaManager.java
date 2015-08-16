@@ -18,6 +18,7 @@ public class ReplicaManager {
     public HashMap<Long, Integer> rmList = new HashMap<>();
     public Integer rmPort = null;
     private ConcurrentHashMap<Integer, Long> heartbeatHistory = new ConcurrentHashMap<Integer, Long>();
+    public boolean heartbeat = true;
 
     Thread hb = null;
 
@@ -119,6 +120,11 @@ public class ReplicaManager {
         });
         hb.start();
 
+        new Thread(() -> {
+            new ReplicaManager().start();
+        }).start();
+
+
     }
 
 
@@ -129,8 +135,10 @@ public class ReplicaManager {
             while (true) {
                 synchronized (rmList) {
                     for (int p : rmList.values()) {
-                        LoggerClient.log("Sending heartbeat to RM at port: " + p);
-                        client.send(me, "localhost", p);
+                        if(heartbeat) {
+                            LoggerClient.log("Sending heartbeat to RM at port: " + p);
+                            client.send(me, "localhost", p);
+                        }
                     }
                 }
                 Thread.sleep(5 * 1000);
@@ -140,5 +148,10 @@ public class ReplicaManager {
         }
     }
 
+
+    public void setHeartbeat(Boolean b) {
+        LoggerClient.log("Setting heartbeat to " + b.toString());
+        heartbeat = b;
+    }
 
 }
