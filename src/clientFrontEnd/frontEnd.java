@@ -22,8 +22,8 @@ public class frontEnd {
 		Thread thread = new Thread() {
 			public void run() {
 				try {
-					projectLauncher.setInteractive(false);
-					projectLauncher.main(null);
+//					projectLauncher.setInteractive(false);
+//					projectLauncher.main(null);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

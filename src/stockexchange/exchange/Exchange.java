@@ -146,7 +146,6 @@ public class Exchange implements IExchange, Serializable {
 
         ShareItem soldShare = null;
 
-		System.out.println("IN EXCHANGE SELLING SHARES");
 
         for  (ShareItem s : shareItemList.getLstShareItems())
         {
@@ -562,6 +561,10 @@ public class Exchange implements IExchange, Serializable {
 		lstCustShares.add(share);
 
 		ShareSalesStatusList shareList = sellShares(new ShareList(lstCustShares), info);
+
+		if(shareList == null || shareList.getShares(info) == null ){
+			return false;
+		}
 
 		int size =  shareList.getShares(info).size();
 

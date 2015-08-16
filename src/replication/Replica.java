@@ -13,7 +13,6 @@ import replication.messageObjects.MessageEnvelope;
 import replication.messageObjects.OrderMessage;
 import replication.messageObjects.OrderResponseMessage;
 
-import javax.sound.midi.SysexMessage;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -73,10 +72,16 @@ public class Replica extends UdpServer{
                         //Process Messages in HolbackQueue
                         processHoldback();
 
+                    } else {
+                        // Unable to make share purchase
+                        LoggerClient.log("Unable to make share purchase");
+                        sendConfirmation(false, returnPort);
+                        curSequence = orderMessage.getSequenceID();
+                        processHoldback();
                     }
                 } catch (Exception e) {
-
                     LoggerClient.log("Error in message delivery : " + e.getMessage());
+                    sendConfirmation(false, returnPort);
                 }
             } else {
                 //Add to Hold Back and wait
@@ -112,6 +117,7 @@ public class Replica extends UdpServer{
                         }
 
                     } catch (Exception e) {
+                        sendConfirmation(false, om.getReturnPort());
                         LoggerClient.log("Error in HoldBack queue message delivery : " + e.getMessage());
                     }
                 }
