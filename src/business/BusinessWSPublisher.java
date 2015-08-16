@@ -4,7 +4,6 @@ import WebServices.ExchangeClientServices.ExchangeWSImplService;
 import WebServices.ExchangeClientServices.IExchange;
 import common.logger.LoggerClient;
 import common.share.ShareType;
-import common.util.Config;
 
 import javax.xml.ws.Endpoint;
 import java.util.ArrayList;
@@ -34,8 +33,9 @@ public class BusinessWSPublisher {
 	 * Starts all web services listed in the business directory
 	 * @throws Exception 
 	 */
-	public static void StartAllWebservices() throws Exception {
-		String endpointPrefix = Config.getInstance().getAttr("BusinessEndpointPrefix", true);
+	public static void StartAllWebservices(String port) throws Exception {
+		//String endpointPrefix = Config.getInstance().getAttr("BusinessEndpointPrefix", true);
+		String endpointPrefix = "http://localhost:"+port+"/WS/";
 		LoggerClient.log("Starting Business webservices...");	
 		
 		if (businessDirectory.size() == 0)
@@ -43,7 +43,7 @@ public class BusinessWSPublisher {
 		
 		for(String k : businessDirectory.keySet()) {
 			String address = endpointPrefix + k;
-			try {				
+			try {
 				endpoints.add(
 					Endpoint.publish(endpointPrefix + k, businessDirectory.get(k))
 				);
@@ -52,6 +52,7 @@ public class BusinessWSPublisher {
 			catch (Exception ex) {
 				LoggerClient.log("\tFailed to start webservice at: " + address + "\n\t" + 
 						ex.getMessage());
+				throw ex;
 			}
 		}
 	}
@@ -60,7 +61,7 @@ public class BusinessWSPublisher {
 	 * Registers all businesses in the directory with an exchange
 	 * @throws Exception 
 	 */
-	public static void RegisterAllWithExchange() throws Exception {
+	public static void RegisterAllWithExchange(String businessPort, String exchangePort) throws Exception {
 		if (businessDirectory.size() == 0)
 			throw new Exception("No businesses in the directory. Did you call createBuisness()?");
 
@@ -70,7 +71,7 @@ public class BusinessWSPublisher {
 		for (String exName : lstExchange) {
 			for (String stock : businessDirectory.keySet()) {
 				//String exchangeName = Config.getInstance().getAttr(stock + "sx");
-				ExchangeWSImplService exchangews = new ExchangeWSImplService(exName);
+				ExchangeWSImplService exchangews = new ExchangeWSImplService(exName, exchangePort);
 				IExchange exchange = exchangews.getExchangeWSImplPort();
 
 				LoggerClient.log("Registering " + stock + " with exchange " + exName + "...");
@@ -78,7 +79,7 @@ public class BusinessWSPublisher {
 				float price = businessDirectory.get(stock).getShareInfo(ShareType.COMMON).getUnitPrice();
 
 				try {
-					exchange.registerBusiness(stock, price);
+					exchange.registerBusiness(stock, price, businessPort);
 				} catch (Exception ex) {
 					System.out.println("\tFailed to register " + stock + " with exchange.\n\t" +
 							ex.getMessage());
@@ -94,7 +95,8 @@ public class BusinessWSPublisher {
 	 * Closes the connections for all business web services	
 	 */
 	public synchronized static void unload() throws Exception{
-		ExchangeWSImplService exchangews = new ExchangeWSImplService("TSX");
+		// TODO need port passed in here
+		ExchangeWSImplService exchangews = new ExchangeWSImplService("TSX", "fake");
 		IExchange exchange = exchangews.getExchangeWSImplPort();	
 				
 		for(String stock : businessDirectory.keySet()) {
@@ -122,14 +124,14 @@ public class BusinessWSPublisher {
 		endpoints.clear();
 	}
 
-	public static void main(String[] args) {
-
+	public static void main(String[] args) throws Exception {
 		try {
 			BusinessWSPublisher.createBusiness("GOOG");
-			BusinessWSPublisher.StartAllWebservices();
-			BusinessWSPublisher.RegisterAllWithExchange();
+			BusinessWSPublisher.StartAllWebservices(args[0]);
+			BusinessWSPublisher.RegisterAllWithExchange(args[0], args[1]);
 		} catch (Exception e) {
 			LoggerClient.log("Business Service Error " + e.getMessage());
+			throw e;
 		}
 	}
 }

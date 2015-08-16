@@ -17,7 +17,6 @@
   "FrontEndPort" : "20180",
   "SequencerPort" : "20152",
 
-  "BusinessEndpointPrefix": "http://localhost:18001/WS/",
   "YHOOsx": "NASDAQ",
   "MSFTsx": "NASDAQ",
   "GOOGsx": "TSX",

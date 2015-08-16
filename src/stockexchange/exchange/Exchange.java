@@ -80,10 +80,10 @@ public class Exchange implements IExchange, Serializable {
      * @param price
      * @return true if successful, false if the exchange was unable to buy initial shares
      */
-    public boolean registerBusiness(String symbol, float price) {
+    public boolean registerBusiness(String symbol, float price, String port) {
         try{
             synchronized(businessDirectory) {
-            	businessDirectory.put(symbol, getBusinessIFace(symbol)); }
+            	businessDirectory.put(symbol, getBusinessIFace(symbol, port)); }
 
             synchronized(priceDirectory) {
             	priceDirectory.put(symbol, price); }
@@ -122,9 +122,9 @@ public class Exchange implements IExchange, Serializable {
      * @param businessName
      * @return
      */
-    public IBusiness getBusinessIFace(String businessName){
+    public IBusiness getBusinessIFace(String businessName, String port){
         try {
-			BusinessWSImplService businessService = new BusinessWSImplService(businessName);
+			BusinessWSImplService businessService = new BusinessWSImplService(businessName, port);
 			IBusiness iBusiness = businessService.getBusinessWSImplPort();
 
             return iBusiness;

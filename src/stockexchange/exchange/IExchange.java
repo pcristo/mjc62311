@@ -24,7 +24,8 @@ public interface IExchange {
     @WebMethod
     boolean registerBusiness(
             @WebParam (name = "symbol")String symbol,
-            @WebParam (name = "price") float price
+            @WebParam (name = "price") float price,
+            @WebParam (name = "port")String port
     );
 
     @WebMethod

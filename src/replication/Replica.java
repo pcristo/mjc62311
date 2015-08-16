@@ -4,6 +4,7 @@ import WebServices.ExchangeClientServices.ExchangeWSImplService;
 import WebServices.ExchangeClientServices.IExchange;
 import WebServices.ExchangeClientServices.ShareItem;
 import WebServices.ExchangeClientServices.ShareType;
+import business.BusinessWSPublisher;
 import common.Customer;
 import common.UDP;
 import common.UdpServer;
@@ -12,7 +13,9 @@ import common.share.ShareOrder;
 import replication.messageObjects.MessageEnvelope;
 import replication.messageObjects.OrderMessage;
 import replication.messageObjects.OrderResponseMessage;
+import stockexchange.exchange.ExchangeWSPublisher;
 
+import java.net.BindException;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -25,12 +28,42 @@ public class Replica extends UdpServer{
     private Long curSequence = 0l;
     private static Integer uniqueID = 0;
     private int replicaId;
+    private String exhcnagePort;
+    private String businessPort;
 
 
     /**
      * Replica Constructor
      */
     public Replica() {
+
+        boolean exchangeStarted = false;
+        Integer port = 8888;
+        String[] arr = new String[1];
+        while (!exchangeStarted) {
+            try {
+                arr[0] = port.toString();
+                ExchangeWSPublisher.main(arr);
+                exchangeStarted = true;
+            } catch (BindException be) {
+                port += 1;
+            }
+        }
+        exhcnagePort = port.toString();
+        port = 18001;
+        arr = new String[2];
+        boolean businessStarted = false;
+        while(!businessStarted) {
+            try {
+                arr[0] = port.toString();
+                arr[1] = exhcnagePort;
+                BusinessWSPublisher.main(arr);
+                businessStarted = true;
+            } catch(Exception e) {
+                port += 1;
+            }
+        }
+        businessPort = port.toString();
 
         holdBack = new TreeMap<Long, OrderMessage>();
         synchronized (uniqueID){
@@ -65,6 +98,7 @@ public class Replica extends UdpServer{
                 //Process request and sent message to front end
                 try {
                     if (this.ToDeliver(orderMessage)) {
+                        LoggerClient.log("TODeliver success - returning to front end on port " + returnPort);
 
                         curSequence = orderMessage.getSequenceID();
                         sendConfirmation(true, returnPort);
@@ -74,7 +108,7 @@ public class Replica extends UdpServer{
 
                     } else {
                         // Unable to make share purchase
-                        LoggerClient.log("Unable to make share purchase");
+                        LoggerClient.log("TODeliver fail - returning to front end on port " + returnPort);
                         sendConfirmation(false, returnPort);
                         curSequence = orderMessage.getSequenceID();
                         processHoldback();
@@ -168,7 +202,7 @@ public class Replica extends UdpServer{
            exName = "TSXCOPY" + replicaId;
        }
 
-        ExchangeWSImplService exchangews = new ExchangeWSImplService(exName);
+        ExchangeWSImplService exchangews = new ExchangeWSImplService(exName, exhcnagePort);
         IExchange exchange = exchangews.getExchangeWSImplPort();
 
         ShareOrder sOrder = orderMessage.getShareOrder();

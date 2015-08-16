@@ -1,16 +1,13 @@
 
 package business.WSClient;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 import javax.xml.ws.WebEndpoint;
 import javax.xml.ws.WebServiceClient;
 import javax.xml.ws.WebServiceFeature;
-
-import common.util.Config;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 
 /**
@@ -30,8 +27,9 @@ public class BusinessWSImplService extends Service
      * @param stockSymbol
      * @throws MalformedURLException 
      */
-    public BusinessWSImplService(String stockSymbol) throws MalformedURLException {
-    	super(new URL(Config.getInstance().getAttr("BusinessEndpointPrefix") + stockSymbol + "?wsdl"),
+    public BusinessWSImplService(String stockSymbol, String port) throws MalformedURLException {
+
+    	super(new URL("http://localhost:"+port+"/WS/" + stockSymbol + "?wsdl"),
     			new QName("http://business/", "BusinessWSImplService"));
     }
 

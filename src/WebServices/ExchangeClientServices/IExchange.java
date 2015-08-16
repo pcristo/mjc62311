@@ -38,7 +38,9 @@ public interface IExchange {
             @WebParam(name = "symbol", partName = "symbol")
             String symbol,
             @WebParam(name = "price", partName = "price")
-            float price);
+            float price,
+            @WebParam(name = "port", partName = "port")
+            String port);
 
     /**
      * 

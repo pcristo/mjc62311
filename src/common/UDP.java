@@ -1,10 +1,7 @@
 package common;
 
 import java.io.*;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
+import java.net.*;
 import java.util.function.Consumer;
 
 public class UDP<T> {
@@ -18,12 +15,12 @@ public class UDP<T> {
 		this.port = port;
 	}	
 	
-    public boolean startServer(Consumer<T> callable) {
+    public boolean startServer(Consumer<T> callable) throws BindException{
         DatagramSocket serverSocket = null;
         ByteArrayInputStream bis;
         ObjectInput in = null;
-        try{
-        	serverSocket = new DatagramSocket(port);
+        try {
+            serverSocket = new DatagramSocket(port);
 
             System.out.println("binding port " + port);
             byte[] data;
@@ -37,7 +34,7 @@ public class UDP<T> {
 
                 bis = new ByteArrayInputStream(data);
                 in = new ObjectInputStream(bis);
-				Object obj = in.readObject();
+                Object obj = in.readObject();
                 T o = (T) obj;
                 new Thread(() -> {
                     callable.accept(o);
@@ -45,6 +42,11 @@ public class UDP<T> {
 
                 serverSocket.send(receivePacket);
             }
+        } catch(BindException be) {
+            if(serverSocket != null) {
+                serverSocket.close();
+            }
+            throw be;
         } catch(IOException ioe) {
             System.out.println("IO Exception in host: " + ioe.getMessage());
             ioe.printStackTrace();
@@ -53,10 +55,10 @@ public class UDP<T> {
         } catch(ClassCastException cce) {
         	cce.printStackTrace();
         }
-        		finally {
-        			System.out.println("unbinding port " + port);
-            serverSocket.close();
-        }
+//        finally {
+//            System.out.println("unbinding port " + port);
+//            serverSocket.close();
+//        }
 
         return true;
     }

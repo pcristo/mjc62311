@@ -84,18 +84,20 @@ public class FrontEnd extends UdpServer {
 				bis = new ByteArrayInputStream(data);
 				in = new ObjectInputStream(bis);
 				OrderResponseMessage oRM = (OrderResponseMessage) in.readObject();
-				LoggerClient.log("Front End server received package");
+				LoggerClient.log("Front End server OrderResponseMessage package");
 				Long sequenceID = oRM.getSequence();
 
-				LoggerClient.log("SequenceID: " + sequenceID);
-				votingTable.castVote(sequenceID, oRM.getReplicaID(), oRM.getResult());
+				LoggerClient.log("Result from replica is...." + oRM.getResult());
 
-				Boolean result = votingTable.checkResults(sequenceID);
-				LoggerClient.log("Voting response result: " + result);
+//				LoggerClient.log("SequenceID: " + sequenceID);
+//				votingTable.castVote(sequenceID, oRM.getReplicaID(), oRM.getResult());
+//
+//				Boolean result = votingTable.checkResults(sequenceID);
+//				LoggerClient.log("Voting response result: " + result);
 
 				serverSocket.send(receivePacket);
 				serverSocket.close();
-				return result;
+				return oRM.getResult();
 			}
 		} catch(IOException ioe) {
 			LoggerClient.log("IOE exception in FE: " + ioe.getStackTrace());

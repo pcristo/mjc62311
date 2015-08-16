@@ -23,6 +23,7 @@ public class Sequencer extends UdpServer {
 	protected void incomingMessageHandler(MessageEnvelope me) {
 		switch (me.getType()) {
 		case OrderMessage:
+			LoggerClient.log("Recieved order message");
 			OrderMessage om = me.getOrderMessage();
 			SequencerResponseMessage srs;
 			long originalID = om.getSequenceID();
@@ -34,9 +35,11 @@ public class Sequencer extends UdpServer {
 			}
 
 			// send a reply to the front end providing the correct sequence #
-			replyToFrontEnd(srs);
+			// We are not seding sequence number to front end any more
+		//	replyToFrontEnd(srs);
 			
 			// send the order to all registered RMs
+			LoggerClient.log("Sending order message to RMs");
 			multicastToRMs(om);
 			break;
 		case OrderResponseMessage:
@@ -45,7 +48,6 @@ public class Sequencer extends UdpServer {
 		case RegisterRmMessage:
 			registerRM(me.getRegisterRmMessage().getReplicaID(),
 					me.getRegisterRmMessage().getReplicaPort());
-			LoggerClient.log("RM registered");
 			break;
 		case UnregisterRmMessage:
 			unregisterRM(me.getUnregisterRmMessage().getReplicaID());
@@ -71,8 +73,10 @@ public class Sequencer extends UdpServer {
 	private void registerRM(Long ID, Integer port) {
 		replicaManagers.put(ID, port);
 
-		MessageEnvelope me = new MessageEnvelope(new RegisterRmMessage(ID, port));
-		forwardToFrontEnd(me);
+		LoggerClient.log("RM registered on port " + port + " at id " + ID.toString());
+
+	//	MessageEnvelope me = new MessageEnvelope(new RegisterRmMessage(ID, port));
+	//	forwardToFrontEnd(me);
 	}
 	
 	/**
@@ -80,9 +84,10 @@ public class Sequencer extends UdpServer {
 	 */
 	private void unregisterRM(Long ID) {
 		replicaManagers.remove(ID);
+		LoggerClient.log("Unregistered RM at id " + ID.toString());
 		
-		MessageEnvelope me = new MessageEnvelope(new UnregisterRmMessage(ID));
-		forwardToFrontEnd(me);
+//		MessageEnvelope me = new MessageEnvelope(new UnregisterRmMessage(ID));
+//		forwardToFrontEnd(me);
 	}
 	
 	/**
@@ -91,8 +96,8 @@ public class Sequencer extends UdpServer {
 	 */
 	private void multicastToRMs(OrderMessage om) {
 		MessageEnvelope me = new MessageEnvelope(om);
-		
 		for (Long rmID : replicaManagers.keySet()) {
+			LoggerClient.log("Multicasting to rm on port: " + replicaManagers.get(rmID));
 			this.send(me, "localhost", replicaManagers.get(rmID));
 		}	
 	}	

@@ -1,8 +1,9 @@
 package common;
 
-import replication.FrontEnd;
+import common.logger.LoggerClient;
 import replication.messageObjects.MessageEnvelope;
 
+import java.net.BindException;
 import java.util.function.Consumer;
 
 public abstract class UdpServer {
@@ -22,7 +23,11 @@ public abstract class UdpServer {
 			public void run() {
 				server = new UDP<>(port);
 				callableFunction = (Object o) -> incomingMessageConverter(o);
-				server.startServer(callableFunction);
+				try {
+					server.startServer(callableFunction);
+				} catch(BindException be) {
+					LoggerClient.log("Bind exception in UDP SERVER");
+				}
 			}
 		};
 		serverThread.start();
