@@ -22,7 +22,8 @@ public class ExchangeWSPublisher {
         publishedEndpoints = new ArrayList<>();
 
         endpoints.add("http://localhost:8888/WS/TSX");
-        endpoints.add("http://localhost:8888/WS/NASDAQ");
+        endpoints.add("http://localhost:8888/WS/TSXCOPY1");
+        endpoints.add("http://localhost:8888/WS/TSXCOPY2");
 
         LoggerClient.log("Starting Exchange webservices...");
 
@@ -35,7 +36,6 @@ public class ExchangeWSPublisher {
                 LoggerClient.log("\tFailed to start webservice at: " + endpoint + ex);
             }
         }
-
     }
 
     /*

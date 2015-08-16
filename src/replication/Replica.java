@@ -12,6 +12,8 @@ import common.share.ShareOrder;
 import replication.messageObjects.MessageEnvelope;
 import replication.messageObjects.OrderMessage;
 import replication.messageObjects.OrderResponseMessage;
+
+import javax.sound.midi.SysexMessage;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -26,7 +28,6 @@ public class Replica extends UdpServer{
     private int replicaId;
 
 
-
     /**
      * Replica Constructor
      */
@@ -36,13 +37,7 @@ public class Replica extends UdpServer{
         synchronized (uniqueID){
             this.replicaId = ++uniqueID;
         }
-
-
-
-
     }
-
-
 
     public Map<Long,OrderMessage> getHoldBack(){
 
@@ -156,8 +151,18 @@ public class Replica extends UdpServer{
      */
     private boolean ToDeliver (OrderMessage orderMessage) throws Exception{
 
-        //TODO: Send Order request to Exchange Server
-        ExchangeWSImplService exchangews = new ExchangeWSImplService("TSX");
+        String exName;
+
+       if (replicaId == 1)
+       {
+           exName = "TSX";
+       }
+        else
+       {
+           exName = "TSXCOPY" + replicaId;
+       }
+
+        ExchangeWSImplService exchangews = new ExchangeWSImplService(exName);
         IExchange exchange = exchangews.getExchangeWSImplPort();
 
         ShareOrder sOrder = orderMessage.getShareOrder();
@@ -173,9 +178,10 @@ public class Replica extends UdpServer{
         WebServices.ExchangeClientServices.Customer orderCust = new WebServices.ExchangeClientServices.Customer();
         orderCust.setName(customer.getName());
 
-        System.out.println("REPLICA TO DELIVER");
+        boolean response = exchange.sellShareService(sItem, orderCust);
 
-        return exchange.sellShareService(sItem, orderCust);
+
+        return response;
 
     }
 
@@ -216,6 +222,5 @@ public class Replica extends UdpServer{
 
 
     }
-
 
 }

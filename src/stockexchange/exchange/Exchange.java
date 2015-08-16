@@ -88,7 +88,8 @@ public class Exchange implements IExchange, Serializable {
             synchronized(priceDirectory) {
             	priceDirectory.put(symbol, price); }
 
-            LoggerClient.log("Registered " + symbol + " with price " + price);
+			System.out.println("Registered " + symbol + " with price " + price);
+            //LoggerClient.log("Registered " + symbol + " with price " + price);
             return this.orderShares(this.businessDirectory.get(symbol), symbol, price, 1000);
         } catch (Exception e) {
             LoggerClient.log("Exchange exception in registerBusiness: " + e.getMessage());
@@ -145,8 +146,11 @@ public class Exchange implements IExchange, Serializable {
 
         ShareItem soldShare = null;
 
+		System.out.println("IN EXCHANGE SELLING SHARES");
+
         for  (ShareItem s : shareItemList.getLstShareItems())
         {
+
 			int requestedShares = s.getQuantity();
 			int toComplete = requestedShares;
 
@@ -160,7 +164,7 @@ public class Exchange implements IExchange, Serializable {
 				if (this.getShareQuantity(lstShares, s.getShareType()) >= s.getQuantity()) {
 
 					for (ShareItem sItem : lstShares) {
-						System.out.println("IN EXCHANGE SELLING SHARES");
+
 						// Populate new Sold Share
 						if (soldShare == null) {
 
@@ -559,15 +563,13 @@ public class Exchange implements IExchange, Serializable {
 
 		ShareSalesStatusList shareList = sellShares(new ShareList(lstCustShares), info);
 
-		return false;
-
-		//int size =  shareList.getShares(info).size();
+		int size =  shareList.getShares(info).size();
 
 		// Customer has to have shares now
-		//if(size <= 0 ){
-		//	return false;
-		//} else {
-		//	return true;
-		//}
+		if(size <= 0 ){
+			return false;
+		} else {
+			return true;
+		}
 	}
 }
