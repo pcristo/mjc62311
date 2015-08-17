@@ -82,7 +82,7 @@ public class FrontEnd extends UdpServer {
 			System.out.println("binding port " + port);
 			byte[] data;
 			byte[] receiveData = new byte[4024];
-			while (true) { //TODO: we need a way to teardown the servers
+			while (true) {
 				DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
 				serverSocket.receive(receivePacket);
 
@@ -98,6 +98,7 @@ public class FrontEnd extends UdpServer {
 
 				serverSocket.send(receivePacket);
 				serverSocket.close();
+				// Stop the blocking and let the client return
 				return oRM.getResult();
 			}
 		} catch(IOException ioe) {
@@ -133,8 +134,6 @@ public class FrontEnd extends UdpServer {
 	
 	@Override
 	protected void incomingMessageHandler(MessageEnvelope me) {
-		LoggerClient.log("Message received: " + me.toString());
-		LoggerClient.log("Message type: " + me.getType());
 
 		switch (me.getType()) {
 		case SequencerResponseMessage:

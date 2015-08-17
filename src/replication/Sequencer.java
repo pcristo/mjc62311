@@ -34,10 +34,7 @@ public class Sequencer extends UdpServer {
 				srs = new SequencerResponseMessage(originalID, sequence);
 			}
 
-			// send a reply to the front end providing the correct sequence #
-			// We are not seding sequence number to front end any more
-		//	replyToFrontEnd(srs);
-			
+
 			// send the order to all registered RMs
 			LoggerClient.log("Sending order message to RMs");
 			multicastToRMs(om);
@@ -79,11 +76,14 @@ public class Sequencer extends UdpServer {
 			}
 		}
 
+		// Track RM
 		replicaManagers.put(ID, port);
 
 		LoggerClient.log("RM registered on port " + port + " at id " + ID.toString());
 
+		// Tell RM's that a new RM has been added
 		MessageEnvelope me = new MessageEnvelope(new PortMessage(replicaManagers));
+
 
 		synchronized (replicaManagers) {
 			for (int p : replicaManagers.values()) {
@@ -91,8 +91,6 @@ public class Sequencer extends UdpServer {
 				send(me, "localhost", p);
 			}
 		}
-		//	MessageEnvelope me = new MessageEnvelope(new RegisterRmMessage(ID, port));
-	//	forwardToFrontEnd(me);
 	}
 	
 	/**
@@ -104,18 +102,17 @@ public class Sequencer extends UdpServer {
 				replicaManagers.remove(ID);
 				LoggerClient.log("Unregistered RM at id " + ID.toString());
 			} else{
+				// A thread beat you in removing this RM, so we return
 				LoggerClient.log("Unable to remove RM at id " + ID.toString() + " it didn't exist, probably already removed");
 				return;
 			}
 		}
+		// Start up a new RM
 		new Thread(() -> {
             new ReplicaManager().start();
         }).start();
 
 
-
-//		MessageEnvelope me = new MessageEnvelope(new UnregisterRmMessage(ID));
-//		forwardToFrontEnd(me);
 	}
 	
 	/**
@@ -141,17 +138,7 @@ public class Sequencer extends UdpServer {
 			this.send(me, "localhost", replicaManagers.get(rmID));
 		}	
 	}	
-	
-	/**
-	 * Sends a response to the front end for an order, providing the front
-	 * end with the correct sequence number for this transaction
-	 * @param srs
-	 * @return true if successful
-	 */
-	private boolean replyToFrontEnd(SequencerResponseMessage srs) {
-		MessageEnvelope me = new MessageEnvelope(srs);
-		return forwardToFrontEnd(me);
-	}
+
 	
 	/**
 	 * Forwards a message to the front end
@@ -162,6 +149,10 @@ public class Sequencer extends UdpServer {
 		return this.send(me, "localhost", Config.getInstance().getAttr("FrontEndPort"));
 	}
 
+	/**
+	 * Start sequencer
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		Sequencer seq = new Sequencer();
 
