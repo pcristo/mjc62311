@@ -49,10 +49,18 @@ public class FrontEnd extends UdpServer {
 		this.launch(Integer.parseInt(Config.getInstance().getAttr("FrontEndPort")));
 	}
 
+
+	/**
+	 * Start a server and wait for response
+	 * @param so ShareORder of Purchase
+	 * @param cust Customer making a purcahse
+	 * @return
+	 */
 	public boolean sendOrderAndWaitForReply(ShareOrder so, Customer cust) {
 		OrderMessage om;
 		int port = 7865;
 		synchronized(tagIdCounter) {
+			// Pass sequencer message
 			tagIdCounter++;
 			om = new OrderMessage(tagIdCounter, so, cust, port);
 			unconfirmedRequests.put(tagIdCounter, Thread.currentThread());
@@ -85,15 +93,8 @@ public class FrontEnd extends UdpServer {
 				in = new ObjectInputStream(bis);
 				OrderResponseMessage oRM = (OrderResponseMessage) in.readObject();
 				LoggerClient.log("Front End server OrderResponseMessage package");
-				Long sequenceID = oRM.getSequence();
 
 				LoggerClient.log("Result from replica is...." + oRM.getResult());
-
-//				LoggerClient.log("SequenceID: " + sequenceID);
-//				votingTable.castVote(sequenceID, oRM.getReplicaID(), oRM.getResult());
-//
-//				Boolean result = votingTable.checkResults(sequenceID);
-//				LoggerClient.log("Voting response result: " + result);
 
 				serverSocket.send(receivePacket);
 				serverSocket.close();

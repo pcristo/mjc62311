@@ -25,6 +25,7 @@ import java.util.TreeMap;
 public class Replica extends UdpServer{
 
     private Map<Long, OrderMessage> holdBack;
+    private boolean first = true;
     private Long curSequence = 0l;
     private static Integer uniqueID = 0;
     private int replicaId;
@@ -76,6 +77,15 @@ public class Replica extends UdpServer{
         return this.holdBack;
     }
 
+
+    public boolean next(long seqID) {
+        if(first) {
+            return true;
+        } else {
+            return seqID == curSequence + 1;
+        }
+
+    }
     /**
      *
      * @param messageEnvelope
@@ -93,7 +103,8 @@ public class Replica extends UdpServer{
         //Validate message queue vs current queue
         synchronized (curSequence) {
 
-            if (orderMessage.getSequenceID() == curSequence + 1) {
+
+            if(next(orderMessage.getSequenceID())) {
 
                 //Process request and sent message to front end
                 try {
@@ -125,15 +136,6 @@ public class Replica extends UdpServer{
         }
     }
 
-    /**
-     *
-     * @param orderMessage
-     * @return
-     */
-    private boolean sendBuyRequest(OrderMessage orderMessage) {
-
-        return false;
-    }
 
     private void processHoldback() {
 

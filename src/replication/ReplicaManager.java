@@ -120,9 +120,9 @@ public class ReplicaManager {
         });
         hb.start();
 
-        new Thread(() -> {
-            new ReplicaManager().start();
-        }).start();
+//        new Thread(() -> {
+//            new ReplicaManager().start();
+//        }).start();
 
 
     }

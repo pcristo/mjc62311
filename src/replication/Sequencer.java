@@ -105,8 +105,12 @@ public class Sequencer extends UdpServer {
 				LoggerClient.log("Unregistered RM at id " + ID.toString());
 			} else{
 				LoggerClient.log("Unable to remove RM at id " + ID.toString() + " it didn't exist, probably already removed");
+				return;
 			}
 		}
+		new Thread(() -> {
+            new ReplicaManager().start();
+        }).start();
 
 
 
