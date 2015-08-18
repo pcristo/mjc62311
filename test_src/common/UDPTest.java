@@ -5,6 +5,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.net.BindException;
 import java.util.function.Consumer;
 
 import static junit.framework.TestCase.assertTrue;
@@ -32,7 +33,7 @@ public class UDPTest {
         };
 
         // Start the server
-        server.startServer(callableFunction);
+        //server.startServer(callableFunction);
     }
 
     // HOW TO SEND AN OBJECT TO UDP SERVER
@@ -73,7 +74,12 @@ public class UDPTest {
                 System.out.println(c.getName());
             };
 
-            new UDP<Customer>().startServer(callable);
+            try {
+                new UDP<Customer>().startServer(callable);
+            } catch (BindException be) {
+                System.out.println("Error in UDP Test : " + be.getMessage());
+            }
+
         }).start();
         assertTrue(udp.send(new Customer("Ross")));
 

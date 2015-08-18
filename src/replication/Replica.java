@@ -16,6 +16,8 @@ import replication.messageObjects.OrderResponseMessage;
 import stockexchange.exchange.ExchangeWSPublisher;
 
 import java.net.BindException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -78,6 +80,11 @@ public class Replica extends UdpServer{
     }
 
 
+    /**
+     * Process first request and initiate sequence
+     * @param seqID
+     * @return
+     */
     public boolean next(long seqID) {
         if(first) {
             return true;
@@ -86,8 +93,9 @@ public class Replica extends UdpServer{
         }
 
     }
+
     /**
-     *
+     * Method to receive messages
      * @param messageEnvelope
      * @return
      */
@@ -137,7 +145,12 @@ public class Replica extends UdpServer{
     }
 
 
+    /**
+     * Process the item in the holdback
+     */
     private void processHoldback() {
+
+        List<Long> lstProcessedOrders = new ArrayList<Long>();
 
         for(Map.Entry<Long, OrderMessage> entry : holdBack.entrySet()) {
             Long key = entry.getKey();
@@ -149,6 +162,7 @@ public class Replica extends UdpServer{
 
                     try {
                         if (this.ToDeliver(om)) {
+                            lstProcessedOrders.add(om.getSequenceID());
                             curSequence = om.getSequenceID();
                             sendConfirmation(true, om.getReturnPort());
                         }
@@ -159,6 +173,11 @@ public class Replica extends UdpServer{
                     }
                 }
             }
+        }
+
+        //Remove processed orders
+        for (Long seqId : lstProcessedOrders){
+            holdBack.remove(seqId);
         }
     }
 
@@ -175,7 +194,7 @@ public class Replica extends UdpServer{
     }
 
     /**
-     *
+     * Send confirmation to FrontEnd via UDP
      * @param success
      * @return
      */
@@ -189,21 +208,21 @@ public class Replica extends UdpServer{
     }
 
     /**
-     *
+     * Delvier message to Exchange
      * @param orderMessage
      */
     private boolean ToDeliver (OrderMessage orderMessage) throws Exception{
 
         String exName;
 
-       if (replicaId == 1)
-       {
-           exName = "TSX";
-       }
+        if (replicaId == 1)
+        {
+            exName = "TSX";
+        }
         else
-       {
-           exName = "TSXCOPY" + replicaId;
-       }
+        {
+            exName = "TSXCOPY" + replicaId;
+        }
 
         ExchangeWSImplService exchangews = new ExchangeWSImplService(exName, exhcnagePort);
         IExchange exchange = exchangews.getExchangeWSImplPort();
@@ -234,36 +253,7 @@ public class Replica extends UdpServer{
     }
 
     @Override
-    public void incomingMessageHandler(MessageEnvelope me) {
+    public void incomingMessageHandler(MessageEnvelope me) {}
 
-    }
-
-    /**
-     *
-     * @param args
-     */
-    public static void main(String [] args) {
-
-        Replica myReplica = new Replica();
-        Replica myReplica2 = new Replica();
-        Replica myReplica3 = new Replica();
-
-
-       /* OrderMessage testOrder = new OrderMessage(1,new ShareOrder("1","001","GOOG", ShareType.COMMON, 500F,50,500F), new Customer("Gay"));
-        OrderMessage testOrder1 = new OrderMessage(2,new ShareOrder("1","001","GOOG", ShareType.COMMON, 500F,50,500F), new Customer("Gay"));
-        OrderMessage testOrder2 = new OrderMessage(3,new ShareOrder("1","001","GOOG", ShareType.COMMON, 500F,50,500F), new Customer("Gay"));
-        OrderMessage testOrder3 = new OrderMessage(4,new ShareOrder("1","001","GOOG", ShareType.COMMON, 500F,50,500F), new Customer("Gay"));
-
-        myReplica.addToHoldBack(testOrder2);
-        myReplica.addToHoldBack(testOrder1);
-        myReplica.addToHoldBack(testOrder3);
-        myReplica.addToHoldBack(testOrder);*/
-
-        System.out.println(myReplica.getReplicaId());
-        System.out.println(myReplica2.getReplicaId());
-        System.out.println(myReplica3.getReplicaId());
-
-
-    }
 
 }

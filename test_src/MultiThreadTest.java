@@ -48,8 +48,8 @@ public class MultiThreadTest {
 		BusinessWSPublisher.createBusiness("YHOO");
 		BusinessWSPublisher.createBusiness("AAPL");
 		BusinessWSPublisher.createBusiness("MSFT");
-        BusinessWSPublisher.StartAllWebservices();
-        BusinessWSPublisher.RegisterAllWithExchange();      
+        //BusinessWSPublisher.StartAllWebservices();
+        //BusinessWSPublisher.RegisterAllWithExchange();
         
         System.out.println("Started: " + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS"));
 	}

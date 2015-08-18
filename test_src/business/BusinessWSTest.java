@@ -25,8 +25,8 @@ public class BusinessWSTest {
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		BusinessWSPublisher.createBusiness(stock);
-		BusinessWSPublisher.StartAllWebservices();
-		BusinessWSPublisher.RegisterAllWithExchange();
+		//BusinessWSPublisher.StartAllWebservices();
+		//BusinessWSPublisher.RegisterAllWithExchange();
 	}
 
 	@AfterClass
@@ -36,8 +36,8 @@ public class BusinessWSTest {
 
 	@Before
 	public void connectToWebService() throws MalformedURLException {
-		bizws = new BusinessWSImplService(stock);
-		biz = bizws.getBusinessWSImplPort();
+		//bizws = new BusinessWSImplService(stock);
+		//biz = bizws.getBusinessWSImplPort();
 	}
 	
 	@Test

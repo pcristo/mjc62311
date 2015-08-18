@@ -23,14 +23,14 @@ public class MockExchange extends Exchange {
     public MockExchange() {
         // Exchange is created...but there will be no business server registry businesses ... OH NO
         // SO we'll register them locally here
-        registerBusiness("GOOG", 10000);
+        /*registerBusiness("GOOG", 10000);
         registerBusiness("AAPL", 10000);
         registerBusiness("YHOO", 10000);
-        registerBusiness("MSFT", 10000);
+        registerBusiness("MSFT", 10000);*/
 
     }
 
-    @Override
+
     public IBusiness getBusinessIFace(String businessName){
         MockBusiness b = new MockBusiness(businessName);
         try {
