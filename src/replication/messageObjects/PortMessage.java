@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.util.HashMap;
 
 public class PortMessage implements Serializable{
-
-    HashMap<Long, Integer> ports;
+	private static final long serialVersionUID = 1L;
+	HashMap<Long, Integer> ports;
 
     public PortMessage(HashMap<Long, Integer> p) {
         ports = p;

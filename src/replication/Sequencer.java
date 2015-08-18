@@ -34,7 +34,6 @@ public class Sequencer extends UdpServer {
 				srs = new SequencerResponseMessage(originalID, sequence);
 			}
 
-
 			// send the order to all registered RMs
 			LoggerClient.log("Sending order message to RMs");
 			multicastToRMs(om);
@@ -154,6 +153,7 @@ public class Sequencer extends UdpServer {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		@SuppressWarnings("unused") // don't need to use this object, creating it is the action
 		Sequencer seq = new Sequencer();
 
 	}

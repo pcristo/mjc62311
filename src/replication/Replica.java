@@ -31,7 +31,7 @@ public class Replica extends UdpServer{
     private Long curSequence = 0l;
     private static Integer uniqueID = 0;
     private int replicaId;
-    private String exhcnagePort;
+    private String exchangePort;
     private String businessPort;
 
 
@@ -52,14 +52,14 @@ public class Replica extends UdpServer{
                 port += 1;
             }
         }
-        exhcnagePort = port.toString();
+        exchangePort = port.toString();
         port = 18001;
         arr = new String[2];
         boolean businessStarted = false;
         while(!businessStarted) {
             try {
                 arr[0] = port.toString();
-                arr[1] = exhcnagePort;
+                arr[1] = exchangePort;
                 BusinessWSPublisher.main(arr);
                 businessStarted = true;
             } catch(Exception e) {
@@ -153,7 +153,6 @@ public class Replica extends UdpServer{
         List<Long> lstProcessedOrders = new ArrayList<Long>();
 
         for(Map.Entry<Long, OrderMessage> entry : holdBack.entrySet()) {
-            Long key = entry.getKey();
             OrderMessage om = entry.getValue();
 
             synchronized (this.curSequence){
@@ -224,7 +223,7 @@ public class Replica extends UdpServer{
             exName = "TSXCOPY" + replicaId;
         }
 
-        ExchangeWSImplService exchangews = new ExchangeWSImplService(exName, exhcnagePort);
+        ExchangeWSImplService exchangews = new ExchangeWSImplService(exName, exchangePort);
         IExchange exchange = exchangews.getExchangeWSImplPort();
 
         ShareOrder sOrder = orderMessage.getShareOrder();

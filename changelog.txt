@@ -1,3 +1,196 @@
+commit 1c58cce0014e4132956d1e22d5f3353a9ae79390
+Author: Gay Hazan <gay.hazan@gmail.com>
+Date:   Mon Aug 17 23:08:59 2015 -0400
+
+    Error in Test files + Replica Comments and code cleanup
+
+commit 12f047e7aef4154b984c75f6bba9d0dcd0e26472
+Author: Ross <rbrsmith@gmail.com>
+Date:   Mon Aug 17 18:27:55 2015 -0400
+
+    minor clean up
+
+commit 82d0b36392e892e98e2786aa88064b18f114d720
+Author: Ross <rbrsmith@gmail.com>
+Date:   Mon Aug 17 17:42:12 2015 -0400
+
+    minor fixes, seqeuncer now starts new RM and replica passes on first request no matter what
+
+commit cae42425704a79ce318595c0623b5cff85b1e487
+Author: Ross <rbrsmith@gmail.com>
+Date:   Sun Aug 16 18:29:15 2015 -0400
+
+    minor changes
+
+commit edb812c9464fe60dbedff74903e2f5d8cb8b1f18
+Author: Ross <rbrsmith@gmail.com>
+Date:   Sun Aug 16 16:39:43 2015 -0400
+
+    Heartbeat implemented - RM's update each other and sequencer if one goes down, todo add new RM to replace dead RM
+
+commit 79bc172234d7bedb6962edd2a4b4961608179a83
+Author: Ross <rbrsmith@gmail.com>
+Date:   Sun Aug 16 13:46:03 2015 -0400
+
+    YEEEASSS!  Replica manager now dynamically starts up all business and exchange servers.  Starting up multiple replica's and killing one results in message still be delivered.  Remove references to frontEnd voting as this doesn't work with current front end server implementation...need to add in later if we want to demo that as well
+
+commit 043e8e931f886e3e82cecf229be32b854b2fbedd
+Author: Ross <rbrsmith@gmail.com>
+Date:   Sun Aug 16 08:36:10 2015 -0400
+
+    Made changes so that buying a share of fake stock, will fail
+
+commit ce77f79ebbc9f4bec9966ed09c56f269c9b66c04
+Author: Gay Hazan <gay.hazan@gmail.com>
+Date:   Sun Aug 16 00:12:39 2015 -0400
+
+    Transaction lifecycle
+    Exchange, Business && Replica talk to 3 exchanges
+
+commit c7d90dcb8cd2fb373ce1ada8a54bf9af3fc99194
+Author: Gay Hazan <gay.hazan@gmail.com>
+Date:   Thu Aug 13 23:38:53 2015 -0400
+
+    Complete Replica
+
+commit c4d3089064ab42d9986c1410a188383511eca091
+Author: Ross <rbrsmith@gmail.com>
+Date:   Thu Aug 13 12:41:56 2015 -0400
+
+    update to replica's response to FE
+
+commit 546dfd1e3c0bebf4d484cd9cf1277a7921a83b2d
+Author: Ross <rbrsmith@gmail.com>
+Date:   Wed Aug 12 23:48:26 2015 -0400
+
+    Change thread waiting to blocking server
+
+commit 46805005b53f4d3dd256718e494b765c50854acb
+Author: Ross <rbrsmith@gmail.com>
+Date:   Tue Aug 11 21:45:07 2015 -0400
+
+    gimme gimmme more
+
+commit d7b6ad43aad06a7afbcad8fbd19cc31d68538b0a
+Merge: 7bd1476 ce93f02
+Author: Ross <rbrsmith@gmail.com>
+Date:   Tue Aug 11 20:34:55 2015 -0400
+
+    Merge branch 'PM4' of https://github.com/pcristo/mjc62311 into PM4
+
+commit 7bd1476942cf4ad336ac705110793a197f3ded33
+Merge: f6d17b4 91e88fd
+Author: Ross <rbrsmith@gmail.com>
+Date:   Tue Aug 11 20:34:39 2015 -0400
+
+    changes
+
+commit ce93f02e51e95c88da29764348649ea1bd63d769
+Author: Gay Hazan <gay.hazan@gmail.com>
+Date:   Tue Aug 11 20:21:40 2015 -0400
+
+    New Replica
+
+commit f6d17b405ded4f9ead2f98dd21be194cebc63241
+Author: Ross <rbrsmith@gmail.com>
+Date:   Tue Aug 11 17:46:30 2015 -0400
+
+    merging
+
+commit 91e88fdfd5e4420e665b2db1a24850ca5bf19b03
+Author: Gay Hazan <gay.hazan@gmail.com>
+Date:   Mon Aug 10 21:29:00 2015 -0400
+
+    First Draft of Replica (missing communication with Exchange/RM)
+
+commit 2bcde8282c9e8aa245db8a23312b21804d68cc89
+Author: Patrick <patrick@cristofaro.net>
+Date:   Sun Aug 9 00:18:05 2015 -0400
+
+    Synchronize all message objects
+
+commit daa9d259bb72c67e192286151793b44ff4d3dadc
+Author: Patrick <patrick@cristofaro.net>
+Date:   Sun Aug 9 00:15:12 2015 -0400
+
+    Add more Javadoc.
+    Integrate FrontEnd with Broker.
+    FrontEnd, Sequencer, UDP Server portions now completed.
+
+commit 341b9faf035fafa42adbca0489bf11f8ba0763bb
+Author: Patrick <patrick@cristofaro.net>
+Date:   Sat Aug 8 21:47:38 2015 -0400
+
+    Completion message sending for bad RMs
+
+commit ab4d8ac3acbe37ca28d3c20704aedca1257a0524
+Author: Patrick <patrick@cristofaro.net>
+Date:   Sat Aug 8 18:15:36 2015 -0400
+
+    Partial implementation of failed RM messaging
+
+commit b5ae9db3873f0b9ede825368b1e5f7d49499bde6
+Author: Patrick <patrick@cristofaro.net>
+Date:   Sat Aug 8 16:59:07 2015 -0400
+
+    Implementation of a voting table that calculates quorum and identifies
+    bad RMs
+
+commit 677dcca090d423abf8b046d9f13a6425e10fed8f
+Author: Patrick <patrick@cristofaro.net>
+Date:   Fri Aug 7 15:46:46 2015 -0400
+
+    Completed sequencer implementation
+
+commit 8fb7f9ddbe685e093a64de34a6096f43e5483911
+Author: Patrick <patrick@cristofaro.net>
+Date:   Thu Aug 6 20:36:57 2015 -0400
+
+    UDP message passing improvements and test
+
+commit 1d7199c8989fa82c8277c61b3e3db669c6c7ee46
+Author: Patrick <patrick@cristofaro.net>
+Date:   Thu Aug 6 08:07:32 2015 -0400
+
+    Added a bunch of message objects.
+
+commit 8fbaa0aeacb16696ca13bd52f4890b3423246bc5
+Author: Ross <rbrsmith@gmail.com>
+Date:   Thu Aug 6 01:51:08 2015 -0400
+
+    Set up UDP class to send and receive message
+
+commit e34082892b288f68571881dd32539d7aef3ac640
+Author: pcristofaro <patrick@cristofaro.net>
+Date:   Wed Aug 5 23:11:50 2015 -0400
+
+    Tweak UDP class to allow custom ports
+    Create UdpServer abstract class
+    Start sequencer and frontEnd implementation
+    Rename old FrontEnd to clientFrontEnd, to avoid confusion with the
+    replicationFrontEnd
+
+commit 6a5c15852e6c60baf01b24f99fbf9d62556d71e5
+Merge: 248be2c f255b03
+Author: Patrick <patrick@cristofaro.net>
+Date:   Tue Aug 4 17:45:33 2015 -0400
+
+    Merge remote-tracking branch 'origin/PM3'
+
+commit f255b03f221c5f83e1ecf6df9aed575aa1d321f2
+Author: patrick <patrick@SchoolBox-Ubuntu>
+Date:   Thu Jul 30 23:04:05 2015 -0400
+
+    Update README with Linux permission details
+
+commit 0536a96697a6dca17c5aa111b98cb01584e8a2d5
+Author: patrick <patrick@SchoolBox-Ubuntu>
+Date:   Thu Jul 30 22:50:27 2015 -0400
+
+    Update Multi-Thread test
+    Update documentation
+    Add changelog.txt
+
 commit e6c118cc938685093b0bae40b166343ba74ed282
 Author: Ross <rbrsmith@gmail.com>
 Date:   Wed Jul 29 19:43:06 2015 -0400

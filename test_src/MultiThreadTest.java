@@ -11,7 +11,6 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import stockexchange.broker.Broker;
 import stockexchange.exchange.ExchangeWSPublisher;
 import stockexchange.exchange.ShareItem;
 

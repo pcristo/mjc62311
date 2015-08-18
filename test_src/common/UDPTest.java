@@ -1,6 +1,7 @@
 package common;
 
 import common.logger.LoggerServer;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,11 +23,13 @@ public class UDPTest {
         // Make sure Customer implements serializable
 
         // Create server object
-        UDP<Customer> server = new UDP<>();
+        @SuppressWarnings("unused") // don't need to use the object, creating is the action
+		UDP<Customer> server = new UDP<>();
 
         // Tell the server what to do when it recieves the object
         // This is done via lambda Consumer
-        Consumer<Customer> callableFunction = (Customer c) -> {
+        @SuppressWarnings("unused") // we don't need to use this object, creating it is the action
+		Consumer<Customer> callableFunction = (Customer c) -> {
             // Do what you want with the object
             c.setName("Bob");
             // blah blah.
@@ -53,7 +56,7 @@ public class UDPTest {
     public void setUP() {
         udp = new UDP<Customer>();
         logger = new Thread(() -> {
-            new LoggerServer().main(null);
+            LoggerServer.main(null);
         });
         logger.start();
 

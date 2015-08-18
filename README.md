@@ -10,9 +10,7 @@ Ross Smith
 
 ---
 
-Want the best best of this file? View it on [GitHub](https://github.com/pcristo/mjc62311/tree/PM3)! 
-
-**NOTE!** The documentation file has been updated from the version submitted during the demo. The only important change is to Illustration 1.
+Want the best view of this file? View it on [GitHub](https://github.com/pcristo/mjc62311/tree/PM4)! 
 
 ## 1 - Preparing your system
 This section will describe how to prepare your system to run the software.
@@ -35,14 +33,11 @@ To correctly run the software package, the following packages are required:
   * Tomcat server (Version 7 recommended)
 
 ### 1.3 - About
-The application has a FrontEnd class, which when ran will locally will start the servers (except for the REST server 
-used by the Broker) and provide a menu to purchase shares.  This is a simple UI with no checks:
+The application has a number of classes that must be run as separate servers to simulate the reliable distributed system.
 
 Stock to purchase: (GOOG, AAPL, MSFT, YHOO)
 
 Stock Type: (COMMON, CONVERTIBLE, PREFERRED)
-
-It will be easier to run the application from the test suite which will perform numerous operations regarding purchasing and selling shares.
 
 ### 1.4 - Configuring Eclipse
 When you open the project in Eclipse for the first time, it is a good idea to make sure the build paths are correct, that all imports are correct, and that the applications custom settings match your system.
@@ -86,21 +81,7 @@ Save the file.
 
 6. Restart Tomcat
 
-
-### 2.3 - Run JUnit Tests
-You are now ready to run the unit tests found under the /test_src folder in Eclipse. Additional test details are available in the [Javadoc](http://users.encs.concordia.ca/~patrickc/).
-
-To run all the tests in one shot, simply launch "test_src/TestSuite.java". When running the test suite, there is no need to manually set up all the servers as this will be done for you, with the exception of the Tomcat server which you must start yourself.
-
-## 3 - Launch Procedure: Command Line Using Apache Ant
-We have provided a way to compile and run the software package using Apache Ant. The following procedure requires that Ant be installed.
-
-1. Update config.json (specifically the first line (project home) to point to you working directory)
-2. Navigate to project root and run ant compile_test (This will compile the source, the tests and create a jar of the source in dist/lib)
-3. To run test suite: 3.1.  Navigate to test_out and run java org.junit.runner.JunitCore TestSuite (You will need to update your classpath to include resources/jar/* and dist/lib/*
-4. To run front end: Navigate to out and run java FrontEnd.FrontEnd (You will need to update your classpath to include resources/jar/* and dist/lib/*
-
----
+You are now ready to use the system. Refer to the documentation in ./resources/documentation for further details.
 
 ## Extra
 ### Javadoc
@@ -110,7 +91,7 @@ Full Javadoc has been generated for your convenience and is located at [this lin
 The git repository is open to the public and can be reviewed at [GitHub](https://github.com/pcristo/mjc62311/tree/PM2b). Branch *"PM2b"* is the submission for the second project milestone.
 
 ### Change Log
-Please see the file [changelog.txt](https://github.com/pcristo/mjc62311/blob/PM3/changelog.txt).
+Please see the file [changelog.txt](https://github.com/pcristo/mjc62311/blob/PM4/changelog.txt).
 
 ### Design Documentation
 Further documenation is included with the source code

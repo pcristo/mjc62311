@@ -3,8 +3,8 @@ package replication.messageObjects;
 import java.io.Serializable;
 
 public class HeartbeatMessage implements Serializable{
-
-    public HeartbeatMessage(int port) {
+	private static final long serialVersionUID = 1L;
+	public HeartbeatMessage(int port) {
             this.port = port;
     }
 
@@ -13,7 +13,7 @@ public class HeartbeatMessage implements Serializable{
     }
 
     private Integer port;
-    private String msg = "This was a triumph!\n" +
+    /*private String msg = "This was a triumph!\n" +
             "I'm making a note here:\n" +
             "Huge success!\n" +
             "\n" +
@@ -86,6 +86,6 @@ public class HeartbeatMessage implements Serializable{
             "\n" +
             "Still alive.\n" +
             "\n" +
-            "Still alive.";
+            "Still alive.";*/
 
 }

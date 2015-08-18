@@ -35,7 +35,10 @@ public class UDP<T> {
                 bis = new ByteArrayInputStream(data);
                 in = new ObjectInputStream(bis);
                 Object obj = in.readObject();
-                T o = (T) obj;
+                // we don't need type checking because the object is used elsewhere,
+                // server doesn't care what the object is
+                @SuppressWarnings("unchecked")
+				T o = (T) obj;
                 new Thread(() -> {
                     callable.accept(o);
                 }).start();
